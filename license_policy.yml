@@ -1,0 +1,25 @@
+license_policies:
+- license_key: upl-1.0
+  label: Approved License
+  color_code: '#00800'
+  icon: icon-ok-circle
+- license_key: bsd-simplified
+  label: Approved License
+  color_code: '#00800'
+  icon: icon-ok-circle
+- license_key: bsd-new
+  label: Approved License
+  color_code: '#00800'
+  icon: icon-ok-circle
+- license_key: mit
+  label: Approved License
+  color_code: '#00800'
+  icon: icon-ok-circle
+- license_key: apache-1.1
+  label: Approved License
+  color_code: '#00800'
+  icon: icon-ok-circle
+- license_key: apache-2.0
+  label: Approved License
+  color_code: '#00800'
+  icon: icon-ok-circle

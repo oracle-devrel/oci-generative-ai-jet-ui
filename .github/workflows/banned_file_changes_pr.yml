@@ -1,0 +1,79 @@
+name: Banned file changes (PR)
+on:
+  # pull_request:
+  #   branches: [ "**/*" ]
+  pull_request_target:
+  
+jobs:
+  check_for_banned_file_changes:
+    name: Look for unsupported (banned) file modifications on PRs
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Get number of git commits'
+        uses: oracle-devrel/action-git-num-commits@v0.1-alpha6
+        id: num_commits
+        with:
+          pull_url: ${{ github.event.pull_request.url }}
+      - name: 'Checkout repo'
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          fetch-depth: ${{ steps.num_commits.outputs.fetch_depth }}
+      - name: Get file changes
+        uses: oracle-devrel/action-git-files-changed@v0.1-alpha2
+        id: files
+        with:
+          pull_url: ${{ github.event.pull_request.url }}
+      - name: Look for changes to .github
+        if: contains(steps.files.outputs.all_files_changed, '.github')
+        run: |
+          echo 'Changes to files in .github are not allowed.'
+      - name: Comment if .github changed
+        if: contains(steps.files.outputs.all_files_changed, '.github')
+        uses: mshick/add-pr-comment@v1
+        with:
+          message: |
+            :no_entry: **Banned Files Modified**
+            Changes to files in `.github` are not permitted.  Please revert your changes and re-submit a new PR.  Simply changing the file back to its original state and re-committing won't work (you must revert the changes made to it).
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Look for changes to license_policy.yml
+        if: contains(steps.files.outputs.all_files_changed, '"license_policy.yml"')
+        run: |
+          echo 'Changes to license_policy.yml are not allowed.'
+      - name: Comment if license_policy.yml changed
+        if: contains(steps.files.outputs.all_files_changed, '"license_policy.yml"')
+        uses: mshick/add-pr-comment@v1
+        with:
+          message: |
+            :no_entry: **Banned Files Modified**
+            Changes to `license_policy.yml` are not permitted.  Please revert your changes and re-submit a new PR.  Simply changing the file back to its original state and re-committing won't work (you must revert the changes made to it).
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Look for changes to repolinter.json
+        if: contains(steps.files.outputs.all_files_changed, '"repolinter.json"')
+        uses: mshick/add-pr-comment@v1
+        with:
+          message: |
+            :no_entry: **Banned Files Modified**
+            Changes to `repolinter.json` are not permitted.  Please revert your changes and re-submit a new PR.  Simply changing the file back to its original state and re-committing won't work (you must revert the changes made to it).
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Comment if repolinter.json changed
+        if: contains(steps.files.outputs.all_files_changed, '"repolinter.json"')
+        run: |
+          echo 'Changes to repolinter.json are not allowed.'
+      - name: Look for changes to sonar-project.properties
+        if: contains(steps.files.outputs.all_files_changed, '"sonar-project.properties"')
+        uses: mshick/add-pr-comment@v1
+        with:
+          message: |
+            :no_entry: **Banned Files Modified**
+            Changes to `sonar-project.properties` are not permitted.  Please revert your changes and re-submit a new PR.  Simply changing the file back to its original state and re-committing won't work (you must revert the changes made to it).
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Comment if sonar-project.properties changed
+        if: contains(steps.files.outputs.all_files_changed, '"sonar-project.properties"')
+        run: |
+          echo 'Changes to sonar-project.properties are not allowed.'
+      - name: Fail on banned file changes
+        if: contains(steps.files.outputs.all_files_changed, '.github') || contains(steps.files.outputs.all_files_changed, '"license_policy.yml"') || contains(steps.files.outputs.all_files_changed, '"repolinter.json"') || contains(steps.files.outputs.all_files_changed, '"sonar-project.properties"')
+        run: |
+          exit 1

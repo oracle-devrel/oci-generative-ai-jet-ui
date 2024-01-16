@@ -1,0 +1,89 @@
+name: Repolinter
+on:
+  pull_request_target:
+jobs:
+  run_repolinter:
+    name: Run Repolinter on pull request
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/oracledevrel/repolinter:v0.11.1
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GHCR_PAT }}
+    steps:
+      - name: 'Checkout repo'
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+      - name: Run Repolinter
+        run: |
+          set +e
+          bundle exec /app/bin/repolinter.js lint --format json --rulesetFile repolinter.json . > repolinter_results.json
+          echo "\n\nHere is the repolinter_results.json:\n"
+          echo $(cat repolinter_results.json)
+          exit 0
+      - name: Analyze the Repolinter results
+        uses: oracle-devrel/action-repolinter-audit@v0.1-alpha2
+        id: analysis
+        with:
+          json_results_file: '/github/workspace/repolinter_results.json'
+      - name: Overall analysis results
+        run: |
+          echo "Passed: ${{ steps.analysis.outputs.passed }}"
+          echo "Errored: ${{ steps.analysis.outputs.errored }}"
+      - name: Comment if analysis finds missing disclaimer
+        if: steps.analysis.outputs.disclaimer_found == 'false'
+        uses: mshick/add-pr-comment@v1
+        with:
+          message: |
+            :no_entry: **FAILURE: Missing Disclaimer**
+            The standard Oracle Disclaimer seems to be missing from the readme.  Please add it:
+
+            ORACLE AND ITS AFFILIATES DO NOT PROVIDE ANY WARRANTY WHATSOEVER, EXPRESS OR IMPLIED, FOR ANY SOFTWARE, MATERIAL OR CONTENT OF ANY KIND CONTAINED OR PRODUCED WITHIN THIS REPOSITORY, AND IN PARTICULAR SPECIFICALLY DISCLAIM ANY AND ALL IMPLIED WARRANTIES OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR PURPOSE.  FURTHERMORE, ORACLE AND ITS AFFILIATES DO NOT REPRESENT THAT ANY CUSTOMARY SECURITY REVIEW HAS BEEN PERFORMED WITH RESPECT TO ANY SOFTWARE, MATERIAL OR CONTENT CONTAINED OR PRODUCED WITHIN THIS REPOSITORY. IN ADDITION, AND WITHOUT LIMITING THE FOREGOING, THIRD PARTIES MAY HAVE POSTED SOFTWARE, MATERIAL OR CONTENT TO THIS REPOSITORY WITHOUT ANY REVIEW. USE AT YOUR OWN RISK.
+
+            Details:
+            ${{ steps.analysis.outputs.disclaimer_details }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Comment if analysis finds missing readme
+        if: steps.analysis.outputs.readme_file_found == 'false'
+        uses: mshick/add-pr-comment@v1
+        with:
+          message: |
+            :no_entry: **FAILURE: Missing README**
+            The README file seems to be missing.  Please add it.
+            
+            Details:
+            ${{ steps.analysis.outputs.readme_file_details }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Comment if analysis finds missing license
+        if: steps.analysis.outputs.license_file_found == 'false'
+        uses: mshick/add-pr-comment@v1
+        with:
+          message: |
+            :no_entry: **FAILURE: Missing LICENSE**
+            The LICENSE file seems to be missing.  Please add it.
+            
+            Details:
+            ${{ steps.analysis.outputs.license_file_details }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Comment if analysis finds copyright notice missing
+        if: steps.analysis.outputs.copyright_found == 'false'
+        uses: mshick/add-pr-comment@v1
+        with:
+          message: |
+            :warning: **WARNING: Missing Copyright Notice(s)**
+            It's a good idea to have copyright notices at the top of each file.  It looks like at least one file was missing this (though it might be further down in the file - this might be a false-positive).
+            
+            Details:
+            ${{ steps.analysis.outputs.copyright_details }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Halt pipeline if README is missing
+        if: steps.analysis.outputs.readme_file_found == 'false'
+        run: exit 1
+      - name: Halt pipeline if LICENSE is missing
+        if: steps.analysis.outputs.license_file_found == 'false'
+        run: exit 1
+      - name: Halt pipeline if disclaimer is missing
+        if: steps.analysis.outputs.disclaimer_found == 'false'
+        run: exit 1

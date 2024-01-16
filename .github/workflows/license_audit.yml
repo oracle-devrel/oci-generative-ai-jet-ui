@@ -1,0 +1,42 @@
+name: Audit licenses
+on:
+  pull_request_target:
+
+jobs:
+  run_scancode_toolkit:
+    name: Get inventory of licenses used in project
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/oracledevrel/scancode-toolkit:v21.3.31
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GHCR_PAT }}
+    steps:
+      - name: 'Checkout repo'
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+      - name: Run Scancode-toolkit
+        run: |
+          scancode -l --ignore licenses.json --ignore .github/**/* --ignore license_policy.yml --license-policy license_policy.yml --only-findings --summary --json-pp licenses.json *
+          echo "\n\nHere is the licenses.json:\n"
+          echo $(cat licenses.json)
+      - name: Look for non-approved licenses
+        uses: oracle-devrel/action-license-audit@1.0.2
+        id: analysis
+        with:
+          licenses_file: '/github/workspace/licenses.json'
+      - name: Analysis results
+        run: echo "${{ steps.analysis.outputs.unapproved_licenses }}"
+      - name: Comment if analysis finds unapproved licenses
+        if: steps.analysis.outputs.unapproved_licenses == 'true'
+        uses: mshick/add-pr-comment@v1
+        with:
+          message: |
+            :no_entry: **License Inspection**
+            Requires manual inspection.  There are some licenses which dictate further analysis and review.
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Halt pipeline on unapproved licenses
+        if: steps.analysis.outputs.unapproved_licenses == 'true'
+        run: exit 1
