@@ -1,0 +1,28 @@
+{
+  "paths": {
+    "source": {
+      "common": "src",
+      "web": "src-web",
+      "javascript": ".",
+      "typescript": ".",
+      "styles": "styles",
+      "themes": "themes",
+      "components": "components",
+      "exchangeComponents": "exchange_components"
+    },
+    "staging": {
+      "web": "web",
+      "themes": "staged-themes"
+    }
+  },
+  "defaultBrowser": "chrome",
+  "sassVer": "8.0.0",
+  "defaultTheme": "redwood",
+  "typescriptLibraries": "typescript@5.0.4 yargs-parser@~13.1.2",
+  "webpackLibraries": "webpack@5.75.0 @types/node@18.16.3 webpack-dev-server style-loader css-loader sass-loader sass ts-loader@8.4.0 raw-loader noop-loader html-webpack-plugin html-replace-webpack-plugin copy-webpack-plugin @prefresh/webpack @prefresh/babel-plugin webpack-merge compression-webpack-plugin mini-css-extract-plugin clean-webpack-plugin css-fix-url-loader",
+  "mochaTestingLibraries": "karma mocha sinon chai coverage karma-chai@0.1.0 karma-coverage@2.2.0 karma-chrome-launcher@3.1.1 karma-mocha@2.0.1 karma-mocha-reporter@2.2.5 karma-requirejs@1.1.0 karma-fixture@0.2.6 karma-sinon@1.0.5 karma-typescript@5.5.4 @types/chai@4.3.4 @types/karma-fixture@0.2.5 @types/mocha@10.0.1 @types/sinon@10.0.13",
+  "jestTestingLibraries": "jest@27.5.1 @testing-library/preact@2.0.1 @types/jest@27.0 jest-environment-jsdom@27.5.1 @oracle/oraclejet-jest-preset@~15.1.0",
+  "architecture": "vdom",
+  "watchInterval": 1000,
+  "exchange-url": "https://exchange.oraclecorp.com/api/0.2.0/"
+}

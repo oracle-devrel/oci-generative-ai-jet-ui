@@ -1,0 +1,34 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "es6",
+    "strict": true,
+    "module": "amd",
+    "moduleResolution": "node",
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
+    "lib": ["es2021", "dom", "esnext.asynciterable"],
+    "typeRoots": [
+      "./node_modules/@oracle/oraclejet/dist/types",
+      "./node_modules/@types"
+    ],
+    "paths": {
+      "ojs/*": ["./node_modules/@oracle/oraclejet/dist/types/*"],
+      "@oracle/oraclejet-preact/*": [
+        "./node_modules/@oracle/oraclejet-preact/*"
+      ],
+      "oj-c/*": ["./node_modules/@oracle/oraclejet-core-pack/oj-c/types/*"],
+      "preact": ["./node_modules/preact"],
+      "marked/*": ["./node_modules/marked/*"],
+      "oj-sample/*": ["./src/components/oj-sample/types/*"],
+      "md-wrapper": ["./src/components/md-wrapper/types/index"]
+    },
+    "declaration": true,
+    "noEmitOnError": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "removeComments": true
+  },
+  "include": ["./src/**/*"]
+}

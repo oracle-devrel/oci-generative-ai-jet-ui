@@ -1,0 +1,147 @@
+/*
+    Document   : override
+    Created on : <date>
+    Author     : <author>
+    Description:
+        This is where any of your application specific styles should be included
+*/
+
+:root {
+  --oj-sp-header-welcome-banner-background-color: rgb(98, 55, 31) !important;
+  --oj-sp-header-welcome-banner-background-color-darker-shade: rgb(
+    98,
+    55,
+    31
+  ) !important;
+  --oj-body-bg-color: rgb(var(--oj-palette-neutral-rgb-10));
+}
+
+body {
+  /* background-color: #4b3b2b; */
+  --oj-current-bg-color: var(--oj-body-bg-color);
+  background-image: url("./images/ROC_bg_texture.png");
+}
+
+header.oj-web-applayout-header {
+  background-color: #3a3632;
+}
+
+.oj-inputsearch-search-icon:before {
+  content: url("images/question2-black32x32.png");
+  padding-top: 8px;
+  margin-left: -8px;
+}
+
+oj-sample-markdown-viewer .legacyStyling pre {
+  color: black;
+}
+
+.demo-copy-paste {
+  user-select: text;
+}
+
+.demo-bg-main {
+  background-color: rgb(var(--oj-palette-neutral-rgb-10));
+  box-shadow: var(--oj-core-box-shadow-md);
+  /* background-image: url("./images/carousel-bg.png"); */
+}
+
+.oj-sp-public-primary-content-container {
+  background-color: rgb(var(--oj-palette-neutral-rgb-10));
+  box-shadow: var(--oj-core-box-shadow-md);
+}
+
+code,
+kbd,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+.demo-answer-layout {
+  min-height: 50px;
+  /* background-color: #506e23; */
+  background-color: var(--oj-sp-header-welcome-banner-background-color);
+  display: inherit;
+  margin: 20px 10px 50px 10px;
+  border: 2px black;
+  border-radius: 10px;
+  padding: 10px 10px 10px 65px;
+  text-align: start;
+  max-width: 1440px;
+}
+.demo-question-layout {
+  min-height: 50px;
+  /* background-color: #226b95; */
+  background-color: var(--oj-sp-header-welcome-banner-background-color);
+  display: inherit;
+  margin: 20px 10px 10px 10px;
+  border: 2px black;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: start;
+}
+
+.demo-chat-layout {
+  max-height: 100%;
+  height: 80%;
+  min-height: 400px;
+}
+
+.demo-no-data-layout {
+  height: 100%;
+  align-items: center;
+}
+
+.demo-header {
+  background-color: rgb(var(--oj-palette-neutral-rgb-10));
+  max-height: 5px;
+}
+.demo-header-end {
+  /* background-image: url(images/welcomeBanner-foreground2.png); */
+  max-height: 5px;
+  justify-content: end;
+}
+
+.demo-no-data-content {
+  /* background-image: url(images/welcomeBanner-foreground2.png); */
+}
+
+.demo-oracle-icon {
+  width: 137px;
+  height: 18px;
+}
+
+.demo-oracle-icon:before {
+  content: url("images/oracle_logo.svg");
+}
+
+html:not([dir="rtl"]) .demo-oracle-icon {
+  padding-right: 4px;
+}
+
+html[dir="rtl"] .demo-oracle-icon {
+  padding-left: 4px;
+}
+
+.demo-oracle-icon:before {
+  display: inline;
+}
+
+.demo-appheader-avatar {
+  width: 24px;
+  height: 24px;
+}
+
+.demo-appheader-avatar:before {
+  content: url("images/avatar_24px.png");
+}
+@media (-webkit-min-device-pixel-ratio: 1.5),
+  (min-resolution: 144dpi),
+  (min-resolution: 1.5dppx) {
+  .demo-appheader-avatar:before {
+    content: url("images/avatar_24px_2x.png");
+    -webkit-transform: translate(-25%, -25%) scale(0.5);
+    transform: translate(-25%, -25%) scale(0.5);
+  }
+}

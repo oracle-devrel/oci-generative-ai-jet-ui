@@ -1,0 +1,30 @@
+{
+  "name": "oj-ref-marked",
+  "displayName": "Marked reference component",
+  "description": "Reference component for the marked library used for viewing documents in Markdown format ",
+  "type": "reference",
+  "package": "marked",
+  "version": "4.3.0",
+  "license": "https://opensource.org/licenses/MIT",
+  "paths": {
+    "npm": {
+      "min": "marked.min",
+      "debug": "marked.min"
+    },
+    "cdn": {
+      "min": "https://static.oracle.com/cdn/jet/packs/3rdparty/marked/4.3.0/marked.min",
+      "debug": "https://static.oracle.com/cdn/jet/packs/3rdparty/marked/4.3.0/marked.min"
+    }
+  },
+  "extension": {
+    "oracle": {
+      "businessApprovals": {
+        "marked": "142506"
+      }
+    },
+    "catalog": {
+      "category": "Reference",
+      "coverImage": "marked.svg"
+    }
+  }
+}

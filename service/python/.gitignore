@@ -33,5 +33,4 @@ Temporary Items
 .pem
 
 #temp directory ignore
-deploy/
-service/python/Dockerfile
+venv/

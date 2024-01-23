@@ -1,0 +1,14 @@
+{
+  "name": "md-wrapper",
+  "version": "1.0.0",
+  "jetVersion": "^15.0.0",
+  "displayName": "Wrapper component for markdown viewer",
+  "dependencies": {
+    "oj-sample-markdown-viewer": "^9.0.0"
+  },
+  "properties": {
+    "markdown": {
+      "type": "string"
+    }
+  }
+}

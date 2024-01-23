@@ -1,0 +1,27 @@
+{
+    "description": "OJET-CLI hooks configuration file",
+    "hooks": {
+        "after_app_create": "scripts/hooks/after_app_create.js",
+        "after_app_restore": "scripts/hooks/after_app_restore.js",
+        "after_component_create": "scripts/hooks/after_component_create.js",
+        "after_component_package": "scripts/hooks/after_component_package.js",
+        "before_build": "scripts/hooks/before_build.js",
+        "before_injection": "scripts/hooks/before_injection.js",
+        "before_optimize": "scripts/hooks/before_optimize.js",
+        "before_component_optimize": "scripts/hooks/before_component_optimize.js",
+        "before_component_package": "scripts/hooks/before_component_package.js",
+        "before_release": "scripts/hooks/before_release.js",
+        "before_watch": "scripts/hooks/before_watch.js",
+        "after_build": "scripts/hooks/after_build.js",
+        "after_component_build": "scripts/hooks/after_component_build.js",
+        "before_release_build": "scripts/hooks/before_release_build.js",
+        "before_serve": "scripts/hooks/before_serve.js",
+        "after_serve": "scripts/hooks/after_serve.js",
+        "after_watch": "scripts/hooks/after_watch.js",
+        "before_app_typescript": "scripts/hooks/before_app_typescript.js",
+        "before_component_typescript": "scripts/hooks/before_component_typescript.js",
+        "after_app_typescript": "scripts/hooks/after_app_typescript.js",
+        "after_component_typescript": "scripts/hooks/after_component_typescript.js",
+        "before_webpack": "scripts/hooks/before_webpack.js"
+    }
+}
