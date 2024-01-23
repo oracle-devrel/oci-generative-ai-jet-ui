@@ -18,9 +18,9 @@ Oracle's Generative AI service allows developers to unlock a better user experie
 
 Follow links below to generate a config file and a key pair in your ~/.oci directory
 
-- [](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/sdkconfig.htm)
-- [](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm)
-- [](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm#configfile)
+- [SDK config](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/sdkconfig.htm)
+- [API signing key](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm)
+- [CLI install](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm#configfile)
 
 After completion, you should have following 2 things in your `~/.oci directory  `
 
@@ -66,8 +66,8 @@ async def start_server():
 
 ### 2. Upload Public Key
 
-- Upload your oci_api_key_public.pem to console:
-[](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm#three)
+- Upload your oci_api_key_public.pem to console:  
+[API signing key](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm#three)
 
 ### 3. Make sure you have python installed on your machine
 
@@ -80,31 +80,31 @@ You should see similar output:
 Python 3.8.3
 ```
 
-### 4. Install all dependencies(include our beta version SDK)  
+### 4. Install all dependencies
 
 We suggest you install dependencies in a virtual env to avoid conflicts on your system.  
 
 - Navigate to the server root folder  
-`cd /service/python`  
+`cd service/python`  
 - Create vitrual environment:  
 `python3 -m venv venv`  
 - Activate your virtual environment:  
 `. venv/bin/activate`  
 - Upgrade pip:  
-`pip install --upgrade pip`  
+`pip3 install --upgrade pip`  
 - Install requirements:  
-`pip install -r requirements.txt`
+`pip3 install -r requirements.txt`
 
-## 5. Start Python server websocket app  
+## 5. Start websocket server app  
 
 Once dependencies are installed and your service credentials are updated you can run server.py  
 
-- `python server.py`  
+- `python3 server.py`  
 
 ## 6. Start JET Client
 
 - Open app directory:  
-  `cd app/`  
+  `cd ../../app `  or `cd app/` in root folder
 - Install dependencies:  
   `ojet restore`  
 - Run local version:  
