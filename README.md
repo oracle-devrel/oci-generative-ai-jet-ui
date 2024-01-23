@@ -158,14 +158,15 @@ To change output parameters edit server.py
 
 ```Python
     cohere_generate_text_request.max_tokens = 500 # choose number of tokens 1-4000
-    cohere_generate_text_request.temperature = 0.75 # adjust temperature
-    cohere_generate_text_request.top_p = 0.7 # adjust top_p
+    cohere_generate_text_request.temperature = 0.75 # adjust temperature 0-1
+    cohere_generate_text_request.top_p = 0.7 # adjust top_p 0-1
     cohere_generate_text_request.frequency_penalty = 1.0 # adjust frequency_penalty
 ```
 
 ## URLs
-* developer.oracle.com/ai
-* oracle.com/ai
+
+- [Oracle AI](oracle.com/ai)
+- [AI for Developer](developer.oracle.com/ai)
 
 ## Contributing
 This project is open source.  Please submit your contributions by forking this repository and submitting a pull request!  Oracle appreciates any contributions that are made by the open source community.
