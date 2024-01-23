@@ -6,9 +6,9 @@
 
 Using Oracle JET, create a user-friendly prompt-led user interface (UI) to interact with Oracle's new Generative AI service. This toolkit will configure your Generative AI Service connection so you can begin your journey with AI, or migrate your existing (local or Cloud) LLMs to the Oracle AppDev ecosystem.
 
-Oracle JET(Preact) allows you to craft pixel-perfect UI's which are fast, lightweight, and engaging. Your code takes center stage with Oracle JET, while its powerful features enable you to create dynamic user experiences quickly and reliably.
+Oracle JET(Preact) allows you to craft pixel-perfect UIs which are fast, lightweight, and engaging. Your code takes centre stage with Oracle JET, while its powerful features enable you to create dynamic user experiences quickly and reliably.
 
-Oracle's Generative AI service allows developers to unlock a better user experience for chat systems, question and answer solutions, and much more. This project provides a front end to that service so you can experiment and get a sense of the immense power of Oracle Generative AI. This is an excellent starting point on your AI journey, and experienced developers will be able to quickly port their LLMs to leverage this powerful service for enhanced customer support solutions.  
+Oracle's Generative AI service allows developers to unlock a better user experience for chat systems, question-and-answer solutions, and much more. This project provides a front end to that service so you can experiment and get a sense of the immense power of Oracle Generative AI. This is an excellent starting point on your AI journey, and experienced developers will be able to quickly port their LLMs to leverage this powerful service for enhanced customer support solutions.  
 
 ![alt text here](images/main.png)
 
@@ -16,17 +16,17 @@ Oracle's Generative AI service allows developers to unlock a better user experie
 
 ### 0. Set up  
 
-Follow links below to generate a config file and a key pair in your ~/.oci directory
+Follow the links below to generate a config file and a key pair in your ~/.oci directory
 
 - [SDK config](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/sdkconfig.htm)
 - [API signing key](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm)
 - [CLI install](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm#configfile)
 
-After completion, you should have following 2 things in your `~/.oci directory  `
+After completion, you should have the following 2 things in your `~/.oci directory  `
 
 a. A config file(where key file point to private key:key_file=`~/.oci/oci_api_key.pem`)
 b. A key pair named `oci_api_key.pem` and `oci_api_key_public.pem`
-Now make sure you change the reference of key file in config file (where key file point to private key:key_file=/YOUR_DIR_TO_KEY_FILE/oci_api_key.pem)
+Now make sure you change the reference of the key file in the config file (where the key file points to private key:key_file=/YOUR_DIR_TO_KEY_FILE/oci_api_key.pem)
 
 - Append OCI Generative-AI service compartment and endpoint URL  
 `vim service/python/server.py`
@@ -49,7 +49,7 @@ generative_ai_inference_client = (
 
 ### 1. (Optional)Modify websocket ports  
 
-- In root of project directory run to edit ports  
+- In the root of the project directory run to edit ports  
 `vim app/web/components/content/index.tsx`
 
 ```Javascript
@@ -69,9 +69,9 @@ async def start_server():
 - Upload your oci_api_key_public.pem to console:  
 [API signing key](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm#three)
 
-### 3. Make sure you have python installed on your machine
+### 3. Make sure you have Python installed on your machine
 
-- In cli run following command to validate Python version  
+- In cli run the following command to validate the Python version  
 `python --version`
 
 You should see similar output:
@@ -82,11 +82,11 @@ Python 3.8.3
 
 ### 4. Install all dependencies
 
-We suggest you install dependencies in a virtual env to avoid conflicts on your system.  
+We suggest you install dependencies in a virtual environment to avoid conflicts on your system.  
 
 - Navigate to the server root folder  
 `cd service/python`  
-- Create vitrual environment:  
+- Create a virtual environment:  
 `python3 -m venv venv`  
 - Activate your virtual environment:  
 `. venv/bin/activate`  
@@ -95,7 +95,7 @@ We suggest you install dependencies in a virtual env to avoid conflicts on your 
 - Install requirements:  
 `pip3 install -r requirements.txt`
 
-## 5. Start websocket server app  
+## 5. Start the websocket server app  
 
 Once dependencies are installed and your service credentials are updated you can run server.py  
 
@@ -104,7 +104,7 @@ Once dependencies are installed and your service credentials are updated you can
 ## 6. Start JET Client
 
 - Open app directory:  
-  `cd ../../app `  or `cd app/` in root folder
+  `cd ../../app `  or `cd app/` in the root folder
 - Install dependencies:  
   `ojet restore`  
 - Run local version:  
@@ -112,16 +112,16 @@ Once dependencies are installed and your service credentials are updated you can
 - Or package for web deployment  
   `ojet build web`
 
-Ask you questions to generate AI response
+Ask your questions to generate an AI response
 ![alt text here](images/QandA.png)
 
-Note that app is capable of generating markdown
+Note that the app is capable of generating markdown
 ![alt text here](images/Markdown.png)
 
 ## Appendix: Token-based Authentication
 
 Check [Token-based Authentication for the CLI](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/clitoken.htm#Running_Scripts_on_a_Computer_without_a_Browser)
-if need to run testing with session token via BOAT. Here is the sample config to setup client with session token in the test scripts:
+if need to run testing with session token via BOAT. Here is the sample config to set the client with a session token in the test scripts:
 
 ```Python
 config = oci.config.from_file('~/.oci/config', profile_name="DEFAULT")
@@ -152,7 +152,7 @@ Additional Use Cases like summarization and embedding coming soon.
 To change output parameters edit server.py
 
 ```Python
-    cohere_generate_text_request.max_tokens = 500 # choose number of tokens 1-4000
+    cohere_generate_text_request.max_tokens = 500 # choose the number of tokens 1-4000
     cohere_generate_text_request.temperature = 0.75 # adjust temperature 0-1
     cohere_generate_text_request.top_p = 0.7 # adjust top_p 0-1
     cohere_generate_text_request.frequency_penalty = 1.0 # adjust frequency_penalty
@@ -164,7 +164,7 @@ To change output parameters edit server.py
 - [AI for Developer](developer.oracle.com/ai)
 
 ## Contributing
-This project is open source.  Please submit your contributions by forking this repository and submitting a pull request!  Oracle appreciates any contributions that are made by the open source community.
+This project is open source.  Please submit your contributions by forking this repository and submitting a pull request!  Oracle appreciates any contributions that are made by the open-source community.
 
 ## License
 Copyright (c) 2024 Oracle and/or its affiliates.
@@ -174,3 +174,4 @@ Licensed under the Universal Permissive License (UPL), Version 1.0.
 See [LICENSE](LICENSE) for more details.
 
 ORACLE AND ITS AFFILIATES DO NOT PROVIDE ANY WARRANTY WHATSOEVER, EXPRESS OR IMPLIED, FOR ANY SOFTWARE, MATERIAL OR CONTENT OF ANY KIND CONTAINED OR PRODUCED WITHIN THIS REPOSITORY, AND IN PARTICULAR SPECIFICALLY DISCLAIM ANY AND ALL IMPLIED WARRANTIES OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR PURPOSE.  FURTHERMORE, ORACLE AND ITS AFFILIATES DO NOT REPRESENT THAT ANY CUSTOMARY SECURITY REVIEW HAS BEEN PERFORMED WITH RESPECT TO ANY SOFTWARE, MATERIAL OR CONTENT CONTAINED OR PRODUCED WITHIN THIS REPOSITORY. IN ADDITION, AND WITHOUT LIMITING THE FOREGOING, THIRD PARTIES MAY HAVE POSTED SOFTWARE, MATERIAL OR CONTENT TO THIS REPOSITORY WITHOUT ANY REVIEW. USE AT YOUR OWN RISK. 
+
