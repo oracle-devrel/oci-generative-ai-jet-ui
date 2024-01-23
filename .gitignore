@@ -34,3 +34,4 @@ Temporary Items
 
 #temp directory ignore
 deploy/
+service/python/Dockerfile
