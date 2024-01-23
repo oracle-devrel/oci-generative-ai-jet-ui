@@ -1,0 +1,22 @@
+/* This file is where css selectors for the component go.
+   There will be hard coded properties and properties controlled by variables, for example
+
+   md-wrapper .md-wrapper-value-text {
+   color: var(--md-wrapper-value-text-color);
+   display: inline-block;
+	 }
+*/
+
+md-wrapper:not(.oj-complete){
+  visibility: hidden;
+}
+
+md-wrapper{
+	min-height: 50px;
+	width: 50px;
+}
+
+md-wrapper[hidden]
+{
+  display: none;
+}

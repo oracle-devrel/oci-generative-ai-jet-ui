@@ -1,0 +1,83 @@
+oj-sample-markdown-viewer:not(.oj-complete){
+    visibility: hidden;
+}
+
+oj-sample-markdown-viewer{
+    display:inline;
+}
+
+oj-sample-markdown-viewer .legacyStyling blockquote {
+  border-left: 5px solid #DCE3E4;
+  background:#fcfcfc;
+  margin: 10px;
+  padding: 10px;  
+}
+
+oj-sample-markdown-viewer .legacyStyling blockquote p {
+  display: inline;
+}
+
+oj-sample-markdown-viewer .legacyStyling pre {
+  background:#fcfcfc;
+  margin: 10px;
+  padding: 10px;
+}
+
+oj-sample-markdown-viewer .legacyStyling table {
+    border-collapse: collapse;
+    text-align:left;
+    padding-right: 0.5em;
+    padding-left: 0.5em;
+    border: 1px solid #8DA6B1;    
+}
+
+oj-sample-markdown-viewer .legacyStyling th {
+    text-align:left;
+    padding-right: 0.5em;
+    padding-left: 0.5em;
+    border: 1px solid #8DA6B1;
+}
+
+oj-sample-markdown-viewer .legacyStyling td {
+    text-align:left;
+    padding-right: 0.5em;
+    padding-left: 0.5em;
+    border: 1px solid #8DA6B1;    
+    vertical-align: top;
+}
+
+oj-sample-markdown-viewer .redwoodStyling h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.2857;
+}
+
+oj-sample-markdown-viewer .redwoodStyling h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.3333;
+}
+
+oj-sample-markdown-viewer .redwoodStyling h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+oj-sample-markdown-viewer .redwoodStyling h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+oj-sample-markdown-viewer .redwoodStyling h5 {
+  font-size: 0.9167rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+oj-sample-markdown-viewer .redwoodStyling h6 {
+  font-size: 0.8333rem;
+  font-weight: 600;
+  line-height: 1.4;
+}

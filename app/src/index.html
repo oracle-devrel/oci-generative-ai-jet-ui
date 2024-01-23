@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!--
+ Copyright (c) 2014, 2023, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+
+<!-- ************************ IMPORTANT INFORMATION ************************************
+  This web basic template is provided as an example of how to configure
+  a JET web application.  It contains the Oracle JET framework and a default
+  requireJS configuration file to show how JET can be setup in a common application.
+  This project template can be used in conjunction with demo code from the JET
+  website to test JET component behavior and interactions.
+
+  Any CSS styling with the prefix "demo-" is for demonstration only and is not
+  provided as part of the JET framework.
+
+  Please see the demos under Cookbook/Patterns/App Shell: Web and the CSS documentation
+  under Support/API Docs/Non-Component Styling on the JET website for more information on how to use
+  the best practice patterns shown in this template.
+
+  Aria Landmark role attributes are added to the different sections of the application
+  for accessibility compliance. If you change the type of content for a specific
+  section from what is defined, you should also change the role value for that
+  section to represent the appropriate content type.
+  ***************************** IMPORTANT INFORMATION ************************************ -->
+<html lang="en-us">
+  <head>
+    <title>Oracle JET Conversational UI</title>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="viewport-fit=cover, width=device-width, initial-scale=1"
+    />
+    <meta name="description" content="The Oracle JET GenAI Conversational UI" />
+    <link
+      rel="icon"
+      href="styles/images/JET-Favicon-Red-32x32.png"
+      type="image/x-icon"
+    />
+    <!-- This is injects main css file for the default theme -->
+    <!-- injector:theme -->
+    <!-- endinjector -->
+    <!-- This contains icon fonts used by the starter template -->
+    <link
+      rel="stylesheet"
+      id="uxiconFont"
+      href="https://static.oracle.com/cdn/fnd/gallery/2404.0.1/images/iconfont/ojuxIconFont.min.css"
+    />
+    <!-- This is where you would add any app specific styling -->
+    <link rel="stylesheet" href="styles/app.css" type="text/css" />
+  </head>
+
+  <body
+    class="oj-web-applayout-body"
+    data-oj-binding-provider="none"
+  >
+  <!-- <body
+    class="oj-web-applayout-body oj-color-invert"
+    data-oj-binding-provider="none"
+  > -->
+    <app-root></app-root>
+    <!-- This injects script tags for the main javascript files -->
+    <!-- injector:scripts -->
+    <!-- endinjector -->
+  </body>
+</html>

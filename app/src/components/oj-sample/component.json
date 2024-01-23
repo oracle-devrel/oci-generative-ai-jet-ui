@@ -1,0 +1,28 @@
+{
+  "name": "oj-sample",
+  "displayName": "oj-sample JET Pack",
+  "type": "pack",
+  "version": "9.0.0",
+  "jetVersion": ">=13.0.0 <17.0.0",
+  "description": "Consolidating JET Pack for a set of example components for use in JET and Visual Builder",
+  "license": "https://opensource.org/licenses/UPL",
+  "dependencies": {
+    "oj-sample-markdown-viewer": "9.0.0"
+  },
+  "bundles": {},
+  "paths": {
+    "cdn": {
+      "debug": "https://static.oracle.com/cdn/jet/packs/oj-sample/9.0.0",
+      "min": "https://static.oracle.com/cdn/jet/packs/oj-sample/9.0.0/min"
+    }
+  },
+  "extension": {
+    "vbdt": {
+      "audits": "oj-sample-audits"
+    },
+    "catalog": {
+      "category": "Sample Components",
+      "coverImage": "coverimage.jpg"
+    }
+  }
+}

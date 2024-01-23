@@ -1,0 +1,41 @@
+{
+  "title": [
+    "+---------------------------------------------------------------------+",
+    "|                         OJET Application Audit                      |",
+    "+---------------------------------------------------------------------+",
+    "JAF $jafver - Jet $jetver :  ($jafdate, $jaftime)\n"
+  ],
+  "base": "$jafcwd",
+  "files": [
+    "./src/**/*.html",
+    "./src/**/*.js",
+    "./src/**/*.ts",
+    "./src/**/component.json",
+    "./src/styles/**/*.css"
+  ],
+  "exclude": [
+    "./src/**/*-min.js",
+    "./src/**/*-min.css",
+    "./src/styles/*",
+    "./**/node_modules/**/*.*"
+  ],
+  "components": ["./jet_components/**/component.json"],
+  "builtinJetRules": true,
+  "jetVer": "15.1",
+  "ecmaVer": 14,
+  "format": "prose",
+  "severity": "all",
+  "groups": ["all"],
+  "theme": "Redwood",
+  "typescript": {
+    "tsconfig": "."
+  },
+  "options": {
+    "verbose": false,
+    "color": true
+  },
+  "ojet": {
+    "update": true,
+    "md5": "157a41b6c41e0ea3a2cf1220cb184de3"
+  }
+}

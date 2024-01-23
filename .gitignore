@@ -31,3 +31,6 @@ Temporary Items
 .crt
 .csr
 .pem
+
+#temp directory ignore
+deploy/
