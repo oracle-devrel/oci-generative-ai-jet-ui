@@ -83,8 +83,8 @@ samp {
 }
 
 .demo-chat-layout {
-  max-height: 90%;
-  height: 600px;
+  max-height: 100%;
+  height: 80%;
   min-height: 400px;
 }
 
@@ -94,13 +94,12 @@ samp {
 }
 
 .demo-header {
-  background-color: var(
-    --oj-sp-header-welcome-banner-background-color
-  ) !important;
+  background-color: rgb(var(--oj-palette-neutral-rgb-10));
+  max-height: 5px;
 }
 .demo-header-end {
-  background-image: url(images/welcomeBanner-foreground2.png);
-  width: 600px;
+  /* background-image: url(images/welcomeBanner-foreground2.png); */
+  max-height: 5px;
   justify-content: end;
 }
 
