@@ -16,19 +16,17 @@ Oracle's Generative AI service allows developers to unlock a better user experie
 
 ### 0. Set up  
 
-```text
 Follow links below to generate a config file and a key pair in your ~/.oci directory
-https://docs.oracle.com/en-us/iaas/Content/API/Concepts/sdkconfig.htm
-https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm
-https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm#configfile
 
-After completion, you should have following 2 things in your ~/.oci directory 
+- [](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/sdkconfig.htm)
+- [](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm)
+- [](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm#configfile)
 
-a. A config file(where key file point to private key:key_file=~/.oci/oci_api_key.pem)
-b. A key pair named oci_api_key.pem and oci_api_key_public.pem
+After completion, you should have following 2 things in your `~/.oci directory  `
 
+a. A config file(where key file point to private key:key_file=`~/.oci/oci_api_key.pem`)
+b. A key pair named `oci_api_key.pem` and `oci_api_key_public.pem`
 Now make sure you change the reference of key file in config file (where key file point to private key:key_file=/YOUR_DIR_TO_KEY_FILE/oci_api_key.pem)
-```
 
 - Append OCI Generative-AI service compartment and endpoint URL  
 `vim service/python/server.py`
@@ -68,10 +66,8 @@ async def start_server():
 
 ### 2. Upload Public Key
 
-```text
-# Upload your oci_api_key_public.pem to console:
-https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm#three
-```
+- Upload your oci_api_key_public.pem to console:
+[](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm#three)
 
 ### 3. Make sure you have python installed on your machine
 
@@ -148,7 +144,6 @@ generative_ai_client = oci.generative_ai.generative_ai_client.GenerativeAiClient
 - OCI Account
 - OCI Generative Service
 - Oracle JET
-- Python3
 
 ## Notes/Issues
 
