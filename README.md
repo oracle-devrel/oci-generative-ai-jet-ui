@@ -10,7 +10,7 @@ Oracle JET(Preact) allows you to craft pixel-perfect UIs which are fast, lightwe
 
 Oracle's Generative AI service allows developers to unlock a better user experience for chat systems, question-and-answer solutions, and much more. This project provides a front end to that service so you can experiment and get a sense of the immense power of Oracle Generative AI. This is an excellent starting point on your AI journey, and experienced developers will be able to quickly port their LLMs to leverage this powerful service for enhanced customer support solutions.  
 
-![alt text here](images/main.png)
+![alt text here](images/demo.gif)
 
 ## Getting Started
 
@@ -112,11 +112,11 @@ Once dependencies are installed and your service credentials are updated you can
 - Or package for web deployment  
   `ojet build web`
 
-Ask your questions to generate an AI response
-![alt text here](images/QandA.png)
+  Ask question to generate LLM response.
+  ![alt text here](images/QandA.png)
 
-Note that the app is capable of generating markdown
-![alt text here](images/Markdown.png)
+  Note that sample app can generate markdown.
+  ![alt text here](images/Markdown.png)
 
 ## Appendix: Token-based Authentication
 
@@ -142,8 +142,8 @@ generative_ai_client = oci.generative_ai.generative_ai_client.GenerativeAiClient
 ### Prerequisites
 
 - OCI Account
-- OCI Generative Service
-- Oracle JET
+- OCI Generative AI Service
+- Oracle JET/Node
 
 ## Notes/Issues
 
