@@ -33,4 +33,4 @@ Temporary Items
 .pem
 
 #temp directory ignore
-deploy/
+venv/
