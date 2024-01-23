@@ -12,6 +12,8 @@ Oracle's Generative AI service allows developers to unlock a better user experie
 
 ![alt text here](images/demo.gif)
 
+Check [demo here](https://youtu.be/hpRoQ93YeaQ)
+
 ## Getting Started
 
 ### 0. Set up  
