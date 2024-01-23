@@ -8,7 +8,7 @@ Using Oracle JET, create a user-friendly prompt-led user interface (UI) to inter
 
 Oracle JET(Preact) allows you to craft pixel-perfect UIs which are fast, lightweight, and engaging. Your code takes centre stage with Oracle JET, while its powerful features enable you to create dynamic user experiences quickly and reliably.
 
-Oracle's Generative AI service allows developers to unlock a better user experience for chat systems, question-and-answer solutions, and much more. This project provides a front end to that service so you can experiment and get a sense of the immense power of Oracle Generative AI. This is an excellent starting point on your AI journey, and experienced developers will be able to quickly port their LLMs to leverage this powerful service for enhanced customer support solutions.  
+Oracle's Generative AI service allows developers to unlock a better user experience for chat systems, question-and-answer solutions, and much more. This project provides a front end to that service so you can experiment and get a sense of the immense power of Oracle Generative AI. This is an excellent starting point on your AI journey, and experienced developers will be able to quickly port their LLMs to leverage this powerful service.  
 
 ![alt text here](images/demo.gif)
 
@@ -47,7 +47,7 @@ generative_ai_inference_client = (
 )
 ```
 
-### 1. (Optional)Modify websocket ports  
+### 1. (Optional) Modify websocket ports  
 
 - In the root of the project directory run to edit ports  
 `vim app/web/components/content/index.tsx`
