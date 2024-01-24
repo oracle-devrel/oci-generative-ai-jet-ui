@@ -108,11 +108,11 @@ Once dependencies are installed and your service credentials are updated you can
 - Open app directory:  
   `cd ../../app `  or `cd app/` in the root folder
 - Install dependencies:  
-  `ojet restore`  
+  `npm install`  
 - Run local version:  
-  `ojet serve`  
+  `npx ojet serve`  
 - Or package for web deployment  
-  `ojet build web`
+  `npx ojet build web`
 
   Ask question to generate LLM response.
   ![alt text here](images/QandA.png)
