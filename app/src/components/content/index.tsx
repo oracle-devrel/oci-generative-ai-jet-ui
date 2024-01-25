@@ -141,7 +141,7 @@ const Content = () => {
 
   return (
     <div class="oj-web-applayout-max-width oj-web-applayout-content oj-flex oj-sm-flex-direction-column demo-bg-main">
-      {/* <div class="oj-flex-bar oj-flex-item demo-header">
+      <div class="oj-flex-bar oj-flex-item demo-header oj-sm-12">
         <oj-c-message-toast
           data={messagesDP.current}
           position="top"
@@ -149,9 +149,9 @@ const Content = () => {
         ></oj-c-message-toast>
         <h1 class="oj-typography-heading-lg oj-flex-bar-start"> </h1>
         <div class="oj-flex-bar-end oj-color-invert demo-header-end">
-          <h6 class="oj-sm-margin-2x-end">{connState}</h6>
+          {/* <h6 class="oj-sm-margin-2x-end">{connState}</h6> */}
         </div>
-      </div> */}
+      </div>
       <div class="oj-flex-item">
         <Chat data={update} />
       </div>
