@@ -94,12 +94,14 @@ samp {
 }
 
 .demo-header {
-  background-color: rgb(var(--oj-palette-neutral-rgb-10));
-  max-height: 5px;
+  background-color: var(
+    --oj-sp-header-welcome-banner-background-color
+  ) !important;
+  max-height: 150px;
 }
 .demo-header-end {
-  /* background-image: url(images/welcomeBanner-foreground2.png); */
-  max-height: 5px;
+  background-image: url(images/welcomeBanner-foreground2.png);
+  width: 600px;
   justify-content: end;
 }
 

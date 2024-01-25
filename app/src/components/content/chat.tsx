@@ -76,7 +76,7 @@ const Chat = ({ testId, data }: Props) => {
         data={dataProvider.current}
         selectionMode="none"
         scrollPosition={scrollPos}
-        class="oj-oj-sm-width-full demo-chat-layout"
+        class="oj-sm-width-full demo-chat-layout"
       >
         <template slot="itemTemplate" render={chatItemTemplate}></template>
         <template slot="noData" render={chatNoDataTemplate}></template>
