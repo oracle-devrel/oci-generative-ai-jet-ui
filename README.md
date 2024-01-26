@@ -10,13 +10,20 @@ Oracle JET(Preact) allows you to craft pixel-perfect UIs which are fast, lightwe
 
 Oracle's Generative AI service allows developers to unlock a better user experience for chat systems, question-and-answer solutions, and much more. This project provides a front end to that service so you can experiment and get a sense of the immense power of Oracle Generative AI. This is an excellent starting point on your AI journey, and experienced developers will be able to quickly port their LLMs to leverage this powerful service.  
 
-![alt text here](images/demo.gif)
+Check out [demo here](https://youtu.be/hpRoQ93YeaQ)
 
-Check [demo here](https://youtu.be/hpRoQ93YeaQ)
+![alt text here](images/demo.gif)
 
 ## Getting Started
 
-### 0. Set up  
+### 0. Prerequisites and setup
+
+- Oracle Cloud Infrastructure (OCI) Account
+- Oracle Cloud Infrastructure (OCI) Generative AI Service - [Getting Started with Generative AI](https://docs.oracle.com/en-us/iaas/Content/generative-ai/getting-started.htm)
+- Oracle Cloud Infrastructure Documentation - [Generative AI](https://docs.oracle.com/en-us/iaas/Content/generative-ai/home.htm)
+- Oracle Cloud Infrastructure (OCI) Generative AI Service SDK - [Oracle Cloud Infrastructure Python SDK](https://pypi.org/project/oci/)
+- Node v16 - [Node homepage](https://nodejs.org/en)
+- Oracle JET v15 - [Oracle JET Homepage](https://www.oracle.com/webfolder/technetwork/jet/index.html)
 
 Follow the links below to generate a config file and a key pair in your ~/.oci directory
 
@@ -24,14 +31,16 @@ Follow the links below to generate a config file and a key pair in your ~/.oci d
 - [API signing key](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm)
 - [CLI install](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm#configfile)
 
-After completion, you should have the following 2 things in your `~/.oci directory  `
+After completion, you should have the following 2 things in your `~/.oci directory`
 
-a. A config file(where key file point to private key:key_file=`~/.oci/oci_api_key.pem`)
-b. A key pair named `oci_api_key.pem` and `oci_api_key_public.pem`
-Now make sure you change the reference of the key file in the config file (where the key file points to private key:key_file=/YOUR_DIR_TO_KEY_FILE/oci_api_key.pem)
-
+- A config file(where key file point to private key:key_file=`~/.oci/oci_api_key.pem`)  
+- A key pair named `oci_api_key.pem` and `oci_api_key_public.pem`  
+- Now make sure you change the reference of the key file in the config file
 - Append OCI Generative-AI service compartment and endpoint URL  
-`vim service/python/server.py`
+
+```console
+vim service/python/server.py
+```
 
 ```Python
 #TODO: Update this section with your tenancy details
@@ -52,14 +61,20 @@ generative_ai_inference_client = (
 ### 1. (Optional) Modify websocket ports  
 
 - In the root of the project directory run to edit ports  
-`vim app/web/components/content/index.tsx`
+  
+```console
+vim app/web/components/content/index.tsx
+```
 
-```Javascript
-const gateway = `ws://${window.location.hostname}:1234`;
+```js
+const gateway = ws://${window.location.hostname}:1234;
 ```
 
 - Update default port in Python websocket server:  
-`vim service/python/server.py`
+
+```console
+vim service/python/server.py
+```
 
 ```Python
 async def start_server():
@@ -71,50 +86,75 @@ async def start_server():
 - Upload your oci_api_key_public.pem to console:  
 [API signing key](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm#three)
 
-### 3. Make sure you have Python installed on your machine
-
-- In cli run the following command to validate the Python version  
-`python --version`
-
-You should see similar output:
-
-```shell
-Python 3.8.3
-```
-
-### 4. Install all dependencies
+### 3. Install all dependencies
 
 We suggest you install dependencies in a virtual environment to avoid conflicts on your system.  
 
-- Navigate to the server root folder  
-`cd service/python`  
-- Create a virtual environment:  
-`python3 -m venv venv`  
-- Activate your virtual environment:  
-`. venv/bin/activate`  
-- Upgrade pip:  
-`pip3 install --upgrade pip`  
-- Install requirements:  
-`pip3 install -r requirements.txt`
+- Navigate to the server root folder
 
-## 5. Start the websocket server app  
+```console
+cd service/python
+```
+
+- Create a virtual environment:
+  
+```console
+python3 -m venv venv
+```
+
+- Activate your virtual environment:
+
+```console
+. venv/bin/activate
+```
+
+- Upgrade pip:
+  
+```console
+pip3 install --upgrade pip
+```
+
+- Install requirements:
+  
+```console
+pip3 install -r requirements.txt
+```
+
+## 4. Start the websocket server app  
 
 Once dependencies are installed and your service credentials are updated you can run server.py  
 
-- `python3 server.py`  
+```console
+python3 server.py
+```  
 
-## 6. Start JET Client
+## 5. Start JET Client
 
-- Open app directory:  
-  `cd ../../app `  or `cd app/` in the root folder
+- Open app directory:
+
+```console
+cd ../../app
+```
+
 - Install dependencies:  
-  `npm install`  
-- Run local version:  
-  `npx ojet serve`  
-- Or package for web deployment  
-  `npx ojet build web`
+  
+```console
+npm install
+```
 
-  Ask question to generate LLM response.
+- Run local version:
+  
+```console
+npx ojet serve
+```
+
+- Or package for web deployment  
+
+```console
+npx ojet build web
+```
+
+  You can now ask question to generate LLM based response.
   ![alt text here](images/QandA.png)
 
   Note that sample app can generate markdown.
@@ -140,12 +180,6 @@ endpoint = "https://generativeai.aiservice.<Region>.oci.oraclecloud.com"
 generative_ai_client = oci.generative_ai.generative_ai_client.GenerativeAiClient(config=config, service_endpoint=endpoint, retry_strategy=oci.retry.NoneRetryStrategy(), signer=signer)
 ```
 
-### Prerequisites
-
-- OCI Account
-- OCI Generative AI Service
-- Oracle JET/Node
-
 ## Notes/Issues
 
 Additional Use Cases like summarization and embedding coming soon.
@@ -165,9 +199,11 @@ To change output parameters edit server.py
 - [AI for Developers](https://developer.oracle.com/technologies/ai.html)
 
 ## Contributing
+
 This project is open source.  Please submit your contributions by forking this repository and submitting a pull request!  Oracle appreciates any contributions that are made by the open-source community.
 
 ## License
+
 Copyright (c) 2024 Oracle and/or its affiliates.
 
 Licensed under the Universal Permissive License (UPL), Version 1.0.
