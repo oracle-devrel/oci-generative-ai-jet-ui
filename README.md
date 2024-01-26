@@ -16,15 +16,13 @@ Check out [demo here](https://youtu.be/hpRoQ93YeaQ)
 
 ## Getting Started
 
-### Prerequisites
+### 0. Prerequisites and setup
 
 - OCI Account
 - OCI Generative AI Service - [Getting Started with Generative AI](https://docs.oracle.com/en-us/iaas/Content/generative-ai/getting-started.htm)
 - OCI Generative AI Service SDK - [Oracle Cloud Infrastructure Python SDK](https://pypi.org/project/oci/)
 - Node v16 - [Node homepage](https://nodejs.org/en)
 - Oracle JET v15 - [Oracle JET Homepage](https://www.oracle.com/webfolder/technetwork/jet/index.html)
-
-### 0. Set up  
 
 Follow the links below to generate a config file and a key pair in your ~/.oci directory
 
@@ -68,7 +66,9 @@ generative_ai_inference_client = (
 vim app/web/components/content/index.tsx
 ```
 
-`const gateway = ws://${window.location.hostname}:1234;`
+```preact
+const gateway = ws://${window.location.hostname}:1234;
+```
 
 - Update default port in Python websocket server:  
 
