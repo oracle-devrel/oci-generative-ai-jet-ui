@@ -42,20 +42,20 @@ Now make sure you change the reference of the key file in the config file (where
 vim service/python/server.py
 ```
 
-```Python
-#TODO: Update this section with your tenancy details
-compartment_id = "ocid1.compartment.oc1.."
-CONFIG_PROFILE = "DEFAULT"
-config = oci.config.from_file("~/.oci/config", CONFIG_PROFILE)
-endpoint = "https://inference.generativeai.<REGION>.oci.oraclecloud.com"
-generative_ai_inference_client = (
-    oci.generative_ai_inference.GenerativeAiInferenceClient(
-        config=config,
-        service_endpoint=endpoint,
-        retry_strategy=oci.retry.NoneRetryStrategy(),
-        timeout=(10, 240),
+    ```Python
+    #TODO: Update this section with your tenancy details
+    compartment_id = "ocid1.compartment.oc1.."
+    CONFIG_PROFILE = "DEFAULT"
+    config = oci.config.from_file("~/.oci/config", CONFIG_PROFILE)
+    endpoint = "https://inference.generativeai.<REGION>.oci.oraclecloud.com"
+    generative_ai_inference_client = (
+        oci.generative_ai_inference.GenerativeAiInferenceClient(
+            config=config,
+            service_endpoint=endpoint,
+            retry_strategy=oci.retry.NoneRetryStrategy(),
+            timeout=(10, 240),
+        )
     )
-)
 ```
 
 ### 1. (Optional) Modify websocket ports  
@@ -66,9 +66,9 @@ generative_ai_inference_client = (
 vim app/web/components/content/index.tsx
 ```
 
-```preact
-const gateway = ws://${window.location.hostname}:1234;
-```
+    ```js
+    const gateway = ws://${window.location.hostname}:1234;
+    ```
 
 - Update default port in Python websocket server:  
 
@@ -76,10 +76,10 @@ const gateway = ws://${window.location.hostname}:1234;
 vim service/python/server.py
 ```
 
-```Python
-async def start_server():
-    await websockets.serve(handle_websocket, "localhost", 1234 )
-```
+    ```Python
+    async def start_server():
+        await websockets.serve(handle_websocket, "localhost", 1234 )
+    ```
 
 ### 2. Upload Public Key
 
