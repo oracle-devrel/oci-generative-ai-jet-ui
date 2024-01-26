@@ -63,7 +63,7 @@ generative_ai_inference_client = (
 - In the root of the project directory run to edit ports  
   
 ```console
-vim app/web/components/content/index.tsx
+vim app/src/components/content/index.tsx
 ```
 
 ```js
