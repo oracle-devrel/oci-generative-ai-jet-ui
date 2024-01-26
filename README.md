@@ -31,7 +31,7 @@ Follow the links below to generate a config file and a key pair in your ~/.oci d
 - [API signing key](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm)
 - [CLI install](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm#configfile)
 
-After completion, you should have the following 2 things in your `~/.oci directory  `
+After completion, you should have the following 2 things in your `~/.oci directory`
 
 - A config file(where key file point to private key:key_file=`~/.oci/oci_api_key.pem`)  
 - A key pair named `oci_api_key.pem` and `oci_api_key_public.pem`  
@@ -66,7 +66,7 @@ generative_ai_inference_client = (
 vim app/web/components/content/index.tsx
 ```
 
-```react
+```js
 const gateway = ws://${window.location.hostname}:1234;
 ```
 
@@ -76,10 +76,10 @@ const gateway = ws://${window.location.hostname}:1234;
 vim service/python/server.py
 ```
 
-    ```Python
-    async def start_server():
-        await websockets.serve(handle_websocket, "localhost", 1234 )
-    ```
+```Python
+async def start_server():
+    await websockets.serve(handle_websocket, "localhost", 1234 )
+```
 
 ### 2. Upload Public Key
 
