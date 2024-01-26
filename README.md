@@ -32,30 +32,29 @@ Follow the links below to generate a config file and a key pair in your ~/.oci d
 
 After completion, you should have the following 2 things in your `~/.oci directory  `
 
-a. A config file(where key file point to private key:key_file=`~/.oci/oci_api_key.pem`)
-b. A key pair named `oci_api_key.pem` and `oci_api_key_public.pem`
-Now make sure you change the reference of the key file in the config file (where the key file points to private key:key_file=/YOUR_DIR_TO_KEY_FILE/oci_api_key.pem)
-
+- A config file(where key file point to private key:key_file=`~/.oci/oci_api_key.pem`)  
+- A key pair named `oci_api_key.pem` and `oci_api_key_public.pem`  
+- Now make sure you change the reference of the key file in the config file
 - Append OCI Generative-AI service compartment and endpoint URL  
 
 ```console
 vim service/python/server.py
 ```
 
-    ```Python
-    #TODO: Update this section with your tenancy details
-    compartment_id = "ocid1.compartment.oc1.."
-    CONFIG_PROFILE = "DEFAULT"
-    config = oci.config.from_file("~/.oci/config", CONFIG_PROFILE)
-    endpoint = "https://inference.generativeai.<REGION>.oci.oraclecloud.com"
-    generative_ai_inference_client = (
-        oci.generative_ai_inference.GenerativeAiInferenceClient(
-            config=config,
-            service_endpoint=endpoint,
-            retry_strategy=oci.retry.NoneRetryStrategy(),
-            timeout=(10, 240),
-        )
+```Python
+#TODO: Update this section with your tenancy details
+compartment_id = "ocid1.compartment.oc1.."
+CONFIG_PROFILE = "DEFAULT"
+config = oci.config.from_file("~/.oci/config", CONFIG_PROFILE)
+endpoint = "https://inference.generativeai.<REGION>.oci.oraclecloud.com"
+generative_ai_inference_client = (
+    oci.generative_ai_inference.GenerativeAiInferenceClient(
+        config=config,
+        service_endpoint=endpoint,
+        retry_strategy=oci.retry.NoneRetryStrategy(),
+        timeout=(10, 240),
     )
+)
 ```
 
 ### 1. (Optional) Modify websocket ports  
@@ -66,9 +65,9 @@ vim service/python/server.py
 vim app/web/components/content/index.tsx
 ```
 
-    ```js
-    const gateway = ws://${window.location.hostname}:1234;
-    ```
+```react
+const gateway = ws://${window.location.hostname}:1234;
+```
 
 - Update default port in Python websocket server:  
 
