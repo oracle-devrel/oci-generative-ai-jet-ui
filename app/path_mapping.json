@@ -2,12 +2,12 @@
   "use": "local",
   "cdns": {
     "jet": {
-      "prefix": "https://static.oracle.com/cdn/jet/15.1.0/default/js",
-      "css": "https://static.oracle.com/cdn/jet/15.1.0/default/css",
-      "csspreact": "https://static.oracle.com/cdn/jet/15.1.0/3rdparty/oraclejet-preact/amd",
+      "prefix": "https://static.oracle.com/cdn/jet/16.0.0/default/js",
+      "css": "https://static.oracle.com/cdn/jet/16.0.0/default/css",
+      "csspreact": "https://static.oracle.com/cdn/jet/16.0.0/3rdparty/oraclejet-preact/amd",
       "config": "bundles-config.js"
     },
-    "3rdparty": "https://static.oracle.com/cdn/jet/15.1.0/3rdparty"
+    "3rdparty": "https://static.oracle.com/cdn/jet/16.0.0/3rdparty"
   },
   "libs": {
     "knockout": {
@@ -262,7 +262,8 @@
         "src": ["compat.umd.js", "compat.umd.js.map"],
         "path": "libs/preact/compat/dist/compat.umd.js",
         "cdnPath": "preact/compat/dist/compat.umd"
-      }
+      },
+      "requireMap": "react"
     },
     "preact/jsx-runtime": {
       "cdn": "3rdparty",
@@ -364,6 +365,20 @@
         "path": "libs/oj/#{version}",
         "pathSuffix": "/min/ojcss'",
         "cdnPath": "ojcss"
+      }
+    },
+    "chai": {
+      "cdn": "3rdparty",
+      "cwd": "node_modules/chai/",
+      "debug": {
+        "src": "chai.js",
+        "path": "libs/chai/chai.js",
+        "cdnPath": "chai/chai-4.3.10"
+      },
+      "release": {
+        "src": "chai.js",
+        "path": "libs/chai/chai.js",
+        "cdnPath": "chai/chai-4.3.10.min"
       }
     }
   }

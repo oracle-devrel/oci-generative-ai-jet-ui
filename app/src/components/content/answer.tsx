@@ -24,7 +24,7 @@ export const Answer = ({ item }: Props) => {
           <md-wrapper
             id="TestingOne"
             class="oj-sm-width-full"
-            markdown={`### Answer \n ${answer} `}
+            markdown={answer}
           />
         </div>
 
@@ -33,6 +33,7 @@ export const Answer = ({ item }: Props) => {
             initials="A"
             size="sm"
             role="presentation"
+            src="styles/images/placeholder-male-05.png"
             background="orange"
           ></oj-avatar>
         </div>

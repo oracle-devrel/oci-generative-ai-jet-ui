@@ -15,6 +15,7 @@ export const Question = ({ item }: Props) => {
             size="sm"
             role="presentation"
             background="orange"
+            src="styles/images/ai.svg"
           ></oj-avatar>
         </div>
         <div class="oj-sm-justify-content-flex-start oj-flex-bar-middle oj-sm-padding-2x demo-copy-paste oj-color-invert">

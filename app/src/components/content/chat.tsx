@@ -2,7 +2,7 @@ import { Question } from "./question";
 import { Answer } from "./answer";
 import { Loading } from "./loading";
 import { ComponentProps } from "preact";
-import { useEffect, useRef, useState } from "preact/hooks";
+import { useEffect, useRef, useState, MutableRef } from "preact/hooks";
 import "ojs/ojlistview";
 import { ojListView } from "ojs/ojlistview";
 import MutableArrayDataProvider = require("ojs/ojmutablearraydataprovider");
@@ -11,6 +11,8 @@ import Context = require("ojs/ojcontext");
 type Props = {
   testId?: string;
   data: any;
+  questionChanged: (event: any) => void;
+  question: MutableRef<string | undefined>;
 };
 
 type Item = {
@@ -25,7 +27,7 @@ const madp = new MutableArrayDataProvider<Item["id"], Item>([], {
   keyAttributes: "id",
 });
 
-const Chat = ({ testId, data }: Props) => {
+const Chat = ({ testId, data, questionChanged, question }: Props) => {
   const dataProvider = useRef(madp);
   const listRef = useRef<ojListView<Item["id"], Item>>(null);
   const [lastKey, setLastKey] = useState<number>(0);
@@ -67,21 +69,31 @@ const Chat = ({ testId, data }: Props) => {
   };
 
   return (
-    <div>
-      <oj-list-view
-        id="chatlist"
-        ref={listRef}
-        data-oj-context="true"
-        aria-label="list of questions and answers"
-        data={dataProvider.current}
-        selectionMode="none"
-        scrollPosition={scrollPos}
-        class="oj-sm-width-full demo-chat-layout"
-      >
-        <template slot="itemTemplate" render={chatItemTemplate}></template>
-        <template slot="noData" render={chatNoDataTemplate}></template>
-      </oj-list-view>
-    </div>
+    <>
+      <div class="oj-flex-item">
+        <oj-list-view
+          id="chatlist"
+          ref={listRef}
+          data-oj-context="true"
+          aria-label="list of questions and answers"
+          data={dataProvider.current}
+          selectionMode="none"
+          scrollPosition={scrollPos}
+          class="oj-sm-width-full demo-chat-layout"
+        >
+          <template slot="itemTemplate" render={chatItemTemplate}></template>
+          <template slot="noData" render={chatNoDataTemplate}></template>
+        </oj-list-view>
+      </div>
+      <oj-input-search
+        id="search1"
+        class="oj-input-search-hero oj-sm-width-3"
+        value={question?.current}
+        placeholder="ask me anything..."
+        aria-label="enter a question"
+        onojValueAction={questionChanged}
+      ></oj-input-search>
+    </>
   );
 };
 export default Chat;

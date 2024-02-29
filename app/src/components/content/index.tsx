@@ -1,15 +1,23 @@
 import Chat from "./chat";
+import { Summary } from "./summary";
+import { Simulation } from "./simulation";
+import { Settings } from "./settings";
 import "preact";
 import "ojs/ojinputsearch";
 import "oj-c/message-toast";
+import "oj-c/drawer-popup";
 import MutableArrayDataProvider = require("ojs/ojmutablearraydataprovider");
 import { MessageToastItem } from "oj-c/message-toast";
 import { InputSearchElement } from "ojs/ojinputsearch";
 import { useState, useEffect, useRef } from "preact/hooks";
 
+type ServiceTypes = "text" | "summary" | "sim";
+
 const Content = () => {
   const [update, setUpdate] = useState<Array<object>>([]);
   const [busy, setBusy] = useState<boolean>(false);
+  const [serviceType, setServiceType] = useState<ServiceTypes>("summary");
+  const [settingsOpened, setSettingsOpened] = useState<boolean>(false);
   const question = useRef<string>();
   const chatData = useRef<Array<object>>([]);
   const socket = useRef<WebSocket>();
@@ -86,7 +94,7 @@ const Content = () => {
   }
 
   useEffect(() => {
-    initWebSocket();
+    // initWebSocket();
     return () => {
       socket.current ? (socket.current.onclose = () => {}) : null;
       socket.current?.close();
@@ -135,34 +143,56 @@ const Content = () => {
     }
   };
 
+  const handleDrawerState = () => {
+    setSettingsOpened(false);
+  };
+  const toggleDrawer = () => {
+    setSettingsOpened(!settingsOpened);
+  };
   const handleToastClose = () => {
     messagesDP.current.data = [];
   };
 
+  const serviceTypeChangeHandler = (service: ServiceTypes) => {
+    setServiceType(service);
+  };
+
   return (
     <div class="oj-web-applayout-max-width oj-web-applayout-content oj-flex oj-sm-flex-direction-column demo-bg-main">
+      <oj-c-drawer-popup
+        edge="end"
+        opened={settingsOpened}
+        onojBeforeClose={handleDrawerState}
+        aria-label="Settings Drawer"
+      >
+        <Settings
+          serviceType={serviceType}
+          serviceChange={serviceTypeChangeHandler}
+        />
+      </oj-c-drawer-popup>
       <div class="oj-flex-bar oj-flex-item demo-header oj-sm-12">
         <oj-c-message-toast
           data={messagesDP.current}
           position="top"
           onojClose={handleToastClose}
         ></oj-c-message-toast>
-        <h1 class="oj-typography-heading-lg oj-flex-bar-start"> </h1>
+        {/* <h1 class="oj-typography-heading-lg oj-flex-bar-start"> </h1> */}
         <div class="oj-flex-bar-end oj-color-invert demo-header-end">
           {/* <h6 class="oj-sm-margin-2x-end">{connState}</h6> */}
+          <oj-button onojAction={toggleDrawer} label="Toggle" display="icons">
+            <span slot="startIcon" class="oj-ux-ico-menu"></span>
+          </oj-button>
         </div>
       </div>
-      <div class="oj-flex-item">
-        <Chat data={update} />
-      </div>
-      <oj-input-search
-        id="search1"
-        class="oj-input-search-hero oj-sm-width-3"
-        value={question.current}
-        placeholder="ask me anything..."
-        aria-label="enter a question"
-        onojValueAction={handleQuestionChange}
-      ></oj-input-search>
+      {serviceType === "text" && (
+        <Chat
+          data={update}
+          question={question}
+          questionChanged={handleQuestionChange}
+        />
+      )}
+      {serviceType === "sim" && <Simulation />}
+      {serviceType === "summary" && <Summary />}
     </div>
   );
 };
