@@ -1,4 +1,4 @@
-import Chat from "./chat";
+import { Chat } from "./chat";
 import { Summary } from "./summary";
 import { Simulation } from "./simulation";
 import { Settings } from "./settings";
@@ -10,9 +10,16 @@ import MutableArrayDataProvider = require("ojs/ojmutablearraydataprovider");
 import { MessageToastItem } from "oj-c/message-toast";
 import { InputSearchElement } from "ojs/ojinputsearch";
 import { useState, useEffect, useRef } from "preact/hooks";
+import * as Questions from "text!./data/questions.json";
+import * as Answers from "text!./data/answers.json";
 
 type ServiceTypes = "text" | "summary" | "sim";
-
+type Chat = {
+  id?: number;
+  question?: string;
+  answer?: string;
+  loading?: string;
+};
 const Content = () => {
   const [update, setUpdate] = useState<Array<object>>([]);
   const [busy, setBusy] = useState<boolean>(false);
@@ -93,13 +100,51 @@ const Content = () => {
     socket.current?.close();
   }
 
+  // Simulation code
+  const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+  const runSimulation = async () => {
+    let Q = true;
+    let x: number = 0;
+    let y: number = 0;
+    let tempArray: Array<Chat> = [];
+    for (let index = 0; index < 8; index++) {
+      if (Q) {
+        if (x > 0) tempArray.pop();
+        tempArray.push({ question: JSON.parse(Questions)[x] });
+        // tempArray.push({ loading: "loading" });
+        Q = false;
+        x++;
+      } else {
+        tempArray.push({ answer: JSON.parse(Answers)[y] });
+        if (y < JSON.parse(Answers).length - 1)
+          tempArray.push({ loading: "loading" });
+        Q = true;
+        y++;
+      }
+      setUpdate([...tempArray]);
+      await sleep(2000);
+    }
+  };
   useEffect(() => {
-    // initWebSocket();
+    switch (serviceType) {
+      case "text":
+        //initWebSocket();
+        console.log("Running Gen AI");
+        return;
+      case "sim":
+        runSimulation();
+        console.log("running simulation");
+        return;
+      case "summary":
+        // do nothing;
+        console.log("summary loading");
+        return;
+    }
     return () => {
       socket.current ? (socket.current.onclose = () => {}) : null;
       socket.current?.close();
     };
-  }, []);
+  }, [serviceType]);
 
   const handleQuestionChange = (
     event: InputSearchElement.ojValueAction<null, null>
@@ -154,7 +199,10 @@ const Content = () => {
   };
 
   const serviceTypeChangeHandler = (service: ServiceTypes) => {
+    setUpdate([]);
+    chatData.current = [];
     setServiceType(service);
+    toggleDrawer();
   };
 
   return (
@@ -191,7 +239,13 @@ const Content = () => {
           questionChanged={handleQuestionChange}
         />
       )}
-      {serviceType === "sim" && <Simulation />}
+      {serviceType === "sim" && (
+        <Simulation
+          data={update}
+          question={question}
+          questionChanged={handleQuestionChange}
+        />
+      )}
       {serviceType === "summary" && <Summary />}
     </div>
   );

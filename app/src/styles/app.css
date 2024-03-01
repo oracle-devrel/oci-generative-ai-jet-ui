@@ -70,10 +70,29 @@ samp {
   text-align: start;
   max-width: 1440px;
 }
+.demo-sim-answer-layout {
+  min-height: 50px;
+  display: inherit;
+  margin: 20px 10px 50px 10px;
+  border: 2px black;
+  border-radius: 10px;
+  padding: 10px 10px 10px 65px;
+  text-align: end;
+  max-width: 1440px;
+}
 .demo-question-layout {
   min-height: 50px;
   /* background-color: #226b95; */
   background-color: var(--oj-sp-header-welcome-banner-background-color);
+  display: inherit;
+  margin: 20px 10px 10px 10px;
+  border: 2px black;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: start;
+}
+.demo-sim-question-layout {
+  min-height: 50px;
   display: inherit;
   margin: 20px 10px 10px 10px;
   border: 2px black;
