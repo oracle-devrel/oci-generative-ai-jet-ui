@@ -1,5 +1,5 @@
 import "preact";
-import { useState } from "preact/hooks";
+import { useState, useRef } from "preact/hooks";
 import "ojs/ojtoolbar";
 import "oj-c/file-picker";
 import "oj-c/message-toast";
@@ -19,10 +19,13 @@ export const Summary = (props: Props) => {
   const [invalidMessage, setInvalidMessage] = useState<string | null>(null);
   const [fileNames, setFileNames] = useState<string[] | null>(null);
   const [messages, setMessages] = useState<object[]>([]);
+  const invalidFiles = useRef<string[]>([]);
 
   // Message toast related methods
   const closeMessage = () => {
     setMessages([]);
+    invalidFiles.current = [];
+    setFileNames(null);
   };
 
   const messagesDP = new MutableArrayDataProvider<string, {}>(messages, {
@@ -58,32 +61,33 @@ export const Summary = (props: Props) => {
     const accept: (acceptPromise: Promise<void>) => void = event.detail.accept;
     const files: FileList = event.detail.files;
     let file: File;
-    const invalidFiles: string[] = [];
+    let tempArray:Array<string> = []
 
     for (let i = 0; i < files.length; i++) {
       file = files[i];
 
-      if (file.size > 200000) {
-        invalidFiles.push(file.name);
+      if (file.size > 200000000) {
+        tempArray.push(file.name)
+        invalidFiles.current = tempArray;
       }
     }
 
-    if (invalidFiles.length === 0) {
+    if (invalidFiles.current.length === 0) {
       accept(Promise.resolve());
     } else {
-      if (invalidFiles.length === 1) {
+      if (invalidFiles.current.length === 1) {
         let temp: Array<object> = [];
         temp.push({
           id: 0,
           severity: "Error",
           summary:
             "File " +
-            invalidFiles[0] +
+            invalidFiles.current[0] +
             " is too big. The maximum size is 200MB.",
         });
         setMessages(temp);
       } else {
-        const fileNames = invalidFiles.join(", ");
+        const fileNames = invalidFiles.current.join(", ");
         let temp: Array<object> = [];
         temp.push({
           id: 0,
@@ -138,7 +142,7 @@ export const Summary = (props: Props) => {
           secondaryText="Maximum file size is 200MB per PDF file."
         ></oj-c-file-picker>
 
-        {fileNames && (
+        {((invalidFiles.current.length !== 1) && fileNames) && (
           <>
             <div class="oj-sm-margin-4x-top">
               <span class="oj-typography-bold">File: </span>
