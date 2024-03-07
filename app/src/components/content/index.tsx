@@ -44,6 +44,7 @@ const Content = () => {
   const initWebSocket = () => {
     console.log("Trying to open a WebSocket connection...");
     socket.current = new WebSocket(gateway);
+    socket.current.binaryType = "arraybuffer";
     socket.current.onopen = onOpen;
     socket.current.onerror = onError;
     socket.current.onclose = onClose;
@@ -61,6 +62,9 @@ const Content = () => {
       case "question":
         console.log("question: ", msg.question);
         return msg.question;
+      case "summary":
+        console.log("summary");
+        return null;
       case "answer":
         console.log("answer: ", msg.answer);
         if (msg.answer !== "connected") {
@@ -128,7 +132,7 @@ const Content = () => {
   useEffect(() => {
     switch (serviceType) {
       case "text":
-        //initWebSocket();
+        initWebSocket();
         console.log("Running Gen AI");
         return;
       case "sim":
@@ -136,7 +140,7 @@ const Content = () => {
         console.log("running simulation");
         return;
       case "summary":
-        // do nothing;
+        initWebSocket();
         console.log("summary loading");
         return;
     }
@@ -186,6 +190,12 @@ const Content = () => {
         socket.current?.send(JSON.stringify({ question: question.current }));
       }, 300);
     }
+  };
+
+  const handleFileUpload = (file: ArrayBuffer) => {
+    console.log("Filename from root");
+    socket.current?.send(file);
+    return null;
   };
 
   const handleDrawerState = () => {
@@ -246,7 +256,7 @@ const Content = () => {
           questionChanged={handleQuestionChange}
         />
       )}
-      {serviceType === "summary" && <Summary />}
+      {serviceType === "summary" && <Summary fileChanged={handleFileUpload} />}
     </div>
   );
 };

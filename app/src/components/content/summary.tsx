@@ -10,12 +10,14 @@ import { CInputTextElement } from "oj-c/input-text";
 import { CButtonElement } from "oj-c/button";
 import MutableArrayDataProvider = require("ojs/ojmutablearraydataprovider");
 
-type Props = {};
+type Props = {
+  fileChanged: (file: ArrayBuffer) => null;
+};
 
 const acceptArr: string[] = ["application/pdf", "*.pdf"];
 const messages: { id: number; severity: string; summary: string }[] = [];
 
-export const Summary = (props: Props) => {
+export const Summary = ({ fileChanged }: Props) => {
   const [invalidMessage, setInvalidMessage] = useState<string | null>(null);
   const [fileNames, setFileNames] = useState<string[] | null>(null);
   const [messages, setMessages] = useState<object[]>([]);
@@ -38,15 +40,23 @@ export const Summary = (props: Props) => {
   };
 
   // FilePicker related methods
-  const selectListener = (event: CFilePickerElement.ojSelect) => {
+  const selectListener = async (event: CFilePickerElement.ojSelect) => {
     setInvalidMessage("");
     const files: FileList = event.detail.files;
     const filesArray: File[] = Array.from(files);
     let names = filesArray.map((file: File) => {
       return file?.name;
     });
+    const fr = new FileReader();
+    let ab = new ArrayBuffer(200000000);
+    fr.onload = (ev: ProgressEvent<FileReader>) => {
+      let ab = fr.result;
+      fileChanged(ab as ArrayBuffer);
+    };
+    fr.readAsArrayBuffer(files[0]);
     setFileNames(names);
   };
+
   const invalidListener = (event: CFilePickerElement.ojInvalidSelect) => {
     setFileNames([]);
     const promise = event.detail.until;
@@ -61,13 +71,13 @@ export const Summary = (props: Props) => {
     const accept: (acceptPromise: Promise<void>) => void = event.detail.accept;
     const files: FileList = event.detail.files;
     let file: File;
-    let tempArray:Array<string> = []
+    let tempArray: Array<string> = [];
 
     for (let i = 0; i < files.length; i++) {
       file = files[i];
 
       if (file.size > 200000000) {
-        tempArray.push(file.name)
+        tempArray.push(file.name);
         invalidFiles.current = tempArray;
       }
     }
@@ -142,7 +152,7 @@ export const Summary = (props: Props) => {
           secondaryText="Maximum file size is 200MB per PDF file."
         ></oj-c-file-picker>
 
-        {((invalidFiles.current.length !== 1) && fileNames) && (
+        {invalidFiles.current.length !== 1 && fileNames && (
           <>
             <div class="oj-sm-margin-4x-top">
               <span class="oj-typography-bold">File: </span>
