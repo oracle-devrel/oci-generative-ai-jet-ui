@@ -21,6 +21,7 @@ export const Summary = ({ fileChanged }: Props) => {
   const [invalidMessage, setInvalidMessage] = useState<string | null>(null);
   const [fileNames, setFileNames] = useState<string[] | null>(null);
   const [messages, setMessages] = useState<object[]>([]);
+  const [pdfFile, setPDFFile] = useState<ArrayBuffer>();
   const invalidFiles = useRef<string[]>([]);
 
   // Message toast related methods
@@ -51,7 +52,7 @@ export const Summary = ({ fileChanged }: Props) => {
     let ab = new ArrayBuffer(200000000);
     fr.onload = (ev: ProgressEvent<FileReader>) => {
       let ab = fr.result;
-      fileChanged(ab as ArrayBuffer);
+      setPDFFile(ab as ArrayBuffer);
     };
     fr.readAsArrayBuffer(files[0]);
     setFileNames(names);
@@ -117,6 +118,7 @@ export const Summary = ({ fileChanged }: Props) => {
   // Summarize methods
   const summarizeFile = (event: CButtonElement.ojAction) => {
     console.log("calling websocket API to process PDF");
+    fileChanged(pdfFile as ArrayBuffer);
   };
   const clearSummarization = () => {
     setFileNames(null);

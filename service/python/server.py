@@ -9,12 +9,12 @@ from typing import Any, Dict, List
 import re
 
 # TODO: Please update config profile name and use the compartmentId that has policies grant permissions for using Generative AI Service
-compartment_id = "ocid1.compartment.oc1.."
+compartment_id = "<compartment_ocid>"
 CONFIG_PROFILE = "DEFAULT"
 config = oci.config.from_file('~/.oci/config', CONFIG_PROFILE)
 
 # Service endpoint
-endpoint = "https://inference.generativeai.oci.oraclecloud.com"
+endpoint = "https://inference.generativeai.us-chicago-1.oci.oraclecloud.com"
 generative_ai_inference_client = (
     oci.generative_ai_inference.GenerativeAiInferenceClient(
         config=config,
@@ -23,7 +23,7 @@ generative_ai_inference_client = (
         timeout=(10, 240),
     )
 )
-
+print(f"Config: {config}")
 @throttle(rate_limit=15, period=65.0)
 async def generate_ai_response(prompts):
     prompt = ""
@@ -113,9 +113,10 @@ async def handle_websocket(websocket, path):
             if not isinstance(data,str):
                 pdfFileObj = BytesIO(data)
                 output = await parse_pdf(pdfFileObj)
-                print(f"Output: {output}")
-                # response = await generate_ai_summary(output, prompt)
-                # summary = response.data.inference_response.generated_texts[0].text
+                # print(f"Output: {output}")
+                response = await generate_ai_summary(''.join(output), prompt)
+                summary = response.summary
+                print(f"Summary: {summary}")
                 # buidJSON = {"summary": summary}
                 # await websocket.send(json.dumps(buidJSON))
     except websockets.exceptions.ConnectionClosedOK as e:
