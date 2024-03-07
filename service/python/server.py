@@ -8,11 +8,13 @@ from io import BytesIO
 from typing import Any, Dict, List
 import re
 
-# TODO: Update this section with your tenancy details
-compartment_id = "ocid1.compartment.oc1..aaaaaaaaut7vieqsewqr4nezosxg4ikf2mszg4roiimlbvhqtinrpgevy6uq"
+# TODO: Please update config profile name and use the compartmentId that has policies grant permissions for using Generative AI Service
+compartment_id = "ocid1.compartment.oc1.."
 CONFIG_PROFILE = "DEFAULT"
-config = oci.config.from_file("~/.oci/config", CONFIG_PROFILE)
-endpoint = "https://inference.generativeai.us-chicago-1.oci.oraclecloud.com"
+config = oci.config.from_file('~/.oci/config', CONFIG_PROFILE)
+
+# Service endpoint
+endpoint = "https://inference.generativeai.oci.oraclecloud.com"
 generative_ai_inference_client = (
     oci.generative_ai_inference.GenerativeAiInferenceClient(
         config=config,
@@ -25,35 +27,26 @@ generative_ai_inference_client = (
 @throttle(rate_limit=15, period=65.0)
 async def generate_ai_response(prompts):
     prompt = ""
-    cohere_generate_text_request = (
+    llm_inference_request = (
         oci.generative_ai_inference.models.CohereLlmInferenceRequest()
     )
-    cohere_generate_text_request.prompt = prompts
-    cohere_generate_text_request.is_stream = (
-        False  # SDK doesn't support streaming responses, feature is under development
-    )
-    cohere_generate_text_request.max_tokens = 1000
-    cohere_generate_text_request.temperature = 0.75
-    cohere_generate_text_request.top_p = 0.7
-    cohere_generate_text_request.frequency_penalty = 1.0
+    llm_inference_request.prompt = prompts
+    llm_inference_request.max_tokens = 1000
+    llm_inference_request.temperature = 0.75
+    llm_inference_request.top_p = 0.7
+    llm_inference_request.frequency_penalty = 1.0
 
     generate_text_detail = oci.generative_ai_inference.models.GenerateTextDetails()
-    generate_text_detail.serving_mode = (
-        oci.generative_ai_inference.models.OnDemandServingMode(
-            model_id="cohere.command"
-        )
-    )
+    generate_text_detail.serving_mode = oci.generative_ai_inference.models.DedicatedServingMode(endpoint_id="ocid1.generativeaiendpoint.oc1.us-chicago-1.amaaaaaaeras5xiavrsefrftfupp42lnniddgjnxuwbv5jypl64i7ktan65a")
+
     generate_text_detail.compartment_id = compartment_id
-    generate_text_detail.inference_request = cohere_generate_text_request
+    generate_text_detail.inference_request = llm_inference_request
 
     if "<compartment_ocid>" in compartment_id:
         print("ERROR:Please update your compartment id in target python file")
         quit()
 
-    generate_text_response = generative_ai_inference_client.generate_text(
-        generate_text_detail
-    )
-
+    generate_text_response = generative_ai_inference_client.generate_text(generate_text_detail)
     # Print result
     print("**************************Generate Texts Result**************************")
     print(vars(generate_text_response))
