@@ -23,6 +23,8 @@ type Chat = {
 const Content = () => {
   const [update, setUpdate] = useState<Array<object>>([]);
   const [busy, setBusy] = useState<boolean>(false);
+  const [summaryResults, setSummaryResults] = useState<string | null>("");
+  const [summaryPrompt, setSummaryPrompt] = useState<string>();
   const [serviceType, setServiceType] = useState<ServiceTypes>("summary");
   const [settingsOpened, setSettingsOpened] = useState<boolean>(false);
   const question = useRef<string>();
@@ -55,19 +57,21 @@ const Content = () => {
   const onMessage = (event: any) => {
     const msg = JSON.parse(event.data);
 
-    switch (Object.keys(msg)[0]) {
+    switch (msg.msgType) {
+      // switch (Object.keys(msg)[0]) {
       case "message":
-        console.log("message: ", msg.message);
-        return msg.message;
+        console.log("message: ", msg.data);
+        return msg.data;
       case "question":
-        console.log("question: ", msg.question);
-        return msg.question;
+        console.log("question: ", msg.data);
+        return msg.data;
       case "summary":
         console.log("summary");
-        return null;
+        setSummaryResults(msg.data);
+        return;
       case "answer":
-        console.log("answer: ", msg.answer);
-        if (msg.answer !== "connected") {
+        console.log("answer: ", msg.data);
+        if (msg.data !== "connected") {
           let tempArray = [...chatData.current];
           // remove the animation item before adding answer
           setBusy(false);
@@ -75,12 +79,12 @@ const Content = () => {
           messagesDP.current.data = [];
           tempArray.push({
             id: tempArray.length as number,
-            answer: msg.answer,
+            answer: msg.data,
           });
           chatData.current = tempArray;
           setUpdate(chatData.current);
         }
-        return msg.answer;
+        return msg.data;
       default:
         return "unknown";
     }
@@ -89,7 +93,9 @@ const Content = () => {
   const onOpen = () => {
     clearInterval(sockTimer);
     console.log("Connection opened");
-    socket.current?.send(JSON.stringify({ message: "connected" }));
+    socket.current?.send(
+      JSON.stringify({ msgType: "message", data: "connected" })
+    );
     setConnState("Connected");
   };
 
@@ -187,15 +193,15 @@ const Content = () => {
 
       // simulating the delay for now just to show what the animation looks like.
       setTimeout(() => {
-        socket.current?.send(JSON.stringify({ question: question.current }));
+        socket.current?.send(
+          JSON.stringify({ msgType: "question", data: question.current })
+        );
       }, 300);
     }
   };
 
   const handleFileUpload = (file: ArrayBuffer) => {
-    console.log("Filename from root");
     socket.current?.send(file);
-    return null;
   };
 
   const handleDrawerState = () => {
@@ -213,6 +219,14 @@ const Content = () => {
     chatData.current = [];
     setServiceType(service);
     toggleDrawer();
+  };
+
+  const clearSummary = () => {
+    setSummaryResults("");
+  };
+
+  const updateSummaryPrompt = (val: string) => {
+    setSummaryPrompt(val);
   };
 
   return (
@@ -256,7 +270,14 @@ const Content = () => {
           questionChanged={handleQuestionChange}
         />
       )}
-      {serviceType === "summary" && <Summary fileChanged={handleFileUpload} />}
+      {serviceType === "summary" && (
+        <Summary
+          fileChanged={handleFileUpload}
+          summary={summaryResults}
+          clear={clearSummary}
+          prompt={updateSummaryPrompt}
+        />
+      )}
     </div>
   );
 };

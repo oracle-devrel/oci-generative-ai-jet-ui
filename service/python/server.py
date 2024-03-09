@@ -7,10 +7,11 @@ from pypdf import PdfReader
 from io import BytesIO
 from typing import Any, Dict, List
 import re
+from types import SimpleNamespace
 
 # TODO: Please update config profile name and use the compartmentId that has policies grant permissions for using Generative AI Service
-compartment_id = "<compartment_ocid>"
-CONFIG_PROFILE = "DEFAULT"
+compartment_id = "ocid1.compartment.oc1..aaaaaaaaut7vieqsewqr4nezosxg4ikf2mszg4roiimlbvhqtinrpgevy6uq"
+CONFIG_PROFILE = "WOJCIECH"
 config = oci.config.from_file('~/.oci/config', CONFIG_PROFILE)
 
 # Service endpoint
@@ -23,7 +24,7 @@ generative_ai_inference_client = (
         timeout=(10, 240),
     )
 )
-print(f"Config: {config}")
+
 @throttle(rate_limit=15, period=65.0)
 async def generate_ai_response(prompts):
     prompt = ""
@@ -64,7 +65,7 @@ async def generate_ai_summary(summary_txt, prompt):
     summarize_text_detail.compartment_id = compartment_id
     #summarize_text_detail.input = text_to_summarize
     summarize_text_detail.input = summary_txt
-    summarize_text_detail.additional_command = "Generate summary of work history"
+    summarize_text_detail.additional_command = prompt
     summarize_text_detail.extractiveness = "AUTO" # HIGH, LOW
     summarize_text_detail.format = "AUTO" # brackets, paragraph
     summarize_text_detail.length = "LONG" # high, AUTO
@@ -100,25 +101,28 @@ async def handle_websocket(websocket, path):
     try:
         while True:
             data = await websocket.recv()
-            # if we are dealing with text, make it JSON
             if isinstance(data, str):
-                objData = json.loads(data)
-                prompt = list(objData.items())[0][1]
-                if list(objData.items())[0][0] == "question":
-                    response = await generate_ai_response(prompt)
-                    answer = response.data.inference_response.generated_texts[0].text
-                    buidJSON = {"answer": answer}
-                    await websocket.send(json.dumps(buidJSON))
+            # if we are dealing with text, make it JSON
+                objData = json.loads(data,object_hook=lambda d: SimpleNamespace(**d))
+                if objData.msgType == "question":
+                    prompt = objData.data
+                    if objData.msgType == "question":
+                        response = await generate_ai_response(prompt)
+                        answer = response.data.inference_response.generated_texts[0].text
+                        buidJSON = {"msgType":"answer","data":answer}
+                        await websocket.send(json.dumps(buidJSON))
             # if it's not text, we have a binary and we will treat it as a PDF
             if not isinstance(data,str):
-                pdfFileObj = BytesIO(data)
+                # split the ArrayBuffer into metadata and the actual PDF file
+                objData = data.split(b'\r\n\r\n')
+                # decode the metadata and parse the JSON data.  Creating Dict properties from the JSON
+                metadata = json.loads(objData[0].decode('utf-8'),object_hook=lambda d: SimpleNamespace(**d))
+                pdfFileObj = BytesIO(objData[1])
                 output = await parse_pdf(pdfFileObj)
-                # print(f"Output: {output}")
-                response = await generate_ai_summary(''.join(output), prompt)
+                response = await generate_ai_summary(''.join(output),metadata.msgPrompt)
                 summary = response.summary
-                print(f"Summary: {summary}")
-                # buidJSON = {"summary": summary}
-                # await websocket.send(json.dumps(buidJSON))
+                buidJSON = {"msgType":"summary","data": summary}
+                await websocket.send(json.dumps(buidJSON))
     except websockets.exceptions.ConnectionClosedOK as e:
         print(f"Connection closed: {e}")
 

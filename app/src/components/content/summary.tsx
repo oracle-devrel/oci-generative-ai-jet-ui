@@ -1,28 +1,46 @@
 import "preact";
-import { useState, useRef } from "preact/hooks";
+import { useState, useRef, useEffect } from "preact/hooks";
+import "md-wrapper/loader";
 import "ojs/ojtoolbar";
 import "oj-c/file-picker";
 import "oj-c/message-toast";
 import "oj-c/input-text";
+import "oj-c/progress-bar";
 import "oj-c/button";
+import "ojs/ojvalidationgroup";
+import { ojValidationGroup } from "ojs/ojvalidationgroup";
 import { CFilePickerElement } from "oj-c/file-picker";
 import { CInputTextElement } from "oj-c/input-text";
 import { CButtonElement } from "oj-c/button";
 import MutableArrayDataProvider = require("ojs/ojmutablearraydataprovider");
 
+declare global {
+  namespace preact.JSX {
+    interface IntrinsicElements {
+      "md-wrapper": any;
+    }
+  }
+}
 type Props = {
-  fileChanged: (file: ArrayBuffer) => null;
+  fileChanged: (file: ArrayBuffer) => void;
+  summary: string | null;
+  clear: () => void;
+  prompt: (val: string) => void;
 };
 
 const acceptArr: string[] = ["application/pdf", "*.pdf"];
 const messages: { id: number; severity: string; summary: string }[] = [];
 
-export const Summary = ({ fileChanged }: Props) => {
+export const Summary = ({ fileChanged, summary, clear, prompt }: Props) => {
   const [invalidMessage, setInvalidMessage] = useState<string | null>(null);
+  const [summaryPrompt, setSummaryPrompt] = useState<string>("");
   const [fileNames, setFileNames] = useState<string[] | null>(null);
   const [messages, setMessages] = useState<object[]>([]);
   const [pdfFile, setPDFFile] = useState<ArrayBuffer>();
+  const [loading, setLoading] = useState<boolean>(false);
   const invalidFiles = useRef<string[]>([]);
+  const valGroupRef = useRef<ojValidationGroup>(null);
+  const promptInputRef = useRef<CInputTextElement<string | null>>(null);
 
   // Message toast related methods
   const closeMessage = () => {
@@ -37,7 +55,11 @@ export const Summary = ({ fileChanged }: Props) => {
 
   // Prompt input related methods
   const submitPrompt = (event: CInputTextElement.valueChanged<string>) => {
-    console.log("prompt: ", event.detail.value);
+    let tempStr = event.detail.value
+      ? event.detail.value
+      : "Generate a summary";
+    setSummaryPrompt(tempStr);
+    prompt(tempStr);
   };
 
   // FilePicker related methods
@@ -48,6 +70,7 @@ export const Summary = ({ fileChanged }: Props) => {
     let names = filesArray.map((file: File) => {
       return file?.name;
     });
+
     const fr = new FileReader();
     let ab = new ArrayBuffer(200000000);
     fr.onload = (ev: ProgressEvent<FileReader>) => {
@@ -56,6 +79,28 @@ export const Summary = ({ fileChanged }: Props) => {
     };
     fr.readAsArrayBuffer(files[0]);
     setFileNames(names);
+  };
+
+  const buildSummaryData = (rawData: ArrayBuffer) => {
+    const metaJson = {
+      type: "summary",
+      msgPrompt: summaryPrompt,
+    };
+
+    // _must_ do this to encode as a ArrayBuffer / Uint8Array
+    const enc = new TextEncoder(); // always utf-8, Uint8Array()
+    const buf1 = enc.encode(JSON.stringify(metaJson));
+    const buf2 = enc.encode("\r\n\r\n");
+    const buf3 = rawData;
+
+    let sendData = new Uint8Array(
+      buf1.byteLength + buf2.byteLength + buf3.byteLength
+    );
+    sendData.set(new Uint8Array(buf1), 0);
+    sendData.set(new Uint8Array(buf2), buf1.byteLength);
+    sendData.set(new Uint8Array(buf3), buf1.byteLength + buf2.byteLength);
+
+    return sendData;
   };
 
   const invalidListener = (event: CFilePickerElement.ojInvalidSelect) => {
@@ -115,13 +160,46 @@ export const Summary = ({ fileChanged }: Props) => {
     }
   };
 
+  useEffect(() => {
+    if (summary !== "") setLoading(!loading);
+  }, [summary]);
+
+  useEffect(() => {
+    return () => {
+      clearSummarization();
+    };
+  }, []);
+
+  const _checkValidationGroup = () => {
+    const tracker = valGroupRef.current as ojValidationGroup;
+    if (tracker.valid === "valid") {
+      return true;
+    } else {
+      // show messages on all the components that are invalidHiddden, i.e., the
+      // required fields that the user has yet to fill out.
+      tracker.showMessages();
+      tracker.focusOn("@firstInvalidShown");
+      return false;
+    }
+  };
+
   // Summarize methods
   const summarizeFile = (event: CButtonElement.ojAction) => {
-    console.log("calling websocket API to process PDF");
-    fileChanged(pdfFile as ArrayBuffer);
+    const valid = _checkValidationGroup();
+    if (valid) {
+      clear();
+      console.log("Calling websocket API to process PDF");
+      console.log("Filename: ", fileNames);
+      console.log("Prompt: ", summaryPrompt);
+      fileChanged(buildSummaryData(pdfFile as ArrayBuffer));
+      setLoading(true);
+    }
   };
   const clearSummarization = () => {
+    promptInputRef.current?.reset();
     setFileNames(null);
+    clear();
+    setLoading(false);
   };
 
   return (
@@ -133,27 +211,30 @@ export const Summary = ({ fileChanged }: Props) => {
 
       <div class="oj-flex-item oj-sm-margin-4x">
         <h1>Document Summarization</h1>
-        <oj-c-input-text
-          id="promptInput"
-          aria-label="enter document summary prompt"
-          class="oj-sm-width-full oj-md-width-1/2 oj-sm-margin-4x-bottom"
-          labelHint="Enter the document summary prompt"
-          labelEdge="top"
-          onvalueChanged={submitPrompt}
-        ></oj-c-input-text>
-        <div class="oj-text-color-secondary oj-typography-body-sm oj-sm-padding-1x-bottom">
+        <div class="oj-typography-body-md oj-sm-padding-1x-bottom">
           Upload a PDF file
         </div>
-        <oj-c-file-picker
-          id="filepickerPdf"
-          accept={acceptArr}
-          selectionMode="single"
-          onojSelect={selectListener}
-          onojInvalidSelect={invalidListener}
-          onojBeforeSelect={beforeSelectListener}
-          secondaryText="Maximum file size is 200MB per PDF file."
-        ></oj-c-file-picker>
-
+        <oj-validation-group ref={valGroupRef}>
+          <oj-c-file-picker
+            id="filepickerPdf"
+            accept={acceptArr}
+            selectionMode="single"
+            onojSelect={selectListener}
+            onojInvalidSelect={invalidListener}
+            onojBeforeSelect={beforeSelectListener}
+            secondaryText="Maximum file size is 200MB per PDF file."
+          ></oj-c-file-picker>
+          <oj-c-input-text
+            id="promptInput"
+            ref={promptInputRef}
+            required
+            aria-label="enter document summary prompt"
+            class="oj-sm-width-full oj-md-width-1/2 oj-sm-margin-4x-top oj-sm-margin-4x-bottom"
+            labelHint="Enter the document summary prompt"
+            labelEdge="top"
+            onvalueChanged={submitPrompt}
+          ></oj-c-input-text>
+        </oj-validation-group>
         {invalidFiles.current.length !== 1 && fileNames && (
           <>
             <div class="oj-sm-margin-4x-top">
@@ -175,10 +256,27 @@ export const Summary = ({ fileChanged }: Props) => {
                 onojAction={clearSummarization}
               ></oj-c-button>
             </oj-toolbar>
-            <div id="summaryContent" class="oj-panel oj-sm-width-full">
-              {"Markdown content would go in here"}
-            </div>
           </>
+        )}
+        {invalidFiles.current.length !== 1 && fileNames && loading && (
+          <>
+            <div class="oj-sm-margin-4x oj-typography-subheading-md">
+              Loading summary
+            </div>
+            <oj-c-progress-bar
+              class="oj-sm-margin-4x oj-sm-width-full oj-md-width-1/2"
+              value={-1}
+            ></oj-c-progress-bar>
+          </>
+        )}
+        {invalidFiles.current.length !== 1 && fileNames && summary && (
+          <div id="summaryContent" class="oj-panel oj-sm-width-full">
+            <md-wrapper
+              id="TestingOne"
+              class="oj-sm-width-full"
+              markdown={summary}
+            />
+          </div>
         )}
       </div>
     </>
