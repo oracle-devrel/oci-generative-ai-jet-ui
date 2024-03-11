@@ -88,6 +88,8 @@ export const Summary = ({ fileChanged, summary, clear, prompt }: Props) => {
     };
 
     // _must_ do this to encode as a ArrayBuffer / Uint8Array
+    // credit to Ben Wills and this article for inspiration with the below code.
+    // https://enomem.io/sending-and-receiving-binary-files-via-websockets/
     const enc = new TextEncoder(); // always utf-8, Uint8Array()
     const buf1 = enc.encode(JSON.stringify(metaJson));
     const buf2 = enc.encode("\r\n\r\n");
