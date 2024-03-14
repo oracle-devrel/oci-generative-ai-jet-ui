@@ -123,8 +123,8 @@ export const Summary = ({ fileChanged, summary, clear, prompt }: Props) => {
 
     for (let i = 0; i < files.length; i++) {
       file = files[i];
-
-      if (file.size > 200000000) {
+      // Cohere has a character limit of 100kb so we are restricting it here as well.
+      if (file.size > 100000) {
         tempArray.push(file.name);
         invalidFiles.current = tempArray;
       }
@@ -141,7 +141,7 @@ export const Summary = ({ fileChanged, summary, clear, prompt }: Props) => {
           summary:
             "File " +
             invalidFiles.current[0] +
-            " is too big. The maximum size is 200MB.",
+            " is too big. The maximum size is 100KB.",
         });
         setMessages(temp);
       } else {
@@ -153,7 +153,7 @@ export const Summary = ({ fileChanged, summary, clear, prompt }: Props) => {
           summary:
             "These files are too big: " +
             fileNames +
-            ". The maximum size is 200MB.",
+            ". The maximum size is 100KB.",
         });
         setMessages(temp);
       }
@@ -224,7 +224,7 @@ export const Summary = ({ fileChanged, summary, clear, prompt }: Props) => {
             onojSelect={selectListener}
             onojInvalidSelect={invalidListener}
             onojBeforeSelect={beforeSelectListener}
-            secondaryText="Maximum file size is 200MB per PDF file."
+            secondaryText="Maximum file size is 100KB per PDF file."
           ></oj-c-file-picker>
           <oj-c-input-text
             id="promptInput"

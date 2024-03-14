@@ -11,7 +11,7 @@ from types import SimpleNamespace
 
 # TODO: Please update config profile name and use the compartmentId that has policies grant permissions for using Generative AI Service
 compartment_id = "<compartment_ocid>"
-CONFIG_PROFILE = "WOJCIECH"
+CONFIG_PROFILE = "DEFAULT"
 config = oci.config.from_file('~/.oci/config', CONFIG_PROFILE)
 
 # Service endpoint
