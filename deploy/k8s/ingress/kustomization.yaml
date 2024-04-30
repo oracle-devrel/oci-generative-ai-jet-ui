@@ -1,0 +1,11 @@
+resources:
+  - ingress-ns.yaml
+  - ingress-rbac.yaml
+  - ingress-controller.yaml
+  - ingress.yaml
+secretGenerator:
+- name: tls
+  files:
+    - .certs/tls.crt
+    - .certs/tls.key
+  type: "kubernetes.io/tls"

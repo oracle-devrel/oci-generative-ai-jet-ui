@@ -1,0 +1,30 @@
+spring:
+  main:
+    banner-mode: "off"
+  profiles:
+    active: production
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@{{{db_service}}}_high?TNS_ADMIN={{{path_to_wallet}}}
+    username: ADMIN
+    password: "{{{db_password}}}"
+    type: oracle.ucp.jdbc.PoolDataSource
+    oracleucp:
+      sql-for-validate-connection: SELECT * FROM dual
+      connection-pool-name: connectionPoolName1
+      initial-pool-size: 5
+      min-pool-size: 5
+      max-pool-size: 10
+  jpa:
+    hibernate:
+      use-new-id-generator-mappings: false
+      ddl-auto: update
+oracle:
+  jdbc:
+    fanEnabled: true
+
+genai:
+  endpoint: "https://inference.generativeai.{{{region_name}}}.oci.oraclecloud.com"
+  region: "{{{region_name}}}"
+  compartment_id: "{{{compartment_ocid}}}"
+  model_id: "{{{genai_model_ocid}}}"

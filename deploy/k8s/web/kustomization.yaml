@@ -1,0 +1,3 @@
+resources:
+  - web.yaml
+  - web-svc.yaml
