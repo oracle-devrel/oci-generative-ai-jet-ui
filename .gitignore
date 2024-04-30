@@ -75,3 +75,4 @@ build/
 !**/src/test/**/build/
 .idea
 bin/
+dist/
