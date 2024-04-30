@@ -6,6 +6,12 @@ Get troubleshoot help on the [FAQ](FAQ.md)
 
 ## Set Up environment
 
+Install Node.js 16 on Cloud Shell.
+
+```bash
+nvm install 16 && nvm use 16
+```
+
 Install dependencies for scripts.
 
 ```bash
