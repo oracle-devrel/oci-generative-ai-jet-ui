@@ -27,7 +27,12 @@ const madp = new MutableArrayDataProvider<Item["id"], Item>([], {
   keyAttributes: "id",
 });
 
-export const Chat = ({ testId, data, questionChanged, question }: Props) => {
+export const Simulation = ({
+  testId,
+  data,
+  questionChanged,
+  question,
+}: Props) => {
   const dataProvider = useRef(madp);
   const listRef = useRef<ojListView<Item["id"], Item>>(null);
   const [lastKey, setLastKey] = useState<number>(0);
@@ -61,9 +66,9 @@ export const Chat = ({ testId, data, questionChanged, question }: Props) => {
   const chatItemTemplate = (item: ojListView.ItemTemplateContext) => {
     return (
       <>
-        {item.data.answer && <Answer item={item} sim={false} />}
+        {item.data.answer && <Answer item={item} sim={true} />}
         {item.data.loading && <Loading />}
-        {item.data.question && <Question item={item} sim={false} />}
+        {item.data.question && <Question item={item} sim={true} />}
       </>
     );
   };
