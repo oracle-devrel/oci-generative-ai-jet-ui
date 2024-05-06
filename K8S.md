@@ -1,4 +1,24 @@
-# OCI Gen AI POC
+# Accelerating AI Application Deployment Using Cloud Native Strategies
+
+## Introduction
+
+Kubernetes has become the standard for managing containerized applications, and Oracle Cloud Infrastructure Container Engine for Kubernetes (OKE) is a managed Kubernetes service that delivers outstanding cloud reliability. Now, imagine using OKE with AI to create powerful, scalable, highly available AI applications.
+
+This project deploys an AI pipeline with a multipurpose front end for text generation and summarization. The pipeline integrates with a database to track interactions, enabling fine-tuning and performance monitoring for application optimization. It leverages OCI Generative AI APIs on a Kubernetes cluster.
+
+## Getting Started
+
+### 0. Prerequisites and setup
+
+- Oracle Cloud Infrastructure (OCI) Account - [sign-up page](https://www-sites.oracle.com/artificial-intelligence/solutions/deploy-ai-apps-fast/#:~:text=Oracle%20Cloud%20account%E2%80%94-,sign%2Dup%20page,-Oracle%20Cloud%20Infrastructure)
+- Oracle Cloud Infrastructure (OCI) Generative AI Service - [Getting Started with Generative AI](https://docs.oracle.com/en-us/iaas/Content/generative-ai/getting-started.htm)
+- Oracle Cloud Infrastructure Documentation - [Generative AI](https://docs.oracle.com/en-us/iaas/Content/generative-ai/home.htm)
+- Oracle Cloud Infrastructure (OCI) Generative AI Service SDK - [Oracle Cloud Infrastructure Python SDK](https://pypi.org/project/oci/)
+- Node v16 - [Node homepage](https://nodejs.org/en)
+- Oracle JET v15 - [Oracle JET Homepage](https://www.oracle.com/webfolder/technetwork/jet/index.html)
+- OCI Container Engine for Kubernetes — [documentation](https://www-sites.oracle.com/artificial-intelligence/solutions/deploy-ai-apps-fast/#:~:text=Engine%20for%20Kubernetes%E2%80%94-,documentation,-Oracle%20Autonomous%20Database)
+- Oracle Autonomous Database — [documentation](https://www-sites.oracle.com/artificial-intelligence/solutions/deploy-ai-apps-fast/#:~:text=Oracle%20Autonomous%20Database,Boot%20framework%E2%80%94documentation)
+- Spring Boot framework — [documentation](https://www-sites.oracle.com/artificial-intelligence/solutions/deploy-ai-apps-fast/#:~:text=Spring%20Boot%20framework%E2%80%94-,documentation,-Getting%20started)
 
 ![Architecture](./images/architecture.png)
 

@@ -1,14 +1,14 @@
-# OCI Generative AI toolkit
+# Enhance Engagement Using Content Generation with OCI Generative AI
 
 [![License: UPL](https://img.shields.io/badge/license-UPL-green)](https://img.shields.io/badge/license-UPL-green) [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=oracle-devrel_oci-generative-ai-jet-ui)](https://sonarcloud.io/dashboard?id=oracle-devrel_oci-generative-ai-jet-ui)
-
 
 ## Introduction
 
 Using Oracle JET, create a user-friendly prompt-led user interface (UI) to interact with Oracle's new Generative AI service. This toolkit will configure your Generative AI Service connection so you can begin your journey with AI, or migrate your existing (local or Cloud) LLMs to the Oracle AppDev ecosystem.
-[Enhance Engagement Using Content Generation with OCI Generative AI](JET.md)
 
-[Accelerating AI Application Deployment Using Cloud Native Strategies](K8S.md)
+Oracle JET(Preact) allows you to craft pixel-perfect UIs which are fast, lightweight, and engaging. Your code takes centre stage with Oracle JET, while its powerful features enable you to create dynamic user experiences quickly and reliably.
+
+Oracle's Generative AI service allows developers to unlock a better user experience for chat systems, question-and-answer solutions, and much more. This project provides a front end to that service so you can experiment and get a sense of the immense power of Oracle Generative AI. This is an excellent starting point on your AI journey, and experienced developers will be able to quickly port their LLMs to leverage this powerful service.  
 
 Check out [demo here](https://youtu.be/hpRoQ93YeaQ)
 
