@@ -4,13 +4,14 @@ cached-property==1.5.2
 certifi==2023.11.17
 cffi==1.16.0
 circuitbreaker==1.4.0
-cryptography==42.0.4
-oci==2.119.1
+cryptography==42.0.6
+oci==2.126.2
 pycparser==2.21
-pyOpenSSL==23.3.0
+pyOpenSSL==24.1.0
 python-dateutil==2.8.2
 python-pkcs11==0.7.0
 pytz==2023.3.post1
 six==1.16.0
 throttler==1.2.2
 websockets==12.0
+pypdf==4.2.0

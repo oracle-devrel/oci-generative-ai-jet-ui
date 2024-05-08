@@ -13,30 +13,55 @@ declare global {
 
 type Props = {
   item: ojListView.ItemTemplateContext;
+  sim: boolean;
 };
 
-export const Answer = ({ item }: Props) => {
+export const Answer = ({ item, sim }: Props) => {
   const answer = item.data.answer;
   return (
-    <li class="oj-flex demo-answer-layout">
-      <div class="oj-flex-item oj-flex-bar">
-        <div class="oj-sm-justify-content-flex-end oj-flex-bar-middle oj-sm-padding-2x demo-copy-paste oj-color-invert">
-          <md-wrapper
-            id="TestingOne"
-            class="oj-sm-width-full"
-            markdown={`### Answer \n ${answer} `}
-          />
-        </div>
-
-        <div class="oj-flex-bar-end">
-          <oj-avatar
-            initials="A"
-            size="sm"
-            role="presentation"
-            background="orange"
-          ></oj-avatar>
-        </div>
-      </div>
-    </li>
+    <>
+      {sim && (
+        <li class="oj-flex demo-sim-answer-layout oj-bg-danger-30">
+          <div class="oj-flex-item oj-flex-bar">
+            <div class="oj-sm-justify-content-flex-end oj-flex-bar-middle oj-sm-padding-2x demo-copy-paste">
+              <md-wrapper
+                id="TestingOne"
+                class="oj-sm-width-full"
+                markdown={answer}
+              />
+            </div>
+            <div class="oj-flex-bar-end">
+              <oj-avatar
+                size="sm"
+                role="presentation"
+                src="styles/images/placeholder-female-02.png"
+                background="orange"
+              ></oj-avatar>
+            </div>
+          </div>
+        </li>
+      )}
+      {!sim && (
+        <li class="oj-flex demo-answer-layout">
+          <div class="oj-flex-item oj-flex-bar">
+            <div class="oj-sm-justify-content-flex-end oj-flex-bar-middle oj-sm-padding-2x demo-copy-paste oj-color-invert">
+              <md-wrapper
+                id="TestingOne"
+                class="oj-sm-width-full"
+                markdown={answer}
+              />
+            </div>
+            <div class="oj-flex-bar-end">
+              <oj-avatar
+                initials="A"
+                size="sm"
+                role="presentation"
+                background="orange"
+              ></oj-avatar>
+            </div>
+          </div>
+        </li>
+      )}
+    </>
   );
 };

@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: backend
+  name: backend
+spec:
+  replicas: 1
+  minReadySeconds: 60
+  selector:
+    matchLabels:
+      app: backend
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      serviceAccountName: genai-sa
+      automountServiceAccountToken: true
+      initContainers:
+      - name: unzip
+        image: busybox
+        command: ["unzip", "/walletzip/wallet.zip", "-d", "/wallet"]
+        volumeMounts:
+          - name: wallet-config
+            mountPath: /walletzip
+          - name: wallet-volume
+            mountPath: /wallet
+      containers:
+        - image: backend
+          imagePullPolicy: "Always"
+          name: backend
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 90
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 90
+            periodSeconds: 5
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: 500m
+              memory: 1024Mi
+          volumeMounts:
+          - name: config-volume
+            mountPath: /config
+          - name: wallet-volume
+            mountPath: /wallet
+      volumes:
+      - name: config-volume
+        configMap:
+          name: backend-properties
+      - name: wallet-config
+        configMap:
+          name: wallet-zip
+      - name: wallet-volume
+        emptyDir:
+          sizeLimit: 50Mi
+      imagePullSecrets:
+        - name: ocir-secret

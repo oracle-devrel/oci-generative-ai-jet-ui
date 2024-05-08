@@ -1,0 +1,38 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.2'
+	id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'dev.victormartin.oci.genai.backend'
+version = '0.0.3'
+
+java {
+	sourceCompatibility = '17'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'com.oracle.oci.sdk:oci-java-sdk-shaded-full:3.33.0'
+	implementation 'com.oracle.oci.sdk:oci-java-sdk-core:3.35.0'
+	implementation 'com.oracle.oci.sdk:oci-java-sdk-common:3.35.0'
+	implementation 'com.oracle.oci.sdk:oci-java-sdk-addons-oke-workload-identity:3.35.0'
+	implementation 'com.oracle.oci.sdk:oci-java-sdk-generativeai:3.35.0'
+	implementation 'com.oracle.database.jdbc:ojdbc11-production:21.8.0.0'
+	implementation 'com.oracle.database.jdbc:ucp:21.8.0.0'
+	implementation 'com.oracle.database.security:oraclepki:21.8.0.0'
+	implementation 'com.oracle.database.security:osdt_cert:21.8.0.0'
+	implementation 'com.oracle.database.security:osdt_core:21.8.0.0'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
