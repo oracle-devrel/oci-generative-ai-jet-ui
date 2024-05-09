@@ -369,13 +369,12 @@ export async function getLatestGenAIModels(
       vendor: vendor,
     });
 
-    const filteredByCapatility = activeCohereModels.filter(
-      ({ capabilities }) => {
-        if (capabilities.length !== 1) return false;
-        if (capabilities[0] !== capability) return false;
-        return true;
-      }
-    );
+    const filteredByCapatility = activeCohereModels.filter((model) => {
+      const { capabilities } = model;
+      if (capabilities.length !== 1) return false;
+      if (capabilities[0] !== capability) return false;
+      return true;
+    });
 
     const latestVersion = max(filteredByCapatility, (item) =>
       parseFloat(item.version)

@@ -8,6 +8,7 @@ import dev.victormartin.oci.genai.backend.backend.data.InteractionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.annotation.SendToUser;
@@ -19,6 +20,9 @@ import java.util.Date;
 @Controller
 public class PromptController {
 	Logger logger = LoggerFactory.getLogger(PromptController.class);
+
+	@Value("${genai.model_id}")
+	private String hardcodedModelId;
 
 	@Autowired
 	private final InteractionRepository interactionRepository;
@@ -35,17 +39,18 @@ public class PromptController {
 	@SendToUser("/queue/answer")
 	public Answer handlePrompt(Prompt prompt) {
 		String promptEscaped = HtmlUtils.htmlEscape(prompt.content());
-		logger.info("Prompt " + promptEscaped + " received, on model " + prompt.modelId());
+		logger.info("Prompt " + promptEscaped + " received, on model " + prompt.modelId() + " but using hardcoded one" +
+				" " + hardcodedModelId);
 		Interaction interaction = new Interaction();
 		interaction.setConversationId(prompt.conversationId());
 		interaction.setDatetimeRequest(new Date());
-		interaction.setModelId(prompt.modelId());
+		interaction.setModelId(hardcodedModelId);
 		interaction.setRequest(promptEscaped);
 		Interaction saved = interactionRepository.save(interaction);
 		try {
 			if (prompt.content() == null || prompt.content().length()< 1) { throw  new InvalidPromptRequest(); }
-			if (prompt.modelId() == null || !prompt.modelId().startsWith("ocid1.generativeaimodel.")) { throw  new InvalidPromptRequest(); }
-			String responseFromGenAI = genAI.request(promptEscaped, prompt.modelId());
+//			if (prompt.modelId() == null || !prompt.modelId().startsWith("ocid1.generativeaimodel.")) { throw  new InvalidPromptRequest(); }
+			String responseFromGenAI = genAI.request(promptEscaped, hardcodedModelId);
 			saved.setDatetimeResponse(new Date());
 			saved.setResponse(responseFromGenAI);
 			interactionRepository.save(saved);

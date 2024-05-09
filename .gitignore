@@ -6,7 +6,6 @@
 # Icon must end with two \r
 Icon
 
-
 # Thumbnails
 ._*
 
@@ -76,3 +75,4 @@ build/
 .idea
 bin/
 dist/
+application-local.yaml
