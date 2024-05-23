@@ -2,8 +2,6 @@
 import Configstore from "configstore";
 import clear from "clear";
 
-const shell = process.env.SHELL | "/bin/zsh";
-$.shell = shell;
 $.verbose = false;
 
 clear();

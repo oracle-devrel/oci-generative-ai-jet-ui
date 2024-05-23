@@ -24,12 +24,34 @@ This project deploys an AI pipeline with a multipurpose front end for text gener
 
 Get troubleshoot help on the [FAQ](FAQ.md)
 
+## Requirements
+
+You need to be and administrator.
+
+> If not should should have enough privileges for OKE, Network, and Database services. Plus others like tenancy inspeact. See example:
+>
+> ```
+> Allow group 'Default'/'GroupName' to inspect tenancies in tenancy
+> ```
+
 ## Set Up environment
+
+On Cloud Shell, clone the repository:
+
+```bash
+git clone https://github.com/oracle-devrel/oci-generative-ai-jet-ui.git
+```
+
+Change to the new folder:
+
+```bash
+cd oci-generative-ai-jet-ui
+```
 
 Install Node.js 16 on Cloud Shell.
 
 ```bash
-nvm install 16 && nvm use 16
+nvm install 18 && nvm use 18
 ```
 
 Install dependencies for scripts.
@@ -161,19 +183,3 @@ npx zx scripts/clean.mjs
 ## Local deployment
 
 Run locally with these steps [Local](LOCAL.md)
-
-## Known Issues
-
-Deploying artifacts as Object Storage.
-
-> There is an issue in Terraform `oracle/oci` provider on version `v5.25.0`. It is not updated to the specific version of `terraform-plugin-sdk` that fix the underlying gRCP limit of 4Mb.
->
-> The project would want to upload artifacts to Object Storage, like the backend jar file, which is bigger than 4Mb.
->
-> ```terraform
-> data "local_file" "backend_jar_tgz" {
->   filename = "${path.module}/../../.artifacts/backend_jar.tar.gz"
-> }
-> ```
->
-> As a workaround, a `script/deliver.mjs` script and a `script/clean.mjs` script will deliver and clean the artifacts into Object Storage and make Pre-Authenticated Requests available for Terraform resources.
