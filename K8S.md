@@ -28,7 +28,7 @@ Get troubleshoot help on the [FAQ](FAQ.md)
 
 You need to be and administrator.
 
-> If not should should have enough privileges for OKE, Network, and Database services. Plus others like tenancy inspeact. See example:
+> If not should have enough privileges for OKE, Network, and Database services. Plus others like tenancy inspect. See example:
 >
 > ```
 > Allow group 'Default'/'GroupName' to inspect tenancies in tenancy
