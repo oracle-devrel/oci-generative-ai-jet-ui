@@ -26,7 +26,7 @@ Get troubleshoot help on the [FAQ](FAQ.md)
 
 ## Requirements
 
-You need to be and administrator.
+You need to be an administrator.
 
 > If not should have enough privileges for OKE, Network, and Database services. Plus others like tenancy inspect. See example:
 >
