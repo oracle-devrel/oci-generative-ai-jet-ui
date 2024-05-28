@@ -16,9 +16,9 @@ This project deploys an AI pipeline with a multipurpose front end for text gener
 - Oracle Cloud Infrastructure (OCI) Generative AI Service SDK - [Oracle Cloud Infrastructure Python SDK](https://pypi.org/project/oci/)
 - Node v16 - [Node homepage](https://nodejs.org/en)
 - Oracle JET v15 - [Oracle JET Homepage](https://www.oracle.com/webfolder/technetwork/jet/index.html)
-- OCI Container Engine for Kubernetes — [documentation](https://www-sites.oracle.com/artificial-intelligence/solutions/deploy-ai-apps-fast/#:~:text=Engine%20for%20Kubernetes%E2%80%94-,documentation,-Oracle%20Autonomous%20Database)
-- Oracle Autonomous Database — [documentation](https://www-sites.oracle.com/artificial-intelligence/solutions/deploy-ai-apps-fast/#:~:text=Oracle%20Autonomous%20Database,Boot%20framework%E2%80%94documentation)
-- Spring Boot framework — [documentation](https://www-sites.oracle.com/artificial-intelligence/solutions/deploy-ai-apps-fast/#:~:text=Spring%20Boot%20framework%E2%80%94-,documentation,-Getting%20started)
+- OCI Container Engine for Kubernetes — [documentation](https://docs.oracle.com/en-us/iaas/Content/ContEng/Concepts/contengoverview.htm)
+- Oracle Autonomous Database — [documentation](https://docs.oracle.com/en/database/autonomous-database-cloud-services.html)
+- Spring Boot framework — [documentation](https://docs.spring.io/spring-boot/docs/3.2.5/reference/htmlsingle/)
 
 ![Architecture](./images/architecture.png)
 
