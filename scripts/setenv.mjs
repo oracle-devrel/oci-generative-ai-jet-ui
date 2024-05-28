@@ -12,8 +12,6 @@ import {
 } from "./lib/oci.mjs";
 import { createSSHKeyPair, createSelfSignedCert } from "./lib/crypto.mjs";
 
-const shell = process.env.SHELL | "/bin/zsh";
-$.shell = shell;
 $.verbose = false;
 
 clear();

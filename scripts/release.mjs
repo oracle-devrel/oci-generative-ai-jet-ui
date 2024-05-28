@@ -16,8 +16,6 @@ import {
 } from "./lib/container.mjs";
 import { getOutputValues } from "./lib/terraform.mjs";
 
-const shell = process.env.SHELL | "/bin/zsh";
-$.shell = shell;
 $.verbose = false;
 
 clear();

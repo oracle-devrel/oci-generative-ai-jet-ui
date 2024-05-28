@@ -5,8 +5,6 @@ import Mustache from "mustache";
 import { getOutputValues } from "./lib/terraform.mjs";
 import { exitWithError } from "./lib/utils.mjs";
 
-const shell = process.env.SHELL | "/bin/zsh";
-$.shell = shell;
 $.verbose = false;
 
 clear();
