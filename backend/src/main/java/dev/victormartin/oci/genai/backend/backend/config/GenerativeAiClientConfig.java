@@ -1,11 +1,10 @@
-package dev.victormartin.oci.genai.backend.backend;
+package dev.victormartin.oci.genai.backend.backend.config;
 
 import com.oracle.bmc.ClientConfiguration;
 import com.oracle.bmc.ConfigFileReader;
 import com.oracle.bmc.Region;
 import com.oracle.bmc.auth.AuthenticationDetailsProvider;
 import com.oracle.bmc.auth.ConfigFileAuthenticationDetailsProvider;
-import com.oracle.bmc.auth.InstancePrincipalsAuthenticationDetailsProvider;
 import com.oracle.bmc.auth.okeworkloadidentity.OkeWorkloadIdentityAuthenticationDetailsProvider;
 import com.oracle.bmc.generativeai.GenerativeAiClient;
 import jakarta.annotation.PostConstruct;
@@ -39,8 +38,11 @@ public class GenerativeAiClientConfig {
     @Value("${genai.config.profile}")
     private String CONFIG_PROFILE;
 
-    @Value("${genai.model_id}")
-    private String modelId;
+    @Value("${genai.chat_model_id}")
+    private String chatModelId;
+    
+    @Value("${genai.summarization_model_id}")
+    private String summarizationModelId;
 
     private Region region;
 
@@ -62,12 +64,11 @@ public class GenerativeAiClientConfig {
     }
 
     GenerativeAiClient instancePrincipalConfig() throws IOException {
-        final OkeWorkloadIdentityAuthenticationDetailsProvider okeProvider =
-                new OkeWorkloadIdentityAuthenticationDetailsProvider
-                        .OkeWorkloadIdentityAuthenticationDetailsProviderBuilder()
-                        .build();
-//        final InstancePrincipalsAuthenticationDetailsProvider provider =
-//                new InstancePrincipalsAuthenticationDetailsProvider.InstancePrincipalsAuthenticationDetailsProviderBuilder().build();
+        final OkeWorkloadIdentityAuthenticationDetailsProvider okeProvider = new OkeWorkloadIdentityAuthenticationDetailsProvider.OkeWorkloadIdentityAuthenticationDetailsProviderBuilder()
+                .build();
+        // final InstancePrincipalsAuthenticationDetailsProvider provider =
+        // new
+        // InstancePrincipalsAuthenticationDetailsProvider.InstancePrincipalsAuthenticationDetailsProviderBuilder().build();
 
         GenerativeAiClient generativeAiClient = new GenerativeAiClient(okeProvider, clientConfiguration);
         generativeAiClient.setRegion(okeProvider.getRegion());
@@ -76,9 +77,11 @@ public class GenerativeAiClientConfig {
     }
 
     GenerativeAiClient localConfig() throws IOException {
-        // Configuring the AuthenticationDetailsProvider. It's assuming there is a default OCI config file
-        // "~/.oci/config", and a profile in that config with the name defined in CONFIG_PROFILE variable.
-        final ConfigFileReader.ConfigFile configFile =  ConfigFileReader.parse(CONFIG_LOCATION, CONFIG_PROFILE);
+        // Configuring the AuthenticationDetailsProvider. It's assuming there is a
+        // default OCI config file
+        // "~/.oci/config", and a profile in that config with the name defined in
+        // CONFIG_PROFILE variable.
+        final ConfigFileReader.ConfigFile configFile = ConfigFileReader.parse(CONFIG_LOCATION, CONFIG_PROFILE);
         final AuthenticationDetailsProvider provider = new ConfigFileAuthenticationDetailsProvider(configFile);
 
         GenerativeAiClient generativeAiClient = new GenerativeAiClient(provider,

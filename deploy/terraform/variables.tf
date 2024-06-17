@@ -68,7 +68,3 @@ variable "artifacts_par_expiration_in_days" {
 variable "genai_endpoint" {
   type = string
 }
-
-variable "genai_model_id" {
-  type = string
-}

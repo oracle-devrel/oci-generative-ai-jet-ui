@@ -61,6 +61,8 @@ spec:
             mountPath: /config
           - name: wallet-volume
             mountPath: /wallet
+          - name: temp
+            mountPath: /temp
       volumes:
       - name: config-volume
         configMap:
@@ -71,5 +73,8 @@ spec:
       - name: wallet-volume
         emptyDir:
           sizeLimit: 50Mi
+      - name: temp
+        emptyDir:
+          sizeLimit: 500Mi
       imagePullSecrets:
         - name: ocir-secret

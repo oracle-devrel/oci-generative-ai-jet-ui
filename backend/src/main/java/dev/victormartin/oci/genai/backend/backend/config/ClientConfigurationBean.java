@@ -1,4 +1,4 @@
-package dev.victormartin.oci.genai.backend.backend;
+package dev.victormartin.oci.genai.backend.backend.config;
 
 import com.oracle.bmc.ClientConfiguration;
 import com.oracle.bmc.retrier.RetryConfiguration;

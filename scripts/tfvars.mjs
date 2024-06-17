@@ -19,7 +19,6 @@ async function generateTFVars() {
   const compartmentName = config.get("compartmentName");
   const regionName = config.get("regionName");
   const tenancyId = config.get("tenancyId");
-  const genAiModel = config.get("genAiModel");
   const publicKeyContent = config.get("publicKeyContent");
   const sshPrivateKeyPath = config.get("privateKeyPath");
   const certFullchain = config.get("certFullchain");
@@ -53,7 +52,6 @@ async function generateTFVars() {
     // ansible_web_artifact_url: ansibleWebArtifactUrl,
     // ansible_backend_artifact_url: ansibleBackendArtifactUrl,
     genai_endpoint: genaiEndpoint,
-    genai_model_id: genAiModel,
   });
 
   console.log(

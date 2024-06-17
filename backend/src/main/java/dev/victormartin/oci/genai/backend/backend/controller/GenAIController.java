@@ -1,12 +1,10 @@
-package dev.victormartin.oci.genai.backend.backend;
+package dev.victormartin.oci.genai.backend.backend.controller;
 
-import com.oracle.bmc.ClientConfiguration;
 import com.oracle.bmc.generativeai.GenerativeAiClient;
 import com.oracle.bmc.generativeai.model.ModelCapability;
 import com.oracle.bmc.generativeai.requests.ListModelsRequest;
 import com.oracle.bmc.generativeai.responses.ListModelsResponse;
 import dev.victormartin.oci.genai.backend.backend.dao.GenAiModel;
-import org.bouncycastle.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

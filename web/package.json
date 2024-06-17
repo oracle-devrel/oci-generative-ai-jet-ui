@@ -18,6 +18,8 @@
     "@stomp/stompjs": "^7.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.52.0",
+    "react-router-dom": "^6.23.1",
     "uuid": "^9.0.1",
     "ws": "^8.16.0"
   },

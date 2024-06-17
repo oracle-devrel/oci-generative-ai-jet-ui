@@ -30,6 +30,7 @@ dependencies {
 	implementation 'com.oracle.database.security:oraclepki:21.8.0.0'
 	implementation 'com.oracle.database.security:osdt_cert:21.8.0.0'
 	implementation 'com.oracle.database.security:osdt_core:21.8.0.0'
+	implementation 'org.apache.pdfbox:pdfbox:3.0.2' exclude(group: 'commons-logging', module: 'commons-logging')
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
