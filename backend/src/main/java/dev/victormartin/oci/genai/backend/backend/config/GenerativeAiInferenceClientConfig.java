@@ -1,4 +1,4 @@
-package dev.victormartin.oci.genai.backend.backend;
+package dev.victormartin.oci.genai.backend.backend.config;
 
 import com.oracle.bmc.ClientConfiguration;
 import com.oracle.bmc.ConfigFileReader;
@@ -38,8 +38,11 @@ public class GenerativeAiInferenceClientConfig {
     @Value("${genai.config.profile}")
     private String CONFIG_PROFILE;
 
-    @Value("${genai.model_id}")
-    private String modelId;
+    @Value("${genai.chat_model_id}")
+    private String modelChatId;
+
+    @Value("${genai.summarization_model_id}")
+    private String modelSummarizationId;
 
     private Region region;
 
@@ -62,8 +65,8 @@ public class GenerativeAiInferenceClientConfig {
     }
 
     GenerativeAiInferenceClient instancePrincipalConfig() throws IOException {
-        final InstancePrincipalsAuthenticationDetailsProvider provider =
-                new InstancePrincipalsAuthenticationDetailsProvider.InstancePrincipalsAuthenticationDetailsProviderBuilder().build();
+        final InstancePrincipalsAuthenticationDetailsProvider provider = new InstancePrincipalsAuthenticationDetailsProvider.InstancePrincipalsAuthenticationDetailsProviderBuilder()
+                .build();
 
         GenerativeAiInferenceClient generativeAiInferenceClient = new GenerativeAiInferenceClient(provider,
                 clientConfiguration);
@@ -73,12 +76,14 @@ public class GenerativeAiInferenceClientConfig {
     }
 
     GenerativeAiInferenceClient localConfig() throws IOException {
-        // Configuring the AuthenticationDetailsProvider. It's assuming there is a default OCI config file
-        // "~/.oci/config", and a profile in that config with the name defined in CONFIG_PROFILE variable.
-        final ConfigFileReader.ConfigFile configFile =  ConfigFileReader.parse(CONFIG_LOCATION, CONFIG_PROFILE);
+        // Configuring the AuthenticationDetailsProvider. It's assuming there is a
+        // default OCI config file
+        // "~/.oci/config", and a profile in that config with the name defined in
+        // CONFIG_PROFILE variable.
+        final ConfigFileReader.ConfigFile configFile = ConfigFileReader.parse(CONFIG_LOCATION, CONFIG_PROFILE);
         final AuthenticationDetailsProvider provider = new ConfigFileAuthenticationDetailsProvider(configFile);
 
-        GenerativeAiInferenceClient generativeAiInferenceClient =  new GenerativeAiInferenceClient(provider,
+        GenerativeAiInferenceClient generativeAiInferenceClient = new GenerativeAiInferenceClient(provider,
                 clientConfiguration);
         generativeAiInferenceClient.setEndpoint(ENDPOINT);
         generativeAiInferenceClient.setRegion(region);

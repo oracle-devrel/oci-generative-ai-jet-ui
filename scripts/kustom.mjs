@@ -22,10 +22,10 @@ const webVersion = config.get("webVersion");
 const backendVersion = config.get("webVersion");
 const certFullchain = config.get("certFullchain");
 const certPrivateKey = config.get("certPrivateKey");
+const genAiModelChat = config.get("genAiModelChat");
+const genAiModelSummarization = config.get("genAiModelSummarization");
 
-const { db_service, db_password, cohere_model_id } = await getOutputValues(
-  "./deploy/terraform"
-);
+const { db_service, db_password } = await getOutputValues("./deploy/terraform");
 
 await createBackendProperties();
 await createProdKustomization();
@@ -47,7 +47,8 @@ async function createBackendProperties() {
     path_to_wallet: "/wallet",
     region_name: regionName,
     compartment_ocid: compartmentId,
-    genai_model_ocid: cohere_model_id,
+    genai_model_chat_ocid: genAiModelChat,
+    genai_model_summarization_ocid: genAiModelSummarization,
   });
 
   await fs.writeFile(backendPropertiesPath, backendPropertiesOutput);

@@ -1,11 +1,12 @@
-package dev.victormartin.oci.genai.backend.backend;
+package dev.victormartin.oci.genai.backend.backend.service;
 
 import com.oracle.bmc.generativeaiinference.GenerativeAiInferenceClient;
 import com.oracle.bmc.generativeaiinference.model.*;
 import com.oracle.bmc.generativeaiinference.requests.GenerateTextRequest;
+import com.oracle.bmc.generativeaiinference.requests.SummarizeTextRequest;
 import com.oracle.bmc.generativeaiinference.responses.GenerateTextResponse;
+import com.oracle.bmc.generativeaiinference.responses.SummarizeTextResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -45,5 +46,19 @@ public class OCIGenAIService {
                 (CohereLlmInferenceResponse) generateTextResponse.getGenerateTextResult().getInferenceResponse();
         String responseTexts = response.getGeneratedTexts().stream().map(t -> t.getText()).collect(Collectors.joining(","));
         return responseTexts;
+    }
+
+    public String summaryText(String input, String modelId) {
+        SummarizeTextDetails summarizeTextDetails = SummarizeTextDetails.builder()
+                .servingMode(OnDemandServingMode.builder().modelId(modelId).build())
+                .compartmentId(COMPARTMENT_ID)
+                .input(input)
+                .build();
+        SummarizeTextRequest request = SummarizeTextRequest.builder()
+                .summarizeTextDetails(summarizeTextDetails)
+                .build();
+        SummarizeTextResponse summarizeTextResponse = generativeAiInferenceClient.summarizeText(request);
+        String summaryText = summarizeTextResponse.getSummarizeTextResult().getSummary();
+        return summaryText;
     }
 }

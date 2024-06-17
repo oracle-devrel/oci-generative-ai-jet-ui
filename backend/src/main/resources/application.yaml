@@ -30,3 +30,8 @@ genai:
     location: "~/.oci/config"
     profile: "DEFAULT"
   compartment_id: "COMPARTMENT_ID"
+  chat_model_id: "ocid1.generativeaimodel.AAAAAAAAAAAAA"
+  summarization_model_id: "ocid1.generativeaimodel.AAAAAAAAAAAAA"
+storage:
+  path: "/PATH/FOR/UPLOAD/FILES"
+

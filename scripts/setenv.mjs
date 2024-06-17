@@ -27,7 +27,8 @@ await setRegionEnv();
 await setCompartmentEnv();
 await createSSHKeys(projectName);
 await createCerts();
-await setLatestGenAIModel();
+await setLatestGenAIModelChat();
+await setLatestGenAIModelSummarization();
 
 console.log(`\nConfiguration file saved in: ${chalk.green(config.path)}`);
 
@@ -50,22 +51,27 @@ async function setRegionEnv() {
     (r) => r.key === "ord"
   );
 
-  await inquirer
-    .prompt([
-      {
-        type: "list",
-        name: "region",
-        message: "Select the region",
-        choices: listWithGenAISupportingRegions.map((r) => r.name),
-        filter(val) {
-          return listWithGenAISupportingRegions.find((r) => r.name === val);
+  if (listWithGenAISupportingRegions.length === 1) {
+    config.set("regionName", listWithGenAISupportingRegions[0].name);
+    config.set("regionKey", listWithGenAISupportingRegions[0].key);
+  } else {
+    await inquirer
+      .prompt([
+        {
+          type: "list",
+          name: "region",
+          message: "Select the region",
+          choices: listWithGenAISupportingRegions.map((r) => r.name),
+          filter(val) {
+            return listWithGenAISupportingRegions.find((r) => r.name === val);
+          },
         },
-      },
-    ])
-    .then((answers) => {
-      config.set("regionName", answers.region.name);
-      config.set("regionKey", answers.region.key);
-    });
+      ])
+      .then((answers) => {
+        config.set("regionName", answers.region.name);
+        config.set("regionKey", answers.region.key);
+      });
+  }
 }
 
 async function setCompartmentEnv() {
@@ -107,12 +113,12 @@ async function createCerts() {
   config.set("certPrivateKey", path.join(certPath, "tls.key"));
 }
 
-async function setLatestGenAIModel() {
+async function setLatestGenAIModelChat() {
   const latestVersionModel = await getLatestGenAIModels(
     config.get("compartmentId"),
     config.get("regionName"),
     "cohere",
-    "TEXT_GENERATION"
+    "CHAT"
   );
 
   const { id, vendor: vendorName, version, capabilities } = latestVersionModel;
@@ -121,10 +127,32 @@ async function setLatestGenAIModel() {
   console.log(
     `Using GenAI Model ${chalk.green(vendorName)}:${chalk.green(
       version
-    )} (${chalk.green(displayName)}) with ${capabilities.join(
-      ","
+    )} (${chalk.green(displayName)}) with ${chalk.green(
+      capabilities.join(",")
     )} created ${timeCreated}`
   );
 
-  config.set("genAiModel", id);
+  config.set("genAiModelChat", id);
+}
+
+async function setLatestGenAIModelSummarization() {
+  const latestVersionModel = await getLatestGenAIModels(
+    config.get("compartmentId"),
+    config.get("regionName"),
+    "cohere",
+    "TEXT_SUMMARIZATION"
+  );
+
+  const { id, vendor: vendorName, version, capabilities } = latestVersionModel;
+  const displayName = latestVersionModel["display-name"];
+  const timeCreated = moment(latestVersionModel["time-created"]).fromNow();
+  console.log(
+    `Using GenAI Model ${chalk.green(vendorName)}:${chalk.green(
+      version
+    )} (${chalk.green(displayName)}) with ${chalk.green(
+      capabilities.join(",")
+    )} created ${timeCreated}`
+  );
+
+  config.set("genAiModelSummarization", id);
 }

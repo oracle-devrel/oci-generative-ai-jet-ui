@@ -1,4 +1,4 @@
-package dev.victormartin.oci.genai.backend.backend;
+package dev.victormartin.oci.genai.backend.backend.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

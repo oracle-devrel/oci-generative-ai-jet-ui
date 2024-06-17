@@ -1,14 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  Box,
-  CircularProgress,
-  Snackbar,
-  Divider,
-} from "@mui/material";
+import { Box, CircularProgress, Snackbar } from "@mui/material";
 import PromptInput from "./PromptInput";
 import Conversation from "./Conversation";
 import { useStomp } from "./stompHook";
