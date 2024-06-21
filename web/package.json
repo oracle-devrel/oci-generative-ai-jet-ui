@@ -21,7 +21,7 @@
     "react-hook-form": "^7.52.0",
     "react-router-dom": "^6.23.1",
     "uuid": "^9.0.1",
-    "ws": "^8.16.0"
+    "ws": "^8.17.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
