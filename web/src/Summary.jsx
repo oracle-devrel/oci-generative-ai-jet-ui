@@ -1,4 +1,11 @@
-import { Box, Button, Snackbar, Stack, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  Snackbar,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useStomp } from "./stompHook";
@@ -8,6 +15,7 @@ function Summary() {
   const [waiting, setWaiting] = useState(false);
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState();
+  const [summary, setSummary] = useState("");
   const { subscribe, unsubscribe, isConnected } = useStomp();
 
   useEffect(() => {
@@ -20,6 +28,7 @@ function Summary() {
         } else {
           console.log("/user/queue/summary");
           console.log(message);
+          setSummary(message);
         }
       });
     }
@@ -37,8 +46,15 @@ function Summary() {
       method: "POST",
       body: formData,
     });
-    const text = await res.text();
-    console.log(text);
+    const responseData = await res.json();
+    const { content, errorMessage } = responseData;
+    if (errorMessage.length) {
+      setErrorMessage(errorMessage);
+      setShowError(true);
+    } else {
+      console.log(content);
+      setSummary(content);
+    }
   };
   return (
     <Box>
@@ -53,6 +69,7 @@ function Summary() {
           <Button type="submit">Submit</Button>
         </Stack>
       </form>
+      {summary.length && <Typography>{summary}</Typography>}
       <Snackbar
         open={showError}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}

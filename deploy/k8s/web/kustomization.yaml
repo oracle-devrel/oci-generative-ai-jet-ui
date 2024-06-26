@@ -1,3 +1,4 @@
 resources:
   - web.yaml
   - web-svc.yaml
+namespace: backend

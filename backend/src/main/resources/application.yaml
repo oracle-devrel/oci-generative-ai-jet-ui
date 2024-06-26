@@ -24,7 +24,6 @@ oracle:
     fanEnabled: true
 
 genai:
-  endpoint: "https://inference.generativeai.us-chicago-1.oci.oraclecloud.com"
   region: "US_CHICAGO_1"
   config:
     location: "~/.oci/config"

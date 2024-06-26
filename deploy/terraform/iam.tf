@@ -1,16 +1,23 @@
 locals {
-  oke_policy_name = "${local.project_name}_${local.deploy_id}_oke"
-  ocir_group_name                = "${local.project_name}-${local.deploy_id}-group"
+  oke_policy_name         = "${local.project_name}_${local.deploy_id}_oke"
+  ocir_group_name         = "${local.project_name}-${local.deploy_id}-group"
 }
 
+# TODO restrict permissions, all gen ai family is too much
+# but it doesn't seems to work in other than tenancy level
 resource "oci_identity_policy" "allow-oke-genai-policy" {
   provider       = oci.home
   compartment_id = var.tenancy_ocid
   name           = "${local.oke_policy_name}"
   description    = "Allow OKE workload to manage gen ai service for ${local.project_name} ${local.deploy_id}"
   statements = [
-    "Allow any-user to manage generative-ai-family in compartment id ${var.compartment_ocid} where all { request.principal.type = 'workload', request.principal.namespace = 'default', request.principal.service_account = 'genai-sa', request.principal.cluster_id = '${module.oke.cluster_id}' }",
-    "Allow any-user to manage generative-ai-model in compartment id ${var.compartment_ocid} where all { request.principal.type = 'workload', request.principal.namespace = 'default', request.principal.service_account = 'genai-sa', request.principal.cluster_id = '${module.oke.cluster_id}' }"
+    "Allow any-user to manage generative-ai-family in tenancy where all { request.principal.type = 'workload', request.principal.namespace = 'backend', request.principal.service_account = 'oci-service-account', request.principal.cluster_id = '${module.oke.cluster_id}'}"
+    # "Allow any-user to manage generative-ai-chat in tenancy where all { request.principal.type = 'workload', request.principal.namespace = 'backend', request.principal.service_account = 'oci-service-account', request.principal.cluster_id = '${module.oke.cluster_id}'}",
+    # "Allow any-user to manage generative-ai-text-generation in tenancy where all { request.principal.type = 'workload', request.principal.namespace = 'backend', request.principal.service_account = 'oci-service-account', request.principal.cluster_id = '${module.oke.cluster_id}'}",
+    # "Allow any-user to manage generative-ai-text-summarization in tenancy where all { request.principal.type = 'workload', request.principal.namespace = 'backend', request.principal.service_account = 'oci-service-account', request.principal.cluster_id = '${module.oke.cluster_id}'}",
+    # "Allow any-user to manage generative-ai-text-embedding in tenancy where all { request.principal.type = 'workload', request.principal.namespace = 'backend', request.principal.service_account = 'oci-service-account', request.principal.cluster_id = '${module.oke.cluster_id}'}",
+    # "Allow any-user to manage generative-ai-work-request in tenancy where all { request.principal.type = 'workload', request.principal.namespace = 'backend', request.principal.service_account = 'oci-service-account', request.principal.cluster_id = '${module.oke.cluster_id}'}",
+    # "Allow any-user to manage generative-ai-model in tenancy where all { request.principal.type = 'workload', request.principal.namespace = 'backend', request.principal.service_account = 'oci-service-account', request.principal.cluster_id = '${module.oke.cluster_id}'}"
   ]
 }
 

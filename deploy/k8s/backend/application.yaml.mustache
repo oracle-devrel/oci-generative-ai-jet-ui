@@ -2,7 +2,7 @@ spring:
   main:
     banner-mode: "off"
   profiles:
-    active: production
+    active: oke
   datasource:
     driver-class-name: oracle.jdbc.OracleDriver
     url: jdbc:oracle:thin:@{{{db_service}}}_high?TNS_ADMIN={{{path_to_wallet}}}
@@ -24,7 +24,6 @@ oracle:
     fanEnabled: true
 
 genai:
-  endpoint: "https://inference.generativeai.{{{region_name}}}.oci.oraclecloud.com"
   region: "{{{region_name}}}"
   compartment_id: "{{{compartment_ocid}}}"
   chat_model_id: "{{{genai_model_chat_ocid}}}"
