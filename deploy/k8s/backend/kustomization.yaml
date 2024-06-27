@@ -1,5 +1,5 @@
 resources:
-  - genai-sa.yaml
+  - service-account.yaml
   - backend.yaml
   - backend-svc.yaml
 configMapGenerator:
@@ -9,3 +9,4 @@ configMapGenerator:
   - name: wallet-zip
     files:
       - wallet/wallet.zip
+namespace: backend

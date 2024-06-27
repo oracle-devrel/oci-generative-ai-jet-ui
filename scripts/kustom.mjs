@@ -19,7 +19,7 @@ const namespace = config.get("namespace");
 const regionName = config.get("regionName");
 const regionKey = config.get("regionKey");
 const webVersion = config.get("webVersion");
-const backendVersion = config.get("webVersion");
+const backendVersion = config.get("backendVersion");
 const certFullchain = config.get("certFullchain");
 const certPrivateKey = config.get("certPrivateKey");
 const genAiModelChat = config.get("genAiModelChat");
@@ -31,6 +31,9 @@ await createBackendProperties();
 await createProdKustomization();
 await copyCerts();
 await copyWallet();
+
+const namespaceName = "backend";
+await createNamespace(namespaceName);
 await createRegistrySecret();
 
 async function createBackendProperties() {
@@ -94,6 +97,27 @@ async function copyWallet() {
   console.log(`File ${chalk.green(walletSourcePath)} copied`);
 }
 
+async function createNamespace(namespaceName = "default") {
+  try {
+    const { exitCode, stdout } =
+      await $`KUBECONFIG="deploy/terraform/generated/kubeconfig" \
+        kubectl create ns ${namespaceName} -o yaml \
+          --dry-run=client | \
+          KUBECONFIG="deploy/terraform/generated/kubeconfig" kubectl apply -f -`;
+    if (exitCode !== 0) {
+      exitWithError("namespace not created");
+    } else {
+      console.log(
+        `Namespace ${chalk.green(
+          namespaceName
+        )} created on Kubernetes cluster: ${stdout}`
+      );
+    }
+  } catch (error) {
+    exitWithError(error.stderr);
+  }
+}
+
 async function createRegistrySecret() {
   const user = config.get("ocir_user");
   const email = config.get("ocir_user_email");
@@ -108,6 +132,7 @@ async function createRegistrySecret() {
           --docker-username=${namespace}/${user} \
           --docker-password=${token} \
           --docker-email=${email} \
+          -n ${namespaceName} \
           -o yaml | \
           KUBECONFIG="deploy/terraform/generated/kubeconfig" kubectl apply -f -`;
     if (exitCode !== 0) {

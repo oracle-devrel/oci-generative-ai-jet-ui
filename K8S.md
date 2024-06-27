@@ -115,7 +115,7 @@ npx zx scripts/kustom.mjs
 ### Kubernetes Deployment
 
 ```bash
-export KUBECONFIG="deploy/terraform/generated/kubeconfig"
+export KUBECONFIG="$(pwd)/deploy/terraform/generated/kubeconfig"
 ```
 
 ```bash
@@ -129,28 +129,39 @@ kubectl apply -k deploy/k8s/overlays/prod
 Run `get deploy` a few times:
 
 ```bash
-kubectl get deploy
+kubectl get deploy -n backend
 ```
 
 Wait for all deployments to be `Ready` and `Available`.
 
 ```
-NAME      READY   UP-TO-DATE   AVAILABLE   AGE
-backend   1/1     1            1           3m28s
-web       1/1     1            1           3m21s
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
+backend                    1/1     1            1           3m28s
+ingress-nginx-controller   1/1     1            1           3m17s
+web                        1/1     1            1           3m21s
 ```
 
 Access your application:
 
 ```bash
 echo $(kubectl get service \
-  -n ingress-nginx \
+  -n backend \
   -o jsonpath='{.items[?(@.spec.type=="LoadBalancer")].status.loadBalancer.ingress[0].ip}')
 ```
 
-> This command will list the services on the `ingress-nginx` namespace and filter for the Load Balancer. If the response is an empty string, wait a bit and execute the command again. The Load Balancer takes a bit of time to create the Public IP address.
+> This command will list the Load Balancer services on the `backend` namespace. If the response is an empty string, wait a bit and execute the command again. The Load Balancer takes a bit of time to create the Public IP address.
 
-Take the Public IP to your browser.
+Paste the Public IP address on your browser and test your new Generative AI website deployed in Kubernetes.
+
+Remember to visit SQL Developer Web on the OCI Console for your Oracle Database and run some queries to investigate the historical of prompts.
+
+```sql
+SELECT * FROM interactions;
+```
+
+```bash
+cd ../..
+```
 
 ## Clean up
 

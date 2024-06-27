@@ -111,7 +111,7 @@ module "oke" {
 
   worker_pools = {
     node_pool_1 = {
-      shape = "VM.Standard.E4.Flex",
+      shape = "VM.Standard.E5.Flex",
       ocpus = 1,
       memory = 32,
       boot_volume_size = 120,

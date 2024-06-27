@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'dev.victormartin.oci.genai.backend'
-version = '0.0.3'
+version = '0.0.5'
 
 java {
 	sourceCompatibility = '17'

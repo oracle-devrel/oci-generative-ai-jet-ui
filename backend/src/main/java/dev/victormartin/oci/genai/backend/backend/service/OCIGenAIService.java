@@ -18,9 +18,9 @@ public class OCIGenAIService {
     private String COMPARTMENT_ID;
 
     @Autowired
-    private GenerativeAiInferenceClient generativeAiInferenceClient;
+    private GenerativeAiInferenceClientService generativeAiInferenceClientService;
 
-    public String request(String input, String modelId) {
+    public String resolvePrompt(String input, String modelId) {
         // Build generate text request, send, and get response
         CohereLlmInferenceRequest llmInferenceRequest =
                 CohereLlmInferenceRequest.builder()
@@ -41,10 +41,14 @@ public class OCIGenAIService {
         GenerateTextRequest generateTextRequest = GenerateTextRequest.builder()
                 .generateTextDetails(generateTextDetails)
                 .build();
-        GenerateTextResponse generateTextResponse = generativeAiInferenceClient.generateText(generateTextRequest);
+        GenerativeAiInferenceClient client = generativeAiInferenceClientService.getClient();
+        GenerateTextResponse generateTextResponse = client.generateText(generateTextRequest);
         CohereLlmInferenceResponse response =
                 (CohereLlmInferenceResponse) generateTextResponse.getGenerateTextResult().getInferenceResponse();
-        String responseTexts = response.getGeneratedTexts().stream().map(t -> t.getText()).collect(Collectors.joining(","));
+        String responseTexts = response.getGeneratedTexts()
+                .stream()
+                .map(t -> t.getText())
+                .collect(Collectors.joining(","));
         return responseTexts;
     }
 
@@ -57,7 +61,8 @@ public class OCIGenAIService {
         SummarizeTextRequest request = SummarizeTextRequest.builder()
                 .summarizeTextDetails(summarizeTextDetails)
                 .build();
-        SummarizeTextResponse summarizeTextResponse = generativeAiInferenceClient.summarizeText(request);
+        GenerativeAiInferenceClient client = generativeAiInferenceClientService.getClient();
+        SummarizeTextResponse summarizeTextResponse = client.summarizeText(request);
         String summaryText = summarizeTextResponse.getSummarizeTextResult().getSummary();
         return summaryText;
     }

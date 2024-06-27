@@ -1,6 +1,8 @@
 package dev.victormartin.oci.genai.backend.backend.controller;
 
 
+import com.oracle.bmc.model.BmcException;
+import dev.victormartin.oci.genai.backend.backend.dao.Answer;
 import dev.victormartin.oci.genai.backend.backend.service.OCIGenAIService;
 import dev.victormartin.oci.genai.backend.backend.service.PDFConvertorService;
 import org.slf4j.Logger;
@@ -32,11 +34,8 @@ public class PDFConvertorController {
     @Autowired
     PDFConvertorService pdfConvertorService;
 
-    @Autowired
-    SummaryController summaryController;
-
     @PostMapping("/api/upload")
-    public String fileUploading(@RequestParam("file") MultipartFile multipartFile) {
+    public Answer fileUploading(@RequestParam("file") MultipartFile multipartFile) {
         String filename = StringUtils.cleanPath(multipartFile.getOriginalFilename());
         log.info("File uploaded {} {} bytes ({})", filename, multipartFile.getSize(), multipartFile.getContentType());
         try {
@@ -53,14 +52,27 @@ public class PDFConvertorController {
             String convertedText = pdfConvertorService.convert(file.getAbsolutePath());
             String summaryText = ociGenAIService.summaryText(convertedText, summarizationModelId);
             log.info("Summary text: {}(...)", summaryText.substring(0, 40));
-            summaryController.handleSummary(summaryText);
-            return summaryText;
+            Answer answer = new Answer(summaryText, "");
+            return answer;
         } catch (MaxUploadSizeExceededException maxUploadSizeExceededException) {
             log.error(maxUploadSizeExceededException.getMessage());
             throw new RuntimeException(maxUploadSizeExceededException);
+        } catch (BmcException exception) {
+            log.error("Message: {}", exception.getMessage());
+            log.error("Original Message: {}", exception.getOriginalMessage());
+            log.error("Unmodified Message: {}", exception.getUnmodifiedMessage());
+            log.error("Service Details: {}", exception.getServiceDetails());
+            log.error("Status Code: {}", exception.getStatusCode());
+            String unmodifiedMessage = exception.getUnmodifiedMessage();
+            int statusCode = exception.getStatusCode();
+            String errorMessage = statusCode + " " + unmodifiedMessage;
+            log.error(errorMessage);
+            Answer answer = new Answer("", errorMessage);
+            return answer;
         } catch (Exception e) {
             log.error(e.getMessage());
-            throw new RuntimeException(e);
+            Answer answer = new Answer("", e.getMessage());
+            return answer;
         }
     }
 }

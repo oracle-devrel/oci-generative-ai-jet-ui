@@ -20,7 +20,7 @@ spec:
       labels:
         app: backend
     spec:
-      serviceAccountName: genai-sa
+      serviceAccountName: oci-service-account
       automountServiceAccountToken: true
       initContainers:
       - name: unzip

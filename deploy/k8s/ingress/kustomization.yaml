@@ -9,3 +9,4 @@ secretGenerator:
     - .certs/tls.crt
     - .certs/tls.key
   type: "kubernetes.io/tls"
+namespace: backend

@@ -26,9 +26,6 @@ public class PromptController {
 	@Value("${genai.chat_model_id}")
 	private String hardcodedChatModelId;
 
-	@Value("${genai.summarization_model_id}")
-	private String hardcodedSummarizationModelId;
-
 	@Autowired
 	private final InteractionRepository interactionRepository;
 
@@ -53,19 +50,23 @@ public class PromptController {
 		interaction.setRequest(promptEscaped);
 		Interaction saved = interactionRepository.save(interaction);
 		try {
-			if (prompt.content() == null || prompt.content().length() < 1) {
+			if (prompt.content().isEmpty()) {
 				throw new InvalidPromptRequest();
 			}
 			// if (prompt.modelId() == null ||
 			// !prompt.modelId().startsWith("ocid1.generativeaimodel.")) { throw new
 			// InvalidPromptRequest(); }
-			String responseFromGenAI = genAI.request(promptEscaped, hardcodedChatModelId);
+			String responseFromGenAI = genAI.resolvePrompt(promptEscaped, hardcodedChatModelId);
 			saved.setDatetimeResponse(new Date());
 			saved.setResponse(responseFromGenAI);
 			interactionRepository.save(saved);
 			return new Answer(responseFromGenAI, "");
 		} catch (BmcException exception) {
-			logger.error(exception.getOriginalMessage());
+			logger.error("Message: {}", exception.getMessage());
+			logger.error("Original Message: {}", exception.getOriginalMessage());
+			logger.error("Unmodified Message: {}", exception.getUnmodifiedMessage());
+			logger.error("Service Details: {}", exception.getServiceDetails());
+			logger.error("Status Code: {}", exception.getStatusCode());
 			String unmodifiedMessage = exception.getUnmodifiedMessage();
 			int statusCode = exception.getStatusCode();
 			String errorMessage = statusCode + " " + unmodifiedMessage;

@@ -118,7 +118,7 @@ async function setLatestGenAIModelChat() {
     config.get("compartmentId"),
     config.get("regionName"),
     "cohere",
-    "CHAT"
+    "TEXT_GENERATION"
   );
 
   const { id, vendor: vendorName, version, capabilities } = latestVersionModel;
