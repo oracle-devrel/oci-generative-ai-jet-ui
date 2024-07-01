@@ -12,8 +12,12 @@ import { InputSearchElement } from "ojs/ojinputsearch";
 import { useState, useEffect, useRef } from "preact/hooks";
 import * as Questions from "text!./data/questions.json";
 import * as Answers from "text!./data/answers.json";
+import { initWebSocket } from "./websocket-interface";
+import { InitStomp, sendPrompt } from "./stomp-interface";
+import { Client } from "@stomp/stompjs";
 
 type ServiceTypes = "text" | "summary" | "sim";
+type BackendTypes = "java" | "python";
 type Chat = {
   id?: number;
   question?: string;
@@ -25,12 +29,13 @@ const Content = () => {
   const [busy, setBusy] = useState<boolean>(false);
   const [summaryResults, setSummaryResults] = useState<string | null>("");
   const [summaryPrompt, setSummaryPrompt] = useState<string>();
-  const [serviceType, setServiceType] = useState<ServiceTypes>("summary");
+  const [serviceType, setServiceType] = useState<ServiceTypes>("text");
+  const [backendType, setBackendType] = useState<BackendTypes>("java");
   const [settingsOpened, setSettingsOpened] = useState<boolean>(false);
   const question = useRef<string>();
   const chatData = useRef<Array<object>>([]);
   const socket = useRef<WebSocket>();
-  const [connState, setConnState] = useState<string>("Disconnected");
+  const [client, setClient] = useState<Client | null>(null);
 
   const messagesDP = useRef(
     new MutableArrayDataProvider<MessageToastItem["summary"], MessageToastItem>(
@@ -38,77 +43,6 @@ const Content = () => {
       { keyAttributes: "summary" }
     )
   );
-
-  const gateway = `ws://${window.location.hostname}:1986`;
-  let sockTimer: any = null;
-
-  // setup the websocket connection
-  const initWebSocket = () => {
-    console.log("Trying to open a WebSocket connection...");
-    socket.current = new WebSocket(gateway);
-    socket.current.binaryType = "arraybuffer";
-    socket.current.onopen = onOpen;
-    socket.current.onerror = onError;
-    socket.current.onclose = onClose;
-    socket.current.onmessage = onMessage;
-  };
-
-  // handle all messages coming from the websocket service
-  const onMessage = (event: any) => {
-    const msg = JSON.parse(event.data);
-
-    switch (msg.msgType) {
-      // switch (Object.keys(msg)[0]) {
-      case "message":
-        console.log("message: ", msg.data);
-        return msg.data;
-      case "question":
-        console.log("question: ", msg.data);
-        return msg.data;
-      case "summary":
-        console.log("summary");
-        setSummaryResults(msg.data);
-        return;
-      case "answer":
-        console.log("answer: ", msg.data);
-        if (msg.data !== "connected") {
-          let tempArray = [...chatData.current];
-          // remove the animation item before adding answer
-          setBusy(false);
-          tempArray.pop();
-          messagesDP.current.data = [];
-          tempArray.push({
-            id: tempArray.length as number,
-            answer: msg.data,
-          });
-          chatData.current = tempArray;
-          setUpdate(chatData.current);
-        }
-        return msg.data;
-      default:
-        return "unknown";
-    }
-  };
-
-  const onOpen = () => {
-    clearInterval(sockTimer);
-    console.log("Connection opened");
-    socket.current?.send(
-      JSON.stringify({ msgType: "message", data: "connected" })
-    );
-    setConnState("Connected");
-  };
-
-  // if the connection is lost, wait one minute and try again.
-  const onError = () => {
-    sockTimer = setInterval(initWebSocket, 1000 * 60);
-  };
-  function onClose() {
-    console.log("Connection closed");
-    setConnState("Disconnected");
-    socket.current ? (socket.current.onclose = () => {}) : null;
-    socket.current?.close();
-  }
 
   // Simulation code
   const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -138,7 +72,18 @@ const Content = () => {
   useEffect(() => {
     switch (serviceType) {
       case "text":
-        initWebSocket();
+        if (backendType === "python") {
+          initWebSocket(
+            setSummaryResults,
+            setBusy,
+            setUpdate,
+            messagesDP,
+            socket,
+            chatData
+          );
+        } else {
+          setClient(InitStomp(setBusy, setUpdate, messagesDP, chatData));
+        }
         console.log("Running Gen AI");
         return;
       case "sim":
@@ -146,13 +91,14 @@ const Content = () => {
         console.log("running simulation");
         return;
       case "summary":
-        initWebSocket();
+        // initWebSocket();
         console.log("summary loading");
         return;
     }
     return () => {
       socket.current ? (socket.current.onclose = () => {}) : null;
       socket.current?.close();
+      client?.deactivate();
     };
   }, [serviceType]);
 
@@ -193,9 +139,13 @@ const Content = () => {
 
       // simulating the delay for now just to show what the animation looks like.
       setTimeout(() => {
-        socket.current?.send(
-          JSON.stringify({ msgType: "question", data: question.current })
-        );
+        if (backendType === "python") {
+          socket.current?.send(
+            JSON.stringify({ msgType: "question", data: question.current })
+          );
+        } else {
+          sendPrompt(client, question.current!);
+        }
       }, 300);
     }
   };
@@ -218,7 +168,28 @@ const Content = () => {
     setUpdate([]);
     chatData.current = [];
     setServiceType(service);
-    toggleDrawer();
+    //toggleDrawer();
+  };
+  const backendTypeChangeHandler = (backend: BackendTypes) => {
+    setUpdate([]);
+    chatData.current = [];
+    setBackendType(backend);
+    switch (backend) {
+      case "java":
+        setClient(InitStomp(setBusy, setUpdate, messagesDP, chatData));
+        return;
+      case "python":
+        initWebSocket(
+          setSummaryPrompt,
+          setBusy,
+          setUpdate,
+          messagesDP,
+          socket,
+          chatData
+        );
+        return;
+    }
+    //toggleDrawer();
   };
 
   const clearSummary = () => {
@@ -238,8 +209,10 @@ const Content = () => {
         aria-label="Settings Drawer"
       >
         <Settings
-          serviceType={serviceType}
-          serviceChange={serviceTypeChangeHandler}
+          aiServiceType={serviceType}
+          backendType={backendType}
+          aiServiceChange={serviceTypeChangeHandler}
+          backendChange={backendTypeChangeHandler}
         />
       </oj-c-drawer-popup>
       <div class="oj-flex-bar oj-flex-item demo-header oj-sm-12">
@@ -257,11 +230,14 @@ const Content = () => {
         </div>
       </div>
       {serviceType === "text" && (
-        <Chat
-          data={update}
-          question={question}
-          questionChanged={handleQuestionChange}
-        />
+        <>
+          {/* <oj-button onojAction={sendPrompt}>Send Prompt</oj-button> */}
+          <Chat
+            data={update}
+            question={question}
+            questionChanged={handleQuestionChange}
+          />
+        </>
       )}
       {serviceType === "sim" && (
         <Simulation

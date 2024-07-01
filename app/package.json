@@ -3,14 +3,15 @@
   "version": "1.0.0",
   "description": "Sample Client app showing communication with OCI Generative AI services via Websocket",
   "dependencies": {
-    "@oracle/oraclejet": "~16.0.0",
-    "@oracle/oraclejet-core-pack": "~16.0.0",
+    "@oracle/oraclejet": "~16.1.0",
+    "@oracle/oraclejet-core-pack": "~16.1.0",
+    "@stomp/stompjs": "^7.0.0",
     "marked": "^4.3.0",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
-    "@oracle/ojet-cli": "~16.0.0",
-    "@oracle/oraclejet-audit": "^16.0.0",
+    "@oracle/ojet-cli": "~16.1.0",
+    "@oracle/oraclejet-audit": "^16.1.0",
     "@types/uuid": "^9.0.7",
     "extract-zip": "^1.7.0",
     "fs-extra": "^8.1.0",

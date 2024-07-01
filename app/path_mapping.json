@@ -380,6 +380,17 @@
         "path": "libs/chai/chai.js",
         "cdnPath": "chai/chai-4.3.10.min"
       }
+    },
+    "stompjs": {
+      "cwd": "node_modules/@stomp/stompjs/bundles",
+      "debug": {
+        "src": "stomp.umd.js",
+        "path": "libs/stompjs/stomp.umd.js"
+      },
+      "release": {
+        "src": "stomp.umd.min.js",
+        "path": "libs/stompjs/stomp.umd.min.js"
+      }
     }
   }
 }

@@ -22,7 +22,8 @@
       "preact": ["./node_modules/preact"],
       "marked/*": ["./node_modules/marked/*"],
       "oj-sample/*": ["./src/components/oj-sample/types/*"],
-      "md-wrapper": ["./src/components/md-wrapper/types/index"]
+      "md-wrapper": ["./src/components/md-wrapper/types/index"],
+      "stompjs": ["./node_modules/@stomp/stompjs/index"]
     },
     "declaration": true,
     "noEmitOnError": true,
