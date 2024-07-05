@@ -1,7 +1,7 @@
 asn1crypto==1.5.1
 asyncio==3.4.3
 cached-property==1.5.2
-certifi==2023.11.17
+certifi==2024.7.4
 cffi==1.16.0
 circuitbreaker==1.4.0
 cryptography==42.0.6
