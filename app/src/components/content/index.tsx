@@ -24,13 +24,21 @@ type Chat = {
   answer?: string;
   loading?: string;
 };
+
+const defaultServiceType: string = localStorage.getItem("service") || "text";
+const defaultBackendType: String = localStorage.getItem("backend") || "java";
+
 const Content = () => {
   const [update, setUpdate] = useState<Array<object>>([]);
   const [busy, setBusy] = useState<boolean>(false);
-  const [summaryResults, setSummaryResults] = useState<string | null>("");
+  const [summaryResults, setSummaryResults] = useState<string>("");
   const [summaryPrompt, setSummaryPrompt] = useState<string>();
-  const [serviceType, setServiceType] = useState<ServiceTypes>("text");
-  const [backendType, setBackendType] = useState<BackendTypes>("java");
+  const [serviceType, setServiceType] = useState<ServiceTypes>(
+    defaultServiceType as ServiceTypes
+  );
+  const [backendType, setBackendType] = useState<BackendTypes>(
+    defaultBackendType as BackendTypes
+  );
   const [settingsOpened, setSettingsOpened] = useState<boolean>(false);
   const question = useRef<string>();
   const chatData = useRef<Array<object>>([]);
@@ -55,7 +63,6 @@ const Content = () => {
       if (Q) {
         if (x > 0) tempArray.pop();
         tempArray.push({ question: JSON.parse(Questions)[x] });
-        // tempArray.push({ loading: "loading" });
         Q = false;
         x++;
       } else {
@@ -82,17 +89,32 @@ const Content = () => {
             chatData
           );
         } else {
-          setClient(InitStomp(setBusy, setUpdate, messagesDP, chatData));
+          setClient(
+            InitStomp(setBusy, setUpdate, messagesDP, chatData, serviceType)
+          );
         }
-        console.log("Running Gen AI");
+        console.log("Running Generative service");
         return;
       case "sim":
         runSimulation();
-        console.log("running simulation");
+        console.log("Running simulation");
         return;
       case "summary":
-        // initWebSocket();
-        console.log("summary loading");
+        if (backendType === "python") {
+          initWebSocket(
+            setSummaryResults,
+            setBusy,
+            setUpdate,
+            messagesDP,
+            socket,
+            chatData
+          );
+        } else {
+          setClient(
+            InitStomp(setBusy, setUpdate, messagesDP, chatData, serviceType)
+          );
+        }
+        console.log("Running Summarization service");
         return;
     }
     return () => {
@@ -114,7 +136,6 @@ const Content = () => {
           autoTimeout: "on",
         },
       ];
-      //alert("Still waiting for an answer!  Hang in there a little longer.");
       return;
     }
     if (event.detail.value) {
@@ -165,31 +186,17 @@ const Content = () => {
   };
 
   const serviceTypeChangeHandler = (service: ServiceTypes) => {
+    localStorage.setItem("service", service);
     setUpdate([]);
     chatData.current = [];
     setServiceType(service);
-    //toggleDrawer();
   };
   const backendTypeChangeHandler = (backend: BackendTypes) => {
     setUpdate([]);
     chatData.current = [];
     setBackendType(backend);
-    switch (backend) {
-      case "java":
-        setClient(InitStomp(setBusy, setUpdate, messagesDP, chatData));
-        return;
-      case "python":
-        initWebSocket(
-          setSummaryPrompt,
-          setBusy,
-          setUpdate,
-          messagesDP,
-          socket,
-          chatData
-        );
-        return;
-    }
-    //toggleDrawer();
+    localStorage.setItem("backend", backend);
+    location.reload();
   };
 
   const clearSummary = () => {
@@ -198,6 +205,9 @@ const Content = () => {
 
   const updateSummaryPrompt = (val: string) => {
     setSummaryPrompt(val);
+  };
+  const updateSummaryResults = (summary: string) => {
+    setSummaryResults(summary);
   };
 
   return (
@@ -221,23 +231,18 @@ const Content = () => {
           position="top"
           onojClose={handleToastClose}
         ></oj-c-message-toast>
-        {/* <h1 class="oj-typography-heading-lg oj-flex-bar-start"> </h1> */}
         <div class="oj-flex-bar-end oj-color-invert demo-header-end">
-          {/* <h6 class="oj-sm-margin-2x-end">{connState}</h6> */}
           <oj-button onojAction={toggleDrawer} label="Toggle" display="icons">
             <span slot="startIcon" class="oj-ux-ico-menu"></span>
           </oj-button>
         </div>
       </div>
       {serviceType === "text" && (
-        <>
-          {/* <oj-button onojAction={sendPrompt}>Send Prompt</oj-button> */}
-          <Chat
-            data={update}
-            question={question}
-            questionChanged={handleQuestionChange}
-          />
-        </>
+        <Chat
+          data={update}
+          question={question}
+          questionChanged={handleQuestionChange}
+        />
       )}
       {serviceType === "sim" && (
         <Simulation
@@ -249,9 +254,11 @@ const Content = () => {
       {serviceType === "summary" && (
         <Summary
           fileChanged={handleFileUpload}
+          summaryChanged={updateSummaryResults}
           summary={summaryResults}
           clear={clearSummary}
           prompt={updateSummaryPrompt}
+          backendType={backendType}
         />
       )}
     </div>

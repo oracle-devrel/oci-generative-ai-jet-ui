@@ -5,19 +5,28 @@
 
 */
 
-'use strict';
+"use strict";
 
 module.exports = function (configObj) {
   return new Promise((resolve, reject) => {
-    console.log('Running before_serve hook.');
+    console.log("Running before_serve hook.");
     // ojet custom connect and serve options
-    // { connectOpts, serveOpts } = configObj;
-    // const express = require('express');
-    // const http = require('http');
+    const { connectOpts, serveOpts } = configObj;
+    const express = require("express");
+    const http = require("http");
+    const proxy = require("express-http-proxy");
+    const url = require("url");
+
+    // New hostname+path as specified by question:
+    const apiProxy = proxy("http://localhost:8080", {
+      proxyReqPathResolver: (req) => url.parse("/api" + req.url).path,
+    });
+    const app = express();
+    app.use("/api", apiProxy);
     // pass back custom http
-    // configObj['http'] = http;
+    configObj["http"] = http;
     // pass back custom express app
-    // configObj['express'] = express();
+    configObj["express"] = app;
     // pass back custom options for http.createServer
     // const serverOptions = {...};
     // configObj['serverOptions'] = serverOptions;

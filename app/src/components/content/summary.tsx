@@ -23,18 +23,35 @@ declare global {
 }
 type Props = {
   fileChanged: (file: ArrayBuffer) => void;
-  summary: string | null;
   clear: () => void;
   prompt: (val: string) => void;
+  summaryChanged: (summary: string) => void;
+  summary: string;
+  backendType: any;
 };
-
+const protocol = window.location.protocol === "http:" ? "ws://" : "wss://";
+const hostname =
+  window.location.hostname === "localhost"
+    ? "localhost:8080"
+    : window.location.hostname;
+const serviceRootURL = `${protocol}${hostname}`;
 const acceptArr: string[] = ["application/pdf", "*.pdf"];
 const messages: { id: number; severity: string; summary: string }[] = [];
+const FILE_SIZE = 120000;
 
-export const Summary = ({ fileChanged, summary, clear, prompt }: Props) => {
+export const Summary = ({
+  fileChanged,
+  clear,
+  prompt,
+  summaryChanged,
+  summary,
+  backendType,
+}: Props) => {
   const [invalidMessage, setInvalidMessage] = useState<string | null>(null);
   const [summaryPrompt, setSummaryPrompt] = useState<string>("");
+  const [summaryResults, setSummaryResults] = useState<string | null>(summary);
   const [fileNames, setFileNames] = useState<string[] | null>(null);
+  const [file, setFile] = useState<File | null>(null);
   const [messages, setMessages] = useState<object[]>([]);
   const [pdfFile, setPDFFile] = useState<ArrayBuffer>();
   const [loading, setLoading] = useState<boolean>(false);
@@ -62,6 +79,29 @@ export const Summary = ({ fileChanged, summary, clear, prompt }: Props) => {
     prompt(tempStr);
   };
 
+  const sendToJavaBackend = async (file: File, prompt: string) => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const res = await fetch("/api/upload", {
+      // const res = await fetch("http://localhost:5173/api/upload", {
+      method: "POST",
+      mode: "cors",
+      referrerPolicy: "strict-origin-when-cross-origin",
+      body: formData,
+    });
+    console.log("Response: ", res);
+    const responseData = await res.json();
+    const { content, errorMessage } = responseData;
+    if (errorMessage.length) {
+      // setErrorMessage(errorMessage);
+      // setShowError(true);
+    } else {
+      console.log("Response: ", content);
+      setSummaryResults(content);
+      summaryChanged(content);
+    }
+  };
   // FilePicker related methods
   const selectListener = async (event: CFilePickerElement.ojSelect) => {
     setInvalidMessage("");
@@ -71,14 +111,19 @@ export const Summary = ({ fileChanged, summary, clear, prompt }: Props) => {
       return file?.name;
     });
 
-    const fr = new FileReader();
-    let ab = new ArrayBuffer(200000000);
-    fr.onload = (ev: ProgressEvent<FileReader>) => {
-      let ab = fr.result;
-      setPDFFile(ab as ArrayBuffer);
-    };
-    fr.readAsArrayBuffer(files[0]);
-    setFileNames(names);
+    if (backendType === "java") {
+      setFile(files[0]);
+      setFileNames(names);
+    } else {
+      const fr = new FileReader();
+      let ab = new ArrayBuffer(200000000);
+      fr.onload = (ev: ProgressEvent<FileReader>) => {
+        let ab = fr.result;
+        setPDFFile(ab as ArrayBuffer);
+      };
+      fr.readAsArrayBuffer(files[0]);
+      setFileNames(names);
+    }
   };
 
   const buildSummaryData = (rawData: ArrayBuffer) => {
@@ -123,8 +168,9 @@ export const Summary = ({ fileChanged, summary, clear, prompt }: Props) => {
 
     for (let i = 0; i < files.length; i++) {
       file = files[i];
-      // Cohere has a character limit of 100kb so we are restricting it here as well.
-      if (file.size > 100000) {
+      // Cohere has a character limit of ~100kb so we are restricting it here as well.
+      // We can use LangChain in this area to support larger files.
+      if (file.size > FILE_SIZE) {
         tempArray.push(file.name);
         invalidFiles.current = tempArray;
       }
@@ -141,7 +187,7 @@ export const Summary = ({ fileChanged, summary, clear, prompt }: Props) => {
           summary:
             "File " +
             invalidFiles.current[0] +
-            " is too big. The maximum size is 100KB.",
+            ` is too big. The maximum size is ${FILE_SIZE / 1000}KB.`,
         });
         setMessages(temp);
       } else {
@@ -153,7 +199,7 @@ export const Summary = ({ fileChanged, summary, clear, prompt }: Props) => {
           summary:
             "These files are too big: " +
             fileNames +
-            ". The maximum size is 100KB.",
+            `. The maximum size is ${FILE_SIZE / 1000}KB.`,
         });
         setMessages(temp);
       }
@@ -163,7 +209,11 @@ export const Summary = ({ fileChanged, summary, clear, prompt }: Props) => {
   };
 
   useEffect(() => {
-    if (summary !== "") setLoading(!loading);
+    if (summaryResults !== "") setLoading(!loading);
+  }, [summaryResults]);
+
+  useEffect(() => {
+    setSummaryResults(summary);
   }, [summary]);
 
   useEffect(() => {
@@ -193,7 +243,11 @@ export const Summary = ({ fileChanged, summary, clear, prompt }: Props) => {
       console.log("Calling websocket API to process PDF");
       console.log("Filename: ", fileNames);
       console.log("Prompt: ", summaryPrompt);
-      fileChanged(buildSummaryData(pdfFile as ArrayBuffer));
+      if (backendType === "python") {
+        fileChanged(buildSummaryData(pdfFile as ArrayBuffer));
+      } else {
+        sendToJavaBackend(file!, summaryPrompt);
+      }
       setLoading(true);
     }
   };
@@ -224,7 +278,9 @@ export const Summary = ({ fileChanged, summary, clear, prompt }: Props) => {
             onojSelect={selectListener}
             onojInvalidSelect={invalidListener}
             onojBeforeSelect={beforeSelectListener}
-            secondaryText="Maximum file size is 100KB per PDF file."
+            secondaryText={`Maximum file size is ${
+              FILE_SIZE / 1000
+            }KB per PDF file.`}
           ></oj-c-file-picker>
           <oj-c-input-text
             id="promptInput"
@@ -276,7 +332,7 @@ export const Summary = ({ fileChanged, summary, clear, prompt }: Props) => {
             <md-wrapper
               id="TestingOne"
               class="oj-sm-width-full"
-              markdown={summary}
+              markdown={summaryResults}
             />
           </div>
         )}

@@ -29,7 +29,7 @@ export const initWebSocket = (
         console.log("question: ", msg.data);
         return msg.data;
       case "summary":
-        console.log("summary");
+        console.log("summary: ", msg.data);
         setSummaryResults(msg.data);
         return;
       case "answer":
