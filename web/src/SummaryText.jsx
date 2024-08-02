@@ -6,48 +6,32 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useEffect, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
-import { useStomp } from "./stompHook";
 import IdentityContext from "./IdentityContext";
 
-function Summary() {
+function SummaryText() {
   const identity = useContext(IdentityContext);
   const { register, handleSubmit, reset } = useForm();
   const [waiting, setWaiting] = useState(false);
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState();
   const [summary, setSummary] = useState("");
-  const { subscribe, unsubscribe, isConnected } = useStomp();
-
-  useEffect(() => {
-    if (isConnected) {
-      subscribe("/user/queue/summary", (message) => {
-        if (message.errorMessage.length > 0) {
-          setErrorMessage(message.errorMessage);
-          setShowError(true);
-        } else {
-          console.log("/user/queue/summary");
-          console.log(message);
-          setSummary(message);
-        }
-      });
-    }
-
-    return () => {
-      unsubscribe("/user/queue/summary");
-    };
-  }, [isConnected]);
 
   const onSubmit = async (data) => {
     setWaiting(true);
-    const formData = new FormData();
-    formData.append("file", data.file[0]);
+    const body = JSON.stringify({
+      content: data.fullText,
+    });
 
-    const res = await fetch("/api/upload", {
+    const res = await fetch("/api/genai/summary", {
       method: "POST",
-      body: formData,
-      headers: { conversationId: identity, modelId: "n/a" },
+      body: body,
+      headers: {
+        "Content-Type": "application/json",
+        conversationId: identity,
+        modelId: "n/a",
+      },
     });
     const responseData = await res.json();
     const { content, errorMessage } = responseData;
@@ -55,7 +39,6 @@ function Summary() {
       setErrorMessage(errorMessage);
       setShowError(true);
     } else {
-      console.log(content);
       setSummary(content);
     }
     setWaiting(false);
@@ -66,11 +49,11 @@ function Summary() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack alignItems={"center"}>
           <TextField
+            multiline
+            maxRows={10}
             style={{ width: "30rem" }}
-            type="file"
-            {...register("file")}
+            {...register("fullText")}
           />
-
           <Button disabled={waiting} type="submit">
             Submit
           </Button>
@@ -91,4 +74,4 @@ function Summary() {
   );
 }
 
-export default Summary;
+export default SummaryText;

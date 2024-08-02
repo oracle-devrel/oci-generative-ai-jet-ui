@@ -13,6 +13,9 @@ public class Interaction {
 
     String conversationId;
 
+    @Enumerated(EnumType.STRING)
+    InteractionType type;
+
     @Temporal(TemporalType.DATE)
     Date datetimeRequest;
 
@@ -41,12 +44,12 @@ public class Interaction {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Interaction that = (Interaction) o;
-        return Objects.equals(id, that.id) && Objects.equals(conversationId, that.conversationId) && Objects.equals(datetimeRequest, that.datetimeRequest) && Objects.equals(modelId, that.modelId) && Objects.equals(request, that.request) && Objects.equals(datetimeResponse, that.datetimeResponse) && Objects.equals(response, that.response) && Objects.equals(errorMessage, that.errorMessage);
+        return Objects.equals(id, that.id) && Objects.equals(conversationId, that.conversationId) && type == that.type && Objects.equals(datetimeRequest, that.datetimeRequest) && Objects.equals(modelId, that.modelId) && Objects.equals(request, that.request) && Objects.equals(datetimeResponse, that.datetimeResponse) && Objects.equals(response, that.response) && Objects.equals(errorMessage, that.errorMessage);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, conversationId, datetimeRequest, modelId, request, datetimeResponse, response, errorMessage);
+        return Objects.hash(id, conversationId, type, datetimeRequest, modelId, request, datetimeResponse, response, errorMessage);
     }
 
     public Long getId() {
@@ -59,6 +62,14 @@ public class Interaction {
 
     public void setConversationId(String conversationId) {
         this.conversationId = conversationId;
+    }
+
+    public InteractionType getType() {
+        return type;
+    }
+
+    public void setType(InteractionType type) {
+        this.type = type;
     }
 
     public Date getDatetimeRequest() {

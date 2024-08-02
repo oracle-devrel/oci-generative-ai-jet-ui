@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Chat from "./Chat";
 import Summary from "./Summary";
+import SummaryText from "./SummaryText";
 
 const router = createBrowserRouter([
   {
@@ -10,6 +11,10 @@ const router = createBrowserRouter([
   {
     path: "/summary",
     element: <Summary />,
+  },
+  {
+    path: "/summaryText",
+    element: <SummaryText />,
   },
 ]);
 

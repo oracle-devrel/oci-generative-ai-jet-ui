@@ -2,6 +2,7 @@ package dev.victormartin.oci.genai.backend.backend.controller;
 
 import com.oracle.bmc.model.BmcException;
 import dev.victormartin.oci.genai.backend.backend.InvalidPromptRequest;
+import dev.victormartin.oci.genai.backend.backend.data.InteractionType;
 import dev.victormartin.oci.genai.backend.backend.service.OCIGenAIService;
 import dev.victormartin.oci.genai.backend.backend.dao.Answer;
 import dev.victormartin.oci.genai.backend.backend.dao.Prompt;
@@ -44,6 +45,7 @@ public class PromptController {
 		logger.info("Prompt " + promptEscaped + " received, on model " + prompt.modelId() + " but using hardcoded one" +
 				" " + hardcodedChatModelId);
 		Interaction interaction = new Interaction();
+		interaction.setType(InteractionType.CHAT);
 		interaction.setConversationId(prompt.conversationId());
 		interaction.setDatetimeRequest(new Date());
 		interaction.setModelId(hardcodedChatModelId);
