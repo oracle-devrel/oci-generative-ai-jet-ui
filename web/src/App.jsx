@@ -1,7 +1,16 @@
 import { Container, Typography } from "@mui/material";
 import { StompProvider } from "./stompHook";
-import Chat from "./Chat";
 import Routing from "./Routing";
+import { v4 as uuidv4 } from "uuid";
+import IdentityContext from "./IdentityContext";
+
+let conversationId;
+if (localStorage.getItem("conversationId")) {
+  conversationId = localStorage.getItem("conversationId");
+} else {
+  conversationId = uuidv4();
+  localStorage.setItem("conversationId", conversationId);
+}
 
 const protocol = window.location.protocol === "http:" ? "ws://" : "wss://";
 const hostname =
@@ -17,12 +26,14 @@ function App() {
         brokerURL: brokerURL,
       }}
     >
-      <Container>
-        <Typography variant="h2" component="h2">
-          OCI GenAI PoC
-        </Typography>
-        <Routing />
-      </Container>
+      <IdentityContext.Provider value={conversationId}>
+        <Container>
+          <Typography variant="h2" component="h2">
+            OCI GenAI PoC
+          </Typography>
+          <Routing />
+        </Container>
+      </IdentityContext.Provider>
     </StompProvider>
   );
 }

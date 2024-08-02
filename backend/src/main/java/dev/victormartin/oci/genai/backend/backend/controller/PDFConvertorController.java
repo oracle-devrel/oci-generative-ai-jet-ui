@@ -3,6 +3,9 @@ package dev.victormartin.oci.genai.backend.backend.controller;
 
 import com.oracle.bmc.model.BmcException;
 import dev.victormartin.oci.genai.backend.backend.dao.Answer;
+import dev.victormartin.oci.genai.backend.backend.data.Interaction;
+import dev.victormartin.oci.genai.backend.backend.data.InteractionRepository;
+import dev.victormartin.oci.genai.backend.backend.data.InteractionType;
 import dev.victormartin.oci.genai.backend.backend.service.OCIGenAIService;
 import dev.victormartin.oci.genai.backend.backend.service.PDFConvertorService;
 import org.slf4j.Logger;
@@ -11,12 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.HtmlUtils;
 
 import java.io.File;
+import java.util.Date;
 
 @RestController
 public class PDFConvertorController {
@@ -34,8 +40,13 @@ public class PDFConvertorController {
     @Autowired
     PDFConvertorService pdfConvertorService;
 
+    @Autowired
+    private InteractionRepository interactionRepository;
+
     @PostMapping("/api/upload")
-    public Answer fileUploading(@RequestParam("file") MultipartFile multipartFile) {
+    public Answer fileUploading(@RequestParam("file") MultipartFile multipartFile,
+                                @RequestHeader("conversationID") String conversationId,
+                                @RequestHeader("modelId") String modelId) {
         String filename = StringUtils.cleanPath(multipartFile.getOriginalFilename());
         log.info("File uploaded {} {} bytes ({})", filename, multipartFile.getSize(), multipartFile.getContentType());
         try {
@@ -50,7 +61,18 @@ public class PDFConvertorController {
             multipartFile.transferTo(file);
             log.info("File destination path: {}", file.getAbsolutePath());
             String convertedText = pdfConvertorService.convert(file.getAbsolutePath());
-            String summaryText = ociGenAIService.summaryText(convertedText, summarizationModelId);
+            String textEscaped = HtmlUtils.htmlEscape(convertedText);
+            Interaction interaction = new Interaction();
+            interaction.setType(InteractionType.SUMMARY_FILE);
+            interaction.setConversationId(conversationId);
+            interaction.setDatetimeRequest(new Date());
+            interaction.setModelId(summarizationModelId);
+            interaction.setRequest(textEscaped);
+            Interaction saved = interactionRepository.save(interaction);
+            String summaryText = ociGenAIService.summaryText(textEscaped, summarizationModelId);
+            saved.setDatetimeResponse(new Date());
+            saved.setResponse(summaryText);
+            interactionRepository.save(saved);
             log.info("Summary text: {}(...)", summaryText.substring(0, 40));
             Answer answer = new Answer(summaryText, "");
             return answer;
@@ -58,11 +80,7 @@ public class PDFConvertorController {
             log.error(maxUploadSizeExceededException.getMessage());
             throw new RuntimeException(maxUploadSizeExceededException);
         } catch (BmcException exception) {
-            log.error("Message: {}", exception.getMessage());
-            log.error("Original Message: {}", exception.getOriginalMessage());
             log.error("Unmodified Message: {}", exception.getUnmodifiedMessage());
-            log.error("Service Details: {}", exception.getServiceDetails());
-            log.error("Status Code: {}", exception.getStatusCode());
             String unmodifiedMessage = exception.getUnmodifiedMessage();
             int statusCode = exception.getStatusCode();
             String errorMessage = statusCode + " " + unmodifiedMessage;

@@ -1,13 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Box, CircularProgress, Snackbar } from "@mui/material";
 import PromptInput from "./PromptInput";
 import Conversation from "./Conversation";
 import { useStomp } from "./stompHook";
-import { v4 as uuidv4 } from "uuid";
-
-const conversationId = uuidv4();
+import IdentityContext from "./IdentityContext";
 
 function Chat() {
+  const identity = useContext(IdentityContext);
   const [conversation, setConversation] = useState([]);
   const [promptValue, setPromptValue] = useState("");
   const [waiting, setWaiting] = useState(false);
@@ -82,7 +81,7 @@ function Chat() {
   useEffect(() => {
     if (isConnected && promptValue.length) {
       send("/genai/prompt", {
-        conversationId,
+        conversationId: identity,
         content: promptValue,
         modelId: "notapply",
       });
