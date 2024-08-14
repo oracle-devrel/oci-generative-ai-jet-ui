@@ -9,28 +9,44 @@ import "oj-c/drawer-popup";
 import MutableArrayDataProvider = require("ojs/ojmutablearraydataprovider");
 import { MessageToastItem } from "oj-c/message-toast";
 import { InputSearchElement } from "ojs/ojinputsearch";
-import { useState, useEffect, useRef } from "preact/hooks";
+import { useState, useEffect, useRef, useContext } from "preact/hooks";
 import * as Questions from "text!./data/questions.json";
 import * as Answers from "text!./data/answers.json";
+import { initWebSocket } from "./websocket-interface";
+import { InitStomp, sendPrompt } from "./stomp-interface";
+import { Client } from "@stomp/stompjs";
+import { ConvoCtx } from "../app";
 
 type ServiceTypes = "text" | "summary" | "sim";
+type BackendTypes = "java" | "python";
 type Chat = {
   id?: number;
   question?: string;
   answer?: string;
   loading?: string;
 };
+
+const defaultServiceType: string = localStorage.getItem("service") || "text";
+const defaultBackendType: string = localStorage.getItem("backend") || "java";
+
 const Content = () => {
+  const conversationId = useContext(ConvoCtx);
   const [update, setUpdate] = useState<Array<object>>([]);
   const [busy, setBusy] = useState<boolean>(false);
-  const [summaryResults, setSummaryResults] = useState<string | null>("");
+  const [summaryResults, setSummaryResults] = useState<string>("");
+  const [modelId, setModelId] = useState<string | null>(null);
   const [summaryPrompt, setSummaryPrompt] = useState<string>();
-  const [serviceType, setServiceType] = useState<ServiceTypes>("summary");
+  const [serviceType, setServiceType] = useState<ServiceTypes>(
+    defaultServiceType as ServiceTypes
+  );
+  const [backendType, setBackendType] = useState<BackendTypes>(
+    defaultBackendType as BackendTypes
+  );
   const [settingsOpened, setSettingsOpened] = useState<boolean>(false);
   const question = useRef<string>();
   const chatData = useRef<Array<object>>([]);
   const socket = useRef<WebSocket>();
-  const [connState, setConnState] = useState<string>("Disconnected");
+  const [client, setClient] = useState<Client | null>(null);
 
   const messagesDP = useRef(
     new MutableArrayDataProvider<MessageToastItem["summary"], MessageToastItem>(
@@ -38,77 +54,6 @@ const Content = () => {
       { keyAttributes: "summary" }
     )
   );
-
-  const gateway = `ws://${window.location.hostname}:1986`;
-  let sockTimer: any = null;
-
-  // setup the websocket connection
-  const initWebSocket = () => {
-    console.log("Trying to open a WebSocket connection...");
-    socket.current = new WebSocket(gateway);
-    socket.current.binaryType = "arraybuffer";
-    socket.current.onopen = onOpen;
-    socket.current.onerror = onError;
-    socket.current.onclose = onClose;
-    socket.current.onmessage = onMessage;
-  };
-
-  // handle all messages coming from the websocket service
-  const onMessage = (event: any) => {
-    const msg = JSON.parse(event.data);
-
-    switch (msg.msgType) {
-      // switch (Object.keys(msg)[0]) {
-      case "message":
-        console.log("message: ", msg.data);
-        return msg.data;
-      case "question":
-        console.log("question: ", msg.data);
-        return msg.data;
-      case "summary":
-        console.log("summary");
-        setSummaryResults(msg.data);
-        return;
-      case "answer":
-        console.log("answer: ", msg.data);
-        if (msg.data !== "connected") {
-          let tempArray = [...chatData.current];
-          // remove the animation item before adding answer
-          setBusy(false);
-          tempArray.pop();
-          messagesDP.current.data = [];
-          tempArray.push({
-            id: tempArray.length as number,
-            answer: msg.data,
-          });
-          chatData.current = tempArray;
-          setUpdate(chatData.current);
-        }
-        return msg.data;
-      default:
-        return "unknown";
-    }
-  };
-
-  const onOpen = () => {
-    clearInterval(sockTimer);
-    console.log("Connection opened");
-    socket.current?.send(
-      JSON.stringify({ msgType: "message", data: "connected" })
-    );
-    setConnState("Connected");
-  };
-
-  // if the connection is lost, wait one minute and try again.
-  const onError = () => {
-    sockTimer = setInterval(initWebSocket, 1000 * 60);
-  };
-  function onClose() {
-    console.log("Connection closed");
-    setConnState("Disconnected");
-    socket.current ? (socket.current.onclose = () => {}) : null;
-    socket.current?.close();
-  }
 
   // Simulation code
   const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -121,7 +66,6 @@ const Content = () => {
       if (Q) {
         if (x > 0) tempArray.pop();
         tempArray.push({ question: JSON.parse(Questions)[x] });
-        // tempArray.push({ loading: "loading" });
         Q = false;
         x++;
       } else {
@@ -135,24 +79,52 @@ const Content = () => {
       await sleep(2000);
     }
   };
+
   useEffect(() => {
     switch (serviceType) {
       case "text":
-        initWebSocket();
-        console.log("Running Gen AI");
+        if (backendType === "python") {
+          initWebSocket(
+            setSummaryResults,
+            setBusy,
+            setUpdate,
+            messagesDP,
+            socket,
+            chatData
+          );
+        } else {
+          setClient(
+            InitStomp(setBusy, setUpdate, messagesDP, chatData, serviceType)
+          );
+        }
+        console.log("Running Generative service");
         return;
       case "sim":
         runSimulation();
-        console.log("running simulation");
+        console.log("Running simulation");
         return;
       case "summary":
-        initWebSocket();
-        console.log("summary loading");
+        if (backendType === "python") {
+          initWebSocket(
+            setSummaryResults,
+            setBusy,
+            setUpdate,
+            messagesDP,
+            socket,
+            chatData
+          );
+        } else {
+          setClient(
+            InitStomp(setBusy, setUpdate, messagesDP, chatData, serviceType)
+          );
+        }
+        console.log("Running Summarization service");
         return;
     }
     return () => {
       socket.current ? (socket.current.onclose = () => {}) : null;
       socket.current?.close();
+      client?.deactivate();
     };
   }, [serviceType]);
 
@@ -168,7 +140,6 @@ const Content = () => {
           autoTimeout: "on",
         },
       ];
-      //alert("Still waiting for an answer!  Hang in there a little longer.");
       return;
     }
     if (event.detail.value) {
@@ -191,12 +162,13 @@ const Content = () => {
       setUpdate(chatData.current);
       setBusy(true);
 
-      // simulating the delay for now just to show what the animation looks like.
-      setTimeout(() => {
+      if (backendType === "python") {
         socket.current?.send(
           JSON.stringify({ msgType: "question", data: question.current })
         );
-      }, 300);
+      } else {
+        sendPrompt(client, question.current!, modelId!, conversationId!);
+      }
     }
   };
 
@@ -215,18 +187,31 @@ const Content = () => {
   };
 
   const serviceTypeChangeHandler = (service: ServiceTypes) => {
+    localStorage.setItem("service", service);
     setUpdate([]);
     chatData.current = [];
     setServiceType(service);
-    toggleDrawer();
   };
-
+  const backendTypeChangeHandler = (backend: BackendTypes) => {
+    setUpdate([]);
+    chatData.current = [];
+    setBackendType(backend);
+    localStorage.setItem("backend", backend);
+    location.reload();
+  };
+  const modelIdChangeHandler = (event: CustomEvent) => {
+    console.log("model Id: ", event.detail.value);
+    if (event.detail.value != null) setModelId(event.detail.value);
+  };
   const clearSummary = () => {
     setSummaryResults("");
   };
 
   const updateSummaryPrompt = (val: string) => {
     setSummaryPrompt(val);
+  };
+  const updateSummaryResults = (summary: string) => {
+    setSummaryResults(summary);
   };
 
   return (
@@ -238,8 +223,11 @@ const Content = () => {
         aria-label="Settings Drawer"
       >
         <Settings
-          serviceType={serviceType}
-          serviceChange={serviceTypeChangeHandler}
+          aiServiceType={serviceType}
+          backendType={backendType}
+          aiServiceChange={serviceTypeChangeHandler}
+          backendChange={backendTypeChangeHandler}
+          modelIdChange={modelIdChangeHandler}
         />
       </oj-c-drawer-popup>
       <div class="oj-flex-bar oj-flex-item demo-header oj-sm-12">
@@ -248,9 +236,7 @@ const Content = () => {
           position="top"
           onojClose={handleToastClose}
         ></oj-c-message-toast>
-        {/* <h1 class="oj-typography-heading-lg oj-flex-bar-start"> </h1> */}
         <div class="oj-flex-bar-end oj-color-invert demo-header-end">
-          {/* <h6 class="oj-sm-margin-2x-end">{connState}</h6> */}
           <oj-button onojAction={toggleDrawer} label="Toggle" display="icons">
             <span slot="startIcon" class="oj-ux-ico-menu"></span>
           </oj-button>
@@ -273,9 +259,11 @@ const Content = () => {
       {serviceType === "summary" && (
         <Summary
           fileChanged={handleFileUpload}
+          summaryChanged={updateSummaryResults}
           summary={summaryResults}
           clear={clearSummary}
           prompt={updateSummaryPrompt}
+          backendType={backendType}
         />
       )}
     </div>
