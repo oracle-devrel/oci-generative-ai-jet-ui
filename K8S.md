@@ -42,16 +42,32 @@ On Cloud Shell, clone the repository:
 git clone https://github.com/oracle-devrel/oci-generative-ai-jet-ui.git
 ```
 
+Build the Environment container image
+
+```bash
+docker build -t environment oci-generative-ai-jet-ui
+```
+
+Run Docker container to run Node scripts
+
+```bash
+docker run \
+  -e OCI_TENANCY=$OCI_TENANCY \
+  -v $(pwd)/oci-generative-ai-jet-ui:/usr/genia \
+  -v $(pwd)/.oci:/home/genia/.oci \
+  -it --rm --name node \
+  environment \
+  bash
+```
+
 Change to the new folder:
 
 ```bash
 cd oci-generative-ai-jet-ui
 ```
 
-Install Node.js 16 on Cloud Shell.
-
 ```bash
-nvm install 18 && nvm use 18
+cd /usr/genia
 ```
 
 Install dependencies for scripts.
@@ -65,8 +81,10 @@ cd scripts/ && npm install && cd ..
 Generate `genai.json` file with all environment variables.
 
 ```bash
-npx zx scripts/setenv.mjs
+npx --yes zx scripts/setenv.mjs
 ```
+
+>
 
 > Answer the Compartment name where you want to deploy the infrastructure. Root compartment is the default.
 
