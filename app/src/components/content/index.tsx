@@ -9,12 +9,13 @@ import "oj-c/drawer-popup";
 import MutableArrayDataProvider = require("ojs/ojmutablearraydataprovider");
 import { MessageToastItem } from "oj-c/message-toast";
 import { InputSearchElement } from "ojs/ojinputsearch";
-import { useState, useEffect, useRef } from "preact/hooks";
+import { useState, useEffect, useRef, useContext } from "preact/hooks";
 import * as Questions from "text!./data/questions.json";
 import * as Answers from "text!./data/answers.json";
 import { initWebSocket } from "./websocket-interface";
 import { InitStomp, sendPrompt } from "./stomp-interface";
 import { Client } from "@stomp/stompjs";
+import { ConvoCtx } from "../app";
 
 type ServiceTypes = "text" | "summary" | "sim";
 type BackendTypes = "java" | "python";
@@ -26,12 +27,14 @@ type Chat = {
 };
 
 const defaultServiceType: string = localStorage.getItem("service") || "text";
-const defaultBackendType: String = localStorage.getItem("backend") || "java";
+const defaultBackendType: string = localStorage.getItem("backend") || "java";
 
 const Content = () => {
+  const conversationId = useContext(ConvoCtx);
   const [update, setUpdate] = useState<Array<object>>([]);
   const [busy, setBusy] = useState<boolean>(false);
   const [summaryResults, setSummaryResults] = useState<string>("");
+  const [modelId, setModelId] = useState<string | null>(null);
   const [summaryPrompt, setSummaryPrompt] = useState<string>();
   const [serviceType, setServiceType] = useState<ServiceTypes>(
     defaultServiceType as ServiceTypes
@@ -76,6 +79,7 @@ const Content = () => {
       await sleep(2000);
     }
   };
+
   useEffect(() => {
     switch (serviceType) {
       case "text":
@@ -158,16 +162,13 @@ const Content = () => {
       setUpdate(chatData.current);
       setBusy(true);
 
-      // simulating the delay for now just to show what the animation looks like.
-      setTimeout(() => {
-        if (backendType === "python") {
-          socket.current?.send(
-            JSON.stringify({ msgType: "question", data: question.current })
-          );
-        } else {
-          sendPrompt(client, question.current!);
-        }
-      }, 300);
+      if (backendType === "python") {
+        socket.current?.send(
+          JSON.stringify({ msgType: "question", data: question.current })
+        );
+      } else {
+        sendPrompt(client, question.current!, modelId!, conversationId!);
+      }
     }
   };
 
@@ -198,7 +199,10 @@ const Content = () => {
     localStorage.setItem("backend", backend);
     location.reload();
   };
-
+  const modelIdChangeHandler = (event: CustomEvent) => {
+    console.log("model Id: ", event.detail.value);
+    if (event.detail.value != null) setModelId(event.detail.value);
+  };
   const clearSummary = () => {
     setSummaryResults("");
   };
@@ -223,6 +227,7 @@ const Content = () => {
           backendType={backendType}
           aiServiceChange={serviceTypeChangeHandler}
           backendChange={backendTypeChangeHandler}
+          modelIdChange={modelIdChangeHandler}
         />
       </oj-c-drawer-popup>
       <div class="oj-flex-bar oj-flex-item demo-header oj-sm-12">

@@ -1,4 +1,4 @@
-import "preact";
+import { ComponentProps } from "preact";
 import { useEffect, useRef } from "preact/hooks";
 import "oj-c/radioset";
 import "oj-c/form-layout";
@@ -17,13 +17,14 @@ type Props = {
   backendType: BackendTypeVal;
   aiServiceChange: (service: ServiceTypeVal) => void;
   backendChange: (backend: BackendTypeVal) => void;
+  modelIdChange: (modelName: any) => void;
 };
 
 const serviceTypes = [
   { value: "text", label: "Generative Text" },
   { value: "summary", label: "Summarize" },
-  { value: "sim", label: "Simulation" },
 ];
+// { value: "sim", label: "Simulation" },
 
 const backendTypes = [
   { value: "java", label: "Java" },
@@ -93,7 +94,7 @@ export const Settings = (props: Props) => {
           onvalueChanged={handleBackendTypeChange}
         ></oj-c-radioset>
       </oj-c-form-layout>
-      {props.aiServiceType == "summary" && props.backendType == "java" && (
+      {props.aiServiceType == "text" && props.backendType == "java" && (
         <>
           <h2 class="oj-typography-heading-sm">Model options</h2>
           <oj-c-form-layout>
@@ -101,6 +102,7 @@ export const Settings = (props: Props) => {
               data={modelDP.current}
               labelHint={"Model"}
               itemText={"name"}
+              onvalueChanged={props.modelIdChange}
             ></oj-c-select-single>
           </oj-c-form-layout>
         </>

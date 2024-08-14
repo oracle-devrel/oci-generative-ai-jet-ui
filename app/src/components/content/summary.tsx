@@ -282,16 +282,18 @@ export const Summary = ({
               FILE_SIZE / 1000
             }KB per PDF file.`}
           ></oj-c-file-picker>
-          <oj-c-input-text
-            id="promptInput"
-            ref={promptInputRef}
-            required
-            aria-label="enter document summary prompt"
-            class="oj-sm-width-full oj-md-width-1/2 oj-sm-margin-4x-top oj-sm-margin-4x-bottom"
-            labelHint="Enter the document summary prompt"
-            labelEdge="top"
-            onvalueChanged={submitPrompt}
-          ></oj-c-input-text>
+          {backendType === "python" && (
+            <oj-c-input-text
+              id="promptInput"
+              ref={promptInputRef}
+              required
+              aria-label="enter document summary prompt"
+              class="oj-sm-width-full oj-md-width-1/2 oj-sm-margin-4x-top oj-sm-margin-4x-bottom"
+              labelHint="Enter the document summary prompt"
+              labelEdge="top"
+              onvalueChanged={submitPrompt}
+            ></oj-c-input-text>
+          )}
         </oj-validation-group>
         {invalidFiles.current.length !== 1 && fileNames && (
           <>

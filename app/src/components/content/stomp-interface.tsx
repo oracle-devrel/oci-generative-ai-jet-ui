@@ -65,15 +65,20 @@ export const InitStomp = (
   return client;
 };
 
-export const sendPrompt = (client: Client | null, prompt: string) => {
+export const sendPrompt = (
+  client: Client | null,
+  prompt: string,
+  modelId: string,
+  convoId: string
+) => {
   if (client?.connected) {
     console.log("Sending prompt: ", prompt);
     client.publish({
       destination: "/genai/prompt",
       body: JSON.stringify({
-        conversationId: "something",
-        content: prompt, //"Show me code for a websocket service using JavaScript",
-        modelId: "notapply",
+        conversationId: convoId,
+        content: prompt,
+        modelId: modelId,
       }),
     });
   } else {
