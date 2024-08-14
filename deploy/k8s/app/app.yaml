@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app
+  name: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app
+  strategy: 
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+      - image: app
+        name: app
+        readinessProbe:
+          httpGet:
+            scheme: HTTP
+            path: /index.html
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        ports:
+        - containerPort: 80
+        resources: 
+          requests:
+            cpu: 100m
+            memory: 256Mi
+          limits:
+            cpu: 250m
+            memory: 521Mi
+      imagePullSecrets:
+      - name: ocir-secret

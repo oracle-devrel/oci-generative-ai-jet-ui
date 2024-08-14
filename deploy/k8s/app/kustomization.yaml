@@ -1,0 +1,4 @@
+resources:
+  - app.yaml
+  - app-svc.yaml
+namespace: backend

@@ -23,17 +23,17 @@ spec:
             name: backend
             port:
               number: 8080
-      - path: /summary
-        pathType: Prefix
-        backend:
-          service:
-            name: web
-            port:
-              number: 80
+      # - path: /summary
+      #   pathType: Prefix
+      #   backend:
+      #     service:
+      #       name: web
+      #       port:
+      #         number: 80
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: web
+            name: app
             port:
               number: 80
