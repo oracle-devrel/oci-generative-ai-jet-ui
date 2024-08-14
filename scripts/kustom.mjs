@@ -19,6 +19,7 @@ const namespace = config.get("namespace");
 const regionName = config.get("regionName");
 const regionKey = config.get("regionKey");
 const webVersion = config.get("webVersion");
+const appVersion = config.get("appVersion");
 const backendVersion = config.get("backendVersion");
 const certFullchain = config.get("certFullchain");
 const certPrivateKey = config.get("certPrivateKey");
@@ -71,6 +72,7 @@ async function createProdKustomization() {
     region_key: regionKey,
     tenancy_namespace: namespace,
     project_name: projectName,
+    app_version: appVersion,
     web_version: webVersion,
     backend_version: backendVersion,
   });

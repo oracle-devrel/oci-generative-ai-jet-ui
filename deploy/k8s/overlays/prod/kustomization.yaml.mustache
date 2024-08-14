@@ -1,11 +1,11 @@
 resources:
   - "../../ingress"
-  - "../../web"
+  - "../../app"
   - "../../backend"
 
 images:
-- name: web
-  newName: {{region_key}}.ocir.io/{{{tenancy_namespace}}}/{{{project_name}}}/web
+- name: app
+  newName: {{region_key}}.ocir.io/{{{tenancy_namespace}}}/{{{project_name}}}/app
   newTag: {{{web_version}}}
 - name: backend
   newName: {{region_key}}.ocir.io/{{{tenancy_namespace}}}/{{{project_name}}}/backend

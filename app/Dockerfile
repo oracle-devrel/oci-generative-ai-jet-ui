@@ -2,7 +2,6 @@ FROM nginx:1.23-alpine-slim
 
 RUN apk add --update nodejs npm
 
-
 WORKDIR /usr/share/build
 
 RUN mkdir -p /usr/share/build/src \
@@ -16,8 +15,10 @@ COPY *.json /usr/share/build/
 
 RUN npm install
 RUN npm install -g @oracle/ojet-cli
-RUN npx ojet build web --release 
+RUN ojet build web --release 
+
+RUN cp -R /usr/share/build/web/* /usr/share/nginx/html/
 
 EXPOSE 80
 
-RUN cp -R /usr/share/build/web/* /usr/share/nginx/html/
+CMD ["nginx", "-g", "daemon off;"]
