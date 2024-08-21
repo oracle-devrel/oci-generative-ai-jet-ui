@@ -1,5 +1,5 @@
 import "preact";
-import { useState, useRef, useEffect } from "preact/hooks";
+import { useState, useRef, useEffect, useContext } from "preact/hooks";
 import "md-wrapper/loader";
 import "ojs/ojtoolbar";
 import "oj-c/file-picker";
@@ -13,6 +13,7 @@ import { CFilePickerElement } from "oj-c/file-picker";
 import { CInputTextElement } from "oj-c/input-text";
 import { CButtonElement } from "oj-c/button";
 import MutableArrayDataProvider = require("ojs/ojmutablearraydataprovider");
+import { ConvoCtx } from "../app";
 
 declare global {
   namespace preact.JSX {
@@ -47,6 +48,7 @@ export const Summary = ({
   summary,
   backendType,
 }: Props) => {
+  const conversationId = useContext(ConvoCtx);
   const [invalidMessage, setInvalidMessage] = useState<string | null>(null);
   const [summaryPrompt, setSummaryPrompt] = useState<string>("");
   const [summaryResults, setSummaryResults] = useState<string | null>(summary);
@@ -89,6 +91,7 @@ export const Summary = ({
       mode: "cors",
       referrerPolicy: "strict-origin-when-cross-origin",
       body: formData,
+      headers: { conversationID: conversationId, modelId: "" },
     });
     console.log("Response: ", res);
     const responseData = await res.json();
@@ -330,7 +333,11 @@ export const Summary = ({
           </>
         )}
         {invalidFiles.current.length !== 1 && fileNames && summary && (
-          <div id="summaryContent" class="oj-panel oj-sm-width-full">
+          <div
+            id="summaryContent"
+            class="oj-panel oj-sm-width-full oj-color-invert oj-sm-padding-4x oj-sm-margin-6x-top"
+            style="background-color: var(--oj-sp-header-welcome-banner-background-color);"
+          >
             <md-wrapper
               id="TestingOne"
               class="oj-sm-width-full"
