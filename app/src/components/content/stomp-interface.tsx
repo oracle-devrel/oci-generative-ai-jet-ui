@@ -9,7 +9,6 @@ export const InitStomp = (
   chatData: any,
   serviceType: any
 ) => {
-  //const [test, setTest] = useState();
   const protocol = window.location.protocol === "http:" ? "ws://" : "wss://";
   const hostname =
     window.location.hostname === "localhost"
@@ -47,7 +46,6 @@ export const InitStomp = (
 
   const onMessage = (msg: any) => {
     let aiAnswer = JSON.parse(msg.body).content;
-    //console.log("answer: ", aiAnswer);
     if (msg.data !== "connected") {
       let tempArray = [...chatData.current];
       // remove the animation item before adding answer
