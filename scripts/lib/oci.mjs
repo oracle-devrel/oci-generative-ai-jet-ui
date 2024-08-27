@@ -2,11 +2,12 @@
 import { exitWithError } from "./utils.mjs";
 import { where, max } from "underscore";
 
-export async function getRegions() {
+export async function getRegions(profile = "DEFAULT", tenancyId) {
   try {
-    const tenancyId = await getTenancyId();
     const output = (
-      await $`oci iam region-subscription list --tenancy-id ${tenancyId}`
+      await $`oci iam region-subscription list \
+              --tenancy-id ${tenancyId} \
+              --profile ${profile}`
     ).stdout.trim();
     const { data } = JSON.parse(output);
     return data
@@ -21,8 +22,8 @@ export async function getRegions() {
   }
 }
 
-export async function getNamespace() {
-  const output = (await $`oci os ns get`).stdout.trim();
+export async function getNamespace(profile) {
+  const output = (await $`oci os ns get --profile ${profile}`).stdout.trim();
   const { data } = JSON.parse(output);
   return data;
 }
@@ -96,7 +97,10 @@ export async function getTenancyId() {
   return tenancyId;
 }
 
-export async function searchCompartmentIdByName(compartmentName) {
+export async function searchCompartmentIdByName(
+  profile = "DEFAULT",
+  compartmentName
+) {
   if (!compartmentName) {
     exitWithError("Compartment name required");
   }
@@ -104,8 +108,11 @@ export async function searchCompartmentIdByName(compartmentName) {
     return getTenancyId();
   }
   try {
-    const { stdout, exitCode, stderr } =
-      await $`oci iam compartment list --compartment-id-in-subtree true --name ${compartmentName} --query "data[].id"`;
+    const { stdout, exitCode, stderr } = await $`oci iam compartment list \
+                --compartment-id-in-subtree true \
+                --name ${compartmentName} \
+                --profile=${profile} \
+                --query "data[].id"`;
     if (exitCode !== 0) {
       exitWithError(stderr);
     }
@@ -339,6 +346,7 @@ export async function getBucket(compartmentId, name) {
 }
 
 export async function getLatestGenAIModels(
+  profile,
   compartmentId,
   regionName,
   vendor = "cohere",
@@ -354,6 +362,7 @@ export async function getLatestGenAIModels(
   try {
     const { stdout, stderr, exitCode } =
       await $`oci generative-ai model-collection list-models \
+    --profile ${profile} \
     --compartment-id ${compartmentId} \
     --region ${regionName}`;
 

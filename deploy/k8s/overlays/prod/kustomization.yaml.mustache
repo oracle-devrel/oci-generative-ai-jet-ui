@@ -6,7 +6,7 @@ resources:
 images:
 - name: app
   newName: {{region_key}}.ocir.io/{{{tenancy_namespace}}}/{{{project_name}}}/app
-  newTag: {{{web_version}}}
+  newTag: {{{app_version}}}
 - name: backend
   newName: {{region_key}}.ocir.io/{{{tenancy_namespace}}}/{{{project_name}}}/backend
   newTag: {{{backend_version}}}

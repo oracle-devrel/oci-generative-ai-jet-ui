@@ -1,5 +1,7 @@
 #!/usr/bin/env zx
 import moment from "moment";
+import { readFile } from "node:fs/promises";
+import { parse as iniParse } from "ini";
 import Configstore from "configstore";
 import inquirer from "inquirer";
 import clear from "clear";
@@ -7,7 +9,6 @@ import {
   getLatestGenAIModels,
   getNamespace,
   getRegions,
-  getTenancyId,
   searchCompartmentIdByName,
 } from "./lib/oci.mjs";
 import { createSSHKeyPair, createSelfSignedCert } from "./lib/crypto.mjs";
@@ -21,10 +22,16 @@ const projectName = "genai";
 
 const config = new Configstore(projectName, { projectName });
 
-await setTenancyEnv();
+await selectProfile();
+const profile = config.get("profile");
+const tenancyId = config.get("tenancyId");
+
 await setNamespaceEnv();
 await setRegionEnv();
+const regionName = config.get("regionName");
 await setCompartmentEnv();
+const compartmentId = config.get("compartmentId");
+
 await createSSHKeys(projectName);
 await createCerts();
 await setLatestGenAIModelChat();
@@ -32,18 +39,41 @@ await setLatestGenAIModelSummarization();
 
 console.log(`\nConfiguration file saved in: ${chalk.green(config.path)}`);
 
-async function setTenancyEnv() {
-  const tenancyId = await getTenancyId();
-  config.set("tenancyId", tenancyId);
+async function selectProfile() {
+  let ociConfigFile = await readFile(`${os.homedir()}/.oci/config`, {
+    encoding: "utf-8",
+  });
+
+  const ociConfig = iniParse(ociConfigFile);
+  const profileList = Object.keys(ociConfig);
+
+  if (profileList.length === 1) {
+    config.set("profile", profileList[0]);
+    config.set("tenancyId", ociConfig[profileList[0]].tenancy);
+  } else {
+    await inquirer
+      .prompt([
+        {
+          type: "list",
+          name: "profile",
+          message: "Select the OCI Config Profile",
+          choices: profileList,
+        },
+      ])
+      .then((answers) => {
+        config.set("profile", answers.profile);
+        config.set("tenancyId", ociConfig[answers.profile].tenancy);
+      });
+  }
 }
 
 async function setNamespaceEnv() {
-  const namespace = await getNamespace();
+  const namespace = await getNamespace(profile);
   config.set("namespace", namespace);
 }
 
 async function setRegionEnv() {
-  const listSubscribedRegions = (await getRegions()).sort(
+  const listSubscribedRegions = (await getRegions(profile, tenancyId)).sort(
     (r1, r2) => r1.isHomeRegion > r2.isHomeRegion
   );
 
@@ -89,6 +119,7 @@ async function setCompartmentEnv() {
     .then(async (answers) => {
       const compartmentName = answers.compartmentName;
       const compartmentId = await searchCompartmentIdByName(
+        profile,
         compartmentName || "root"
       );
       config.set("compartmentName", compartmentName);
@@ -115,8 +146,9 @@ async function createCerts() {
 
 async function setLatestGenAIModelChat() {
   const latestVersionModel = await getLatestGenAIModels(
-    config.get("compartmentId"),
-    config.get("regionName"),
+    profile,
+    compartmentId,
+    regionName,
     "cohere",
     "TEXT_GENERATION"
   );
@@ -137,8 +169,9 @@ async function setLatestGenAIModelChat() {
 
 async function setLatestGenAIModelSummarization() {
   const latestVersionModel = await getLatestGenAIModels(
-    config.get("compartmentId"),
-    config.get("regionName"),
+    profile,
+    compartmentId,
+    regionName,
     "cohere",
     "TEXT_SUMMARIZATION"
   );

@@ -4,11 +4,8 @@ data "oci_identity_tenancy" "tenant_details" {
   provider = oci
 }
 
-data "oci_identity_regions" "home" {
-  filter {
-    name   = "key"
-    values = [data.oci_identity_tenancy.tenant_details.home_region_key]
-  }
+data "oci_identity_region_subscriptions" "region_subscriptions" {
+  tenancy_id = var.tenancy_ocid
 
   provider = oci
 }
