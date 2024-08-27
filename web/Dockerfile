@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 node:21-slim AS builder
+FROM --platform=linux/amd64 node:22-slim AS builder
 
 ENV NODE_ENV=production
 ENV NODE_MAX_MEM=2048

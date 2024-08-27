@@ -2,6 +2,8 @@
 import Configstore from "configstore";
 import clear from "clear";
 import Mustache from "mustache";
+import { parse, stringify } from "yaml";
+import { readFile, writeFile } from "node:fs/promises";
 import { getOutputValues } from "./lib/terraform.mjs";
 import { exitWithError } from "./lib/utils.mjs";
 
@@ -16,6 +18,7 @@ const config = new Configstore(projectName, { projectName });
 
 const compartmentId = config.get("compartmentId");
 const namespace = config.get("namespace");
+const profile = config.get("profile");
 const regionName = config.get("regionName");
 const regionKey = config.get("regionKey");
 const webVersion = config.get("webVersion");
@@ -28,6 +31,7 @@ const genAiModelSummarization = config.get("genAiModelSummarization");
 
 const { db_service, db_password } = await getOutputValues("./deploy/terraform");
 
+await addProfileToKubeconfig(profile);
 await createBackendProperties();
 await createProdKustomization();
 await copyCerts();
@@ -149,4 +153,26 @@ async function createRegistrySecret() {
   } catch (error) {
     exitWithError(error.stderr);
   }
+}
+
+async function addProfileToKubeconfig(profile = "DEFAULT") {
+  if (profile === "DEFAULT") return;
+
+  const kubeconfigPath = "./deploy/terraform/generated/kubeconfig";
+
+  let yamlContent = await readFile(kubeconfigPath, {
+    encoding: "utf-8",
+  });
+
+  const profileFlag = "--profile";
+  const profileValue = profile;
+
+  const kubeconfig = parse(yamlContent);
+  const execArgs = kubeconfig.users[0].user.exec.args;
+  kubeconfig.users[0].user.exec.args = [...execArgs, profileFlag, profileValue];
+  const newKubeconfigContent = stringify(kubeconfig);
+
+  await writeFile(kubeconfigPath, newKubeconfigContent, {
+    encoding: "utf-8",
+  });
 }

@@ -17,23 +17,13 @@ await generateTFVars();
 async function generateTFVars() {
   const compartmentId = config.get("compartmentId");
   const compartmentName = config.get("compartmentName");
+  const profile = config.get("profile");
   const regionName = config.get("regionName");
   const tenancyId = config.get("tenancyId");
   const publicKeyContent = config.get("publicKeyContent");
   const sshPrivateKeyPath = config.get("privateKeyPath");
   const certFullchain = config.get("certFullchain");
   const certPrivateKey = config.get("certPrivateKey");
-  // const backend = config.get("backend");
-  // const backendAnsible = config.get("backendAnsible");
-  // const web = config.get("web");
-  // const webAnsible = config.get("webAnsible");
-
-  // const webArtifactUrl = web.fullPath;
-  // const backendArtifactUrl = backend.fullPath;
-  // const ansibleWebArtifactUrl = webAnsible.fullPath;
-  // const ansibleBackendArtifactUrl = backendAnsible.fullPath;
-
-  const genaiEndpoint = `https://inference.generativeai.${regionName}.oci.oraclecloud.com`;
 
   const tfVarsPath = "deploy/terraform/terraform.tfvars";
 
@@ -43,15 +33,11 @@ async function generateTFVars() {
     tenancyId,
     regionName,
     compartmentId,
+    profile,
     ssh_public_key: publicKeyContent,
     ssh_private_key_path: sshPrivateKeyPath,
     cert_fullchain: certFullchain,
     cert_private_key: certPrivateKey,
-    // web_artifact_url: webArtifactUrl,
-    // backend_artifact_url: backendArtifactUrl,
-    // ansible_web_artifact_url: ansibleWebArtifactUrl,
-    // ansible_backend_artifact_url: ansibleBackendArtifactUrl,
-    genai_endpoint: genaiEndpoint,
   });
 
   console.log(

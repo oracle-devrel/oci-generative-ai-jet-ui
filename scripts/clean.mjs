@@ -36,6 +36,7 @@ console.log(`Files in ${chalk.green(walletK8sPath)} deleted`);
 // ${regionKey}.ocir.io/${namespace}/${projectName}/backend:${backendBersion}
 
 await $`rm -rf ./.artifacts`;
+await $`rm -rf ./.certs`;
 await $`rm -rf ./deploy/terraform/generated/wallet`;
 
 config.clear();
