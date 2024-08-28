@@ -1,10 +1,9 @@
 FROM --platform=linux/amd64 node:18-slim AS builder
 
 WORKDIR /usr/src/app
-
-RUN mkdir -p ./src \
-    && mkdir -p ./scripts \
-    && mkdir -p ./staged-themes
+RUN mkdir -p ./src 
+RUN mkdir -p ./scripts 
+RUN mkdir -p ./staged-themes
 
 COPY src/ ./src/
 COPY staged-themes/ ./staged-themes
@@ -18,8 +17,8 @@ RUN npm install
 RUN ojet build web --release
 
 FROM --platform=linux/amd64 nginx:1.23-alpine-slim
-
-COPY --from=builder /usr/src/app/web/* /usr/share/nginx/html/
+RUN rm -rf /usr/share/nginx/html/*
+COPY --from=builder /usr/src/app/web/ /usr/share/nginx/html/
 
 EXPOSE 80
 
