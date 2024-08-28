@@ -1,23 +1,24 @@
-FROM nginx:1.23-alpine-slim
+FROM --platform=linux/amd64 node:18-slim AS builder
 
-RUN apk add --update nodejs npm
+WORKDIR /usr/src/app
+RUN mkdir -p ./src 
+RUN mkdir -p ./scripts 
+RUN mkdir -p ./staged-themes
 
-WORKDIR /usr/share/build
+COPY src/ ./src/
+COPY staged-themes/ ./staged-themes
+COPY scripts/ ./scripts/
+COPY *.json ./
 
-RUN mkdir -p /usr/share/build/src \
-    && mkdir -p /usr/share/build/scripts
+RUN rm package-lock.json
 
-COPY src/ /usr/share/build/src/
-
-COPY scripts/ /usr/share/build/scripts/
-
-COPY *.json /usr/share/build/
-
+RUN npm install -g @oracle/ojet-cli@16.1.0
 RUN npm install
-RUN npm install -g @oracle/ojet-cli
-RUN ojet build web --release 
+RUN ojet build web --release
 
-RUN cp -R /usr/share/build/web/* /usr/share/nginx/html/
+FROM --platform=linux/amd64 nginx:1.23-alpine-slim
+RUN rm -rf /usr/share/nginx/html/*
+COPY --from=builder /usr/src/app/web/ /usr/share/nginx/html/
 
 EXPOSE 80
 

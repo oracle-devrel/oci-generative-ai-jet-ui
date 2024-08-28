@@ -1,9 +1,9 @@
-import { ComponentProps } from "preact";
 import { useEffect, useRef } from "preact/hooks";
 import "oj-c/radioset";
 import "oj-c/form-layout";
 import "oj-c/select-single";
-import { CRadiosetElement } from "oj-c/radioset";
+import "ojs/ojlistitemlayout";
+import "ojs/ojhighlighttext";
 import MutableArrayDataProvider = require("ojs/ojmutablearraydataprovider");
 
 type ServiceTypeVal = "text" | "summary" | "sim";
@@ -60,7 +60,16 @@ export const Settings = (props: Props) => {
         throw new Error(`Response status: ${response.status}`);
       }
       const json = await response.json();
-      modelDP.current.data = json;
+      const result = json.filter((model: any) => {
+        if (
+          // model.capabilities.includes("FINE_TUNE") &&
+          model.capabilities.includes("TEXT_GENERATION") &&
+          model.vendor == "cohere" &&
+          model.version > 15
+        )
+          return model;
+      });
+      modelDP.current.data = result;
     } catch (error: any) {
       console.log(
         "Java service not available for fetching list of Models: ",
@@ -72,6 +81,29 @@ export const Settings = (props: Props) => {
   useEffect(() => {
     fetchModels();
   }, []);
+
+  const modelTemplate = (item: any) => {
+    return (
+      <oj-list-item-layout class="oj-listitemlayout-padding-off">
+        <span class="oj-typography-body-md oj-text-color-primary">
+          <oj-highlight-text
+            text={item.item.data.name}
+            match-text={item.searchText}
+          ></oj-highlight-text>
+        </span>
+        <span
+          slot="secondary"
+          class="oj-typography-body-sm oj-text-color-secondary"
+        >
+          <oj-highlight-text
+            text={JSON.stringify(item.item.data.capabilities)}
+            match-text={item.searchText}
+          ></oj-highlight-text>
+        </span>
+      </oj-list-item-layout>
+    );
+  };
+
   return (
     <div class="oj-sm-margin-4x">
       <h2 class="oj-typography-heading-sm">AI service types</h2>
@@ -103,7 +135,9 @@ export const Settings = (props: Props) => {
               labelHint={"Model"}
               itemText={"name"}
               onvalueChanged={props.modelIdChange}
-            ></oj-c-select-single>
+            >
+              <template slot="itemTemplate" render={modelTemplate}></template>
+            </oj-c-select-single>
           </oj-c-form-layout>
         </>
       )}
