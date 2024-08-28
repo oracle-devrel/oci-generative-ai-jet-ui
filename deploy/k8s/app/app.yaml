@@ -21,6 +21,7 @@ spec:
     spec:
       containers:
       - image: app
+        imagePullPolicy: "Always"
         name: app
         readinessProbe:
           httpGet:
