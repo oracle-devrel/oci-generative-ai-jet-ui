@@ -64,8 +64,8 @@ export const Settings = (props: Props) => {
         if (
           // model.capabilities.includes("FINE_TUNE") &&
           model.capabilities.includes("TEXT_GENERATION") &&
-          model.vendor == "cohere" &&
-          model.version > 15
+          (model.vendor == "cohere" || model.vendor == "") &&
+          model.version != "14.2"
         )
           return model;
       });

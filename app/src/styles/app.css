@@ -36,6 +36,18 @@ oj-sample-markdown-viewer .legacyStyling pre {
   color: black;
 }
 
+.copy-to-clip-btn {
+  position: relative;
+  border-bottom-left-radius: 5px;
+  border-width: thin;
+  padding: 5px;
+  float: right;
+  top: -10px;
+  right: -10px;
+  border-top: none;
+  border-right: none;
+}
+
 .demo-copy-paste {
   user-select: text;
 }
