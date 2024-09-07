@@ -49,16 +49,23 @@
     />
     <!-- This is where you would add any app specific styling -->
     <link rel="stylesheet" href="styles/app.css" type="text/css" />
+
+    <script type="text/javascript">
+      const copytoclip = (snip) => {
+        if (window.isSecureContext) {
+          if (snip) {
+            navigator.clipboard.writeText(snip);
+          }
+        } else {
+          console.log(
+            "Copy to clipboard requires a secure HTTP server (HTTPS) or localhost domain"
+          );
+        }
+      };
+    </script>
   </head>
 
-  <body
-    class="oj-web-applayout-body"
-    data-oj-binding-provider="none"
-  >
-  <!-- <body
-    class="oj-web-applayout-body oj-color-invert"
-    data-oj-binding-provider="none"
-  > -->
+  <body class="oj-web-applayout-body" data-oj-binding-provider="none">
     <app-root></app-root>
     <!-- This injects script tags for the main javascript files -->
     <!-- injector:scripts -->
