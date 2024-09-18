@@ -5,6 +5,7 @@ import "oj-c/select-single";
 import "ojs/ojlistitemlayout";
 import "ojs/ojhighlighttext";
 import MutableArrayDataProvider = require("ojs/ojmutablearraydataprovider");
+import { ojSelectSingle } from "@oracle/oraclejet/ojselectsingle";
 
 type ServiceTypeVal = "text" | "summary" | "sim";
 type BackendTypeVal = "java" | "python";
@@ -17,7 +18,7 @@ type Props = {
   backendType: BackendTypeVal;
   aiServiceChange: (service: ServiceTypeVal) => void;
   backendChange: (backend: BackendTypeVal) => void;
-  modelIdChange: (modelName: any) => void;
+  modelIdChange: (modelId: any, modelData: any) => void;
 };
 
 const serviceTypes = [
@@ -30,6 +31,21 @@ const backendTypes = [
   { value: "java", label: "Java" },
   { value: "python", label: "Python" },
 ];
+type Model = {
+  id: string;
+  name: string;
+  vendor: string;
+  version: string;
+  capabilities: Array<string>;
+  timeCreated: string;
+};
+type Endpoint = {
+  id: string;
+  name: string;
+  state: string;
+  model: string;
+  timeCreated: string;
+};
 const serviceOptionsDP = new MutableArrayDataProvider<
   Services["value"],
   Services
@@ -50,8 +66,11 @@ export const Settings = (props: Props) => {
   };
 
   const modelDP = useRef(
-    new MutableArrayDataProvider<string, {}>([], { keyAttributes: "id" })
+    new MutableArrayDataProvider<string, {}>([], {
+      keyAttributes: "id",
+    })
   );
+  const endpoints = useRef<Array<Endpoint>>();
 
   const fetchModels = async () => {
     try {
@@ -60,9 +79,8 @@ export const Settings = (props: Props) => {
         throw new Error(`Response status: ${response.status}`);
       }
       const json = await response.json();
-      const result = json.filter((model: any) => {
+      const result = json.filter((model: Model) => {
         if (
-          // model.capabilities.includes("FINE_TUNE") &&
           model.capabilities.includes("TEXT_GENERATION") &&
           (model.vendor == "cohere" || model.vendor == "") &&
           model.version != "14.2"
@@ -77,10 +95,54 @@ export const Settings = (props: Props) => {
       );
     }
   };
+  const fetchEndpoints = async () => {
+    try {
+      const response = await fetch("/api/genai/endpoints");
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+      const json = await response.json();
+      const result = json.filter((endpoint: Endpoint) => {
+        // add filtering code here
+        return endpoint;
+      });
+      endpoints.current = result;
+    } catch (error: any) {
+      console.log(
+        "Java service not available for fetching list of Endpoints: ",
+        error.message
+      );
+    }
+  };
 
   useEffect(() => {
+    fetchEndpoints();
     fetchModels();
   }, []);
+
+  const modelChangeHandler = async (
+    event: ojSelectSingle.valueChanged<string, {}>
+  ) => {
+    let selected = event.detail.value;
+    let finetune = false;
+    const asyncIterator = modelDP.current.fetchFirst()[Symbol.asyncIterator]();
+    let result = await asyncIterator.next();
+    let value = result.value;
+    let data = value.data as Array<Model>;
+    let idx = data.find((e: Model) => {
+      if (e.id === selected) return e;
+    });
+    if (idx?.capabilities.includes("FINE_TUNE")) {
+      finetune = true;
+      let endpointId = endpoints.current?.find((e: Endpoint) => {
+        if (e.model === event.detail.value) {
+          return e.id;
+        }
+      });
+      selected = endpointId ? endpointId.id : event.detail.value;
+    }
+    props.modelIdChange(selected, finetune);
+  };
 
   const modelTemplate = (item: any) => {
     return (
@@ -134,7 +196,7 @@ export const Settings = (props: Props) => {
               data={modelDP.current}
               labelHint={"Model"}
               itemText={"name"}
-              onvalueChanged={props.modelIdChange}
+              onvalueChanged={modelChangeHandler}
             >
               <template slot="itemTemplate" render={modelTemplate}></template>
             </oj-c-select-single>

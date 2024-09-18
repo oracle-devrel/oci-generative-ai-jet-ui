@@ -124,7 +124,8 @@ export const sendPrompt = (
   client: Client | null,
   prompt: string,
   modelId: string,
-  convoId: string
+  convoId: string,
+  finetune: boolean
 ) => {
   if (client?.connected) {
     console.log("Sending prompt: ", prompt);
@@ -134,6 +135,7 @@ export const sendPrompt = (
         conversationId: convoId,
         content: prompt,
         modelId: modelId,
+        finetune: finetune,
       }),
     });
   } else {
