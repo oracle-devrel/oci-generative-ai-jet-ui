@@ -3,14 +3,11 @@ FROM --platform=linux/amd64 node:18-slim AS builder
 WORKDIR /usr/src/app
 RUN mkdir -p ./src 
 RUN mkdir -p ./scripts 
-RUN mkdir -p ./staged-themes
 
 COPY src/ ./src/
-COPY staged-themes/ ./staged-themes
 COPY scripts/ ./scripts/
 COPY *.json ./
 
-RUN rm package-lock.json
 
 RUN npm install -g @oracle/ojet-cli@16.1.0
 RUN npm install
