@@ -25,6 +25,14 @@ type Chat = {
   answer?: string;
   loading?: string;
 };
+type Model = {
+  id: string;
+  name: string;
+  vendor: string;
+  version: string;
+  capabilities: Array<string>;
+  timeCreated: string;
+};
 
 const defaultServiceType: string = localStorage.getItem("service") || "text";
 const defaultBackendType: string = localStorage.getItem("backend") || "java";
@@ -46,6 +54,7 @@ const Content = () => {
   const question = useRef<string>();
   const chatData = useRef<Array<object>>([]);
   const socket = useRef<WebSocket>();
+  const finetune = useRef<boolean>(false);
   const [client, setClient] = useState<Client | null>(null);
 
   const messagesDP = useRef(
@@ -167,7 +176,13 @@ const Content = () => {
           JSON.stringify({ msgType: "question", data: question.current })
         );
       } else {
-        sendPrompt(client, question.current!, modelId!, conversationId!);
+        sendPrompt(
+          client,
+          question.current!,
+          modelId!,
+          conversationId!,
+          finetune.current
+        );
       }
     }
   };
@@ -199,9 +214,9 @@ const Content = () => {
     localStorage.setItem("backend", backend);
     location.reload();
   };
-  const modelIdChangeHandler = (event: CustomEvent) => {
-    console.log("model Id: ", event.detail.value);
-    if (event.detail.value != null) setModelId(event.detail.value);
+  const modelIdChangeHandler = (value: string, modelType: boolean) => {
+    if (value != null) setModelId(value);
+    finetune.current = modelType;
   };
   const clearSummary = () => {
     setSummaryResults("");

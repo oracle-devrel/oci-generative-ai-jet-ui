@@ -45,6 +45,7 @@ public class PromptController {
     @SendToUser("/queue/answer")
     public Answer handlePrompt(Prompt prompt) {
         String promptEscaped = HtmlUtils.htmlEscape(prompt.content());
+        boolean finetune = prompt.finetune();
         String activeModel = (prompt.modelId() == null) ? hardcodedChatModelId : prompt.modelId();
         logger.info("Prompt " + promptEscaped + " received, on model " + activeModel);
 
@@ -59,11 +60,8 @@ public class PromptController {
             if (prompt.content().isEmpty()) {
                 throw new InvalidPromptRequest();
             }
-            // if (prompt.modelId() == null ||
-            // !prompt.modelId().startsWith("ocid1.generativeaimodel.")) { throw new
-            // InvalidPromptRequest(); }
             saved.setDatetimeResponse(new Date());
-            String responseFromGenAI = genAI.resolvePrompt(promptEscaped, activeModel);
+            String responseFromGenAI = genAI.resolvePrompt(promptEscaped, activeModel, finetune);
             saved.setResponse(responseFromGenAI);
             interactionRepository.save(saved);
             return new Answer(responseFromGenAI, "");

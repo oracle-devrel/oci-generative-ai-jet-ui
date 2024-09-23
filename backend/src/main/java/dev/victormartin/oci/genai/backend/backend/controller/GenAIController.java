@@ -3,8 +3,12 @@ package dev.victormartin.oci.genai.backend.backend.controller;
 import com.oracle.bmc.generativeai.GenerativeAiClient;
 import com.oracle.bmc.generativeai.model.ModelCapability;
 import com.oracle.bmc.generativeai.requests.ListModelsRequest;
+import com.oracle.bmc.generativeai.requests.ListEndpointsRequest;
 import com.oracle.bmc.generativeai.responses.ListModelsResponse;
+import com.oracle.bmc.generativeai.responses.ListEndpointsResponse;
+import com.oracle.bmc.generativeai.model.EndpointSummary;
 import dev.victormartin.oci.genai.backend.backend.dao.GenAiModel;
+import dev.victormartin.oci.genai.backend.backend.dao.GenAiEndpoint;
 import dev.victormartin.oci.genai.backend.backend.service.GenerativeAiClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,11 +37,25 @@ public class GenAIController {
         GenerativeAiClient client = generativeAiClientService.getClient();
         ListModelsResponse response = client.listModels(listModelsRequest);
         return response.getModelCollection().getItems().stream().map(m -> {
-            List<String> capabilities = m.getCapabilities().stream().map(ModelCapability::getValue).collect(Collectors.toList());
-            GenAiModel model = new GenAiModel(m.getId(),m.getDisplayName(), m.getVendor(), m.getVersion(),
-                    capabilities,
-                    m.getTimeCreated());
+            List<String> capabilities = m.getCapabilities().stream().map(ModelCapability::getValue)
+                    .collect(Collectors.toList());
+            GenAiModel model = new GenAiModel(m.getId(), m.getDisplayName(), m.getVendor(), m.getVersion(),
+                    capabilities, m.getTimeCreated());
             return model;
+        }).collect(Collectors.toList());
+    }
+
+    @GetMapping("/api/genai/endpoints")
+    public List<GenAiEndpoint> getEndpoints() {
+        logger.info("getEndpoints()");
+        ListEndpointsRequest listEndpointsRequest = ListEndpointsRequest.builder().compartmentId(COMPARTMENT_ID)
+                .build();
+        GenerativeAiClient client = generativeAiClientService.getClient();
+        ListEndpointsResponse response = client.listEndpoints(listEndpointsRequest);
+        return response.getEndpointCollection().getItems().stream().map(e -> {
+            GenAiEndpoint endpoint = new GenAiEndpoint(e.getId(), e.getDisplayName(), e.getLifecycleState(),
+                    e.getModelId(), e.getTimeCreated());
+            return endpoint;
         }).collect(Collectors.toList());
     }
 }
