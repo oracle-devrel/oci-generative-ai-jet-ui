@@ -36,7 +36,7 @@ const hostname =
     ? "localhost:8080"
     : window.location.hostname;
 const serviceRootURL = `${protocol}${hostname}`;
-const acceptArr: string[] = ["application/pdf", "*.pdf"];
+const acceptArr: string[] = ["application/pdf", "*.pdf", "text/plain", "*.txt"];
 const messages: { id: number; severity: string; summary: string }[] = [];
 const FILE_SIZE = 120000;
 
@@ -271,7 +271,7 @@ export const Summary = ({
       <div class="oj-flex-item oj-sm-margin-4x">
         <h1>Document Summarization</h1>
         <div class="oj-typography-body-md oj-sm-padding-1x-bottom">
-          Upload a PDF file
+          Upload a PDF/TXT file
         </div>
         <oj-validation-group ref={valGroupRef}>
           <oj-c-file-picker
@@ -283,7 +283,7 @@ export const Summary = ({
             onojBeforeSelect={beforeSelectListener}
             secondaryText={`Maximum file size is ${
               FILE_SIZE / 1000
-            }KB per PDF file.`}
+            }KB per PDF or TXT file.`}
           ></oj-c-file-picker>
           {backendType === "python" && (
             <oj-c-input-text
