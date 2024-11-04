@@ -8,6 +8,7 @@ import dev.victormartin.oci.genai.backend.backend.data.InteractionRepository;
 import dev.victormartin.oci.genai.backend.backend.data.InteractionType;
 import dev.victormartin.oci.genai.backend.backend.service.OCIGenAIService;
 import dev.victormartin.oci.genai.backend.backend.service.PDFConvertorService;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.HtmlUtils;
 
 import java.io.File;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 @RestController
@@ -49,6 +52,7 @@ public class PDFConvertorController {
                                 @RequestHeader("modelId") String modelId) {
         String filename = StringUtils.cleanPath(multipartFile.getOriginalFilename());
         log.info("File uploaded {} {} bytes ({})", filename, multipartFile.getSize(), multipartFile.getContentType());
+        String contentType = multipartFile.getContentType();// application/pdf
         try {
             if (filename.contains("..")) {
                 throw new Exception("Filename contains invalid path sequence");
@@ -60,7 +64,18 @@ public class PDFConvertorController {
             File file = new File(fileDestinationPath + File.separator + filename);
             multipartFile.transferTo(file);
             log.info("File destination path: {}", file.getAbsolutePath());
-            String convertedText = pdfConvertorService.convert(file.getAbsolutePath());
+            String convertedText;
+            switch (contentType) {
+                case "text/plain":
+                    convertedText = FileUtils.readFileToString(file, StandardCharsets.UTF_8);
+                    break;
+                case "application/pdf":
+                    convertedText = pdfConvertorService.convert(file.getAbsolutePath());
+                    break;
+                default:
+                    convertedText= "";
+                    break;
+            }
             String textEscaped = HtmlUtils.htmlEscape(convertedText);
             Interaction interaction = new Interaction();
             interaction.setType(InteractionType.SUMMARY_FILE);
@@ -69,7 +84,7 @@ public class PDFConvertorController {
             interaction.setModelId(summarizationModelId);
             interaction.setRequest(textEscaped);
             Interaction saved = interactionRepository.save(interaction);
-            String summaryText = ociGenAIService.summaryText(textEscaped, summarizationModelId);
+            String summaryText = ociGenAIService.summaryText(textEscaped, summarizationModelId, false);
             saved.setDatetimeResponse(new Date());
             saved.setResponse(summaryText);
             interactionRepository.save(saved);

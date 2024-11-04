@@ -18,9 +18,9 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 @Service
-public class GenerativeAiClientService {
+public class GenAiClientService {
 
-    Logger log = LoggerFactory.getLogger(GenerativeAiClientService.class);
+    Logger log = LoggerFactory.getLogger(GenAiClientService.class);
 
     @Autowired
     private Environment environment;

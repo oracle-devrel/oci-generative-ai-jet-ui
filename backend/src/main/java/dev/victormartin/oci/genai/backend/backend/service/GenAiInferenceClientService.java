@@ -6,7 +6,6 @@ import com.oracle.bmc.auth.AuthenticationDetailsProvider;
 import com.oracle.bmc.auth.ConfigFileAuthenticationDetailsProvider;
 import com.oracle.bmc.auth.InstancePrincipalsAuthenticationDetailsProvider;
 import com.oracle.bmc.auth.okeworkloadidentity.OkeWorkloadIdentityAuthenticationDetailsProvider;
-import com.oracle.bmc.generativeai.GenerativeAiClient;
 import com.oracle.bmc.generativeaiinference.GenerativeAiInferenceClient;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
@@ -19,9 +18,9 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 @Service
-public class GenerativeAiInferenceClientService {
+public class GenAiInferenceClientService {
 
-    Logger log = LoggerFactory.getLogger(GenerativeAiInferenceClientService.class);
+    Logger log = LoggerFactory.getLogger(GenAiInferenceClientService.class);
 
     private GenerativeAiInferenceClient client;
 

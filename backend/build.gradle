@@ -20,17 +20,18 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	implementation 'com.oracle.oci.sdk:oci-java-sdk-shaded-full:3.33.0'
-	implementation 'com.oracle.oci.sdk:oci-java-sdk-core:3.35.0'
-	implementation 'com.oracle.oci.sdk:oci-java-sdk-common:3.35.0'
-	implementation 'com.oracle.oci.sdk:oci-java-sdk-addons-oke-workload-identity:3.35.0'
-	implementation 'com.oracle.oci.sdk:oci-java-sdk-generativeai:3.35.0'
+	implementation 'org.netbeans.external:org-apache-commons-io:RELEASE113'
+	implementation 'com.oracle.oci.sdk:oci-java-sdk-shaded-full:3.52.1'
+	implementation 'com.oracle.oci.sdk:oci-java-sdk-core:3.52.1'
+	implementation 'com.oracle.oci.sdk:oci-java-sdk-common:3.52.1'
+	implementation 'com.oracle.oci.sdk:oci-java-sdk-addons-oke-workload-identity:3.52.1'
+	implementation 'com.oracle.oci.sdk:oci-java-sdk-generativeai:3.52.1'
 	implementation 'com.oracle.database.jdbc:ojdbc11-production:21.8.0.0'
 	implementation 'com.oracle.database.jdbc:ucp:21.8.0.0'
 	implementation 'com.oracle.database.security:oraclepki:21.8.0.0'
 	implementation 'com.oracle.database.security:osdt_cert:21.8.0.0'
 	implementation 'com.oracle.database.security:osdt_core:21.8.0.0'
-	implementation 'org.apache.pdfbox:pdfbox:3.0.2' exclude(group: 'commons-logging', module: 'commons-logging')
+	implementation 'org.apache.pdfbox:pdfbox:3.0.3' exclude(group: 'commons-logging', module: 'commons-logging')
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

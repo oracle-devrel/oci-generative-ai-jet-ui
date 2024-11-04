@@ -47,7 +47,7 @@ public class SummaryController {
         interaction.setRequest(contentEscaped);
         Interaction saved = interactionRepository.save(interaction);
         try {
-            String summaryText = ociGenAIService.summaryText(contentEscaped, summarizationModelId);
+            String summaryText = ociGenAIService.summaryText(contentEscaped, summarizationModelId, false);
             saved.setDatetimeResponse(new Date());
             saved.setResponse(summaryText);
             interactionRepository.save(saved);

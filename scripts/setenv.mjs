@@ -150,7 +150,7 @@ async function setLatestGenAIModelChat() {
     compartmentId,
     regionName,
     "cohere",
-    "TEXT_GENERATION"
+    "CHAT"
   );
 
   const { id, vendor: vendorName, version, capabilities } = latestVersionModel;
@@ -161,7 +161,7 @@ async function setLatestGenAIModelChat() {
       version
     )} (${chalk.green(displayName)}) with ${chalk.green(
       capabilities.join(",")
-    )} created ${timeCreated}`
+    )} created ${timeCreated} (${id})`
   );
 
   config.set("genAiModelChat", id);
@@ -173,7 +173,7 @@ async function setLatestGenAIModelSummarization() {
     compartmentId,
     regionName,
     "cohere",
-    "TEXT_SUMMARIZATION"
+    "CHAT"
   );
 
   const { id, vendor: vendorName, version, capabilities } = latestVersionModel;
@@ -184,7 +184,7 @@ async function setLatestGenAIModelSummarization() {
       version
     )} (${chalk.green(displayName)}) with ${chalk.green(
       capabilities.join(",")
-    )} created ${timeCreated}`
+    )} created ${timeCreated} (${id})`
   );
 
   config.set("genAiModelSummarization", id);

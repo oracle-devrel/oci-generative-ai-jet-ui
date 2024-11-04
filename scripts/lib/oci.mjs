@@ -1,6 +1,7 @@
 #!/usr/bin/env zx
+import moment from "moment";
 import { exitWithError } from "./utils.mjs";
-import { where, max } from "underscore";
+import { where, max, sortBy } from "underscore";
 
 export async function getRegions(profile = "DEFAULT", tenancyId) {
   try {
@@ -376,9 +377,29 @@ export async function getLatestGenAIModels(
     const activeCohereModels = where(data.items, {
       "lifecycle-state": "ACTIVE",
       vendor: vendor,
+      "is-long-term-supported": true,
     });
 
-    const filteredByCapatility = activeCohereModels.filter((model) => {
+    const modelsCleaned = activeCohereModels.map((e) => {
+      const creationTimeInMillis = moment(e["time-created"]).valueOf();
+      return {
+        id: e.id,
+        "display-name": e["display-name"],
+        capabilities: e.capabilities,
+        vendor: e.vendor,
+        version: e.version,
+        type: e.type,
+        "is-long-term-supported": e["is-long-term-supported"],
+        "lifecycle-state": e["lifecycle-state"],
+        "time-created": e["time-created"],
+        creationTimeInMillis,
+      };
+    });
+    const sortedByCreationTime = sortBy(modelsCleaned, [
+      "creationTimeInMillis",
+    ]);
+
+    const filteredByCapatility = sortedByCreationTime.filter((model) => {
       const { capabilities } = model;
       if (capabilities.length !== 1) return false;
       if (capabilities[0] !== capability) return false;
