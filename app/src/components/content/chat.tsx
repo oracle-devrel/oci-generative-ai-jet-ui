@@ -68,6 +68,14 @@ export const Chat = ({ testId, data, questionChanged, question }: Props) => {
     );
   };
 
+  const handleQuestionChange = (event: any) => {
+    const newValue = event.detail.value.trim();
+    if (newValue !== "") {
+      questionChanged(event);
+      question.current = ""; // Clear the input field after adding the question
+    }
+  };
+
   return (
     <>
       <div class="oj-flex-item">
@@ -91,7 +99,7 @@ export const Chat = ({ testId, data, questionChanged, question }: Props) => {
         value={question?.current}
         placeholder="ask me anything..."
         aria-label="enter a question"
-        onojValueAction={questionChanged}
+        onojValueAction={handleQuestionChange}
       ></oj-input-search>
     </>
   );

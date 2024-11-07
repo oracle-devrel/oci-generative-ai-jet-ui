@@ -1,6 +1,6 @@
 {
   "name": "JETGenAI",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Sample Client app showing communication with OCI Generative AI services via Websocket",
   "dependencies": {
     "@oracle/oraclejet": "~16.1.0",
