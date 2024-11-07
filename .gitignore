@@ -76,3 +76,4 @@ build/
 bin/
 dist/
 application-local.yaml
+service/python/config.json
