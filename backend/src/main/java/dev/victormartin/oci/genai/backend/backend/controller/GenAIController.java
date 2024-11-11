@@ -8,6 +8,7 @@ import com.oracle.bmc.generativeai.responses.ListModelsResponse;
 import com.oracle.bmc.generativeai.responses.ListEndpointsResponse;
 import dev.victormartin.oci.genai.backend.backend.dao.GenAiModel;
 import dev.victormartin.oci.genai.backend.backend.dao.GenAiEndpoint;
+import dev.victormartin.oci.genai.backend.backend.service.GenAIModelsService;
 import dev.victormartin.oci.genai.backend.backend.service.GenAiClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,19 +30,16 @@ public class GenAIController {
     @Autowired
     private GenAiClientService generativeAiClientService;
 
+    @Autowired
+    private GenAIModelsService genAIModelsService;
+
     @GetMapping("/api/genai/models")
     public List<GenAiModel> getModels() {
         logger.info("getModels()");
-        ListModelsRequest listModelsRequest = ListModelsRequest.builder().compartmentId(COMPARTMENT_ID).build();
-        GenerativeAiClient client = generativeAiClientService.getClient();
-        ListModelsResponse response = client.listModels(listModelsRequest);
-        return response.getModelCollection().getItems().stream().map(m -> {
-            List<String> capabilities = m.getCapabilities().stream().map(ModelCapability::getValue)
-                    .collect(Collectors.toList());
-            GenAiModel model = new GenAiModel(m.getId(), m.getDisplayName(), m.getVendor(), m.getVersion(),
-                    capabilities, m.getTimeCreated());
-            return model;
-        }).collect(Collectors.toList());
+        List<GenAiModel> models = genAIModelsService.getModels();
+        return models.stream()
+                .filter(m -> m.capabilities().contains("CHAT"))
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/api/genai/endpoints")

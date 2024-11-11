@@ -61,7 +61,7 @@ public class PromptController {
                 throw new InvalidPromptRequest();
             }
             saved.setDatetimeResponse(new Date());
-            String responseFromGenAI = genAI.resolvePrompt(promptEscaped, activeModel, finetune);
+            String responseFromGenAI = genAI.resolvePrompt(promptEscaped, activeModel, finetune, false);
             saved.setResponse(responseFromGenAI);
             interactionRepository.save(saved);
             return new Answer(responseFromGenAI, "");

@@ -1,48 +1,94 @@
 package dev.victormartin.oci.genai.backend.backend.service;
 
-import com.oracle.bmc.generativeaiinference.GenerativeAiInferenceClient;
 import com.oracle.bmc.generativeaiinference.model.*;
+import com.oracle.bmc.generativeaiinference.model.Message;
 import com.oracle.bmc.generativeaiinference.requests.ChatRequest;
-import com.oracle.bmc.generativeaiinference.requests.GenerateTextRequest;
-import com.oracle.bmc.generativeaiinference.requests.SummarizeTextRequest;
 import com.oracle.bmc.generativeaiinference.responses.ChatResponse;
-import com.oracle.bmc.generativeaiinference.responses.GenerateTextResponse;
-import com.oracle.bmc.generativeaiinference.responses.SummarizeTextResponse;
-import com.oracle.bmc.http.client.jersey.WrappedResponseInputStream;
-import org.hibernate.boot.archive.scan.internal.StandardScanner;
+import dev.victormartin.oci.genai.backend.backend.dao.GenAiModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class OCIGenAIService {
+
+        Logger log = LoggerFactory.getLogger(OCIGenAIService.class);
+
         @Value("${genai.compartment_id}")
         private String COMPARTMENT_ID;
 
         @Autowired
         private GenAiInferenceClientService generativeAiInferenceClientService;
 
-        public String resolvePrompt(String input, String modelId, boolean finetune) {
-                CohereChatRequest cohereChatRequest = CohereChatRequest.builder()
-                        .message(input)
-                        .maxTokens(600)
-                        .temperature((double) 1)
-                        .frequencyPenalty((double) 0)
-                        .topP((double) 0.75)
-                        .topK(0)
-                        .isStream(false) // TODO websockets and streams
-                        .build();
+        @Autowired
+        private GenAIModelsService genAIModelsService;
 
-                ChatDetails chatDetails = ChatDetails.builder()
-                        .servingMode(OnDemandServingMode.builder().modelId(modelId).build())
-                        .compartmentId(COMPARTMENT_ID)
-                        .chatRequest(cohereChatRequest)
-                        .build();
+        public String resolvePrompt(String input, String modelId, boolean finetune, boolean summarization) {
+
+                List<GenAiModel> models = genAIModelsService.getModels();
+                GenAiModel currentModel = models.stream()
+                        .filter(m-> modelId.equals(m.id()))
+                        .findFirst()
+                        .orElseThrow();
+
+                log.info("Model {} with finetune {}", currentModel.name(), finetune? "yes" : "no");
+
+                double temperature = summarization?0.0:0.5;
+
+                String inputText = summarization?"Summarize this text:\n" + input: input;
+
+                        ChatDetails chatDetails;
+                switch (currentModel.vendor()) {
+                        case "cohere":
+                                CohereChatRequest cohereChatRequest = CohereChatRequest.builder()
+                                        .message(inputText)
+                                        .maxTokens(600)
+                                        .temperature(temperature)
+                                        .frequencyPenalty((double) 0)
+                                        .topP(0.75)
+                                        .topK(0)
+                                        .isStream(false) // TODO websockets and streams
+                                        .build();
+
+                                chatDetails = ChatDetails.builder()
+                                        .servingMode(OnDemandServingMode.builder().modelId(currentModel.id()).build())
+                                        .compartmentId(COMPARTMENT_ID)
+                                        .chatRequest(cohereChatRequest)
+                                        .build();
+                                break;
+                        case "meta":
+                                ChatContent content = TextContent.builder()
+                                        .text(inputText)
+                                        .build();
+                                List<ChatContent> contents = new ArrayList<>();
+                                contents.add(content);
+                                List<Message> messages = new ArrayList<>();
+                                Message message = new UserMessage(contents, "user");
+                                messages.add(message);
+                                GenericChatRequest genericChatRequest = GenericChatRequest.builder()
+                                        .messages(messages)
+                                        .maxTokens(600)
+                                        .temperature((double)1)
+                                        .frequencyPenalty((double)0)
+                                        .presencePenalty((double)0)
+                                        .topP(0.75)
+                                        .topK(-1)
+                                        .isStream(false)
+                                        .build();
+                                chatDetails = ChatDetails.builder()
+                                        .servingMode(OnDemandServingMode.builder().modelId(currentModel.id()).build())
+                                        .compartmentId(COMPARTMENT_ID)
+                                        .chatRequest(genericChatRequest)
+                                        .build();
+                                break;
+                        default:
+                                throw new IllegalStateException("Unexpected value: " + currentModel.vendor());
+                }
 
                 ChatRequest request = ChatRequest.builder()
                         .chatDetails(chatDetails)
@@ -65,7 +111,7 @@ public class OCIGenAIService {
         }
 
         public String summaryText(String input, String modelId, boolean finetuned) {
-                String response = resolvePrompt("Summarize this:\n" + input, modelId, finetuned);
+                String response = resolvePrompt(input, modelId, finetuned, true);
                 return response;
         }
 }
