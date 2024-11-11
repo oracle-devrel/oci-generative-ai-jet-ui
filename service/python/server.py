@@ -12,7 +12,7 @@ from types import SimpleNamespace
 with open('config.json') as f:
     config = json.load(f)
 
-# Load configuration parameters
+# Load configuration parameters 
 compartment_id = config['compartment_id']
 CONFIG_PROFILE = config['config_profile']
 endpoint = config['service_endpoint']
@@ -172,6 +172,6 @@ async def handle_websocket(websocket, path):
         
 async def start_server():
     async with websockets.serve(handle_websocket, "localhost", 1986, max_size=200000000):
-        await asyncio.Future()  # run forever
+        await asyncio.Future()
 
 asyncio.run(start_server())
