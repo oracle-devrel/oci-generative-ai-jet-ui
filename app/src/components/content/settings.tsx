@@ -81,9 +81,8 @@ export const Settings = (props: Props) => {
       const json = await response.json();
       const result = json.filter((model: Model) => {
         if (
-          model.capabilities.includes("TEXT_GENERATION") &&
-          (model.vendor == "cohere" || model.vendor == "") &&
-          model.version != "14.2"
+          model.capabilities.includes("CHAT") &&
+          (model.vendor == "cohere" || model.vendor == "meta")
         )
           return model;
       });
