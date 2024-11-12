@@ -43,22 +43,22 @@ export const Answer = ({ item, sim }: Props) => {
       )}
       {!sim && (
         <li class="oj-flex demo-answer-layout">
-          <div class="oj-flex-item oj-flex-bar">
-            <div class="oj-sm-justify-content-flex-end oj-flex-bar-middle oj-sm-padding-2x demo-copy-paste oj-color-invert">
+          <div class="oj-flex-item">
+            <div class="oj-sm-justify-content-flex-end oj-sm-padding-2x-end oj-sm-12 demo-copy-paste oj-color-invert">
               <md-wrapper
                 id="TestingOne"
-                class="oj-sm-width-full"
+                class="oj-sm-12"
                 markdown={answer}
               />
             </div>
-            <div class="oj-flex-bar-end">
+            {/* <div class="oj-flex-bar-end">
               <oj-avatar
                 initials="A"
                 size="sm"
                 role="presentation"
                 background="orange"
               ></oj-avatar>
-            </div>
+            </div> */}
           </div>
         </li>
       )}

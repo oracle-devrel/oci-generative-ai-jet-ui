@@ -34,6 +34,13 @@ header.oj-web-applayout-header {
 
 oj-sample-markdown-viewer .legacyStyling pre {
   color: black;
+  white-space:pre-wrap;
+  margin: unset;
+
+}
+oj-sample-markdown-viewer .legacyStyling p {
+  margin-right: 10px;
+
 }
 
 .copy-to-clip-btn {
@@ -51,6 +58,7 @@ oj-sample-markdown-viewer .legacyStyling pre {
 .demo-copy-paste {
   user-select: text;
 }
+
 
 .demo-bg-main {
   background-color: rgb(var(--oj-palette-neutral-rgb-10));
@@ -78,9 +86,13 @@ samp {
   margin: 20px 10px 50px 10px;
   border: 2px black;
   border-radius: 10px;
-  padding: 10px 10px 10px 65px;
+  padding: 10px;
   text-align: start;
   max-width: 1440px;
+}
+
+.demo-answer-padding {
+  margin-top:65px;
 }
 .demo-sim-answer-layout {
   min-height: 50px;
@@ -116,7 +128,7 @@ samp {
 .demo-chat-layout {
   max-height: 100%;
   height: 80%;
-  min-height: 400px;
+  min-height: calc(100vh - 200px);
 }
 
 .demo-no-data-layout {
