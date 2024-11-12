@@ -70,7 +70,7 @@ export const Chat = ({ testId, data, questionChanged, question }: Props) => {
 
   return (
     <>
-      <div class="oj-flex-item">
+      <div class="oj-flex-item oj-sm-12">
         <oj-list-view
           id="chatlist"
           ref={listRef}
