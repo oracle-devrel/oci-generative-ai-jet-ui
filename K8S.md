@@ -48,7 +48,7 @@ Change to the new folder:
 cd oci-generative-ai-jet-ui
 ```
 
-Install Node.js 16 on Cloud Shell.
+Install Node.js 18 on Cloud Shell.
 
 ```bash
 nvm install 18 && nvm use 18
@@ -130,6 +130,7 @@ Run `get deploy` a few times:
 
 ```bash
 kubectl get deploy -n backend
+kubectl get pods -n backend
 ```
 
 Wait for all deployments to be `Ready` and `Available`.

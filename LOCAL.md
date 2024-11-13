@@ -1,4 +1,13 @@
-# Run Local
+# Running Java Backend for Local Development
+
+This guide provides step-by-step instructions for running the Java backend application locally for development purposes.
+
+Prerequisites
+Ensure you have the following installed on your system:
+Java Development Kit (JDK) 11 or later
+Gradle 6.8 or later
+Oracle JDBC Driver (if using an Oracle database)
+Familiarize yourself with the project structure and configuration files.
 
 ## Run components
 

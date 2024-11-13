@@ -53,7 +53,7 @@ config.set("ocir_user_email", ocir_user_email);
 config.set("ocir_user_token", ocir_user_token);
 
 await containerLogin(namespace, ocir_user, ocir_user_token, ocirUrl);
-await releaseWeb();
+// await releaseWeb();
 await releaseApp();
 await releaseBackend();
 
