@@ -7,8 +7,8 @@ import "ojs/ojhighlighttext";
 import MutableArrayDataProvider = require("ojs/ojmutablearraydataprovider");
 import { ojSelectSingle } from "@oracle/oraclejet/ojselectsingle";
 
-type ServiceTypeVal = "text" | "summary" | "sim";
-type BackendTypeVal = "java" | "python";
+type ServiceTypeVal = "text" | "summary";
+type BackendTypeVal = "java";
 type Services = {
   label: string;
   value: ServiceTypeVal;
@@ -25,12 +25,7 @@ const serviceTypes = [
   { value: "text", label: "Generative Text" },
   { value: "summary", label: "Summarize" },
 ];
-// { value: "sim", label: "Simulation" },
 
-const backendTypes = [
-  { value: "java", label: "Java" },
-  { value: "python", label: "Python" },
-];
 type Model = {
   id: string;
   name: string;
@@ -50,19 +45,11 @@ const serviceOptionsDP = new MutableArrayDataProvider<
   Services["value"],
   Services
 >(serviceTypes, { keyAttributes: "value" });
-const backendOptionsDP = new MutableArrayDataProvider<
-  Services["value"],
-  Services
->(backendTypes, { keyAttributes: "value" });
 
 export const Settings = (props: Props) => {
   const handleServiceTypeChange = (event: any) => {
     if (event.detail.updatedFrom === "internal")
       props.aiServiceChange(event.detail.value);
-  };
-  const handleBackendTypeChange = (event: any) => {
-    if (event.detail.updatedFrom === "internal")
-      props.backendChange(event.detail.value);
   };
 
   const modelDP = useRef(
@@ -72,17 +59,33 @@ export const Settings = (props: Props) => {
   );
   const endpoints = useRef<Array<Endpoint>>();
 
+  // get a date 6 months prior to today, to use as the model expirationDate
+  // date math code sample credit to Christian C. Salvadó https://github.com/cms
+  const getDaysInMonth = (year: number, month: number) => new Date(year, month, 0).getDate()
+  const getExpirationDate = (input: Date, months: number) => {
+    const date = new Date(input)
+    date.setDate(1)
+    date.setMonth(date.getMonth() + months)
+    date.setDate(Math.min(input.getDate(), getDaysInMonth(date.getFullYear(), date.getMonth() + 1)))
+    return date.toISOString()
+  }
+
   const fetchModels = async () => {
     try {
       const response = await fetch("/api/genai/models");
       if (!response.ok) {
         throw new Error(`Response status: ${response.status}`);
       }
+      const expirationDate: string = getExpirationDate(new Date(), -6);
       const json = await response.json();
+      console.log('Raw Models: ', json)
+      // filtering list of models to only get ones that work with Chat, are from vendors that we trust, 
+      // were not created more than six months ago.
       const result = json.filter((model: Model) => {
         if (
           model.capabilities.includes("CHAT") &&
-          (model.vendor == "cohere" || model.vendor == "meta")
+          (model.vendor == "cohere" || model.vendor == "meta") &&
+          (model.timeCreated > expirationDate)
         )
           return model;
       });
@@ -177,31 +180,17 @@ export const Settings = (props: Props) => {
           onvalueChanged={handleServiceTypeChange}
         ></oj-c-radioset>
       </oj-c-form-layout>
-      <h2 class="oj-typography-heading-sm">Backend service types</h2>
+      <h2 class="oj-typography-heading-sm">Model options</h2>
       <oj-c-form-layout>
-        <oj-c-radioset
-          id="backendTypeRadioset"
-          value={props.backendType}
-          labelHint="Backend options"
-          options={backendOptionsDP}
-          onvalueChanged={handleBackendTypeChange}
-        ></oj-c-radioset>
+        <oj-c-select-single
+          data={modelDP.current}
+          labelHint={"Model"}
+          itemText={"name"}
+          onvalueChanged={modelChangeHandler}
+        >
+          <template slot="itemTemplate" render={modelTemplate}></template>
+        </oj-c-select-single>
       </oj-c-form-layout>
-      {props.aiServiceType == "text" && props.backendType == "java" && (
-        <>
-          <h2 class="oj-typography-heading-sm">Model options</h2>
-          <oj-c-form-layout>
-            <oj-c-select-single
-              data={modelDP.current}
-              labelHint={"Model"}
-              itemText={"name"}
-              onvalueChanged={modelChangeHandler}
-            >
-              <template slot="itemTemplate" render={modelTemplate}></template>
-            </oj-c-select-single>
-          </oj-c-form-layout>
-        </>
-      )}
     </div>
   );
 };

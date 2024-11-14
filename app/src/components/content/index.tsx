@@ -1,6 +1,5 @@
 import { Chat } from "./chat";
 import { Summary } from "./summary";
-import { Simulation } from "./simulation";
 import { Settings } from "./settings";
 import "preact";
 import "ojs/ojinputsearch";
@@ -12,13 +11,12 @@ import { InputSearchElement } from "ojs/ojinputsearch";
 import { useState, useEffect, useRef, useContext } from "preact/hooks";
 import * as Questions from "text!./data/questions.json";
 import * as Answers from "text!./data/answers.json";
-import { initWebSocket } from "./websocket-interface";
 import { InitStomp, sendPrompt } from "./stomp-interface";
 import { Client } from "@stomp/stompjs";
 import { ConvoCtx } from "../app";
 
-type ServiceTypes = "text" | "summary" | "sim";
-type BackendTypes = "java" | "python";
+type ServiceTypes = "text" | "summary";
+type BackendTypes = "java";
 type Chat = {
   id?: number;
   question?: string;
@@ -64,74 +62,23 @@ const Content = () => {
     )
   );
 
-  // Simulation code
-  const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-  const runSimulation = async () => {
-    let Q = true;
-    let x: number = 0;
-    let y: number = 0;
-    let tempArray: Array<Chat> = [];
-    for (let index = 0; index < 8; index++) {
-      if (Q) {
-        if (x > 0) tempArray.pop();
-        tempArray.push({ question: JSON.parse(Questions)[x] });
-        Q = false;
-        x++;
-      } else {
-        tempArray.push({ answer: JSON.parse(Answers)[y] });
-        if (y < JSON.parse(Answers).length - 1)
-          tempArray.push({ loading: "loading" });
-        Q = true;
-        y++;
-      }
-      setUpdate([...tempArray]);
-      await sleep(2000);
-    }
-  };
-
   useEffect(() => {
     switch (serviceType) {
       case "text":
-        if (backendType === "python") {
-          initWebSocket(
-            setSummaryResults,
-            setBusy,
-            setUpdate,
-            messagesDP,
-            socket,
-            chatData
-          );
-        } else {
-          setClient(
-            InitStomp(setBusy, setUpdate, messagesDP, chatData, serviceType)
-          );
-        }
+        setClient(
+          InitStomp(setBusy, setUpdate, messagesDP, chatData, serviceType)
+        );
         console.log("Running Generative service");
         return;
-      case "sim":
-        runSimulation();
-        console.log("Running simulation");
-        return;
       case "summary":
-        if (backendType === "python") {
-          initWebSocket(
-            setSummaryResults,
-            setBusy,
-            setUpdate,
-            messagesDP,
-            socket,
-            chatData
-          );
-        } else {
-          setClient(
-            InitStomp(setBusy, setUpdate, messagesDP, chatData, serviceType)
-          );
-        }
+        setClient(
+          InitStomp(setBusy, setUpdate, messagesDP, chatData, serviceType)
+        );
         console.log("Running Summarization service");
         return;
     }
     return () => {
-      socket.current ? (socket.current.onclose = () => {}) : null;
+      socket.current ? (socket.current.onclose = () => { }) : null;
       socket.current?.close();
       client?.deactivate();
     };
@@ -170,20 +117,13 @@ const Content = () => {
       chatData.current = tempAnswerArray;
       setUpdate(chatData.current);
       setBusy(true);
-
-      if (backendType === "python") {
-        socket.current?.send(
-          JSON.stringify({ msgType: "question", data: question.current })
-        );
-      } else {
-        sendPrompt(
-          client,
-          question.current!,
-          modelId!,
-          conversationId!,
-          finetune.current
-        );
-      }
+      sendPrompt(
+        client,
+        question.current!,
+        modelId!,
+        conversationId!,
+        finetune.current
+      );
     }
   };
 
@@ -259,13 +199,6 @@ const Content = () => {
       </div>
       {serviceType === "text" && (
         <Chat
-          data={update}
-          question={question}
-          questionChanged={handleQuestionChange}
-        />
-      )}
-      {serviceType === "sim" && (
-        <Simulation
           data={update}
           question={question}
           questionChanged={handleQuestionChange}
