@@ -9,8 +9,6 @@ import MutableArrayDataProvider = require("ojs/ojmutablearraydataprovider");
 import { MessageToastItem } from "oj-c/message-toast";
 import { InputSearchElement } from "ojs/ojinputsearch";
 import { useState, useEffect, useRef, useContext } from "preact/hooks";
-import * as Questions from "text!./data/questions.json";
-import * as Answers from "text!./data/answers.json";
 import { InitStomp, sendPrompt } from "./stomp-interface";
 import { Client } from "@stomp/stompjs";
 import { ConvoCtx } from "../app";
