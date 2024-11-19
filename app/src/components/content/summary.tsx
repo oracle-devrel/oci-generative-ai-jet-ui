@@ -8,6 +8,7 @@ import "oj-c/input-text";
 import "oj-c/progress-bar";
 import "oj-c/button";
 import "ojs/ojvalidationgroup";
+import "oj-sp/ai-button/loader"
 import { ojValidationGroup } from "ojs/ojvalidationgroup";
 import { CFilePickerElement } from "oj-c/file-picker";
 import { CInputTextElement } from "oj-c/input-text";
@@ -28,6 +29,7 @@ type Props = {
   prompt: (val: string) => void;
   summaryChanged: (summary: string) => void;
   summary: string;
+  modelId: string | null;
   backendType: any;
 };
 const protocol = window.location.protocol === "http:" ? "ws://" : "wss://";
@@ -46,6 +48,7 @@ export const Summary = ({
   prompt,
   summaryChanged,
   summary,
+  modelId,
   backendType,
 }: Props) => {
   const conversationId = useContext(ConvoCtx);
@@ -76,7 +79,7 @@ export const Summary = ({
   const submitPrompt = (event: CInputTextElement.valueChanged<string>) => {
     let tempStr = event.detail.value
       ? event.detail.value
-      : "Generate a summary";
+      : "";
     setSummaryPrompt(tempStr);
     prompt(tempStr);
   };
@@ -91,7 +94,7 @@ export const Summary = ({
       mode: "cors",
       referrerPolicy: "strict-origin-when-cross-origin",
       body: formData,
-      headers: { conversationID: conversationId, modelId: "" },
+      headers: { conversationID: conversationId, modelId: modelId ? modelId : "", contextStr: summaryPrompt },
     });
     console.log("Response: ", res);
     const responseData = await res.json();
@@ -281,22 +284,18 @@ export const Summary = ({
             onojSelect={selectListener}
             onojInvalidSelect={invalidListener}
             onojBeforeSelect={beforeSelectListener}
-            secondaryText={`Maximum file size is ${
-              FILE_SIZE / 1000
-            }KB per PDF or TXT file.`}
+            secondaryText={`Maximum file size is ${FILE_SIZE / 1000
+              }KB per PDF or TXT file.`}
           ></oj-c-file-picker>
-          {backendType === "python" && (
-            <oj-c-input-text
-              id="promptInput"
-              ref={promptInputRef}
-              required
-              aria-label="enter document summary prompt"
-              class="oj-sm-width-full oj-md-width-1/2 oj-sm-margin-4x-top oj-sm-margin-4x-bottom"
-              labelHint="Enter the document summary prompt"
-              labelEdge="top"
-              onvalueChanged={submitPrompt}
-            ></oj-c-input-text>
-          )}
+
+          <oj-c-input-text
+            id="promptInput"
+            ref={promptInputRef}
+            class="oj-sm-width-full oj-md-width-1/2 oj-sm-margin-4x-top oj-sm-margin-4x-bottom"
+            labelHint="Add context of how you want to summarize this file (optional)"
+            labelEdge="top"
+            onvalueChanged={submitPrompt}
+          ></oj-c-input-text>
         </oj-validation-group>
         {invalidFiles.current.length !== 1 && fileNames && (
           <>
@@ -310,6 +309,8 @@ export const Summary = ({
               aria-label="summarization toolbar"
               aria-controls="summaryContent"
             >
+              <oj-sp-ai-button onspAction={summarizeFile}>
+              </oj-sp-ai-button>
               <oj-c-button
                 label="Summarize"
                 onojAction={summarizeFile}

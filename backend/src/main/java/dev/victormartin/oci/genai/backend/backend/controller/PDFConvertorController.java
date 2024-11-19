@@ -49,8 +49,10 @@ public class PDFConvertorController {
     @PostMapping("/api/upload")
     public Answer fileUploading(@RequestParam("file") MultipartFile multipartFile,
                                 @RequestHeader("conversationID") String conversationId,
-                                @RequestHeader("modelId") String modelId) {
+                                @RequestHeader("modelId") String modelId,
+                                @RequestHeader("contextStr") String contextStr) {
         String filename = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        String activeModel = (modelId == "") ? summarizationModelId : modelId;
         log.info("File uploaded {} {} bytes ({})", filename, multipartFile.getSize(), multipartFile.getContentType());
         String contentType = multipartFile.getContentType();// application/pdf
         try {
@@ -81,10 +83,12 @@ public class PDFConvertorController {
             interaction.setType(InteractionType.SUMMARY_FILE);
             interaction.setConversationId(conversationId);
             interaction.setDatetimeRequest(new Date());
-            interaction.setModelId(summarizationModelId);
+            interaction.setModelId(activeModel);
+            // interaction.setModelId(summarizationModelId);
             interaction.setRequest(textEscaped);
             Interaction saved = interactionRepository.save(interaction);
-            String summaryText = ociGenAIService.summaryText(textEscaped, summarizationModelId, false);
+            String summaryText = ociGenAIService.summaryText(textEscaped, activeModel, false);
+            // String summaryText = ociGenAIService.summaryText(textEscaped, summarizationModelId, false);
             saved.setDatetimeResponse(new Date());
             saved.setResponse(summaryText);
             interactionRepository.save(saved);

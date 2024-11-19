@@ -209,6 +209,7 @@ const Content = () => {
           summary={summaryResults}
           clear={clearSummary}
           prompt={updateSummaryPrompt}
+          modelId={modelId}
           backendType={backendType}
         />
       )}
