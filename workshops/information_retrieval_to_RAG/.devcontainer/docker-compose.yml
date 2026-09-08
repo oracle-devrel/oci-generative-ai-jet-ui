@@ -1,0 +1,22 @@
+services:
+  oracle:
+    image: gvenzl/oracle-free:23-full
+    container_name: oracle-free
+    environment:
+      ORACLE_PASSWORD: OraclePwd_2025
+      APP_USER: VECTOR
+      APP_USER_PASSWORD: VectorPwd_2025
+    ports:
+      - "1521:1521"
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 20s
+      timeout: 10s
+      retries: 20
+      start_period: 120s
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+      - ./oracle-init:/container-entrypoint-initdb.d
+
+volumes:
+  oracle-data:

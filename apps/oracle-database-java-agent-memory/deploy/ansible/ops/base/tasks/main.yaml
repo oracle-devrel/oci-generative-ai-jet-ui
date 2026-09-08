@@ -1,0 +1,121 @@
+---
+- name: Set SQLPATH in bashrc
+  ansible.builtin.lineinfile:
+    path: /home/opc/.bashrc
+    line: "export SQLPATH=$HOME"
+    state: present
+  become_user: opc
+
+- name: Install JDK 21 headless
+  ansible.builtin.package:
+    name: java-21-openjdk-headless
+    update_cache: yes
+
+- name: Install sqlcl
+  ansible.builtin.package:
+    name: sqlcl
+    update_cache: yes
+
+- name: Copy login.sql
+  ansible.builtin.copy:
+    src: ../files/login.sql
+    dest: /home/opc/login.sql
+    owner: opc
+    group: opc
+    mode: '0640'
+
+- name: Create conn directory
+  ansible.builtin.file:
+    path: /home/opc/conn
+    state: directory
+    owner: opc
+    group: opc
+    mode: '0744'
+
+- name: Render conn/admin.sql template
+  ansible.builtin.template:
+    src: ../files/conn/admin.sql.j2
+    dest: /home/opc/conn/admin.sql
+    owner: opc
+    group: opc
+    mode: '0640'
+
+- name: Create init directory
+  ansible.builtin.file:
+    path: /home/opc/init
+    state: directory
+    owner: opc
+    group: opc
+    mode: '0744'
+
+- name: Render OCI credential SQL script
+  ansible.builtin.template:
+    src: ../files/init/create_credential.sql.j2
+    dest: /home/opc/init/create_credential.sql
+    owner: opc
+    group: opc
+    mode: '0640'
+
+- name: Render setup_hybrid_search SQL script
+  ansible.builtin.template:
+    src: ../files/init/setup_hybrid_search.sql.j2
+    dest: /home/opc/init/setup_hybrid_search.sql
+    owner: opc
+    group: opc
+    mode: '0640'
+
+- name: Copy verify.sql
+  ansible.builtin.copy:
+    src: ../files/init/verify.sql
+    dest: /home/opc/init/verify.sql
+    owner: opc
+    group: opc
+    mode: '0640'
+
+- name: Create ADMIN connection
+  ansible.builtin.command: "sql /nolog @/home/opc/conn/admin.sql"
+  become_user: opc
+  register: admin_conn_result
+  failed_when: "'ORA-' in admin_conn_result.stdout or admin_conn_result.rc != 0"
+
+- name: Show ADMIN connection output
+  ansible.builtin.debug:
+    msg: "{{ admin_conn_result.stdout_lines }}"
+
+- name: Create OCI API Key Credential
+  ansible.builtin.command: "sql -name admin -s @/home/opc/init/create_credential.sql"
+  become_user: opc
+  register: credential_result
+  failed_when: "'ORA-' in credential_result.stdout or credential_result.rc != 0"
+
+- name: Show OCI Credential output
+  ansible.builtin.debug:
+    msg: "{{ credential_result.stdout_lines }}"
+
+- name: Load ONNX model and create hybrid index
+  ansible.builtin.command: "sql -name admin -s @/home/opc/init/setup_hybrid_search.sql"
+  become_user: opc
+  register: setup_hybrid_result
+  failed_when: "'ORA-' in setup_hybrid_result.stdout or setup_hybrid_result.rc != 0"
+
+- name: Show setup_hybrid_search output
+  ansible.builtin.debug:
+    msg: "{{ setup_hybrid_result.stdout_lines }}"
+
+- name: Verify mining model and hybrid index exist
+  ansible.builtin.command: "sql -name admin -s @/home/opc/init/verify.sql"
+  become_user: opc
+  register: verify_result
+  failed_when: "'ORA-' in verify_result.stdout or verify_result.rc != 0"
+
+- name: Show verify output
+  ansible.builtin.debug:
+    msg: "{{ verify_result.stdout_lines }}"
+
+- name: Touch ops-done.flag (Terraform null_resource.ops_wait depends on this)
+  ansible.builtin.file:
+    path: /home/opc/ops-done.flag
+    state: touch
+    owner: opc
+    group: opc
+    mode: '0644'

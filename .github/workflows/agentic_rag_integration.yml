@@ -1,0 +1,154 @@
+name: agentic_rag integration tests
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/agentic_rag/src/**'
+      - 'apps/agentic_rag/tests/conftest.py'
+      - 'apps/agentic_rag/tests/integration/**'
+      - 'apps/agentic_rag/requirements.txt'
+      - 'apps/agentic_rag/docker-compose.test.yml'
+      - '.github/workflows/agentic_rag_integration.yml'
+  workflow_dispatch: {}
+  schedule:
+    # Nightly at 04:17 UTC. Odd minute to avoid the top-of-hour queue.
+    - cron: '17 4 * * *'
+
+concurrency:
+  group: agentic-rag-integration-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  integration:
+    name: Full-stack integration
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: apps/agentic_rag
+    env:
+      ORACLE_DB_USERNAME: SYSTEM
+      ORACLE_DB_PASSWORD: OraclePW1_
+      ORACLE_DB_DSN: localhost:1521/FREEPDB1
+      OLLAMA_HOST: http://127.0.0.1:11434
+      OLLAMA_TEST_MODEL: gemma3:270m
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Free disk space
+        # Oracle DB Free image is ~2GB, torch deps are ~2GB, Ollama model + binary
+        # is ~500MB. Default GitHub runner has 14GB free on /. Strip preinstalled
+        # software we don't need to avoid running out mid-test.
+        run: |
+          sudo rm -rf /usr/share/dotnet /opt/ghc /usr/local/lib/android \
+                      /usr/local/share/boost "${AGENT_TOOLSDIRECTORY}" || true
+          df -h
+        working-directory: ${{ github.workspace }}
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+          cache-dependency-path: apps/agentic_rag/requirements.txt
+
+      - name: Start Oracle Database Free container
+        run: |
+          docker run -d \
+            --name oracle-free \
+            -p 1521:1521 \
+            -e ORACLE_PWD=${ORACLE_DB_PASSWORD} \
+            -e ORACLE_CHARACTERSET=AL32UTF8 \
+            container-registry.oracle.com/database/free:latest
+          echo "Oracle container started. Waiting for DB to be ready..."
+
+      - name: Install Ollama
+        run: |
+          curl -fsSL https://ollama.com/install.sh | sh
+          # Start Ollama in the background.
+          nohup ollama serve > /tmp/ollama.log 2>&1 &
+          # Wait for it to accept connections.
+          for i in {1..30}; do
+            if curl -sf http://127.0.0.1:11434/api/tags > /dev/null; then
+              echo "Ollama is up"
+              break
+            fi
+            sleep 2
+          done
+
+      - name: Pull Ollama test model
+        run: ollama pull ${OLLAMA_TEST_MODEL}
+
+      - name: Install Python dependencies
+        # Install only what the integration tests need, not the full
+        # requirements.txt (which pulls in torch, docling, etc. and can OOM
+        # the runner). oracledb + langchain-oracledb drive the DB tests;
+        # ollama is the Python SDK; playwright drives the Gradio UI test;
+        # requests + httpx cover HTTP; pytest-asyncio lets us drop back
+        # to async if needed.
+        run: |
+          python -m pip install --upgrade pip
+          pip install \
+            pytest \
+            pytest-asyncio \
+            oracledb \
+            "langchain-oracledb" \
+            "langchain-core" \
+            ollama \
+            playwright \
+            requests \
+            httpx \
+            "fastapi" \
+            "uvicorn" \
+            "python-multipart" \
+            pyyaml
+
+      - name: Install Playwright Chromium
+        run: |
+          python -m playwright install --with-deps chromium
+
+      - name: Wait for Oracle DB to be ready
+        # Oracle DB Free takes ~90-150 seconds to finish startup. Poll the
+        # container's built-in status script.
+        run: |
+          for i in {1..60}; do
+            if docker exec oracle-free /opt/oracle/checkDBStatus.sh 2>/dev/null | grep -q "READY"; then
+              echo "Oracle DB is ready"
+              docker exec oracle-free /opt/oracle/checkDBStatus.sh || true
+              break
+            fi
+            echo "Waiting for Oracle DB... (${i}/60)"
+            sleep 5
+          done
+          # Final readiness probe: can we actually connect?
+          python -c "
+          import oracledb, os
+          c = oracledb.connect(
+              user=os.environ['ORACLE_DB_USERNAME'],
+              password=os.environ['ORACLE_DB_PASSWORD'],
+              dsn=os.environ['ORACLE_DB_DSN'],
+          )
+          cur = c.cursor()
+          cur.execute('SELECT 1 FROM DUAL')
+          assert cur.fetchone() == (1,)
+          print('Oracle DB connection verified')
+          "
+
+      - name: Run integration tests
+        # -m '' overrides the default 'not integration' from pyproject.toml,
+        # then -m integration selects just the integration suite.
+        run: |
+          pytest tests/integration/ -v -m integration \
+            --tb=short \
+            -o addopts=""
+
+      - name: Dump Oracle container logs on failure
+        if: failure()
+        run: |
+          docker logs --tail 200 oracle-free || true
+          cat /tmp/ollama.log 2>/dev/null | tail -100 || true
+
+      - name: Stop Oracle container
+        if: always()
+        run: docker stop oracle-free || true

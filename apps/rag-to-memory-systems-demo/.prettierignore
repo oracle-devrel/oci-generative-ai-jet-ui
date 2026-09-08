@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+
+# Lock files
+*.lock
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build outputs
+dist/
+build/
+*.min.js
+*.min.css
+
+# Generated files
+*.map
+
+# Jupyter notebooks (can be formatted separately if needed)
+*.ipynb

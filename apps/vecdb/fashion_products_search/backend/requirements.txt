@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+sentence-transformers
+torch
+torchvision
+transformers
+tqdm
+kagglehub
+pandas
+numpy
+pillow
+python-multipart
+oracle-vecdb
+python-dotenv

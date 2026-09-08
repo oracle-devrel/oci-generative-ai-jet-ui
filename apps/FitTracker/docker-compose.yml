@@ -1,0 +1,120 @@
+version: "3.9"
+
+services:
+  # ==========================================================================
+  # Oracle Database 23ai Free
+  # ==========================================================================
+  oracle:
+    image: container-registry.oracle.com/database/free:latest
+    container_name: fittrack-oracle
+    environment:
+      - ORACLE_PWD=FitTrack2026!
+      - ORACLE_CHARACTERSET=AL32UTF8
+    ports:
+      - "1521:1521"
+      - "5500:5500" # Enterprise Manager (optional)
+    volumes:
+      - oracle_data:/opt/oracle/oradata
+      - ./scripts/oracle-init:/opt/oracle/scripts/startup
+    healthcheck:
+      test:
+        ["CMD", "sqlplus", "-L", "sys/FitTrack2026!@//localhost:1521/FREE as sysdba", "@/dev/null"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 120s
+    restart: unless-stopped
+
+  # ==========================================================================
+  # Redis (Cache & Queue)
+  # ==========================================================================
+  redis:
+    image: redis:7-alpine
+    container_name: fittrack-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # ==========================================================================
+  # Mailpit (Development Email)
+  # ==========================================================================
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: fittrack-mailpit
+    ports:
+      - "1025:1025" # SMTP
+      - "8025:8025" # Web UI
+    restart: unless-stopped
+
+  # ==========================================================================
+  # API Service
+  # ==========================================================================
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fittrack-api
+    environment:
+      - ORACLE_HOST=oracle
+      - ORACLE_PORT=1521
+      - ORACLE_SERVICE=FREEPDB1
+      - ORACLE_USER=fittrack
+      - ORACLE_PASSWORD=FitTrack2026!
+      - REDIS_URL=redis://redis:6379/0
+      - SMTP_HOST=mailpit
+      - SMTP_PORT=1025
+      - APP_ENV=development
+      - DEBUG=true
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./src:/app/src
+      - ./tests:/app/tests
+      - ./devtools:/app/devtools
+    depends_on:
+      oracle:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: uvicorn fittrack.main:app --host 0.0.0.0 --port 8000 --reload
+    restart: unless-stopped
+
+  # ==========================================================================
+  # RQ Worker (Background Jobs)
+  # ==========================================================================
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fittrack-worker
+    environment:
+      - ORACLE_HOST=oracle
+      - ORACLE_PORT=1521
+      - ORACLE_SERVICE=FREEPDB1
+      - ORACLE_USER=fittrack
+      - ORACLE_PASSWORD=FitTrack2026!
+      - REDIS_URL=redis://redis:6379/0
+      - APP_ENV=development
+    volumes:
+      - ./src:/app/src
+    depends_on:
+      oracle:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: rq worker --url redis://redis:6379/0 fittrack-default fittrack-sync fittrack-points
+    restart: unless-stopped
+
+volumes:
+  oracle_data:
+    driver: local
+  redis_data:
+    driver: local

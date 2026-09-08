@@ -1,0 +1,68 @@
+{
+  "name": "Enterprise Data Agent Workshop",
+  "image": "mcr.microsoft.com/devcontainers/python:3.11",
+
+  "hostRequirements": {
+    "cpus": 4,
+    "memory": "8gb"
+  },
+
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "moby": false,
+      "enableNonRootDocker": "true"
+    },
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    }
+  },
+
+  // Port 3000 is intentionally NOT in forwardPorts. When a port is pre-declared
+  // there, Codespaces sets up the tunnel at container start (before vite is
+  // listening) and fires onAutoForward once at that moment — openPreview then
+  // races vite's bootup, shows "can't connect", and never re-fires when vite
+  // actually binds. Leaving 3000 out lets Codespaces auto-detect it the
+  // instant vite starts listening, which is when we actually want the preview
+  // to open. 1521 and 8000 stay pre-forwarded because they're "silent" anyway.
+  "forwardPorts": [1521, 8000],
+  "portsAttributes": {
+    "1521": { "label": "Oracle DB", "onAutoForward": "silent" },
+    "8000": { "label": "Agent Backend (Flask)", "onAutoForward": "silent" },
+    "3000": { "label": "Agent UI (Vite)", "onAutoForward": "openPreview" }
+  },
+
+  "onCreateCommand": "bash .devcontainer/setup_build.sh",
+  "postCreateCommand": "bash .devcontainer/setup_runtime.sh",
+  "postStartCommand": "bash .devcontainer/start_app.sh",
+  "postAttachCommand": "code README.md workshop/notebook_student.ipynb docs/part-1-setup.md",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-toolsai.jupyter",
+        "ms-toolsai.jupyter-keymap",
+        "ms-toolsai.jupyter-renderers",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "jupyter.notebookFileRoot": "${containerWorkspaceFolder}/workshop"
+      }
+    }
+  },
+
+  "remoteEnv": {
+    "ORACLE_DSN": "localhost:1521/FREEPDB1",
+    "ORACLE_SYS_USER": "sys",
+    "ORACLE_SYS_PASS": "OraclePwd_2025",
+    "ORACLE_AGENT_USER": "AGENT",
+    "ORACLE_AGENT_PASS": "AgentPwd_2025",
+    "ORACLE_DEMO_USER": "SUPPLYCHAIN",
+    "ORACLE_DEMO_PASS": "SupplyPwd_2025",
+    "OCI_GENAI_API_KEY": "${localEnv:OCI_GENAI_API_KEY}",
+    "OCI_GENAI_ENDPOINT": "${localEnv:OCI_GENAI_ENDPOINT}",
+    "TAVILY_API_KEY": "${localEnv:TAVILY_API_KEY}"
+  }
+}

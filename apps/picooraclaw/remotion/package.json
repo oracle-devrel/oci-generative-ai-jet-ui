@@ -1,0 +1,23 @@
+{
+  "name": "picooraclaw-video",
+  "version": "1.0.0",
+  "description": "PicoOraClaw showcase video built with Remotion",
+  "scripts": {
+    "dev": "remotion studio",
+    "build": "remotion render PicoOraClawShowcase out/picooraclaw.mp4",
+    "build:gif": "remotion render PicoOraClawShowcase out/picooraclaw.gif --image-format png",
+    "preview": "remotion preview"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.503",
+    "@remotion/google-fonts": "4.0.486",
+    "@remotion/transitions": "4.0.486",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "remotion": "4.0.410"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "typescript": "^5.7.0"
+  }
+}

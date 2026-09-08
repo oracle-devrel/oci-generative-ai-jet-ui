@@ -1,0 +1,407 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Session Header -->
+<div class="card mb-6">
+    <div style="display: grid; grid-template-columns: 1fr auto; gap: 24px;">
+        <div>
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                <span class="strategy-chip" style="font-size: 14px; padding: 4px 14px;">{{ session.strategy }}</span>
+                <span class="badge badge-{{ session.status }}">{{ session.status }}</span>
+                {% if replay_mode %}
+                <span class="badge" style="background: rgba(139, 92, 246, 0.15); color: var(--accent-violet);">REPLAY</span>
+                {% endif %}
+            </div>
+
+            <table style="width: auto; font-size: 13px;">
+                <tr>
+                    <td class="mono text-muted" style="padding: 3px 16px 3px 0; border: none;">Session ID</td>
+                    <td class="mono" style="padding: 3px 0; border: none;">{{ session.id }}</td>
+                </tr>
+                <tr>
+                    <td class="mono text-muted" style="padding: 3px 16px 3px 0; border: none;">Model</td>
+                    <td class="mono" style="padding: 3px 0; border: none;">{{ session.model }}</td>
+                </tr>
+                <tr>
+                    <td class="mono text-muted" style="padding: 3px 16px 3px 0; border: none;">Created</td>
+                    <td class="mono" style="padding: 3px 0; border: none;">{{ session.created_at }}</td>
+                </tr>
+                <tr>
+                    <td class="mono text-muted" style="padding: 3px 16px 3px 0; border: none;">Completed</td>
+                    <td class="mono" style="padding: 3px 0; border: none;">{{ session.completed_at or '--' }}</td>
+                </tr>
+                <tr>
+                    <td class="mono text-muted" style="padding: 3px 16px 3px 0; border: none;">Total Tokens</td>
+                    <td class="mono" style="padding: 3px 0; border: none;">{{ session.total_tokens or '--' }}</td>
+                </tr>
+                <tr>
+                    <td class="mono text-muted" style="padding: 3px 16px 3px 0; border: none;">Events</td>
+                    <td class="mono" style="padding: 3px 0; border: none;">{{ events | length }}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+            {% if not replay_mode %}
+            <a href="/sessions/{{ session.id }}/replay" class="btn btn-primary">
+                &#9654; Replay
+            </a>
+            {% endif %}
+            <a href="/api/sessions/{{ session.id }}" class="btn" target="_blank">
+                JSON
+            </a>
+            <a href="/sessions" class="btn">
+                Back
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Query -->
+<div class="card mb-6">
+    <div class="card-header">Query</div>
+    <div style="font-size: 14px; line-height: 1.6; color: var(--text-primary);">
+        {{ session.query }}
+    </div>
+</div>
+
+<!-- Final Answer -->
+{% if session.final_answer %}
+<div class="card mb-6" style="border-left: 3px solid var(--accent-green);">
+    <div class="card-header" style="color: var(--accent-green);">Final Answer</div>
+    <div style="font-size: 14px; line-height: 1.6; color: var(--text-primary); white-space: pre-wrap;">{{ session.final_answer }}</div>
+</div>
+{% endif %}
+
+<!-- Performance Metrics -->
+{% if metrics %}
+<div class="card mb-6">
+    <div class="card-header">Performance Metrics</div>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-value" style="font-size: 24px;">
+                {% if metrics.ttft_ms %}{{ "%.1f" | format(metrics.ttft_ms) }}{% else %}--{% endif %}
+                <span style="font-size: 12px; color: var(--text-muted);">ms</span>
+            </div>
+            <div class="stat-label">Time to First Token</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" style="font-size: 24px;">
+                {% if metrics.total_ms %}{{ metrics.total_ms | format_duration }}{% else %}--{% endif %}
+            </div>
+            <div class="stat-label">Total Duration</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" style="font-size: 24px;">
+                {% if metrics.tokens_per_sec %}{{ "%.1f" | format(metrics.tokens_per_sec) }}{% else %}--{% endif %}
+            </div>
+            <div class="stat-label">Tokens / sec</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" style="font-size: 24px;">
+                {{ metrics.token_count | default('--') }}
+            </div>
+            <div class="stat-label">Token Count</div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Event Timeline -->
+<div class="card">
+    <div class="flex justify-between items-center mb-4">
+        <div class="card-header" style="margin-bottom: 0;">
+            Event Timeline ({{ events | length }} events)
+        </div>
+        <div class="flex gap-2">
+            <button id="expand-all" class="btn" style="padding: 4px 10px; font-size: 11px;"
+                    onclick="toggleAllEvents(true)">
+                Expand All
+            </button>
+            <button id="collapse-all" class="btn" style="padding: 4px 10px; font-size: 11px;"
+                    onclick="toggleAllEvents(false)">
+                Collapse All
+            </button>
+        </div>
+    </div>
+
+    {% if events %}
+    <div class="timeline">
+        {% for evt in events %}
+        {% set evt_color = event_colors.get(evt.event_type, '#94a3b8') %}
+        <div class="timeline-event" style="border-left-color: {{ evt_color }};"
+             id="event-{{ loop.index }}">
+            <div class="timeline-event::before" style="background: {{ evt_color }};"></div>
+            <style>
+                #event-{{ loop.index }}::before { background: {{ evt_color }} !important; }
+            </style>
+
+            <div class="event-header" style="cursor: pointer;" onclick="toggleEvent({{ loop.index }})">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span class="event-type" style="color: {{ evt_color }};">
+                        {{ evt.event_type }}
+                    </span>
+                    {% if evt.is_update %}
+                    <span class="event-update">UPDATE</span>
+                    {% endif %}
+                    <span class="event-seq">#{{ evt.sequence_num }}</span>
+                </div>
+                <div class="mono text-muted" style="font-size: 11px;">
+                    {% if evt.created_at %}{{ evt.created_at[:19] }}{% endif %}
+                    <span id="toggle-icon-{{ loop.index }}" style="margin-left: 8px;">&#9660;</span>
+                </div>
+            </div>
+
+            <!-- Rendered Event Content -->
+            <div class="event-data" id="event-data-{{ loop.index }}" style="display: block;">
+                {% if evt.data %}
+                    {% set data = evt.data %}
+
+                    {% if evt.event_type == 'chain_step' and data is mapping %}
+                    <div style="padding: 8px 0;">
+                        <span class="mono" style="color: var(--accent-indigo);">
+                            Step {{ data.get('step', '?') }}/{{ data.get('total_steps', '?') }}
+                            {% if data.get('is_final') %}
+                            <span style="color: var(--accent-green); font-weight: 600;"> FINAL</span>
+                            {% endif %}
+                        </span>
+                        {% if data.get('content') %}
+                        <div style="margin-top: 6px; font-size: 13px; color: var(--text-secondary); line-height: 1.5;">
+                            {{ data.content[:500] }}
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    {% elif evt.event_type == 'node' and data is mapping %}
+                    <div style="padding: 8px 0; padding-left: {{ (data.get('depth', 0) * 16) }}px;">
+                        <span class="mono">
+                            Node {{ data.get('id', '?') }}
+                            {% if data.get('score') is not none %}
+                                <span style="color: var(--accent-amber);">score={{ "%.2f" | format(data.score) }}</span>
+                            {% endif %}
+                            {% if data.get('is_best') %}
+                                <span style="color: var(--accent-green); font-weight: 600;"> BEST</span>
+                            {% endif %}
+                            {% if data.get('is_pruned') %}
+                                <span style="color: var(--accent-red); font-weight: 600;"> PRUNED</span>
+                            {% endif %}
+                        </span>
+                        {% if data.get('content') %}
+                        <div style="margin-top: 6px; font-size: 13px; color: var(--text-secondary); line-height: 1.5;">
+                            {{ data.content[:300] }}
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    {% elif evt.event_type == 'task' and data is mapping %}
+                    <div style="padding: 8px 0;">
+                        <span class="mono">
+                            Task {{ data.get('id', '?') }}: {{ data.get('description', '')[:100] }}
+                        </span>
+                        <div style="margin-top: 4px;">
+                            <span class="badge badge-{{ data.get('status', 'pending') }}">{{ data.get('status', 'pending') }}</span>
+                            {% if data.get('progress') %}
+                            <span class="mono text-muted" style="margin-left: 8px;">{{ "%.0f" | format(data.progress * 100) }}%</span>
+                            {% endif %}
+                        </div>
+                        {% if data.get('result') %}
+                        <div style="margin-top: 6px; font-size: 13px; color: var(--text-secondary);">
+                            Result: {{ data.result[:200] }}
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    {% elif evt.event_type == 'sample' and data is mapping %}
+                    <div style="padding: 8px 0;">
+                        <span class="mono">
+                            Sample {{ data.get('id', '?') }}
+                            (votes={{ data.get('votes', 0) }})
+                            {% if data.get('is_winner') %}
+                                <span style="color: var(--accent-green); font-weight: 600;"> WINNER</span>
+                            {% endif %}
+                        </span>
+                        {% if data.get('answer') %}
+                        <div style="margin-top: 6px; font-size: 13px; color: var(--text-secondary);">
+                            {{ data.answer[:200] }}
+                        </div>
+                        {% endif %}
+                        {% if data.get('reasoning') %}
+                        <div style="margin-top: 4px; font-size: 12px; color: var(--text-muted);">
+                            {{ data.reasoning[:200] }}
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    {% elif evt.event_type in ['iteration', 'refinement'] and data is mapping %}
+                    <div style="padding: 8px 0;">
+                        <span class="mono">
+                            Iteration {{ data.get('iteration', '?') }}
+                            {% if data.get('score') %}
+                                <span style="color: var(--accent-amber);">score={{ "%.2f" | format(data.score) }}</span>
+                            {% endif %}
+                            {% if data.get('is_accepted') %}
+                                <span style="color: var(--accent-green); font-weight: 600;"> ACCEPTED</span>
+                            {% endif %}
+                            {% if data.get('is_correct') %}
+                                <span style="color: var(--accent-green); font-weight: 600;"> CORRECT</span>
+                            {% endif %}
+                        </span>
+                        {% if data.get('draft') %}
+                        <div style="margin-top: 6px; padding: 8px; background: var(--bg-primary); border-radius: 4px;
+                                    font-size: 12px; color: var(--text-secondary);">
+                            <span class="text-muted" style="font-size: 11px;">Draft:</span><br>
+                            {{ data.draft[:300] }}
+                        </div>
+                        {% endif %}
+                        {% if data.get('critique') %}
+                        <div style="margin-top: 6px; padding: 8px; background: rgba(245, 158, 11, 0.06);
+                                    border-radius: 4px; border-left: 2px solid var(--accent-amber);
+                                    font-size: 12px; color: var(--accent-amber);">
+                            <span style="font-size: 11px;">Critique:</span><br>
+                            {{ data.critique[:300] }}
+                        </div>
+                        {% endif %}
+                        {% if data.get('feedback') %}
+                        <div style="margin-top: 6px; padding: 8px; background: rgba(59, 130, 246, 0.06);
+                                    border-radius: 4px; border-left: 2px solid var(--accent-blue);
+                                    font-size: 12px; color: var(--accent-blue);">
+                            <span style="font-size: 11px;">Feedback:</span><br>
+                            {{ data.feedback[:300] }}
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    {% elif evt.event_type == 'pipeline' and data is mapping %}
+                    <div style="padding: 8px 0;">
+                        <span class="mono">
+                            Stage {{ data.get('stage_index', '?') }}: {{ data.get('stage_name', '') }}
+                            / Iteration {{ data.get('iteration_in_stage', 0) }}
+                            {% if data.get('score') %}
+                                <span style="color: var(--accent-amber);">score={{ "%.2f" | format(data.score) }}</span>
+                            {% endif %}
+                            {% if data.get('is_stage_complete') %}
+                                <span style="color: var(--accent-green); font-weight: 600;"> STAGE DONE</span>
+                            {% endif %}
+                            {% if data.get('is_pipeline_complete') %}
+                                <span style="color: var(--accent-green); font-weight: 700;"> PIPELINE COMPLETE</span>
+                            {% endif %}
+                        </span>
+                        {% if data.get('draft') %}
+                        <div style="margin-top: 6px; padding: 8px; background: var(--bg-primary); border-radius: 4px;
+                                    font-size: 12px; color: var(--text-secondary);">
+                            {{ data.draft[:300] }}
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    {% elif evt.event_type == 'react_step' and data is mapping %}
+                    <div style="padding: 8px 0;">
+                        <span class="mono" style="color: var(--accent-red);">Step {{ data.get('step', '?') }}</span>
+                        {% if data.get('thought') %}
+                        <div style="margin-top: 6px; padding: 8px; background: rgba(6, 182, 212, 0.06);
+                                    border-radius: 4px; border-left: 2px solid var(--accent-cyan);
+                                    font-size: 12px;">
+                            <span class="text-muted" style="font-size: 11px;">Thought:</span><br>
+                            <span style="color: var(--text-secondary);">{{ data.thought[:300] }}</span>
+                        </div>
+                        {% endif %}
+                        {% if data.get('action') %}
+                        <div style="margin-top: 4px; padding: 8px; background: rgba(245, 158, 11, 0.06);
+                                    border-radius: 4px; border-left: 2px solid var(--accent-amber);
+                                    font-size: 12px;">
+                            <span class="text-muted" style="font-size: 11px;">Action:</span>
+                            <span class="mono" style="color: var(--accent-amber);">{{ data.action }}</span>
+                            {% if data.get('action_input') %}
+                            <span class="mono text-muted">({{ data.action_input[:100] }})</span>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                        {% if data.get('observation') %}
+                        <div style="margin-top: 4px; padding: 8px; background: rgba(34, 197, 94, 0.06);
+                                    border-radius: 4px; border-left: 2px solid var(--accent-green);
+                                    font-size: 12px;">
+                            <span class="text-muted" style="font-size: 11px;">Observation:</span><br>
+                            <span style="color: var(--text-secondary);">{{ data.observation[:300] }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    {% elif evt.event_type == 'text' and data is mapping %}
+                    <div style="padding: 8px 0; font-size: 13px; color: var(--text-muted);">
+                        {{ data.get('text', data | json_pretty) }}
+                    </div>
+
+                    {% elif evt.event_type == 'final' and data is mapping %}
+                    <div style="padding: 8px 0; font-size: 14px; color: var(--accent-green); font-weight: 500;">
+                        {{ data.get('text', data | json_pretty) }}
+                    </div>
+
+                    {% else %}
+                    <!-- Generic JSON rendering for unknown event types -->
+                    <div class="json-block">{{ data | json_pretty }}</div>
+
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <div class="icon">&#9201;</div>
+        <div style="font-size: 16px; margin-bottom: 8px;">No events recorded</div>
+        <div class="text-muted">This session has no reasoning events.</div>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Session Metadata -->
+{% if session.metadata %}
+<div class="card mt-4">
+    <div class="card-header">Session Metadata</div>
+    <div class="json-block">{{ session.metadata | json_pretty }}</div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+function toggleEvent(idx) {
+    const data = document.getElementById('event-data-' + idx);
+    const icon = document.getElementById('toggle-icon-' + idx);
+    if (data.style.display === 'none') {
+        data.style.display = 'block';
+        icon.innerHTML = '&#9660;';
+    } else {
+        data.style.display = 'none';
+        icon.innerHTML = '&#9654;';
+    }
+}
+
+function toggleAllEvents(expand) {
+    const events = document.querySelectorAll('[id^="event-data-"]');
+    const icons = document.querySelectorAll('[id^="toggle-icon-"]');
+    events.forEach(el => { el.style.display = expand ? 'block' : 'none'; });
+    icons.forEach(el => { el.innerHTML = expand ? '&#9660;' : '&#9654;'; });
+}
+
+{% if replay_mode %}
+// Auto-replay: show events one at a time with animation
+(function() {
+    const events = document.querySelectorAll('.timeline-event');
+    events.forEach((el, i) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(10px)';
+        el.style.transition = 'all 0.3s ease';
+        setTimeout(() => {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+            el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, i * 400);
+    });
+})();
+{% endif %}
+</script>
+{% endblock %}

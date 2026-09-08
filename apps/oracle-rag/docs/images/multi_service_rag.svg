@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+
+  <!-- Dark background -->
+  <rect x="0" y="0" width="1200" height="600" fill="#1e1e2e"/>
+
+  <!-- Title -->
+  <text x="600" y="60" font-size="32" font-weight="700" fill="#e5e5e5" text-anchor="middle">
+    Typical Multi-Service RAG Stack
+  </text>
+
+  <!-- Documents -->
+  <rect x="60" y="220" width="180" height="100" rx="10" fill="#1e3a5f" stroke="#4a9eed" stroke-width="2"/>
+  <text x="150" y="278" font-size="22" font-weight="600" fill="#e5e5e5" text-anchor="middle">Documents</text>
+
+  <!-- Arrow 1 -->
+  <line x1="240" y1="270" x2="320" y2="270" stroke="#a0a0a0" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- OpenAI Embeddings -->
+  <rect x="320" y="220" width="200" height="100" rx="10" fill="#5c1a1a" stroke="#ef4444" stroke-width="2"/>
+  <text x="420" y="270" font-size="20" font-weight="600" fill="#e5e5e5" text-anchor="middle">OpenAI Embeddings</text>
+  <text x="420" y="298" font-size="15" fill="#ef4444" text-anchor="middle">costs $ per call</text>
+
+  <!-- Arrow 2 -->
+  <line x1="520" y1="270" x2="600" y2="270" stroke="#a0a0a0" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- Pinecone -->
+  <rect x="600" y="220" width="200" height="100" rx="10" fill="#5c1a1a" stroke="#ef4444" stroke-width="2"/>
+  <text x="700" y="270" font-size="22" font-weight="600" fill="#e5e5e5" text-anchor="middle">Pinecone</text>
+  <text x="700" y="298" font-size="15" fill="#ef4444" text-anchor="middle">vector database, $</text>
+
+  <!-- Postgres (below Pinecone) -->
+  <rect x="600" y="380" width="200" height="100" rx="10" fill="#5c3d1a" stroke="#f59e0b" stroke-width="2"/>
+  <text x="700" y="430" font-size="22" font-weight="600" fill="#e5e5e5" text-anchor="middle">Postgres</text>
+  <text x="700" y="458" font-size="15" fill="#f59e0b" text-anchor="middle">text and metadata</text>
+
+  <!-- Sync arrow between Pinecone and Postgres (bidirectional, dashed) -->
+  <line x1="700" y1="320" x2="700" y2="380" stroke="#f59e0b" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrowOrange)" marker-start="url(#arrowOrangeStart)"/>
+  <text x="722" y="358" font-size="14" fill="#f59e0b">sync</text>
+
+  <!-- Arrow 3 (Pinecone to LLM) -->
+  <line x1="800" y1="270" x2="880" y2="270" stroke="#a0a0a0" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- LLM -->
+  <rect x="880" y="220" width="180" height="100" rx="10" fill="#1e3a5f" stroke="#4a9eed" stroke-width="2"/>
+  <text x="970" y="278" font-size="22" font-weight="600" fill="#e5e5e5" text-anchor="middle">LLM</text>
+
+  <!-- Bottom caption -->
+  <text x="600" y="555" font-size="20" fill="#a0a0a0" text-anchor="middle">
+    3 services. 3 sets of credentials. 3 things that can break.
+  </text>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#a0a0a0"/>
+    </marker>
+    <marker id="arrowOrange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f59e0b"/>
+    </marker>
+    <marker id="arrowOrangeStart" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 10 0 L 0 5 L 10 10 z" fill="#f59e0b"/>
+    </marker>
+  </defs>
+
+</svg>

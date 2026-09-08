@@ -1,0 +1,65 @@
+# ── Python ─────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtualenvs
+.venv/
+venv/
+env/
+.python-version
+
+# ── Notebooks ──────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.executed.ipynb
+*.nbconvert.ipynb
+
+# ── Node / frontend ────────────────────────────────────────────────────
+node_modules/
+dist/
+.vite/
+.parcel-cache/
+.next/
+.turbo/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ── Secrets / env ──────────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+wallet*.zip
+credentials*
+
+# ── Oracle ─────────────────────────────────────────────────────────────
+*.log
+oradiag_*
+diag/
+
+# ── ML model cache ─────────────────────────────────────────────────────
+.cache/
+huggingface/
+all_MiniLM*.onnx*
+*.onnx
+all_MiniLM*.zip
+
+# ── OS / editors ───────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo

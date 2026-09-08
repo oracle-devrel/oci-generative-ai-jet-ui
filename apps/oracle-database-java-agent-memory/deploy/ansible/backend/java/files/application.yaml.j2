@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: chatserver
+  main:
+    banner-mode: "off"
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: "jdbc:oracle:thin:@{{ db_service_name }}?TNS_ADMIN=/home/opc/backend/wallet"
+    username: ADMIN
+    password: "{{ db_admin_password }}"
+    driver-class-name: oracle.jdbc.OracleDriver
+    type: oracle.ucp.jdbc.PoolDataSourceImpl
+    oracleucp:
+      connection-pool-name: chatserver-pool
+      initial-pool-size: 5
+      min-pool-size: 5
+      max-pool-size: 20
+  ai:
+    ollama:
+      base-url: "{{ ollama_base_url }}"
+      chat:
+        model: "{{ ollama_chat_model }}"
+    chat:
+      memory:
+        repository:
+          jdbc:
+            initialize-schema: always
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health

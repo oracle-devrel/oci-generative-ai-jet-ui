@@ -1,0 +1,6 @@
+click>=8.1.0
+rich>=13.0.0
+python-dotenv>=1.0.0
+oci>=2.119.0
+jinja2>=3.1.2
+InquirerPy>=0.3.4

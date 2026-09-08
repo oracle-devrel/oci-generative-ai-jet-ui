@@ -1,0 +1,106 @@
+# Build artifacts
+bin/
+build/
+dist/
+*.exe
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Project binaries
+/picooraclaw
+/picooraclaw-*
+!/picooraclaw-presentation.html
+/picoclaw
+/picoclaw-test
+
+# Generated workspace (produced by `make generate`, embedded into binary)
+cmd/picooraclaw/workspace/
+
+# Runtime / user data directories
+.picooraclaw/
+.picoclaw/
+sessions/
+ralph/
+.ralph/
+tasks/
+
+# Secrets & actual config (keep example templates, ignore real values)
+.env
+config/config.json
+
+# Personal workspace memory (prevent committing user-specific runtime data)
+workspace/memory/*.md
+!workspace/memory/.gitkeep
+
+# Test coverage
+coverage.txt
+coverage.html
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Design docs (local only)
+docs/plans/
+
+# Claude Code project instructions (local only)
+CLAUDE.md
+
+# goreleaser
+.env.example
+.serena/project.yml
+
+# Python bytecode
+__pycache__/
+*.pyc
+
+# Dogfood / QA output
+dogfood-output/
+.playwright-mcp/
+
+
+# OpenCode-generated documentation (local reference only)
+TESTING_REPORT.md
+AGENT_HARNESS_ANNEX.md
+SKILLS_EXECUTION_SUMMARY.md
+
+# Generated documentation
+docs/plans/
+docs/*.md
+!docs/README.md
+*_FEATURES.md
+*_ENHANCEMENTS.md
+*_REPORT.md
+
+# Auto-added by install-pre-commit-hooks.sh
+task_plan.md
+findings.md
+progress.md
+
+# Agent skill/config directories (local only)
+.agents/
+.claude/
+.crush/
+.openhands/
+.serena/
+.omc/
+
+# Generated content (local only)
+content/
+
+# Terraform local state / plugin cache (never commit)
+deploy/oci/.terraform/
+**/*.tfstate
+**/*.tfstate.backup
+
+# Remotion generated video / preview output (regenerable)
+remotion/out/

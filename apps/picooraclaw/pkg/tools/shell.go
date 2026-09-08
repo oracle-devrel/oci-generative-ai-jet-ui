@@ -1,0 +1,302 @@
+package tools
+
+import (
+	"bytes"
+	"context"
+	"fmt"
+	"os"
+	"os/exec"
+	"path/filepath"
+	"regexp"
+	"runtime"
+	"strings"
+	"time"
+)
+
+var (
+	defaultDenyPatterns = []*regexp.Regexp{
+		regexp.MustCompile(`\brm\s+-[rf]{1,2}\b`),
+		regexp.MustCompile(`\bdel\s+/[fq]\b`),
+		regexp.MustCompile(`\brmdir\s+/s\b`),
+		regexp.MustCompile(`\b(format|mkfs|diskpart)\b\s`), // Match disk wiping commands (must be followed by space/args)
+		regexp.MustCompile(`\bdd\s+if=`),
+		regexp.MustCompile(`>\s*/dev/sd[a-z]\b`), // Block writes to disk devices (but allow /dev/null)
+		regexp.MustCompile(`\b(shutdown|reboot|poweroff)\b`),
+		regexp.MustCompile(`:\(\)\s*\{.*\};\s*:`),
+		regexp.MustCompile(`\$\([^)]+\)`),
+		regexp.MustCompile(`\$\{[^}]+\}`),
+		regexp.MustCompile("`[^`]+`"),
+		regexp.MustCompile(`\|\s*sh\b`),
+		regexp.MustCompile(`\|\s*bash\b`),
+		regexp.MustCompile(`;\s*rm\s+-[rf]`),
+		regexp.MustCompile(`&&\s*rm\s+-[rf]`),
+		regexp.MustCompile(`\|\|\s*rm\s+-[rf]`),
+		regexp.MustCompile(`<<\s*EOF`),
+		regexp.MustCompile(`\$\(\s*cat\s+`),
+		regexp.MustCompile(`\$\(\s*curl\s+`),
+		regexp.MustCompile(`\$\(\s*wget\s+`),
+		regexp.MustCompile(`\$\(\s*which\s+`),
+		regexp.MustCompile(`\bsudo\b`),
+		regexp.MustCompile(`\bchmod\s+[0-7]{3,4}\b`),
+		regexp.MustCompile(`\bchown\b`),
+		regexp.MustCompile(`\bpkill\b`),
+		regexp.MustCompile(`\bkillall\b`),
+		regexp.MustCompile(`\bkill\b`),
+		regexp.MustCompile(`\bcurl\b.*\|\s*(sh|bash)`),
+		regexp.MustCompile(`\bwget\b.*\|\s*(sh|bash)`),
+		regexp.MustCompile(`\bnpm\s+install\s+-g\b`),
+		regexp.MustCompile(`\bpip\s+install\s+--user\b`),
+		regexp.MustCompile(`\bapt\s+(install|remove|purge)\b`),
+		regexp.MustCompile(`\byum\s+(install|remove)\b`),
+		regexp.MustCompile(`\bdnf\s+(install|remove)\b`),
+		regexp.MustCompile(`\bdocker\s+run\b`),
+		regexp.MustCompile(`\bdocker\s+exec\b`),
+		regexp.MustCompile(`\bgit\s+push\b`),
+		regexp.MustCompile(`\bgit\s+force\b`),
+		regexp.MustCompile(`\bssh\b.*@`),
+		regexp.MustCompile(`\beval\b`),
+		regexp.MustCompile(`\bsource\s+.*\.sh\b`),
+		// Block interpreted language command execution (bypass shell deny-list)
+		regexp.MustCompile(`\bpython[23]?\s+-c\b`),
+		regexp.MustCompile(`\bperl\s+-e\b`),
+		regexp.MustCompile(`\bruby\s+-e\b`),
+		regexp.MustCompile(`\bnode\s+-e\b`),
+		// Block network tools commonly used for reverse shells
+		regexp.MustCompile(`\bnc\b`),
+		regexp.MustCompile(`\bnetcat\b`),
+		regexp.MustCompile(`\bncat\b`),
+		// Block additional scripting languages that can bypass shell deny-list
+		regexp.MustCompile(`\blua\s+-e\b`),
+		regexp.MustCompile(`\bphp\s+-r\b`),
+		// Block access to sensitive system files
+		regexp.MustCompile(`/etc/shadow`),
+	}
+
+	absolutePathPattern = regexp.MustCompile(`[A-Za-z]:\\[^\\\"']+|/[^\s\"']+`)
+
+	safePaths = map[string]bool{
+		"/dev/null":    true,
+		"/dev/zero":    true,
+		"/dev/random":  true,
+		"/dev/urandom": true,
+		"/dev/stdin":   true,
+		"/dev/stdout":  true,
+		"/dev/stderr":  true,
+	}
+)
+
+type ExecTool struct {
+	workingDir          string
+	timeout             time.Duration
+	denyPatterns        []*regexp.Regexp
+	allowPatterns       []*regexp.Regexp
+	restrictToWorkspace bool
+}
+
+func NewExecTool(workingDir string, restrict bool) *ExecTool {
+	return &ExecTool{
+		workingDir:          workingDir,
+		timeout:             60 * time.Second,
+		denyPatterns:        defaultDenyPatterns,
+		allowPatterns:       nil,
+		restrictToWorkspace: restrict,
+	}
+}
+
+func (t *ExecTool) Name() string {
+	return "exec"
+}
+
+func (t *ExecTool) Description() string {
+	return "Execute a shell command and return its output. Use with caution."
+}
+
+func (t *ExecTool) Parameters() map[string]interface{} {
+	return map[string]interface{}{
+		"type": "object",
+		"properties": map[string]interface{}{
+			"command": map[string]interface{}{
+				"type":        "string",
+				"description": "The shell command to execute",
+			},
+			"working_dir": map[string]interface{}{
+				"type":        "string",
+				"description": "Optional working directory for the command",
+			},
+		},
+		"required": []string{"command"},
+	}
+}
+
+func (t *ExecTool) Execute(ctx context.Context, args map[string]interface{}) *ToolResult {
+	command, ok := args["command"].(string)
+	if !ok {
+		return ErrorResult("command is required")
+	}
+
+	cwd := t.workingDir
+	if wd, ok := args["working_dir"].(string); ok && wd != "" {
+		cwd = wd
+	}
+
+	if cwd == "" {
+		wd, err := os.Getwd()
+		if err == nil {
+			cwd = wd
+		}
+	}
+
+	if guardError := t.guardCommand(command, cwd); guardError != "" {
+		return ErrorResult(guardError)
+	}
+
+	// Apply timeout (default 5 minutes if not configured to prevent runaway processes)
+	var cmdCtx context.Context
+	var cancel context.CancelFunc
+	if t.timeout > 0 {
+		cmdCtx, cancel = context.WithTimeout(ctx, t.timeout)
+	} else {
+		cmdCtx, cancel = context.WithTimeout(ctx, 5*time.Minute)
+	}
+	defer cancel()
+
+	var cmd *exec.Cmd
+	if runtime.GOOS == "windows" {
+		cmd = exec.CommandContext(cmdCtx, "powershell", "-NoProfile", "-NonInteractive", "-Command", command)
+	} else {
+		cmd = exec.CommandContext(cmdCtx, "sh", "-c", command)
+	}
+	if cwd != "" {
+		cmd.Dir = cwd
+	}
+
+	var stdout, stderr bytes.Buffer
+	cmd.Stdout = &stdout
+	cmd.Stderr = &stderr
+
+	err := cmd.Run()
+	output := stdout.String()
+	if stderr.Len() > 0 {
+		output += "\nSTDERR:\n" + stderr.String()
+	}
+
+	if err != nil {
+		if cmdCtx.Err() == context.DeadlineExceeded {
+			var msg string
+			if t.timeout > 0 {
+				msg = fmt.Sprintf("Command timed out after %v", t.timeout)
+			} else {
+				msg = "Command timed out"
+			}
+			return &ToolResult{
+				ForLLM:  msg,
+				ForUser: msg,
+				IsError: true,
+			}
+		}
+		output += fmt.Sprintf("\nExit code: %v", err)
+	}
+
+	if output == "" {
+		output = "(no output)"
+	}
+
+	maxLen := 10000
+	if len(output) > maxLen {
+		output = output[:maxLen] + fmt.Sprintf("\n... (truncated, %d more chars)", len(output)-maxLen)
+	}
+
+	if err != nil {
+		return &ToolResult{
+			ForLLM:  output,
+			ForUser: output,
+			IsError: true,
+		}
+	}
+
+	return &ToolResult{
+		ForLLM:  output,
+		ForUser: output,
+		IsError: false,
+	}
+}
+
+func (t *ExecTool) guardCommand(command, cwd string) string {
+	cmd := strings.TrimSpace(command)
+	lower := strings.ToLower(cmd)
+
+	for _, pattern := range t.denyPatterns {
+		if pattern.MatchString(lower) {
+			return "Command blocked by safety guard (dangerous pattern detected)"
+		}
+	}
+
+	if len(t.allowPatterns) > 0 {
+		allowed := false
+		for _, pattern := range t.allowPatterns {
+			if pattern.MatchString(lower) {
+				allowed = true
+				break
+			}
+		}
+		if !allowed {
+			return "Command blocked by safety guard (not in allowlist)"
+		}
+	}
+
+	if t.restrictToWorkspace {
+		if strings.Contains(cmd, "..\\") || strings.Contains(cmd, "../") {
+			return "Command blocked by safety guard (path traversal detected)"
+		}
+
+		cwdPath, err := filepath.Abs(cwd)
+		if err != nil {
+			return ""
+		}
+
+		matches := absolutePathPattern.FindAllString(cmd, -1)
+
+		for _, raw := range matches {
+			p, err := filepath.Abs(raw)
+			if err != nil {
+				continue
+			}
+
+			// Skip known safe paths
+			if safePaths[p] {
+				continue
+			}
+
+			rel, err := filepath.Rel(cwdPath, p)
+			if err != nil {
+				continue
+			}
+
+			if strings.HasPrefix(rel, "..") {
+				return "Command blocked by safety guard (path outside working dir)"
+			}
+		}
+	}
+
+	return ""
+}
+
+func (t *ExecTool) SetTimeout(timeout time.Duration) {
+	t.timeout = timeout
+}
+
+func (t *ExecTool) SetRestrictToWorkspace(restrict bool) {
+	t.restrictToWorkspace = restrict
+}
+
+func (t *ExecTool) SetAllowPatterns(patterns []string) error {
+	t.allowPatterns = make([]*regexp.Regexp, 0, len(patterns))
+	for _, p := range patterns {
+		re, err := regexp.Compile(p)
+		if err != nil {
+			return fmt.Errorf("invalid allow pattern %q: %w", p, err)
+		}
+		t.allowPatterns = append(t.allowPatterns, re)
+	}
+	return nil
+}

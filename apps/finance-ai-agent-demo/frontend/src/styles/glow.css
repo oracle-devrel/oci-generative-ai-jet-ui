@@ -1,0 +1,489 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(192, 192, 192, 0.15) transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 6px;
+  }
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: rgba(192, 192, 192, 0.15);
+    border-radius: 3px;
+  }
+}
+
+@layer components {
+  .glow-border {
+    box-shadow:
+      0 0 15px rgba(192, 192, 192, 0.05),
+      inset 0 0 15px rgba(192, 192, 192, 0.02);
+    border: 1px solid rgba(192, 192, 192, 0.1);
+  }
+
+  .glow-border-hover:hover {
+    box-shadow:
+      0 0 20px rgba(192, 192, 192, 0.1),
+      inset 0 0 20px rgba(192, 192, 192, 0.03);
+    border-color: rgba(192, 192, 192, 0.2);
+  }
+
+  .glow-border-active {
+    box-shadow:
+      0 0 20px rgba(192, 192, 192, 0.12),
+      inset 0 0 20px rgba(192, 192, 192, 0.04);
+    border-color: rgba(192, 192, 192, 0.25);
+  }
+
+  .glow-input {
+    box-shadow: 0 0 10px rgba(192, 192, 192, 0.03);
+    border: 1px solid rgba(192, 192, 192, 0.08);
+  }
+
+  .glow-input:focus {
+    box-shadow:
+      0 0 15px rgba(192, 192, 192, 0.08),
+      inset 0 0 10px rgba(192, 192, 192, 0.02);
+    border-color: rgba(192, 192, 192, 0.2);
+    outline: none;
+  }
+
+  .query-card-enter {
+    animation: slideIn 0.3s ease-out;
+  }
+
+  .connector-line {
+    border-left: 2px dashed rgba(192, 192, 192, 0.2);
+  }
+
+  .badge-vector {
+    background-color: rgba(124, 58, 237, 0.15);
+    color: #a78bfa;
+    border: 1px solid rgba(124, 58, 237, 0.3);
+  }
+  .badge-relational {
+    background-color: rgba(37, 99, 235, 0.15);
+    color: #93c5fd;
+    border: 1px solid rgba(37, 99, 235, 0.3);
+  }
+  .badge-graph {
+    background-color: rgba(5, 150, 105, 0.15);
+    color: #6ee7b7;
+    border: 1px solid rgba(5, 150, 105, 0.3);
+  }
+  .badge-hybrid {
+    background-color: rgba(217, 119, 6, 0.15);
+    color: #fcd34d;
+    border: 1px solid rgba(217, 119, 6, 0.3);
+  }
+  .badge-json {
+    background-color: rgba(220, 38, 38, 0.15);
+    color: #fca5a5;
+    border: 1px solid rgba(220, 38, 38, 0.3);
+  }
+  .badge-text {
+    background-color: rgba(107, 114, 128, 0.15);
+    color: #d1d5db;
+    border: 1px solid rgba(107, 114, 128, 0.3);
+  }
+  .badge-spatial {
+    background-color: rgba(14, 165, 233, 0.15);
+    color: #7dd3fc;
+    border: 1px solid rgba(14, 165, 233, 0.3);
+  }
+  .badge-convergent {
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.2), rgba(5, 150, 105, 0.2), rgba(14, 165, 233, 0.2), rgba(217, 119, 6, 0.2));
+    color: #fbbf24;
+    border: 1px solid rgba(251, 191, 36, 0.4);
+  }
+
+  /* ── Architecture Flow ─────────────────────────────────── */
+  .arch-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .arch-node {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(192, 192, 192, 0.1);
+    transition: all 0.3s ease;
+    z-index: 2;
+  }
+
+  .arch-node-active {
+    border-color: rgba(192, 192, 192, 0.25);
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 0 20px rgba(192, 192, 192, 0.08);
+  }
+
+  .arch-node-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: rgba(192, 192, 192, 0.06);
+    color: #C0C0C0;
+    flex-shrink: 0;
+  }
+
+  .arch-node-active .arch-node-icon {
+    background: rgba(192, 192, 192, 0.12);
+    color: #E5E5E5;
+  }
+
+  .arch-node-spinning {
+    border-color: rgba(192, 192, 192, 0.35);
+    box-shadow: 0 0 24px rgba(192, 192, 192, 0.12),
+                0 0 48px rgba(192, 192, 192, 0.04);
+  }
+
+  .arch-node-spinning .arch-node-icon {
+    background: rgba(192, 192, 192, 0.18);
+    color: #E5E5E5;
+  }
+
+  .arch-spinner {
+    animation: archSpin 0.8s linear infinite;
+  }
+
+  @keyframes archSpin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  .arch-node-info {
+    min-width: 0;
+  }
+
+  .arch-node-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #E5E5E5;
+    line-height: 1.3;
+  }
+
+  .arch-node-subtitle {
+    font-size: 10px;
+    color: rgba(153, 153, 153, 0.6);
+    line-height: 1.3;
+    margin-top: 1px;
+  }
+
+  .arch-node-pulse {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #22c55e;
+    animation: archPulse 1.5s ease-in-out infinite;
+  }
+
+  /* ── Sprawl layout ──────────────────────────────────── */
+  .arch-sprawl-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .arch-fanout {
+    width: 100%;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .arch-sprawl-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    width: 100%;
+  }
+
+  .arch-node-compact {
+    padding: 8px 10px;
+    gap: 8px;
+  }
+
+  .arch-node-compact .arch-node-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+  }
+
+  .arch-node-compact .arch-node-label {
+    font-size: 10px;
+  }
+
+  .arch-node-compact .arch-node-subtitle {
+    font-size: 9px;
+  }
+
+  .arch-connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 44px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .arch-connector-line {
+    width: 1px;
+    flex: 1;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(192, 192, 192, 0.2) 0px,
+      rgba(192, 192, 192, 0.2) 4px,
+      transparent 4px,
+      transparent 8px
+    );
+  }
+
+  .arch-connector-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -2px;
+  }
+
+  /* Packets layer — overlaid on the connector area */
+  .arch-packets-layer {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 0;
+    height: 100%;
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  .arch-packet {
+    position: absolute;
+    left: 0;
+    transform: translateX(-50%);
+    animation: archPacketMove 0.9s ease-in-out forwards;
+  }
+
+  .arch-packet-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--packet-color, #C0C0C0);
+    box-shadow: 0 0 10px var(--packet-color, #C0C0C0),
+                0 0 20px color-mix(in srgb, var(--packet-color, #C0C0C0) 50%, transparent);
+  }
+
+  .arch-packet-label {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--packet-color, #C0C0C0);
+    white-space: nowrap;
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .arch-event-enter {
+    animation: archEventFade 0.3s ease-out;
+  }
+
+  @keyframes archPacketMove {
+    0% {
+      top: var(--start-y);
+      opacity: 0;
+    }
+    15% {
+      opacity: 1;
+    }
+    85% {
+      opacity: 1;
+    }
+    100% {
+      top: var(--end-y);
+      opacity: 0;
+    }
+  }
+
+  @keyframes archPulse {
+    0%, 100% {
+      opacity: 1;
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4);
+    }
+    50% {
+      opacity: 0.7;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0);
+    }
+  }
+
+  @keyframes archEventFade {
+    0% {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .arch-event-highlight {
+    background: rgba(192, 192, 192, 0.06);
+    border-radius: 4px;
+    padding: 2px 4px;
+    margin: -2px -4px;
+  }
+
+  /* ── Timeline controls ─────────────────────────────────── */
+  .arch-timeline-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    font-weight: 500;
+    color: rgba(153, 153, 153, 0.7);
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(192, 192, 192, 0.1);
+    background: rgba(255, 255, 255, 0.03);
+    transition: all 0.15s ease;
+    cursor: pointer;
+  }
+
+  .arch-timeline-btn:hover:not(:disabled) {
+    color: #E5E5E5;
+    border-color: rgba(192, 192, 192, 0.25);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .arch-timeline-btn:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+
+  .arch-timeline-btn-active {
+    border-color: rgba(34, 197, 94, 0.3);
+    color: #4ade80;
+  }
+
+  .arch-timeline-btn-active:hover {
+    border-color: rgba(34, 197, 94, 0.5);
+    color: #4ade80;
+  }
+
+  /* ── Draggable timeline track ────────────────────────── */
+  .arch-drag-track {
+    position: relative;
+    height: 20px;
+    cursor: pointer;
+    touch-action: none;
+    user-select: none;
+  }
+
+  .arch-drag-track::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 4px;
+    transform: translateY(-50%);
+    background: rgba(192, 192, 192, 0.1);
+    border-radius: 2px;
+  }
+
+  .arch-drag-fill {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    height: 4px;
+    transform: translateY(-50%);
+    background: rgba(192, 192, 192, 0.25);
+    border-radius: 2px;
+    transition: width 0.1s ease-out;
+    pointer-events: none;
+  }
+
+  .arch-drag-ticks {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .arch-drag-tick {
+    position: absolute;
+    top: 50%;
+    width: 3px;
+    height: 10px;
+    transform: translate(-50%, -50%);
+    border-radius: 1px;
+    background: rgba(192, 192, 192, 0.15);
+    transition: background 0.15s ease, height 0.15s ease;
+  }
+
+  .arch-drag-tick-past {
+    background: var(--tick-color, rgba(192, 192, 192, 0.4));
+    opacity: 0.7;
+  }
+
+  .arch-drag-playhead {
+    position: absolute;
+    top: 50%;
+    width: 14px;
+    height: 14px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: var(--playhead-color, #C0C0C0);
+    box-shadow: 0 0 8px var(--playhead-color, #C0C0C0),
+                0 0 16px color-mix(in srgb, var(--playhead-color, #C0C0C0) 40%, transparent);
+    transition: left 0.1s ease-out, background 0.2s ease, box-shadow 0.2s ease;
+    cursor: grab;
+    z-index: 2;
+  }
+
+  .arch-drag-playhead:active {
+    cursor: grabbing;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+
+  .arch-drag-track:hover .arch-drag-playhead {
+    transform: translate(-50%, -50%) scale(1.15);
+  }
+
+  .arch-drag-track:hover .arch-drag-tick {
+    height: 12px;
+  }
+}

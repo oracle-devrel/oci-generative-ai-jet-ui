@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@theme {
+  --color-oracle-red: #C74634;
+  --color-oracle-cream: #F5F1EA;
+  --color-oracle-ink: #1A1A1A;
+}
+
+html, body, #root {
+  height: 100%;
+  background: #F5F1EA;
+  color: #1A1A1A;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+}

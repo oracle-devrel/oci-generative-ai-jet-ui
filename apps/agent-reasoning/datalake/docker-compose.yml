@@ -1,0 +1,44 @@
+# =============================================================================
+# Oracle 26ai Free container for the Reasoning Datalake
+# =============================================================================
+#
+# Usage:
+#   cd datalake/
+#   docker compose up -d
+#
+# The database will be available at localhost:1521/FREEPDB1
+# Default credentials: reasoning / reasoning
+#
+# First-time setup:
+#   1. Wait for the container to fully initialize (~60-90 seconds)
+#   2. Connect as SYSDBA and create the reasoning user:
+#      docker exec -it oracle-reasoning sqlplus sys/Oracle_2026@//localhost:1521/FREEPDB1 as sysdba
+#      SQL> CREATE USER reasoning IDENTIFIED BY reasoning;
+#      SQL> GRANT CONNECT, RESOURCE, UNLIMITED TABLESPACE TO reasoning;
+#      SQL> GRANT CREATE SESSION, CREATE TABLE, CREATE SEQUENCE, CREATE VIEW TO reasoning;
+#   3. Run schema.sql or use the CLI init-db command:
+#      python -m datalake.cli init-db
+# =============================================================================
+
+services:
+  oracle-db:
+    image: container-registry.oracle.com/database/free:latest-lite
+    container_name: oracle-reasoning
+    ports:
+      - "1521:1521"
+    environment:
+      - ORACLE_PWD=${ORACLE_PWD:-Oracle_2026}
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+    healthcheck:
+      test: ["CMD-SHELL", "echo 'SELECT 1 FROM DUAL;' | sqlplus -s sys/${ORACLE_PWD:-Oracle_2026}@//localhost:1521/FREEPDB1 as sysdba || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 120s
+    restart: unless-stopped
+    shm_size: 1g
+
+volumes:
+  oracle-data:
+    driver: local

@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body, #root {
+    height: 100%;
+    margin: 0;
+  }
+
+  body {
+    background-color: #0a0a0a;
+    color: #f5f5f5;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #3a3a3a; }
+}
+
+@layer components {
+  .glow-border {
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .pane {
+    @apply bg-bg-panel rounded-lg overflow-hidden;
+  }
+}
+
+/* Markdown */
+.prose-msg {
+  font-size: 14px;
+  line-height: 1.55;
+}
+.prose-msg p { margin: 0.4em 0; }
+.prose-msg pre {
+  background: #0d0d0d;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 0.6em 0.8em;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 12.5px;
+}
+.prose-msg code {
+  background: rgba(255, 255, 255, 0.06);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+  font-size: 12.5px;
+}
+.prose-msg pre code { background: transparent; padding: 0; }
+.prose-msg table {
+  border-collapse: collapse;
+  margin: 0.6em 0;
+}
+.prose-msg th, .prose-msg td {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.3em 0.7em;
+}
+.prose-msg th { background: rgba(255, 255, 255, 0.04); }
+.prose-msg ul, .prose-msg ol { padding-left: 1.4em; margin: 0.4em 0; }
+.prose-msg li { margin: 0.15em 0; }
+.prose-msg h1, .prose-msg h2, .prose-msg h3 { margin: 0.6em 0 0.3em; font-weight: 600; }
+.prose-msg a { color: #06d6a0; text-decoration: underline; }
+
+/* DataExplorer tab pulse — fired when the agent reads, scans, or writes a
+   table during a turn. Three colour variants matching the action chip. */
+@keyframes pulse-read {
+  0%   { box-shadow: inset 0 0 0 0 rgba(17, 138, 178, 0.0);  background-color: rgba(17, 138, 178, 0.0); }
+  20%  { box-shadow: inset 0 0 0 1px rgba(17, 138, 178, 0.6); background-color: rgba(17, 138, 178, 0.18); }
+  100% { box-shadow: inset 0 0 0 0 rgba(17, 138, 178, 0.0);  background-color: rgba(17, 138, 178, 0.0); }
+}
+@keyframes pulse-scan {
+  0%   { box-shadow: inset 0 0 0 0 rgba(6, 214, 160, 0.0);   background-color: rgba(6, 214, 160, 0.0); }
+  20%  { box-shadow: inset 0 0 0 1px rgba(6, 214, 160, 0.6);  background-color: rgba(6, 214, 160, 0.18); }
+  100% { box-shadow: inset 0 0 0 0 rgba(6, 214, 160, 0.0);   background-color: rgba(6, 214, 160, 0.0); }
+}
+@keyframes pulse-write {
+  0%   { box-shadow: inset 0 0 0 0 rgba(255, 209, 102, 0.0); background-color: rgba(255, 209, 102, 0.0); }
+  20%  { box-shadow: inset 0 0 0 1px rgba(255, 209, 102, 0.7); background-color: rgba(255, 209, 102, 0.18); }
+  100% { box-shadow: inset 0 0 0 0 rgba(255, 209, 102, 0.0); background-color: rgba(255, 209, 102, 0.0); }
+}
+.data-explorer-pulse-read  { animation: pulse-read  3.5s ease-out 1; }
+.data-explorer-pulse-scan  { animation: pulse-scan  3.5s ease-out 1; }
+.data-explorer-pulse-write { animation: pulse-write 3.5s ease-out 1; }

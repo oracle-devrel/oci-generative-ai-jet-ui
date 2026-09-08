@@ -1,0 +1,79 @@
+---
+- name: Install prerequisites
+  ansible.builtin.dnf:
+    name:
+      - curl
+      - tar
+      - zstd
+    state: present
+
+- name: Install Ollama via official installer
+  ansible.builtin.shell: |
+    set -e
+    if ! command -v ollama >/dev/null 2>&1; then
+      curl -fsSL https://ollama.com/install.sh | sh
+    fi
+  args:
+    creates: /usr/local/bin/ollama
+
+- name: Create systemd drop-in directory for ollama
+  ansible.builtin.file:
+    path: /etc/systemd/system/ollama.service.d
+    state: directory
+    mode: '0755'
+
+- name: Render Ollama systemd override (listen on 0.0.0.0:11434)
+  ansible.builtin.template:
+    src: files/ollama-override.conf.j2
+    dest: /etc/systemd/system/ollama.service.d/override.conf
+    mode: '0644'
+
+- name: Reload systemd daemon
+  ansible.builtin.systemd:
+    daemon_reload: yes
+
+- name: Restart ollama
+  ansible.builtin.systemd:
+    name: ollama
+    state: restarted
+    enabled: yes
+
+- name: Wait for Ollama to become ready
+  ansible.builtin.uri:
+    url: http://localhost:11434/api/tags
+    status_code: 200
+  register: ollama_health
+  retries: 30
+  delay: 5
+  until: ollama_health.status == 200
+
+- name: Pull Ollama chat model
+  ansible.builtin.shell: ollama pull {{ ollama_chat_model }}
+  args:
+    executable: /bin/bash
+  environment:
+    HOME: /root
+  async: 1800
+  poll: 15
+  register: ollama_pull
+  changed_when: "'pulling manifest' in ollama_pull.stdout or 'success' in ollama_pull.stdout"
+
+- name: Warm up Ollama (load model into RAM)
+  ansible.builtin.uri:
+    url: http://localhost:11434/api/generate
+    method: POST
+    body_format: json
+    body:
+      model: "{{ ollama_chat_model }}"
+      prompt: "Hello"
+      stream: false
+    timeout: 600
+    status_code: 200
+
+- name: Stop firewalld
+  ansible.builtin.command: systemctl stop firewalld
+  failed_when: false
+
+- name: Disable firewalld
+  ansible.builtin.command: systemctl disable firewalld
+  failed_when: false

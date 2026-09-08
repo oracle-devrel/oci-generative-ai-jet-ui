@@ -1,0 +1,16 @@
+region                  = "{{ region }}"
+config_file_profile     = "{{ profile }}"
+tenancy_ocid            = "{{ tenancy_ocid }}"
+user_ocid               = "{{ user_ocid }}"
+fingerprint             = "{{ fingerprint }}"
+private_api_key_content = <<-EOT
+{{ private_api_key_content }}
+EOT
+compartment_ocid        = "{{ compartment_ocid }}"
+project_name            = "{{ project_name }}"
+
+ssh_public_key          = "{{ ssh_public_key }}"
+ssh_private_key_path    = "{{ ssh_private_key_path }}"
+
+ollama_shape            = "{{ ollama_shape }}"
+ollama_chat_model       = "{{ ollama_chat_model }}"

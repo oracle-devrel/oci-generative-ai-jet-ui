@@ -1,0 +1,58 @@
+#!/bin/bash
+set -e
+
+touch /home/opc/bootstrap.lock
+
+# Wait for outbound network (NAT gateway may take ~60s to start routing after creation)
+for i in 1 2 3 4 5 6 7 8 9 10 11 12; do
+    if curl -fsS --connect-timeout 5 https://yum.oracle.com/ >/dev/null 2>&1; then
+        echo "Outbound network is up."
+        break
+    fi
+    echo "Waiting for outbound network... ($i/12)"
+    sleep 15
+done
+
+# Update repo
+dnf upgrade -y
+dnf install oracle-epel-release-el9 -y
+dnf install ansible-core unzip curl tar -y
+
+# Get ansible_ollama
+curl --fail -sS "${ansible_ollama_par_url}" -o /home/opc/ansible_ollama.zip
+mkdir -p /home/opc/ansible_ollama
+unzip /home/opc/ansible_ollama.zip -d /home/opc/ansible_ollama && \
+    rm /home/opc/ansible_ollama.zip
+chown -R opc:opc /home/opc/ansible_ollama
+
+cat <<EOT >> /home/opc/ansible_params.json
+{
+  "project_name": "${project_name}",
+  "region_name": "${region_name}",
+  "ollama_chat_model": "${ollama_chat_model}"
+}
+EOT
+chown opc:opc /home/opc/ansible_params.json
+chmod 600 /home/opc/ansible_params.json
+
+cat <<EOT >> /home/opc/ollama.ini
+[ollama]
+localhost ansible_connection=local ansible_user=root
+
+[ollama:vars]
+ansible_python_interpreter="/usr/bin/python3"
+EOT
+chown opc:opc /home/opc/ollama.ini
+
+touch /home/opc/ansible-playbook.log
+chown opc:opc /home/opc/ansible-playbook.log
+
+ANSIBLE_PYTHON_INTERPRETER="/usr/bin/python3" \
+    ansible-galaxy collection install ansible.posix | tee -a /home/opc/ansible-playbook.log
+
+ANSIBLE_PYTHON_INTERPRETER="/usr/bin/python3" ansible-playbook \
+    -i /home/opc/ollama.ini \
+    --extra-vars "@/home/opc/ansible_params.json" \
+    /home/opc/ansible_ollama/server.yaml | tee -a /home/opc/ansible-playbook.log
+
+rm /home/opc/bootstrap.lock

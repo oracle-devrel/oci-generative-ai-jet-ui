@@ -1,0 +1,104 @@
+title: "PicoOraClaw - AI Assistant on OCI"
+description: "Deploy PicoOraClaw with Ollama and Oracle AI Database 26ai Free on OCI"
+schemaVersion: 1.1.0
+version: "1.0.0"
+source:
+  type: quickstart
+
+locale: "en"
+
+variableGroups:
+  - title: "Instance Configuration"
+    variables:
+      - compartment_ocid
+      - instance_shape
+      - instance_ocpus
+      - instance_memory_in_gbs
+      - ssh_public_key
+
+  - title: "Database Configuration"
+    variables:
+      - use_autonomous_db
+      - adb_admin_password
+
+  - title: "Network Configuration"
+    visible: false
+    variables:
+      - vcn_cidr
+
+  - title: "Hidden"
+    visible: false
+    variables:
+      - tenancy_ocid
+      - region
+
+variables:
+  tenancy_ocid:
+    type: string
+    title: "Tenancy OCID"
+    required: true
+
+  region:
+    type: oci:identity:region:name
+    title: "Region"
+    required: true
+
+  compartment_ocid:
+    type: oci:identity:compartment:id
+    title: "Compartment"
+    description: "Select the compartment to deploy PicoOraClaw into"
+    required: true
+
+  instance_shape:
+    type: oci:core:instanceshape:name
+    title: "Compute Shape"
+    description: "VM shape for the instance. ARM A1.Flex is Always Free eligible."
+    default: "VM.Standard.A1.Flex"
+    required: true
+    dependsOn:
+      compartmentId: compartment_ocid
+
+  instance_ocpus:
+    type: integer
+    title: "OCPUs"
+    description: "Number of OCPUs (minimum 1, 2 recommended for Ollama)"
+    default: 2
+    minimum: 1
+    maximum: 24
+    required: true
+
+  instance_memory_in_gbs:
+    type: integer
+    title: "Memory (GB)"
+    description: "RAM in GB (minimum 4 for gemma3:270m, 12 recommended)"
+    default: 12
+    minimum: 4
+    maximum: 256
+    required: true
+
+  ssh_public_key:
+    type: oci:core:ssh:publickey
+    title: "SSH Public Key"
+    description: "Public key for SSH access to the instance"
+    required: true
+
+  use_autonomous_db:
+    type: boolean
+    title: "Use Autonomous AI Database (optional)"
+    description: "Use a managed Autonomous AI Database instead of the default Oracle AI Database 26ai Free container on the VM. ADB provides automatic backups and patching."
+    default: false
+
+  adb_admin_password:
+    type: password
+    title: "ADB Admin Password"
+    description: "Password for the Autonomous Database ADMIN user (min 12 chars, must include upper, lower, and number)"
+    required: true
+    visible:
+      eq:
+        - use_autonomous_db
+        - true
+
+  vcn_cidr:
+    type: string
+    title: "VCN CIDR Block"
+    default: "10.0.0.0/16"

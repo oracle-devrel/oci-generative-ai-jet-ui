@@ -1,0 +1,12 @@
+node_modules
+dist
+*.tsbuildinfo
+cdk.out
+.env
+.env.local
+.env.*.local
+.DS_Store
+*.log
+.vite
+.playwright-cli/
+.claude/

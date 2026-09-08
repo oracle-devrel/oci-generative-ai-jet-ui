@@ -1,0 +1,31 @@
+# Oracle DB Configuration
+ORACLE_DB_USERNAME: ADMIN
+ORACLE_DB_PASSWORD: your_password_here
+ORACLE_DB_DSN: >-
+  (description= (retry_count=20)(retry_delay=3)
+  (address=(protocol=tcps)(port=1522)(host=your-oracle-db-host.com))
+  (connect_data=(service_name=your-service-name))
+  (security=(ssl_server_dn_match=yes)))
+
+# A2A Specialized Agent Endpoints
+# These agents can be deployed on different servers/ports for distributed processing
+# Currently configured for localhost deployment (all on same server)
+# To distribute: Change URLs to remote server addresses (e.g., http://server1.example.com:8001)
+AGENT_ENDPOINTS:
+  planner_url: http://localhost:8000
+  researcher_url: http://localhost:8000
+  reasoner_url: http://localhost:8000
+  synthesizer_url: http://localhost:8000
+
+# Model configuration for specialized agents (via Ollama API) (only necessary if not using the GUI)
+SPECIALIZED_AGENT_MODEL: gemma3:latest  # Options: qwq, deepseek-r1, llama3.3, phi4, gemma3:latest (2B param version), etc.
+
+# Response generation configuration
+MAX_RESPONSE_LENGTH: 2048  # Maximum number of tokens to generate in responses (default: 2048, can be increased for longer responses like 4096, 8192)
+
+# Open WebUI Configuration
+# Open WebUI provides an alternative chat interface using OpenAI-compatible API
+OPENWEBUI:
+  PORT: 3000              # Port for Open WebUI (default: 3000)
+  DEFAULT_MODEL: cot-rag  # Default reasoning model for Open WebUI
+  DATA_DIR: ./openwebui_data  # Directory for Open WebUI data storage

@@ -1,0 +1,15 @@
+# CPU-only PyTorch (prevents 5GB CUDA download in Codespaces)
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
+oracledb
+pandas
+sentence-transformers
+datasets
+einops
+numpy<2.0
+openai
+tqdm
+jupyter
+ipykernel
+ipywidgets
+matplotlib

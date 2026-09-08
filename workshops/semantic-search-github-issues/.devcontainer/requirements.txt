@@ -1,0 +1,20 @@
+# Oracle integration
+langchain-oracledb>=0.1.0
+oracledb>=2.5.0
+
+# LangChain core
+langchain-core>=0.3.0
+langchain-community>=0.3.0
+langchain-huggingface>=0.1.0
+
+# Embeddings
+sentence-transformers>=3.0.0
+
+# HTTP for GitHub API
+requests>=2.31.0
+
+# .env file support
+python-dotenv>=1.0.0
+
+# Notebook runtime
+ipykernel>=6.29.0

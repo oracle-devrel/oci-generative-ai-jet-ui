@@ -1,0 +1,87 @@
+{
+  "topic": "agent-loop",
+  "title": "Agent Loop",
+  "grounding_label": "Agent Loop brief",
+  "source_report_path": "content/research/agent-loop.md",
+  "concepts": [
+    {
+      "id": "goal",
+      "label": "Goal",
+      "summary": "The explicit objective the agent is trying to achieve in the current loop.",
+      "primary_topic": "agent-loop",
+      "related_topics": [],
+      "foundational": true,
+      "supporting_snippets": ["A tool-using developer agent starts by orienting around a clear goal rather than wandering through tools without intent."],
+      "diagnostic_prompts": ["What role does a goal play in an agent loop?"],
+      "hint_reframe_ladder": ["Think about what the agent is trying to accomplish before it chooses any tools."],
+      "related_concepts": ["context-retrieval"]
+    },
+    {
+      "id": "context-retrieval",
+      "label": "Context Retrieval",
+      "summary": "The step where the agent pulls in the relevant state, memory, or research needed for the current turn.",
+      "primary_topic": "agent-loop",
+      "related_topics": ["agent-memory"],
+      "foundational": true,
+      "supporting_snippets": ["The loop becomes stateful when the agent can retrieve the right context instead of reprocessing everything every time."],
+      "diagnostic_prompts": ["Why is context retrieval a distinct step in the loop?"],
+      "hint_reframe_ladder": ["Think about bringing the right information into the active context at the right time."],
+      "related_concepts": ["semantic-memory", "goal"]
+    },
+    {
+      "id": "tool-selection",
+      "label": "Tool Selection",
+      "summary": "The choice of which capability or tool best fits the current subproblem.",
+      "primary_topic": "agent-loop",
+      "related_topics": ["agent-memory"],
+      "foundational": true,
+      "supporting_snippets": ["A strong agent loop does not just think; it chooses the right capability for the situation."],
+      "diagnostic_prompts": ["What makes tool selection different from execution?"],
+      "hint_reframe_ladder": ["Think about deciding what to use before you actually use it."],
+      "related_concepts": ["procedural-memory", "execution"]
+    },
+    {
+      "id": "execution",
+      "label": "Execution",
+      "summary": "The moment where the agent acts in the environment by running a tool, querying data, or changing state.",
+      "primary_topic": "agent-loop",
+      "related_topics": ["agent-memory"],
+      "foundational": true,
+      "supporting_snippets": ["Execution is the point where an agent turns intention into action."],
+      "diagnostic_prompts": ["What happens during execution in an agent loop?"],
+      "hint_reframe_ladder": ["Think about the difference between planning an action and actually doing it."],
+      "related_concepts": ["tool-selection", "procedural-memory"]
+    },
+    {
+      "id": "evaluation",
+      "label": "Evaluation",
+      "summary": "The judgment step where the agent checks whether the result was useful, correct, or complete.",
+      "primary_topic": "agent-loop",
+      "related_topics": ["agent-memory"],
+      "foundational": true,
+      "supporting_snippets": ["An agent loop remains brittle if it cannot inspect the result and judge whether it worked."],
+      "diagnostic_prompts": ["Why is evaluation necessary after execution?"],
+      "hint_reframe_ladder": ["Think about checking the result rather than assuming the action succeeded."],
+      "related_concepts": ["episodic-memory", "memory-update"]
+    },
+    {
+      "id": "memory-update",
+      "label": "Memory Update",
+      "summary": "The persistence step where the agent decides what should be retained after the loop finishes.",
+      "primary_topic": "agent-loop",
+      "related_topics": ["agent-memory"],
+      "foundational": true,
+      "supporting_snippets": ["The loop only becomes stateful when the system decides what should persist after the turn."],
+      "diagnostic_prompts": ["What should happen during memory update in an agent loop?"],
+      "hint_reframe_ladder": ["Think about what information deserves to survive beyond the current turn."],
+      "related_concepts": ["episodic-memory", "evaluation"]
+    }
+  ],
+  "edges": [
+    {"source": "goal", "target": "context-retrieval", "kind": "sequence"},
+    {"source": "context-retrieval", "target": "tool-selection", "kind": "sequence"},
+    {"source": "tool-selection", "target": "execution", "kind": "sequence"},
+    {"source": "execution", "target": "evaluation", "kind": "sequence"},
+    {"source": "evaluation", "target": "memory-update", "kind": "sequence"}
+  ]
+}

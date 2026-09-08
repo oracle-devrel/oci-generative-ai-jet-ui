@@ -1,0 +1,231 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if compare_mode and compare_sessions %}
+<!-- ================================================================
+     Comparison View
+     ================================================================ -->
+<div class="card mb-6">
+    <div class="card-header">Session Comparison</div>
+
+    {% if comparison and comparison.summary %}
+    <div class="mb-4" style="font-size: 13px; color: var(--text-secondary);">
+        Strategies: {{ comparison.summary.strategies | join(', ') }}
+        &nbsp;|&nbsp;
+        Models: {{ comparison.summary.models | join(', ') }}
+    </div>
+    {% endif %}
+
+    <table>
+        <thead>
+            <tr>
+                <th>Field</th>
+                {% for s in compare_sessions %}
+                <th>{{ s.strategy }}<br><span class="text-muted mono">{{ s.id[:8] }}</span></th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="mono">Strategy</td>
+                {% for s in compare_sessions %}
+                <td><span class="strategy-chip">{{ s.strategy }}</span></td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td class="mono">Model</td>
+                {% for s in compare_sessions %}
+                <td class="mono">{{ s.model }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td class="mono">Status</td>
+                {% for s in compare_sessions %}
+                <td><span class="badge badge-{{ s.status }}">{{ s.status }}</span></td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td class="mono">Events</td>
+                {% for s in compare_sessions %}
+                <td class="mono">{{ s.event_count | default(0) }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td class="mono">Tokens</td>
+                {% for s in compare_sessions %}
+                <td class="mono">{{ s.total_tokens | default('--') }}</td>
+                {% endfor %}
+            </tr>
+            {% if compare_sessions[0].metrics %}
+            <tr>
+                <td class="mono">TTFT (ms)</td>
+                {% for s in compare_sessions %}
+                <td class="mono">{{ s.metrics.ttft_ms | default('--') if s.metrics else '--' }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td class="mono">Duration (ms)</td>
+                {% for s in compare_sessions %}
+                <td class="mono">{{ s.metrics.total_ms | default('--') if s.metrics else '--' }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td class="mono">Tokens/sec</td>
+                {% for s in compare_sessions %}
+                <td class="mono">{{ s.metrics.tokens_per_sec | default('--') if s.metrics else '--' }}</td>
+                {% endfor %}
+            </tr>
+            {% endif %}
+            <tr>
+                <td class="mono">Query</td>
+                {% for s in compare_sessions %}
+                <td style="font-size: 12px;">{{ s.query | truncate_text(150) }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td class="mono">Answer</td>
+                {% for s in compare_sessions %}
+                <td style="font-size: 12px;">{{ (s.final_answer or '--') | truncate_text(200) }}</td>
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+{% if compare_mode and not compare_sessions %}
+<!-- Comparison Selection Form -->
+<div class="card mb-6">
+    <div class="card-header">Compare Sessions</div>
+    <p style="color: var(--text-secondary); margin-bottom: 16px; font-size: 13px;">
+        Enter comma-separated session IDs to compare side by side.
+    </p>
+    <form action="/compare" method="get" class="flex gap-2 items-center">
+        <input type="text" name="ids" placeholder="session-id-1, session-id-2, ..."
+               style="flex: 1; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border);
+                      background: var(--bg-tertiary); color: var(--text-primary); font-family: var(--font-mono);
+                      font-size: 13px;">
+        <button type="submit" class="btn btn-primary">Compare</button>
+    </form>
+</div>
+{% endif %}
+
+<!-- ================================================================
+     Filter Bar
+     ================================================================ -->
+<form action="/sessions" method="get" class="filter-bar">
+    <select name="strategy">
+        <option value="">All Strategies</option>
+        {% for s in strategies %}
+        <option value="{{ s }}" {% if filters.strategy == s %}selected{% endif %}>{{ s }}</option>
+        {% endfor %}
+    </select>
+
+    <select name="model">
+        <option value="">All Models</option>
+        {% for m in models %}
+        <option value="{{ m }}" {% if filters.model == m %}selected{% endif %}>{{ m }}</option>
+        {% endfor %}
+    </select>
+
+    <select name="status">
+        <option value="">All Statuses</option>
+        <option value="completed" {% if filters.status == 'completed' %}selected{% endif %}>Completed</option>
+        <option value="running" {% if filters.status == 'running' %}selected{% endif %}>Running</option>
+        <option value="failed" {% if filters.status == 'failed' %}selected{% endif %}>Failed</option>
+        <option value="cancelled" {% if filters.status == 'cancelled' %}selected{% endif %}>Cancelled</option>
+    </select>
+
+    <input type="text" name="q" placeholder="Search queries..." value="{{ filters.q or '' }}"
+           style="width: 200px;">
+
+    <button type="submit" class="btn btn-primary">Filter</button>
+    <a href="/sessions" class="btn">Clear</a>
+</form>
+
+<!-- ================================================================
+     Sessions Table
+     ================================================================ -->
+<div class="card">
+    <div class="flex justify-between items-center mb-4">
+        <div class="card-header" style="margin-bottom: 0;">
+            {% if total is defined %}{{ total }}{% endif %} Sessions
+        </div>
+    </div>
+
+    {% if sessions %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Strategy</th>
+                <th>Model</th>
+                <th>Status</th>
+                <th style="text-align: right;">Events</th>
+                <th style="text-align: right;">Tokens</th>
+                <th>Query</th>
+                <th>Created</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in sessions %}
+            <tr>
+                <td>
+                    <a href="/sessions/{{ s.id }}" class="link mono">{{ s.id[:8] }}</a>
+                </td>
+                <td><span class="strategy-chip">{{ s.strategy }}</span></td>
+                <td class="mono text-secondary">{{ s.model }}</td>
+                <td>
+                    <span class="badge badge-{{ s.status }}">{{ s.status }}</span>
+                </td>
+                <td style="text-align: right;" class="mono">{{ s.event_count | default(0) }}</td>
+                <td style="text-align: right;" class="mono text-muted">{{ s.total_tokens | default('--') }}</td>
+                <td>
+                    <span class="truncate" title="{{ s.query }}">{{ s.query | truncate_text(50) }}</span>
+                </td>
+                <td class="mono text-muted" style="white-space: nowrap;">
+                    {% if s.created_at %}{{ s.created_at[:19] }}{% endif %}
+                </td>
+                <td>
+                    <a href="/sessions/{{ s.id }}" class="btn" style="padding: 4px 10px; font-size: 11px;">
+                        View
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    {% if total > limit %}
+    <div class="pagination">
+        {% if offset > 0 %}
+        <a href="/sessions?offset={{ offset - limit }}&limit={{ limit }}{% if filters.strategy %}&strategy={{ filters.strategy }}{% endif %}{% if filters.model %}&model={{ filters.model }}{% endif %}{% if filters.status %}&status={{ filters.status }}{% endif %}" class="btn">
+            Previous
+        </a>
+        {% endif %}
+
+        <span class="mono text-muted" style="padding: 8px;">
+            {{ offset + 1 }}-{{ [offset + limit, total] | min }} of {{ total }}
+        </span>
+
+        {% if offset + limit < total %}
+        <a href="/sessions?offset={{ offset + limit }}&limit={{ limit }}{% if filters.strategy %}&strategy={{ filters.strategy }}{% endif %}{% if filters.model %}&model={{ filters.model }}{% endif %}{% if filters.status %}&status={{ filters.status }}{% endif %}" class="btn">
+            Next
+        </a>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    {% else %}
+    <div class="empty-state">
+        <div class="icon">&#9776;</div>
+        <div style="font-size: 16px; margin-bottom: 8px;">No sessions found</div>
+        <div class="text-muted">Try adjusting your filters or run a reasoning agent.</div>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,60 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+*.iml
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+.python-version
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Node / frontend
+node_modules/
+app/frontend/dist/
+app/frontend/.vite/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Secrets — NEVER commit
+.env
+*.env
+!.env.example
+app/.env
+
+# Codespaces runtime logs
+.devcontainer/logs/
+
+# Oracle local data (if anyone runs docker-compose locally with a bind mount)
+oracle-data/
+
+# Ad-hoc / scratch
+.tmp/
+.tmp_*/
+.tmp_*.py
+.tmp_*.json
+*.tmp
+
+# Coverage / build
+coverage/
+*.cover
+htmlcov/
+.tox/
+build/
+dist/
+*.egg

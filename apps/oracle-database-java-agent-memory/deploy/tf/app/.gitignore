@@ -1,0 +1,8 @@
+terraform.tfvars
+terraform.tfstate
+terraform.tfstate.backup
+tfplan
+.terraform/
+.terraform.lock.hcl
+generated/
+outputs.json

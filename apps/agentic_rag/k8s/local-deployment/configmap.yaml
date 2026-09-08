@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: agentic-rag-config
+data:
+  config.yaml: |
+    HUGGING_FACE_HUB_TOKEN: "your-huggingface-token"
+  # Optional OpenAI configuration
+  # .env: |
+  #   OPENAI_API_KEY=your-openai-api-key 

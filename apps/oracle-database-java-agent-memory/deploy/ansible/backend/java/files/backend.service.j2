@@ -1,0 +1,13 @@
+[Unit]
+Description=Oracle Java Agent Memory Backend
+After=syslog.target network.target
+
+[Service]
+User=opc
+ExecStart=/bin/bash {{ backend_dest_directory }}/run.sh
+SuccessExitStatus=143
+Restart=on-failure
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target

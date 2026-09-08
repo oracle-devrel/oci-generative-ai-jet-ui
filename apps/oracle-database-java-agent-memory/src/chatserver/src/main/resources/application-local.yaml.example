@@ -1,0 +1,25 @@
+# Local development profile
+# Copy this file to application-local.yaml and fill in your values:
+#   cp application-local.yaml.example application-local.yaml
+
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@//localhost:1521/freepdb1
+    username: PDBADMIN
+    password: Oracle123
+    oracleucp:
+      initial-pool-size: 2
+      min-pool-size: 2
+      max-pool-size: 5
+
+  ai:
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        model: qwen2.5
+
+logging:
+  level:
+    dev.victormartin.agentmemory: DEBUG
+    org.springframework.ai.chat.client.advisor: DEBUG
+    org.springframework.ai.rag: DEBUG

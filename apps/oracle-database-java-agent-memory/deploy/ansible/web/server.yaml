@@ -1,0 +1,5 @@
+- name: Web
+  hosts: web
+  become: true
+  roles:
+    - streamlit

@@ -1,0 +1,1681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Reasoning: The Thinking Layer</title>
+
+    <!-- Fonts: Cormorant Garamond (display) + Source Serif 4 (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===========================================
+           CSS CUSTOM PROPERTIES (PAPER & INK THEME)
+           =========================================== */
+        :root {
+            /* Colors */
+            --bg-primary: #faf9f7;
+            --bg-secondary: #f3f1ed;
+            --bg-accent: #eee9e0;
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a4a4a;
+            --text-muted: #777;
+            --accent-blue: #1e3a5f;
+            --accent-crimson: #c41e3a;
+            --accent-gold: #8b6914;
+            --border-light: #ddd5c8;
+            --border-dark: #1a1a1a;
+
+            /* Typography */
+            --font-display: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'Source Serif 4', Georgia, serif;
+            --title-size: clamp(2rem, 6vw, 5rem);
+            --h2-size: clamp(1.4rem, 3.5vw, 2.8rem);
+            --h3-size: clamp(1.1rem, 2.5vw, 1.6rem);
+            --body-size: clamp(0.8rem, 1.4vw, 1.1rem);
+            --small-size: clamp(0.65rem, 1vw, 0.875rem);
+            --code-size: clamp(0.65rem, 1vw, 0.85rem);
+
+            /* Spacing */
+            --slide-padding: clamp(1.5rem, 4vw, 4rem);
+            --content-gap: clamp(0.75rem, 2vw, 2rem);
+            --element-gap: clamp(0.25rem, 1vw, 1rem);
+
+            /* Animation */
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration-normal: 0.6s;
+        }
+
+        /* ===========================================
+           BASE STYLES
+           =========================================== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* ===========================================
+           VIEWPORT FITTING: MANDATORY BASE STYLES
+           Include this ENTIRE file in every presentation.
+           These styles ensure slides fit exactly in the viewport.
+           =========================================== */
+
+        /* 1. Lock html/body to viewport */
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        /* 2. Each slide = exact viewport height */
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* 3. Content container with flex for centering */
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-height: 100%;
+            overflow: hidden;
+            padding: var(--slide-padding);
+        }
+
+        /* 4. ALL typography uses clamp() for responsive scaling */
+        /* (Already defined in :root above) */
+
+        /* 5. Cards/containers use viewport-relative max sizes */
+        .card, .container, .content-box {
+            max-width: min(90vw, 1000px);
+            max-height: min(80vh, 700px);
+        }
+
+        /* 6. Lists auto-scale with viewport */
+        .feature-list, .bullet-list {
+            gap: clamp(0.4rem, 1vh, 1rem);
+        }
+
+        .feature-list li, .bullet-list li {
+            font-size: var(--body-size);
+            line-height: 1.4;
+        }
+
+        /* 7. Grids adapt to available space */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+            gap: clamp(0.5rem, 1.5vw, 1rem);
+        }
+
+        /* 8. Images constrained to viewport */
+        img, .image-container {
+            max-width: 100%;
+            max-height: min(50vh, 400px);
+            object-fit: contain;
+        }
+
+        /* ===========================================
+           RESPONSIVE BREAKPOINTS
+           Aggressive scaling for smaller viewports
+           =========================================== */
+
+        /* Short viewports (< 700px height) */
+        @media (max-height: 700px) {
+            :root {
+                --slide-padding: clamp(0.75rem, 3vw, 2rem);
+                --content-gap: clamp(0.4rem, 1.5vw, 1rem);
+                --title-size: clamp(1.25rem, 4.5vw, 2.5rem);
+                --h2-size: clamp(1rem, 3vw, 1.75rem);
+            }
+        }
+
+        /* Very short viewports (< 600px height) */
+        @media (max-height: 600px) {
+            :root {
+                --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem);
+                --content-gap: clamp(0.3rem, 1vw, 0.75rem);
+                --title-size: clamp(1.1rem, 4vw, 2rem);
+                --body-size: clamp(0.7rem, 1.2vw, 0.95rem);
+            }
+
+            .nav-dots, .keyboard-hint, .decorative {
+                display: none;
+            }
+        }
+
+        /* Extremely short (landscape phones, < 500px height) */
+        @media (max-height: 500px) {
+            :root {
+                --slide-padding: clamp(0.4rem, 2vw, 1rem);
+                --title-size: clamp(1rem, 3.5vw, 1.5rem);
+                --h2-size: clamp(0.9rem, 2.5vw, 1.25rem);
+                --body-size: clamp(0.65rem, 1vw, 0.85rem);
+            }
+        }
+
+        /* Narrow viewports (< 600px width) */
+        @media (max-width: 600px) {
+            :root {
+                --title-size: clamp(1.25rem, 7vw, 2.5rem);
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===========================================
+           REDUCED MOTION
+           =========================================== */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.2s !important;
+            }
+
+            html {
+                scroll-behavior: auto;
+            }
+        }
+
+        /* ===========================================
+           PAPER & INK THEME STYLES
+           =========================================== */
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .slide {
+            background: var(--bg-primary);
+        }
+
+        /* === TYPOGRAPHY === */
+        h1, h2, h3 {
+            font-family: var(--font-display);
+            font-weight: 600;
+            line-height: 1.15;
+            letter-spacing: -0.01em;
+        }
+
+        h1 {
+            font-size: var(--title-size);
+            font-weight: 300;
+            color: var(--text-primary);
+        }
+
+        h2 {
+            font-size: var(--h2-size);
+            color: var(--accent-blue);
+            margin-bottom: var(--content-gap);
+        }
+
+        h3 {
+            font-size: var(--h3-size);
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        p, li {
+            font-family: var(--font-body);
+            font-size: var(--body-size);
+            line-height: 1.65;
+            color: var(--text-secondary);
+        }
+
+        /* === DROP CAPS === */
+        .drop-cap::first-letter {
+            float: left;
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            line-height: 0.8;
+            padding-right: clamp(0.3rem, 0.5vw, 0.5rem);
+            padding-top: clamp(0.15rem, 0.3vw, 0.25rem);
+            color: var(--accent-crimson);
+            font-weight: 600;
+        }
+
+        /* === PULL QUOTES === */
+        .pull-quote {
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: clamp(1.1rem, 2.5vw, 1.8rem);
+            color: var(--accent-blue);
+            border-left: 3px solid var(--accent-crimson);
+            padding-left: clamp(0.75rem, 1.5vw, 1.5rem);
+            margin: var(--content-gap) 0;
+            line-height: 1.4;
+            max-width: min(80%, 700px);
+        }
+
+        /* === HORIZONTAL RULES === */
+        .elegant-rule {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.5rem, 1vw, 1rem);
+            margin: var(--content-gap) 0;
+        }
+
+        .elegant-rule::before,
+        .elegant-rule::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-light);
+        }
+
+        .elegant-rule .ornament {
+            font-family: var(--font-display);
+            font-size: var(--small-size);
+            color: var(--accent-crimson);
+            letter-spacing: 0.3em;
+        }
+
+        /* === SLIDE COUNTER === */
+        .slide-counter {
+            position: fixed;
+            top: clamp(0.75rem, 1.5vw, 1.5rem);
+            right: clamp(0.75rem, 1.5vw, 1.5rem);
+            font-family: var(--font-display);
+            font-size: var(--small-size);
+            color: var(--text-muted);
+            z-index: 100;
+            letter-spacing: 0.05em;
+        }
+
+        /* === PROGRESS BAR === */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: var(--accent-crimson);
+            z-index: 1000;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        /* === NAV DOTS === */
+        .nav-dots {
+            position: fixed;
+            right: clamp(0.5rem, 1vw, 1rem);
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(4px, 0.5vh, 8px);
+            z-index: 100;
+        }
+
+        .nav-dot {
+            width: clamp(5px, 0.5vw, 8px);
+            height: clamp(5px, 0.5vw, 8px);
+            border-radius: 50%;
+            background: var(--border-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            padding: 0;
+        }
+
+        .nav-dot.active {
+            background: var(--accent-crimson);
+            transform: scale(1.4);
+        }
+
+        /* === ANIMATIONS === */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity var(--duration-normal) var(--ease-out-expo),
+                        transform var(--duration-normal) var(--ease-out-expo);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity var(--duration-normal) var(--ease-out-expo),
+                        transform var(--duration-normal) var(--ease-out-expo);
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.92);
+            transition: opacity var(--duration-normal) var(--ease-out-expo),
+                        transform var(--duration-normal) var(--ease-out-expo);
+        }
+
+        .slide.visible .reveal,
+        .slide.visible .reveal-left,
+        .slide.visible .reveal-scale {
+            opacity: 1;
+            transform: translateY(0) translateX(0) scale(1);
+        }
+
+        /* Stagger children */
+        .reveal:nth-child(1) { transition-delay: 0.1s; }
+        .reveal:nth-child(2) { transition-delay: 0.2s; }
+        .reveal:nth-child(3) { transition-delay: 0.3s; }
+        .reveal:nth-child(4) { transition-delay: 0.4s; }
+        .reveal:nth-child(5) { transition-delay: 0.5s; }
+        .reveal:nth-child(6) { transition-delay: 0.6s; }
+        .reveal:nth-child(7) { transition-delay: 0.7s; }
+
+        .reveal-left:nth-child(1) { transition-delay: 0.1s; }
+        .reveal-left:nth-child(2) { transition-delay: 0.2s; }
+        .reveal-left:nth-child(3) { transition-delay: 0.3s; }
+        .reveal-left:nth-child(4) { transition-delay: 0.4s; }
+
+        /* === TITLE SLIDE === */
+        .title-slide {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: var(--bg-primary);
+        }
+
+        .title-slide .slide-content {
+            align-items: center;
+            max-width: min(90vw, 800px);
+        }
+
+        .title-ornament {
+            font-family: var(--font-display);
+            font-size: var(--small-size);
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--accent-crimson);
+            margin-bottom: var(--content-gap);
+        }
+
+        .title-slide h1 {
+            font-weight: 300;
+            font-style: italic;
+            margin-bottom: clamp(0.5rem, 1vw, 1rem);
+        }
+
+        .title-slide h1 em {
+            font-style: normal;
+            font-weight: 600;
+            color: var(--accent-blue);
+        }
+
+        .title-subtitle {
+            font-family: var(--font-body);
+            font-size: clamp(0.85rem, 1.5vw, 1.15rem);
+            color: var(--text-muted);
+            max-width: min(80%, 500px);
+            line-height: 1.6;
+        }
+
+        .title-meta {
+            font-family: var(--font-display);
+            font-size: var(--small-size);
+            color: var(--text-muted);
+            letter-spacing: 0.15em;
+            margin-top: var(--content-gap);
+        }
+
+        .title-rule {
+            width: clamp(40px, 6vw, 80px);
+            height: 1px;
+            background: var(--accent-crimson);
+            margin: var(--element-gap) 0;
+        }
+
+        /* === SECTION HEADER SLIDES === */
+        .section-header {
+            text-align: center;
+            background: var(--bg-secondary);
+        }
+
+        .section-header .slide-content {
+            align-items: center;
+        }
+
+        .section-number {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 8vw, 8rem);
+            font-weight: 300;
+            color: var(--border-light);
+            line-height: 1;
+            position: absolute;
+            top: clamp(1rem, 3vw, 3rem);
+            left: clamp(1rem, 3vw, 3rem);
+        }
+
+        .section-header h2 {
+            font-size: clamp(1.8rem, 4.5vw, 3.5rem);
+            font-weight: 300;
+            font-style: italic;
+            color: var(--text-primary);
+        }
+
+        .section-tagline {
+            font-family: var(--font-body);
+            font-size: var(--body-size);
+            color: var(--text-muted);
+            margin-top: var(--element-gap);
+        }
+
+        /* === FEATURE CARDS === */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+            gap: clamp(0.6rem, 1.2vw, 1.2rem);
+            width: 100%;
+            max-width: min(95vw, 1000px);
+        }
+
+        .feature-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            padding: clamp(0.75rem, 1.5vw, 1.5rem);
+            border-radius: 2px;
+            transition: border-color 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--accent-crimson);
+        }
+
+        .feature-card .card-icon {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            margin-bottom: clamp(0.25rem, 0.5vw, 0.5rem);
+        }
+
+        .feature-card h3 {
+            font-family: var(--font-display);
+            font-size: clamp(0.9rem, 1.5vw, 1.15rem);
+            font-weight: 600;
+            margin-bottom: clamp(0.15rem, 0.3vw, 0.3rem);
+            color: var(--accent-blue);
+        }
+
+        .feature-card p {
+            font-size: var(--small-size);
+            line-height: 1.5;
+            color: var(--text-muted);
+        }
+
+        /* === CODE BLOCKS === */
+        .code-block {
+            background: #1a1a1a;
+            color: #e8e4df;
+            padding: clamp(0.75rem, 1.5vw, 1.5rem);
+            border-radius: 2px;
+            font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+            font-size: var(--code-size);
+            line-height: 1.6;
+            overflow: hidden;
+            max-width: min(95vw, 700px);
+            white-space: pre;
+            border-left: 3px solid var(--accent-crimson);
+        }
+
+        .code-block .keyword { color: #c41e3a; }
+        .code-block .string { color: #6b8e23; }
+        .code-block .comment { color: #666; font-style: italic; }
+        .code-block .func { color: #1e3a5f; }
+        .code-block .type { color: #8b6914; }
+
+        /* === TABLE STYLES === */
+        .data-table {
+            width: 100%;
+            max-width: min(95vw, 900px);
+            border-collapse: collapse;
+            font-size: var(--small-size);
+        }
+
+        .data-table th {
+            font-family: var(--font-display);
+            font-weight: 600;
+            text-align: left;
+            padding: clamp(0.3rem, 0.6vw, 0.6rem) clamp(0.4rem, 0.8vw, 0.8rem);
+            border-bottom: 2px solid var(--text-primary);
+            color: var(--accent-blue);
+            font-size: var(--small-size);
+        }
+
+        .data-table td {
+            padding: clamp(0.25rem, 0.5vw, 0.5rem) clamp(0.4rem, 0.8vw, 0.8rem);
+            border-bottom: 1px solid var(--border-light);
+            font-family: var(--font-body);
+            font-size: var(--small-size);
+            color: var(--text-secondary);
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .highlight-cell {
+            color: var(--accent-crimson) !important;
+            font-weight: 600;
+        }
+
+        /* === ARCHITECTURE DIAGRAM (CSS) === */
+        .arch-flow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: clamp(0.3rem, 0.6vw, 0.6rem);
+            max-width: min(90vw, 600px);
+            margin: 0 auto;
+        }
+
+        .arch-box {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            padding: clamp(0.4rem, 0.8vw, 0.8rem) clamp(0.8rem, 1.5vw, 1.5rem);
+            font-family: var(--font-display);
+            font-size: var(--small-size);
+            font-weight: 600;
+            color: var(--accent-blue);
+            text-align: center;
+            width: 100%;
+            max-width: min(80%, 400px);
+            border-radius: 2px;
+        }
+
+        .arch-box.primary {
+            background: var(--accent-blue);
+            color: #fff;
+            border-color: var(--accent-blue);
+        }
+
+        .arch-box.accent {
+            border-color: var(--accent-crimson);
+            color: var(--accent-crimson);
+        }
+
+        .arch-arrow {
+            font-family: var(--font-display);
+            font-size: var(--small-size);
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        .arch-row {
+            display: flex;
+            gap: clamp(0.3rem, 0.6vw, 0.6rem);
+            width: 100%;
+            max-width: min(90%, 500px);
+        }
+
+        .arch-row .arch-box {
+            flex: 1;
+            max-width: none;
+        }
+
+        /* === TWO-COLUMN LAYOUT === */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(1rem, 2vw, 2.5rem);
+            align-items: start;
+            width: 100%;
+            max-width: min(95vw, 1000px);
+        }
+
+        @media (max-width: 600px) {
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* === STRATEGY BADGES === */
+        .badge {
+            display: inline-block;
+            font-family: var(--font-display);
+            font-size: clamp(0.55rem, 0.8vw, 0.7rem);
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: clamp(0.15rem, 0.3vw, 0.25rem) clamp(0.4rem, 0.6vw, 0.6rem);
+            border: 1px solid var(--border-light);
+            border-radius: 1px;
+            color: var(--text-muted);
+        }
+
+        .badge.crimson {
+            border-color: var(--accent-crimson);
+            color: var(--accent-crimson);
+        }
+
+        .badge.blue {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+        }
+
+        /* === BULLET LISTS === */
+        .styled-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.3rem, 0.6vw, 0.6rem);
+        }
+
+        .styled-list li {
+            font-size: var(--body-size);
+            padding-left: clamp(1rem, 1.5vw, 1.5rem);
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .styled-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: clamp(0.45rem, 0.7vw, 0.6rem);
+            width: clamp(4px, 0.4vw, 6px);
+            height: clamp(4px, 0.4vw, 6px);
+            background: var(--accent-crimson);
+            border-radius: 50%;
+        }
+
+        .styled-list li strong {
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        /* === CLOSING SLIDE === */
+        .closing-slide {
+            text-align: center;
+            background: var(--bg-secondary);
+        }
+
+        .closing-slide .slide-content {
+            align-items: center;
+        }
+
+        .closing-links {
+            display: flex;
+            gap: clamp(0.75rem, 1.5vw, 1.5rem);
+            margin-top: var(--content-gap);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .closing-links a {
+            font-family: var(--font-display);
+            font-size: var(--small-size);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent-blue);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent-crimson);
+            padding-bottom: 2px;
+            transition: color 0.3s ease;
+        }
+
+        .closing-links a:hover {
+            color: var(--accent-crimson);
+        }
+
+        /* === COMPACT LIST FOR DENSE SLIDES === */
+        .compact-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.15rem, 0.3vw, 0.3rem);
+        }
+
+        .compact-list li {
+            font-size: var(--small-size);
+            padding-left: clamp(0.75rem, 1vw, 1rem);
+            position: relative;
+            line-height: 1.45;
+            color: var(--text-secondary);
+        }
+
+        .compact-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: clamp(0.35rem, 0.5vw, 0.5rem);
+            width: clamp(3px, 0.3vw, 5px);
+            height: clamp(3px, 0.3vw, 5px);
+            background: var(--accent-crimson);
+            border-radius: 50%;
+        }
+
+        /* === METRIC BAR === */
+        .metric-row {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.4rem, 0.8vw, 0.8rem);
+            margin-bottom: clamp(0.2rem, 0.4vw, 0.4rem);
+        }
+
+        .metric-label {
+            font-family: var(--font-display);
+            font-size: var(--small-size);
+            font-weight: 600;
+            color: var(--accent-blue);
+            min-width: clamp(80px, 10vw, 120px);
+        }
+
+        .metric-bar {
+            flex: 1;
+            height: clamp(6px, 0.8vw, 10px);
+            background: var(--bg-accent);
+            border-radius: 1px;
+            overflow: hidden;
+        }
+
+        .metric-fill {
+            height: 100%;
+            background: var(--accent-crimson);
+            border-radius: 1px;
+            transition: width 1s var(--ease-out-expo);
+        }
+
+        .metric-value {
+            font-family: var(--font-body);
+            font-size: var(--small-size);
+            color: var(--text-muted);
+            min-width: clamp(30px, 4vw, 50px);
+            text-align: right;
+        }
+
+        /* === DECORATIVE ELEMENTS === */
+        .page-corner {
+            position: absolute;
+            font-family: var(--font-display);
+            font-size: var(--small-size);
+            color: var(--border-light);
+            letter-spacing: 0.2em;
+        }
+
+        .page-corner.top-left {
+            top: var(--slide-padding);
+            left: var(--slide-padding);
+        }
+
+        .page-corner.bottom-right {
+            bottom: var(--slide-padding);
+            right: var(--slide-padding);
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Slide counter -->
+    <div class="slide-counter" id="slideCounter">1 / 22</div>
+
+    <!-- Navigation dots -->
+    <nav class="nav-dots" id="navDots" aria-label="Slide navigation"></nav>
+
+    <!-- ==========================================
+         SLIDE 1: TITLE
+         ========================================== -->
+    <section class="slide title-slide" data-slide="1">
+        <div class="slide-content">
+            <div class="title-ornament reveal">The Thinking Layer</div>
+            <div class="title-rule reveal"></div>
+            <h1 class="reveal">Agent <em>Reasoning</em></h1>
+            <div class="title-rule reveal"></div>
+            <p class="title-subtitle reveal">
+                Transforming open-source LLMs into deliberate problem solvers
+                through 16 cognitive architectures grounded in research.
+            </p>
+            <p class="title-meta reveal">Python + Go &middot; Ollama &middot; MIT License</p>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 2: THE PROBLEM
+         ========================================== -->
+    <section class="slide" data-slide="2">
+        <div class="slide-content">
+            <h2 class="reveal">The Gap in LLM Reasoning</h2>
+            <p class="drop-cap reveal" style="max-width: min(85%, 700px);">
+                Large language models predict the next token. They don't plan, backtrack, or verify their own logic.
+                When faced with multi-step problems, they confabulate. When asked to self-correct, they often
+                make things worse. The raw generation loop wasn't built for structured thought.
+            </p>
+            <div class="pull-quote reveal">
+                "From predicting the next token to predicting the next thought."
+            </div>
+            <p class="reveal" style="max-width: min(85%, 700px);">
+                Agent Reasoning wraps any Ollama-served model in cognitive architectures drawn from
+                peer-reviewed research. The model stays the same; the thinking process around it changes.
+            </p>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 3: SECTION HEADER - ARCHITECTURES
+         ========================================== -->
+    <section class="slide section-header" data-slide="3">
+        <span class="section-number decorative reveal">I</span>
+        <div class="slide-content">
+            <h2 class="reveal">Cognitive Architectures</h2>
+            <p class="section-tagline reveal">16 reasoning strategies, each grounded in published research</p>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 4: CORE STRATEGIES (6 cards)
+         ========================================== -->
+    <section class="slide" data-slide="4">
+        <div class="slide-content">
+            <h2 class="reveal">Core Strategies</h2>
+            <div class="feature-grid reveal-scale" style="transition-delay: 0.2s;">
+                <div class="feature-card">
+                    <div class="card-icon">&#9776;</div>
+                    <h3>Chain-of-Thought</h3>
+                    <p>Step-by-step prompt injection. Math, logic, explanations. Wei et al. 2022.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon">&#9734;</div>
+                    <h3>Tree of Thoughts</h3>
+                    <p>BFS branch exploration with heuristic scoring and pruning. Yao et al. 2023.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon">&#9881;</div>
+                    <h3>ReAct</h3>
+                    <p>Interleaved reasoning + tool use. Web search, calculator, Wikipedia. Yao et al. 2022.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon">&#9998;</div>
+                    <h3>Self-Reflection</h3>
+                    <p>Draft, critique, refine loop. Multi-turn improvement. Shinn et al. 2023.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon">&#9874;</div>
+                    <h3>Decomposed</h3>
+                    <p>Break complex queries into sub-tasks, solve sequentially. Khot et al. 2022.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon">&#9745;</div>
+                    <h3>Self-Consistency</h3>
+                    <p>Generate k samples, majority vote. Temperature-sampled diversity. Wang et al. 2022.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 5: ADVANCED STRATEGIES (6 cards)
+         ========================================== -->
+    <section class="slide" data-slide="5">
+        <div class="slide-content">
+            <h2 class="reveal">Advanced Strategies</h2>
+            <div class="feature-grid reveal-scale" style="transition-delay: 0.2s;">
+                <div class="feature-card">
+                    <div class="card-icon">&#8634;</div>
+                    <h3>Refinement Loop</h3>
+                    <p>Generator, Critic (0.0-1.0 score), Refiner. Iterates until quality threshold met.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon">&#9670;</div>
+                    <h3>Complex Refinement</h3>
+                    <p>5-stage pipeline: Accuracy, Clarity, Depth, Examples, Polish. Production-grade.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon">&#9876;</div>
+                    <h3>Adversarial Debate</h3>
+                    <p>Pro/con debate rounds with LLM judge. Irving et al. 2018.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon">&#9820;</div>
+                    <h3>MCTS</h3>
+                    <p>Monte Carlo Tree Search with UCB1. Complex strategy and planning. Browne et al. 2012.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon">&#9733;</div>
+                    <h3>Analogical</h3>
+                    <p>Structural analogy mapping. Cross-domain problem solving. Gentner 1983.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon">&#63;</div>
+                    <h3>Socratic + Meta</h3>
+                    <p>Progressive questioning, plus auto-classification that routes to the optimal strategy.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 6: SECTION HEADER - ARCHITECTURE
+         ========================================== -->
+    <section class="slide section-header" data-slide="6">
+        <span class="section-number decorative reveal">II</span>
+        <div class="slide-content">
+            <h2 class="reveal">System Architecture</h2>
+            <p class="section-tagline reveal">How queries flow from user input to reasoned output</p>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 7: DATA FLOW
+         ========================================== -->
+    <section class="slide" data-slide="7">
+        <div class="slide-content" style="align-items: center;">
+            <h2 class="reveal">Query Pipeline</h2>
+            <div class="arch-flow reveal-scale" style="transition-delay: 0.2s;">
+                <div class="arch-box primary">User Query + Model+Strategy Syntax</div>
+                <div class="arch-arrow">&darr;</div>
+                <div class="arch-box">ReasoningInterceptor (routing layer)</div>
+                <div class="arch-arrow">&darr; parses "gemma3:270m+tot"</div>
+                <div class="arch-box accent">AGENT_MAP (16 strategies, 21 aliases)</div>
+                <div class="arch-arrow">&darr;</div>
+                <div class="arch-row">
+                    <div class="arch-box">BaseAgent</div>
+                    <div class="arch-box">stream(query)</div>
+                </div>
+                <div class="arch-arrow">&darr;</div>
+                <div class="arch-box">OllamaClient &rarr; HTTP &rarr; localhost:11434</div>
+                <div class="arch-arrow">&darr;</div>
+                <div class="arch-box primary">Streamed Chunks Back to User</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 8: INTERCEPTOR PATTERN
+         ========================================== -->
+    <section class="slide" data-slide="8">
+        <div class="slide-content">
+            <h2 class="reveal">The Interceptor Pattern</h2>
+            <p class="reveal" style="max-width: min(85%, 700px);">
+                The <strong>ReasoningInterceptor</strong> acts as a drop-in replacement for any Ollama client.
+                It parses a compound model string (like <code>gemma3+cot</code>), extracts the base model and
+                strategy, then routes to the correct agent. No code changes needed in downstream apps.
+            </p>
+            <div class="code-block reveal" style="transition-delay: 0.3s;">
+<span class="comment"># Strategy appended to model name with "+"</span>
+response = client.generate(
+    model=<span class="string">"gemma3:270m+tot"</span>,
+    prompt=<span class="string">"Measure exactly 4 gallons..."</span>
+)
+<span class="comment"># Interceptor splits: model=gemma3:270m, strategy=tot</span>
+<span class="comment"># Routes to ToTAgent automatically</span></div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 9: MULTI-CALL PATTERNS
+         ========================================== -->
+    <section class="slide" data-slide="9">
+        <div class="slide-content">
+            <h2 class="reveal">Multi-Call Patterns</h2>
+            <p class="reveal" style="max-width: min(85%, 700px);">
+                Simple agents make one LLM call. The interesting ones make many.
+                Each strategy modifies the prompt, not the model, to steer cognition.
+            </p>
+            <div class="two-col reveal" style="transition-delay: 0.3s;">
+                <div>
+                    <h3 style="margin-bottom: var(--element-gap);">Single-Pass</h3>
+                    <ul class="compact-list">
+                        <li><strong>Standard</strong>: Direct generation</li>
+                        <li><strong>CoT</strong>: Inject "think step-by-step"</li>
+                        <li><strong>Least-to-Most</strong>: Easy-to-hard sequencing</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: var(--element-gap);">Multi-Pass</h3>
+                    <ul class="compact-list">
+                        <li><strong>ToT</strong>: Generate &rarr; Evaluate &rarr; Prune</li>
+                        <li><strong>Reflection</strong>: Draft &rarr; Critique &rarr; Improve</li>
+                        <li><strong>Consistency</strong>: k samples &rarr; Vote</li>
+                        <li><strong>Refinement</strong>: Generate &rarr; Score &rarr; Refine</li>
+                        <li><strong>Debate</strong>: Pro &rarr; Con &rarr; Judge</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 10: SECTION HEADER - INTERFACES
+         ========================================== -->
+    <section class="slide section-header" data-slide="10">
+        <span class="section-number decorative reveal">III</span>
+        <div class="slide-content">
+            <h2 class="reveal">Four Ways In</h2>
+            <p class="section-tagline reveal">CLI, TUI, Python API, and Gateway Server</p>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 11: INTERACTIVE CLI
+         ========================================== -->
+    <section class="slide" data-slide="11">
+        <div class="slide-content">
+            <h2 class="reveal">Interactive CLI</h2>
+            <p class="reveal" style="max-width: min(85%, 700px);">
+                The primary interface. Rich-powered menu with all 16 agents, arena mode, head-to-head
+                comparisons, benchmarks, and session history. Every response shows TTFT, total time, and tokens/sec.
+            </p>
+            <div class="code-block reveal" style="transition-delay: 0.3s;">
+<span class="comment"># Full interactive menu</span>
+agent-reasoning
+
+<span class="comment"># Jump directly to specific modes</span>
+agent-reasoning --arena          <span class="comment"># All agents race</span>
+agent-reasoning --head-to-head   <span class="comment"># Compare two</span>
+agent-reasoning --benchmark      <span class="comment"># Performance testing</span></div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 12: TERMINAL UI (GO)
+         ========================================== -->
+    <section class="slide" data-slide="12">
+        <div class="slide-content">
+            <h2 class="reveal">Terminal UI</h2>
+            <p class="reveal" style="max-width: min(85%, 700px);">
+                A Go-based TUI built with Bubble Tea and Lipgloss. 7 views, 10 structured visualizers,
+                ~9,800 lines of Go. Auto-starts the reasoning server on launch.
+            </p>
+            <div class="two-col reveal" style="transition-delay: 0.3s;">
+                <div>
+                    <h3 style="margin-bottom: var(--element-gap);">Views</h3>
+                    <ul class="compact-list">
+                        <li>Chat (split-pane, live streaming)</li>
+                        <li>Arena (4x4 grid, 16 agents racing)</li>
+                        <li>Head-to-Head Duel + LLM Judge</li>
+                        <li>Step-Through Debugger</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: var(--element-gap);">Features</h3>
+                    <ul class="compact-list">
+                        <li>Structured visualization per agent type</li>
+                        <li>Hyperparameter tuner (press <code>p</code>)</li>
+                        <li>Strategy advisor (press <code>?</code>)</li>
+                        <li>Benchmark dashboard with 4 tabs</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 13: PYTHON API + GATEWAY
+         ========================================== -->
+    <section class="slide" data-slide="13">
+        <div class="slide-content">
+            <h2 class="reveal">Python API &amp; Gateway</h2>
+            <div class="two-col reveal" style="transition-delay: 0.2s;">
+                <div>
+                    <h3 style="margin-bottom: var(--element-gap);">Python Library</h3>
+                    <div class="code-block" style="max-width: 100%;">
+<span class="keyword">from</span> agent_reasoning <span class="keyword">import</span> (
+    ReasoningInterceptor
+)
+
+client = ReasoningInterceptor()
+resp = client.generate(
+    model=<span class="string">"gemma3+cot"</span>,
+    prompt=<span class="string">"Explain quantum..."</span>
+)</div>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: var(--element-gap);">Gateway Server</h3>
+                    <p style="font-size: var(--small-size); margin-bottom: var(--element-gap);">
+                        FastAPI proxy impersonating Ollama. Any Ollama-compatible app (LangChain, Web UIs)
+                        gains reasoning without code changes.
+                    </p>
+                    <div class="code-block" style="max-width: 100%;">
+agent-reasoning-server --port 8080
+
+<span class="comment"># Now point any app at:</span>
+<span class="comment"># http://localhost:8080</span>
+<span class="comment"># model: gemma3:270m+tot</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 14: SECTION HEADER - VISUALIZATION
+         ========================================== -->
+    <section class="slide section-header" data-slide="14">
+        <span class="section-number decorative reveal">IV</span>
+        <div class="slide-content">
+            <h2 class="reveal">Visualization System</h2>
+            <p class="section-tagline reveal">See the reasoning process, not just the answer</p>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 15: VISUALIZERS
+         ========================================== -->
+    <section class="slide" data-slide="15">
+        <div class="slide-content">
+            <h2 class="reveal">Structured Visualizers</h2>
+            <p class="reveal" style="max-width: min(85%, 700px);">
+                Press <code>v</code> in the TUI to toggle visualization mode. Each agent type gets
+                a purpose-built renderer for its reasoning structure.
+            </p>
+            <div class="feature-grid reveal-scale" style="transition-delay: 0.3s;">
+                <div class="feature-card">
+                    <h3>StepVisualizer</h3>
+                    <p>CoT: numbered step panels with flow arrows between each reasoning step.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>TreeVisualizer</h3>
+                    <p>ToT: nested panels with color-coded scores. Branches expand and prune live.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>SwimlaneVisualizer</h3>
+                    <p>ReAct: three parallel tracks showing Thought, Action, and Observation.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>VotingVisualizer</h3>
+                    <p>Consistency: side-by-side columns with vote tallies and winner highlight.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>TaskVisualizer</h3>
+                    <p>Decomposed: tree layout with progress bars for each sub-task.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>DiffVisualizer</h3>
+                    <p>Reflection/Refinement: iterations with diff highlighting between drafts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 16: SECTION HEADER - BENCHMARKS
+         ========================================== -->
+    <section class="slide section-header" data-slide="16">
+        <span class="section-number decorative reveal">V</span>
+        <div class="slide-content">
+            <h2 class="reveal">Benchmark Results</h2>
+            <p class="section-tagline reveal">Accuracy and performance across standard NLP datasets</p>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 17: ACCURACY BENCHMARKS
+         ========================================== -->
+    <section class="slide" data-slide="17">
+        <div class="slide-content" style="align-items: center;">
+            <h2 class="reveal">Accuracy: gemma3 4.3B (Q4_K_M)</h2>
+            <table class="data-table reveal" style="transition-delay: 0.2s;">
+                <thead>
+                    <tr>
+                        <th>Strategy</th>
+                        <th>GSM8K</th>
+                        <th>MMLU</th>
+                        <th>ARC-C</th>
+                        <th>HellaSwag</th>
+                        <th>Avg</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Standard (baseline)</td>
+                        <td>66.7%</td>
+                        <td>90.0%</td>
+                        <td>92.0%</td>
+                        <td>90.0%</td>
+                        <td>84.7%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Chain of Thought</strong></td>
+                        <td class="highlight-cell">73.3%</td>
+                        <td class="highlight-cell">96.7%</td>
+                        <td>88.0%</td>
+                        <td>90.0%</td>
+                        <td class="highlight-cell">87.0%</td>
+                    </tr>
+                    <tr>
+                        <td>Tree of Thoughts</td>
+                        <td class="highlight-cell">76.7%</td>
+                        <td>63.3%</td>
+                        <td>76.0%</td>
+                        <td>90.0%</td>
+                        <td>76.5%</td>
+                    </tr>
+                    <tr>
+                        <td>ReAct</td>
+                        <td>63.3%</td>
+                        <td>86.7%</td>
+                        <td class="highlight-cell">96.0%</td>
+                        <td>90.0%</td>
+                        <td>84.0%</td>
+                    </tr>
+                    <tr>
+                        <td>Self-Reflection</td>
+                        <td>66.7%</td>
+                        <td>90.0%</td>
+                        <td>88.0%</td>
+                        <td>90.0%</td>
+                        <td>83.7%</td>
+                    </tr>
+                    <tr>
+                        <td>Self-Consistency</td>
+                        <td class="highlight-cell">76.7%</td>
+                        <td class="highlight-cell">96.7%</td>
+                        <td>92.0%</td>
+                        <td>&mdash;</td>
+                        <td>66.3%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 18: KEY FINDINGS
+         ========================================== -->
+    <section class="slide" data-slide="18">
+        <div class="slide-content">
+            <h2 class="reveal">Key Findings</h2>
+            <ul class="styled-list reveal" style="transition-delay: 0.2s; max-width: min(85%, 700px);">
+                <li><strong>CoT</strong> achieved the highest average accuracy (87.0%), outperforming Standard on GSM8K (+6.6%) and MMLU (+6.7%)</li>
+                <li><strong>Self-Consistency</strong> ties CoT on MMLU (96.7%) and GSM8K (76.7%) through majority voting across diverse samples</li>
+                <li><strong>ToT</strong> excels on math (76.7%, +10% over Standard) by exploring multiple solution branches before committing</li>
+                <li><strong>ReAct</strong> hit the highest ARC-Challenge score (96.0%) through tool-augmented reasoning, grounding answers in external data</li>
+            </ul>
+            <div class="pull-quote reveal" style="transition-delay: 0.4s;">
+                The same 4.3B model scores 10 points higher on math just by changing how it thinks, not what it knows.
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 19: SECTION HEADER - TECH STACK
+         ========================================== -->
+    <section class="slide section-header" data-slide="19">
+        <span class="section-number decorative reveal">VI</span>
+        <div class="slide-content">
+            <h2 class="reveal">Tech Stack &amp; Setup</h2>
+            <p class="section-tagline reveal">What's under the hood and how to get started</p>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 20: TECH STACK
+         ========================================== -->
+    <section class="slide" data-slide="20">
+        <div class="slide-content">
+            <h2 class="reveal">Dependencies</h2>
+            <div class="two-col reveal" style="transition-delay: 0.2s;">
+                <div>
+                    <h3 style="margin-bottom: var(--element-gap);">Python Stack</h3>
+                    <ul class="compact-list">
+                        <li><strong>Python 3.10+</strong> with uv package manager</li>
+                        <li><strong>Ollama</strong> for local LLM inference</li>
+                        <li><strong>FastAPI + Uvicorn</strong> for gateway server</li>
+                        <li><strong>Rich</strong> for CLI rendering</li>
+                        <li><strong>Matplotlib</strong> for benchmark charts</li>
+                        <li><strong>Requests</strong> for HTTP to Ollama</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: var(--element-gap);">Go Stack (TUI)</h3>
+                    <ul class="compact-list">
+                        <li><strong>Go 1.18+</strong></li>
+                        <li><strong>Bubble Tea</strong> for TUI framework</li>
+                        <li><strong>Lipgloss</strong> for styling</li>
+                        <li>~9,800 lines of Go</li>
+                        <li>7 views, 10 visualizers</li>
+                        <li>Auto-starts Python server on launch</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 21: QUICK START
+         ========================================== -->
+    <section class="slide" data-slide="21">
+        <div class="slide-content">
+            <h2 class="reveal">Quick Start</h2>
+            <div class="code-block reveal" style="transition-delay: 0.2s; max-width: min(90vw, 650px);">
+<span class="comment"># One-liner: install, pull model, run</span>
+uv sync && ollama pull gemma3:270m && uv run agent-reasoning
+
+<span class="comment"># Or install from PyPI</span>
+pip install agent-reasoning
+pip install <span class="string">"agent-reasoning[server]"</span>   <span class="comment"># with gateway</span>
+
+<span class="comment"># Build the Go TUI</span>
+cd tui && go build -o agent-tui . && ./agent-tui</div>
+            <div class="elegant-rule reveal" style="transition-delay: 0.3s; max-width: min(90vw, 650px);">
+                <span class="ornament">&sect;</span>
+            </div>
+            <p class="reveal" style="transition-delay: 0.4s; max-width: min(85%, 700px);">
+                Configure remote Ollama instances via CLI menu, <code>config.yaml</code>,
+                or the Python API (<code>set_ollama_host()</code>). The one-command install
+                script handles everything automatically.
+            </p>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 22: EXTENDING THE SYSTEM
+         ========================================== -->
+    <section class="slide" data-slide="22">
+        <div class="slide-content">
+            <h2 class="reveal">Adding New Agents</h2>
+            <p class="reveal" style="max-width: min(85%, 700px);">
+                Three files to touch. Inherit from BaseAgent, implement <code>stream(query)</code>,
+                register in the agent map. The interceptor picks it up automatically.
+            </p>
+            <div class="code-block reveal" style="transition-delay: 0.3s;">
+<span class="keyword">from</span> agent_reasoning.agents.base <span class="keyword">import</span> BaseAgent
+
+<span class="keyword">class</span> <span class="type">MyNewAgent</span>(BaseAgent):
+    <span class="keyword">def</span> <span class="func">stream</span>(self, query):
+        <span class="keyword">yield</span> <span class="string">"Thinking differently...\n"</span>
+        <span class="comment"># Your custom logic here</span>
+        <span class="keyword">yield</span> <span class="string">"Final Answer"</span>
+
+<span class="comment"># Register in AGENT_MAP (interceptor.py)</span>
+<span class="comment"># Add to AGENT_DESCRIPTIONS (agent_cli.py)</span>
+<span class="comment"># Optional: create a visualizer</span></div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 23: ROADMAP
+         ========================================== -->
+    <section class="slide" data-slide="23">
+        <div class="slide-content">
+            <h2 class="reveal">What's Next</h2>
+            <div class="two-col reveal" style="transition-delay: 0.2s;">
+                <div>
+                    <h3 style="margin-bottom: var(--element-gap);">Near Term</h3>
+                    <ul class="styled-list">
+                        <li>OCI GenAI backend alongside Ollama</li>
+                        <li>Oracle AI Vector Search for session memory</li>
+                        <li>More agent types: Planning, Verification, Role-Play</li>
+                        <li>Streaming WebSocket API for real-time UIs</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: var(--element-gap);">Long Term</h3>
+                    <ul class="styled-list">
+                        <li>Multi-agent collaboration (agent chains)</li>
+                        <li>Automatic strategy selection via meta-learning</li>
+                        <li>Benchmark suite expansion (HumanEval, MATH)</li>
+                        <li>Plugin architecture for custom tools</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 24: PERFORMANCE OVERVIEW
+         ========================================== -->
+    <section class="slide" data-slide="24">
+        <div class="slide-content">
+            <h2 class="reveal">Performance Profile</h2>
+            <p class="reveal" style="max-width: min(85%, 700px); margin-bottom: var(--content-gap);">
+                Latency scales with the number of LLM calls per strategy. Single-pass agents (CoT) are fast;
+                multi-pass agents (Refinement, Decomposed) trade speed for quality.
+            </p>
+            <div class="reveal" style="transition-delay: 0.3s; max-width: min(90vw, 600px); width: 100%;">
+                <div class="metric-row">
+                    <span class="metric-label">Standard</span>
+                    <div class="metric-bar"><div class="metric-fill" style="width: 15%;"></div></div>
+                    <span class="metric-value">1x</span>
+                </div>
+                <div class="metric-row">
+                    <span class="metric-label">CoT</span>
+                    <div class="metric-bar"><div class="metric-fill" style="width: 18%;"></div></div>
+                    <span class="metric-value">~1x</span>
+                </div>
+                <div class="metric-row">
+                    <span class="metric-label">ToT</span>
+                    <div class="metric-bar"><div class="metric-fill" style="width: 50%;"></div></div>
+                    <span class="metric-value">~3x</span>
+                </div>
+                <div class="metric-row">
+                    <span class="metric-label">Reflection</span>
+                    <div class="metric-bar"><div class="metric-fill" style="width: 60%;"></div></div>
+                    <span class="metric-value">~4x</span>
+                </div>
+                <div class="metric-row">
+                    <span class="metric-label">Consistency</span>
+                    <div class="metric-bar"><div class="metric-fill" style="width: 65%;"></div></div>
+                    <span class="metric-value">~5x</span>
+                </div>
+                <div class="metric-row">
+                    <span class="metric-label">Refinement</span>
+                    <div class="metric-bar"><div class="metric-fill" style="width: 85%;"></div></div>
+                    <span class="metric-value">~8x</span>
+                </div>
+                <div class="metric-row">
+                    <span class="metric-label">Complex Ref.</span>
+                    <div class="metric-bar"><div class="metric-fill" style="width: 100%;"></div></div>
+                    <span class="metric-value">~15x</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 25: CLOSING
+         ========================================== -->
+    <section class="slide closing-slide" data-slide="25">
+        <div class="slide-content">
+            <div class="title-ornament reveal">Open Source &middot; MIT License</div>
+            <div class="title-rule reveal" style="margin: var(--element-gap) auto;"></div>
+            <h1 class="reveal" style="font-size: var(--h2-size); font-style: italic;">
+                Agent <em style="font-style: normal; font-weight: 600; color: var(--accent-blue);">Reasoning</em>
+            </h1>
+            <p class="reveal" style="max-width: min(80%, 500px); margin-top: var(--element-gap);">
+                16 cognitive architectures. 4 interfaces. One <code>pip install</code> away from
+                turning any Ollama model into a deliberate thinker.
+            </p>
+            <div class="elegant-rule reveal" style="max-width: min(60%, 300px); margin: var(--content-gap) auto;">
+                <span class="ornament">&diams;</span>
+            </div>
+            <div class="closing-links reveal" style="transition-delay: 0.4s;">
+                <a href="https://github.com/jasperan/agent-reasoning">GitHub</a>
+                <a href="https://pypi.org/project/agent-reasoning/">PyPI</a>
+                <a href="https://github.com/jasperan">jasperan</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         JAVASCRIPT: SLIDE PRESENTATION CONTROLLER
+         =========================================== -->
+    <script>
+        class SlidePresentation {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.currentSlide = 0;
+                this.totalSlides = this.slides.length;
+                this.isAnimating = false;
+                this.touchStartY = 0;
+                this.touchEndY = 0;
+
+                this.setupIntersectionObserver();
+                this.setupKeyboardNav();
+                this.setupTouchNav();
+                this.setupWheelNav();
+                this.setupProgressBar();
+                this.setupNavDots();
+                this.updateSlideCounter();
+            }
+
+            /* --- Intersection Observer --- */
+            setupIntersectionObserver() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            const index = Array.from(this.slides).indexOf(entry.target);
+                            if (index !== -1) {
+                                this.currentSlide = index;
+                                this.updateProgressBar();
+                                this.updateNavDots();
+                                this.updateSlideCounter();
+                            }
+                        }
+                    });
+                }, {
+                    threshold: 0.5
+                });
+
+                this.slides.forEach(slide => observer.observe(slide));
+            }
+
+            /* --- Keyboard Navigation --- */
+            setupKeyboardNav() {
+                document.addEventListener('keydown', (e) => {
+                    switch (e.key) {
+                        case 'ArrowDown':
+                        case 'ArrowRight':
+                        case ' ':
+                        case 'PageDown':
+                            e.preventDefault();
+                            this.goToSlide(this.currentSlide + 1);
+                            break;
+                        case 'ArrowUp':
+                        case 'ArrowLeft':
+                        case 'PageUp':
+                            e.preventDefault();
+                            this.goToSlide(this.currentSlide - 1);
+                            break;
+                        case 'Home':
+                            e.preventDefault();
+                            this.goToSlide(0);
+                            break;
+                        case 'End':
+                            e.preventDefault();
+                            this.goToSlide(this.totalSlides - 1);
+                            break;
+                    }
+                });
+            }
+
+            /* --- Touch / Swipe Support --- */
+            setupTouchNav() {
+                document.addEventListener('touchstart', (e) => {
+                    this.touchStartY = e.changedTouches[0].screenY;
+                }, { passive: true });
+
+                document.addEventListener('touchend', (e) => {
+                    this.touchEndY = e.changedTouches[0].screenY;
+                    const diff = this.touchStartY - this.touchEndY;
+
+                    if (Math.abs(diff) > 50) {
+                        if (diff > 0) {
+                            this.goToSlide(this.currentSlide + 1);
+                        } else {
+                            this.goToSlide(this.currentSlide - 1);
+                        }
+                    }
+                }, { passive: true });
+            }
+
+            /* --- Mouse Wheel Navigation --- */
+            setupWheelNav() {
+                let wheelTimeout;
+                document.addEventListener('wheel', (e) => {
+                    if (this.isAnimating) return;
+                    clearTimeout(wheelTimeout);
+                    wheelTimeout = setTimeout(() => {
+                        if (e.deltaY > 0) {
+                            this.goToSlide(this.currentSlide + 1);
+                        } else if (e.deltaY < 0) {
+                            this.goToSlide(this.currentSlide - 1);
+                        }
+                    }, 50);
+                }, { passive: true });
+            }
+
+            /* --- Progress Bar --- */
+            setupProgressBar() {
+                this.progressBar = document.getElementById('progressBar');
+                this.updateProgressBar();
+            }
+
+            updateProgressBar() {
+                if (this.progressBar) {
+                    const progress = ((this.currentSlide + 1) / this.totalSlides) * 100;
+                    this.progressBar.style.width = progress + '%';
+                }
+            }
+
+            /* --- Navigation Dots --- */
+            setupNavDots() {
+                const dotsContainer = document.getElementById('navDots');
+                if (!dotsContainer) return;
+
+                this.slides.forEach((_, i) => {
+                    const dot = document.createElement('button');
+                    dot.classList.add('nav-dot');
+                    dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+                    if (i === 0) dot.classList.add('active');
+                    dot.addEventListener('click', () => this.goToSlide(i));
+                    dotsContainer.appendChild(dot);
+                });
+
+                this.navDotElements = dotsContainer.querySelectorAll('.nav-dot');
+            }
+
+            updateNavDots() {
+                if (!this.navDotElements) return;
+                this.navDotElements.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === this.currentSlide);
+                });
+            }
+
+            /* --- Slide Counter --- */
+            updateSlideCounter() {
+                const counter = document.getElementById('slideCounter');
+                if (counter) {
+                    counter.textContent = `${this.currentSlide + 1} / ${this.totalSlides}`;
+                }
+            }
+
+            /* --- Navigate to Slide --- */
+            goToSlide(index) {
+                if (index < 0 || index >= this.totalSlides || index === this.currentSlide) return;
+                if (this.isAnimating) return;
+
+                this.isAnimating = true;
+                this.currentSlide = index;
+                this.slides[index].scrollIntoView({ behavior: 'smooth' });
+
+                this.updateProgressBar();
+                this.updateNavDots();
+                this.updateSlideCounter();
+
+                setTimeout(() => {
+                    this.isAnimating = false;
+                }, 800);
+            }
+        }
+
+        /* Initialize on DOM ready */
+        document.addEventListener('DOMContentLoaded', () => {
+            new SlidePresentation();
+        });
+    </script>
+</body>
+</html>

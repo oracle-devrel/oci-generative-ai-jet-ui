@@ -1,0 +1,6 @@
+# Sprawl architecture additional dependencies
+# Install alongside the base requirements.txt
+psycopg2-binary>=2.9.9
+neo4j>=5.15.0
+pymongo>=4.6.0
+qdrant-client>=1.7.0

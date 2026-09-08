@@ -1,0 +1,90 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agent-reasoning"
+version = "1.0.8"
+description = "Transform LLMs into robust problem-solving agents with advanced reasoning strategies"
+readme = "README.md"
+license = "MIT"
+authors = [
+    {name = "jasperan", email = "jasperan@users.noreply.github.com"},
+]
+maintainers = [
+    {name = "jasperan", email = "jasperan@users.noreply.github.com"},
+]
+keywords = [
+    "llm", "reasoning", "agents", "ollama", "cognitive-architecture",
+    "chain-of-thought", "cot", "tree-of-thoughts", "tot",
+    "react", "self-reflection", "self-consistency",
+    "decomposed-prompting", "least-to-most", "recursive-lm",
+    "refinement-loop", "complex-refinement", "pipeline",
+    "prompt-engineering", "ai-reasoning", "multi-agent",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+requires-python = ">=3.10"
+dependencies = [
+    "requests>=2.28.0",
+    "termcolor>=2.0.0",
+    "rich>=13.0.0",
+    "questionary>=2.0.0",
+    "pyyaml>=6.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/jasperan/agent-reasoning"
+Repository = "https://github.com/jasperan/agent-reasoning"
+Issues = "https://github.com/jasperan/agent-reasoning/issues"
+
+[project.optional-dependencies]
+server = ["fastapi>=0.100.0", "uvicorn>=0.23.0", "pydantic>=2.0.0"]
+
+[dependency-groups]
+dev = [{include-group = "lint"}, {include-group = "test"}]
+lint = ["ruff>=0.9"]
+test = ["pytest>=8.0", "pytest-asyncio>=0.21.0", "numpy>=1.24.0"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W"]
+
+[tool.ruff.lint.per-file-ignores]
+"src/agents/*.py" = ["E501", "E722", "F841"]
+"src/agent_reasoning/agents/*.py" = ["E501", "E722", "F841"]
+"src/agent_reasoning/client.py" = ["E501"]
+"src/agent_reasoning/visualization/*.py" = ["E501"]
+"src/agent_reasoning/server.py" = ["E501"]
+"src/benchmarks/*.py" = ["E501", "F401"]
+"benchmarks/*.py" = ["E501"]
+"tests/*.py" = ["E501"]
+"verification/*.py" = ["E501"]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.ty.environment]
+python-version = "3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+pythonpath = ["src"]
+
+[project.scripts]
+agent-reasoning-server = "agent_reasoning.server:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

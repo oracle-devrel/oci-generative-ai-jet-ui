@@ -1,0 +1,9 @@
+dataset	strategy	correct	total	accuracy_pct	ci_95_low	ci_95_high	avg_latency_ms
+arc_challenge	analogy	10	50	20.0	11.2	33.0	2.52
+arc_challenge	socratic	10	50	20.0	11.2	33.0	10.05
+gsm8k	analogy	0	50	0.0	0	7.1	2.55
+gsm8k	socratic	0	50	0.0	0	7.1	10.21
+hellaswag	analogy	8	50	16.0	8.3	28.5	2.54
+hellaswag	socratic	8	50	16.0	8.3	28.5	10.17
+mmlu	analogy	16	50	32.0	20.8	45.8	2.52
+mmlu	socratic	16	50	32.0	20.8	45.8	11.92

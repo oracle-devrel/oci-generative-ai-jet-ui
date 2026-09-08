@@ -1,0 +1,29 @@
+# Gradle
+src/chatserver/build/
+src/chatserver/.gradle/
+
+# Python
+src/web/venv/
+
+# Local config (contains credentials)
+src/chatserver/src/main/resources/application-local.yaml
+
+# Cloud Spring profile (contains wallet path / credentials)
+src/chatserver/src/main/resources/application-cloud.yaml
+
+# ONNX models (large binaries)
+models/
+
+# Oracle database data
+oradata/
+
+# manage.py / Terraform / Ansible cloud deployment
+.env
+deploy/tf/app/terraform.tfvars
+deploy/tf/app/terraform.tfstate
+deploy/tf/app/terraform.tfstate.backup
+deploy/tf/app/tfplan
+deploy/tf/app/.terraform/
+deploy/tf/app/.terraform.lock.hcl
+deploy/tf/app/generated/
+deploy/generated/

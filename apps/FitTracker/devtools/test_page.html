@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitTrack API Test Page</title>
+    <link rel="stylesheet" href="/devtools/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>FitTrack API Test Page</h1>
+            <div class="env-badge" id="env-badge">Development</div>
+        </header>
+
+        <div class="controls">
+            <div class="api-url">
+                <label>API Base URL:</label>
+                <input type="text" id="apiBaseUrl" value="http://localhost:8000/api/v1">
+            </div>
+            <div class="actions">
+                <button onclick="seedDatabase()" class="btn btn-warning">Seed Database</button>
+                <button onclick="resetDatabase()" class="btn btn-danger">Reset Database</button>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" data-tab="users">Users</button>
+            <button class="tab" data-tab="profiles">Profiles</button>
+            <button class="tab" data-tab="connections">Connections</button>
+            <button class="tab" data-tab="activities">Activities</button>
+            <button class="tab" data-tab="transactions">Transactions</button>
+            <button class="tab" data-tab="drawings">Drawings</button>
+            <button class="tab" data-tab="tickets">Tickets</button>
+            <button class="tab" data-tab="prizes">Prizes</button>
+            <button class="tab" data-tab="fulfillments">Fulfillments</button>
+            <button class="tab" data-tab="sponsors">Sponsors</button>
+        </div>
+
+        <div class="tab-content active" id="users">
+            <h2>Users</h2>
+            <div class="crud-section">
+                <h3>List Users</h3>
+                <div class="form-row">
+                    <input type="number" id="users-page" value="1" min="1" placeholder="Page">
+                    <input type="number" id="users-limit" value="20" min="1" max="100" placeholder="Limit">
+                    <button onclick="listUsers()" class="btn">List</button>
+                </div>
+            </div>
+            <div class="crud-section">
+                <h3>Get User</h3>
+                <div class="form-row">
+                    <input type="text" id="users-get-id" placeholder="User ID">
+                    <button onclick="getUser()" class="btn">Get</button>
+                </div>
+            </div>
+            <div class="crud-section">
+                <h3>Create User</h3>
+                <div class="form-group">
+                    <input type="email" id="users-email" placeholder="Email">
+                    <input type="password" id="users-password" placeholder="Password (12+ chars)">
+                    <button onclick="createUser()" class="btn btn-success">Create</button>
+                </div>
+            </div>
+            <div class="crud-section">
+                <h3>Update User</h3>
+                <div class="form-group">
+                    <input type="text" id="users-update-id" placeholder="User ID">
+                    <select id="users-status">
+                        <option value="">-- Status --</option>
+                        <option value="pending">Pending</option>
+                        <option value="active">Active</option>
+                        <option value="suspended">Suspended</option>
+                        <option value="banned">Banned</option>
+                    </select>
+                    <select id="users-role">
+                        <option value="">-- Role --</option>
+                        <option value="user">User</option>
+                        <option value="premium">Premium</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                    <button onclick="updateUser()" class="btn btn-primary">Update</button>
+                </div>
+            </div>
+            <div class="crud-section">
+                <h3>Delete User</h3>
+                <div class="form-row">
+                    <input type="text" id="users-delete-id" placeholder="User ID">
+                    <button onclick="deleteUser()" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="profiles">
+            <h2>Profiles</h2>
+            <div class="crud-section">
+                <h3>List Profiles</h3>
+                <div class="form-row">
+                    <input type="number" id="profiles-page" value="1" min="1" placeholder="Page">
+                    <input type="text" id="profiles-tier" placeholder="Tier (e.g., M-30-39-INT)">
+                    <button onclick="listProfiles()" class="btn">List</button>
+                </div>
+            </div>
+            <div class="crud-section">
+                <h3>Get Profile by User ID</h3>
+                <div class="form-row">
+                    <input type="text" id="profiles-user-id" placeholder="User ID">
+                    <button onclick="getProfileByUser()" class="btn">Get</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="connections">
+            <h2>Connections</h2>
+            <div class="crud-section">
+                <h3>List Connections</h3>
+                <div class="form-row">
+                    <input type="text" id="connections-user-id" placeholder="User ID (optional)">
+                    <button onclick="listConnections()" class="btn">List</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="activities">
+            <h2>Activities</h2>
+            <div class="crud-section">
+                <h3>List Activities</h3>
+                <div class="form-row">
+                    <input type="text" id="activities-user-id" placeholder="User ID">
+                    <input type="datetime-local" id="activities-start">
+                    <input type="datetime-local" id="activities-end">
+                    <button onclick="listActivities()" class="btn">List</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="transactions">
+            <h2>Transactions</h2>
+            <div class="crud-section">
+                <h3>List Transactions</h3>
+                <div class="form-row">
+                    <input type="text" id="transactions-user-id" placeholder="User ID">
+                    <button onclick="listTransactions()" class="btn">List</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="drawings">
+            <h2>Drawings</h2>
+            <div class="crud-section">
+                <h3>List Drawings</h3>
+                <div class="form-row">
+                    <select id="drawings-status">
+                        <option value="">-- All Statuses --</option>
+                        <option value="draft">Draft</option>
+                        <option value="scheduled">Scheduled</option>
+                        <option value="open">Open</option>
+                        <option value="closed">Closed</option>
+                        <option value="completed">Completed</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                    <button onclick="listDrawings()" class="btn">List</button>
+                </div>
+            </div>
+            <div class="crud-section">
+                <h3>List Open Drawings</h3>
+                <button onclick="listOpenDrawings()" class="btn">Get Open Drawings</button>
+            </div>
+        </div>
+
+        <div class="tab-content" id="tickets">
+            <h2>Tickets</h2>
+            <div class="crud-section">
+                <h3>List Tickets</h3>
+                <div class="form-row">
+                    <input type="text" id="tickets-drawing-id" placeholder="Drawing ID">
+                    <input type="text" id="tickets-user-id" placeholder="User ID">
+                    <button onclick="listTickets()" class="btn">List</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="prizes">
+            <h2>Prizes</h2>
+            <div class="crud-section">
+                <h3>List Prizes</h3>
+                <div class="form-row">
+                    <input type="text" id="prizes-drawing-id" placeholder="Drawing ID">
+                    <button onclick="listPrizes()" class="btn">List</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="fulfillments">
+            <h2>Fulfillments</h2>
+            <div class="crud-section">
+                <h3>List Fulfillments</h3>
+                <div class="form-row">
+                    <select id="fulfillments-status">
+                        <option value="">-- All Statuses --</option>
+                        <option value="pending">Pending</option>
+                        <option value="winner_notified">Winner Notified</option>
+                        <option value="address_confirmed">Address Confirmed</option>
+                        <option value="shipped">Shipped</option>
+                        <option value="delivered">Delivered</option>
+                        <option value="forfeited">Forfeited</option>
+                    </select>
+                    <button onclick="listFulfillments()" class="btn">List</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="sponsors">
+            <h2>Sponsors</h2>
+            <div class="crud-section">
+                <h3>List Sponsors</h3>
+                <div class="form-row">
+                    <label><input type="checkbox" id="sponsors-active-only"> Active Only</label>
+                    <button onclick="listSponsors()" class="btn">List</button>
+                </div>
+            </div>
+            <div class="crud-section">
+                <h3>Search Sponsors</h3>
+                <div class="form-row">
+                    <input type="text" id="sponsors-search" placeholder="Search query">
+                    <button onclick="searchSponsors()" class="btn">Search</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="response-section">
+            <h3>Response</h3>
+            <div class="response-meta">
+                <span id="response-status"></span>
+                <span id="response-time"></span>
+            </div>
+            <pre id="response-output"></pre>
+        </div>
+    </div>
+
+    <script src="/devtools/app.js"></script>
+</body>
+</html>

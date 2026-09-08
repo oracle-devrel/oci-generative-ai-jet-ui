@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 760" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+
+  <!-- Title -->
+  <text x="400" y="40" font-size="22" font-weight="700" fill="#1e1e1e" text-anchor="middle">
+    RAG on Oracle AI Database 26ai
+  </text>
+
+  <!-- User question (input) -->
+  <rect x="50" y="280" width="160" height="60" rx="8" fill="#a5d8ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="130" y="316" font-size="16" font-weight="600" fill="#1e1e1e" text-anchor="middle">User question</text>
+
+  <!-- Arrow: question -> database -->
+  <line x1="210" y1="310" x2="270" y2="310" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Oracle AI Database 26ai container -->
+  <rect x="280" y="120" width="380" height="380" rx="10" fill="#fff3bf" fill-opacity="0.4" stroke="#f59e0b" stroke-width="2"/>
+  <text x="300" y="155" font-size="18" font-weight="700" fill="#9a5030">Oracle AI Database 26ai</text>
+
+  <!-- DOC_CHUNKS table -->
+  <rect x="310" y="185" width="320" height="55" rx="8" fill="#c3fae8" stroke="#0d9488" stroke-width="2"/>
+  <text x="470" y="218" font-size="15" font-weight="600" fill="#1e1e1e" text-anchor="middle">DOC_CHUNKS table</text>
+
+  <!-- VECTOR column -->
+  <rect x="310" y="250" width="320" height="55" rx="8" fill="#c3fae8" stroke="#0d9488" stroke-width="2"/>
+  <text x="470" y="283" font-size="15" font-weight="600" fill="#1e1e1e" text-anchor="middle">VECTOR(384, FLOAT32)</text>
+
+  <!-- HNSW index -->
+  <rect x="310" y="315" width="320" height="55" rx="8" fill="#c3fae8" stroke="#0d9488" stroke-width="2"/>
+  <text x="470" y="348" font-size="15" font-weight="600" fill="#1e1e1e" text-anchor="middle">HNSW index</text>
+
+  <!-- ONNX embedding model -->
+  <rect x="310" y="380" width="320" height="70" rx="8" fill="#d0bfff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="470" y="410" font-size="15" font-weight="600" fill="#1e1e1e" text-anchor="middle">ONNX embedding model</text>
+  <text x="470" y="432" font-size="14" fill="#475569" text-anchor="middle">(in-database)</text>
+
+  <!-- Arrow: database -> top-5 chunks -->
+  <line x1="470" y1="500" x2="470" y2="540" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="490" y="525" font-size="14" font-weight="500" fill="#475569">top-5 chunks</text>
+
+  <!-- Local LLM (Ollama) -->
+  <rect x="320" y="555" width="300" height="80" rx="10" fill="#ffd8a8" stroke="#c2410c" stroke-width="2"/>
+  <text x="470" y="590" font-size="17" font-weight="700" fill="#1e1e1e" text-anchor="middle">Local LLM (Ollama)</text>
+  <text x="470" y="613" font-size="15" font-weight="500" fill="#475569" text-anchor="middle">llama3.2:3b</text>
+
+  <!-- Arrow: LLM -> answer -->
+  <line x1="470" y1="635" x2="470" y2="675" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Grounded answer + citations -->
+  <rect x="270" y="690" width="400" height="60" rx="8" fill="#b2f2bb" stroke="#15803d" stroke-width="2"/>
+  <text x="470" y="726" font-size="17" font-weight="700" fill="#1e1e1e" text-anchor="middle">Grounded answer + citations</text>
+
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1e1e1e"/>
+    </marker>
+  </defs>
+
+</svg>

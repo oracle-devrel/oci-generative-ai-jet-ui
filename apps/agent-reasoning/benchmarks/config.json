@@ -1,0 +1,91 @@
+{
+  "oci": {
+    "profile": "foosball"
+  },
+  "models": {
+    "oci": [
+      {
+        "key": "gpt-oss-120b",
+        "model_id": "openai.gpt-oss-120b",
+        "display_name": "OpenAI GPT-OSS-120B",
+        "provider": "openai"
+      },
+      {
+        "key": "grok-4.1-fast",
+        "model_id": "xai.grok-4-1-fast-non-reasoning",
+        "display_name": "xAI Grok 4.1 Fast",
+        "provider": "xai"
+      },
+      {
+        "key": "grok-3-fast",
+        "model_id": "xai.grok-3-fast",
+        "display_name": "xAI Grok 3 Fast",
+        "provider": "xai"
+      },
+      {
+        "key": "llama-4-maverick",
+        "model_id": "meta.llama-4-maverick-17b-128e-instruct-fp8",
+        "display_name": "Meta Llama 4 Maverick",
+        "provider": "meta"
+      },
+      {
+        "key": "gemini-2.5-pro",
+        "model_id": "google.gemini-2.5-pro",
+        "display_name": "Google Gemini 2.5 Pro",
+        "provider": "google"
+      },
+      {
+        "key": "cohere-command-r",
+        "model_id": "cohere.command-r-08-2024",
+        "display_name": "Cohere Command R",
+        "provider": "cohere"
+      }
+    ],
+    "ollama": [
+      {
+        "key": "gemma3:latest",
+        "display_name": "Gemma 3 4B"
+      },
+      {
+        "key": "gemma3:270m",
+        "display_name": "Gemma 3 270M"
+      },
+      {
+        "key": "llama3.2:3b",
+        "display_name": "Llama 3.2 3B"
+      },
+      {
+        "key": "phi3:latest",
+        "display_name": "Phi 3"
+      },
+      {
+        "key": "qwen3.5:35b-a3b",
+        "display_name": "Qwen 3.5 35B A3B (MoE: 35B/3B active)"
+      },
+      {
+        "key": "qwen3.5:9b",
+        "display_name": "Qwen 3.5 9B"
+      },
+      {
+        "key": "qwen3.5:4b",
+        "display_name": "Qwen 3.5 4B"
+      },
+      {
+        "key": "qwen3:8b",
+        "display_name": "Qwen 3 8B"
+      },
+      {
+        "key": "qwen3:4b",
+        "display_name": "Qwen 3 4B"
+      }
+    ]
+  },
+  "defaults": {
+    "iterations": 3,
+    "prompts": [
+      "Explain the concept of recursion in programming with a simple example.",
+      "What are the key differences between SQL and NoSQL databases?",
+      "Write a Python function to find the longest common subsequence of two strings."
+    ]
+  }
+}

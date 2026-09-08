@@ -1,0 +1,43 @@
+# Environment
+.env
+.env.local
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.python-version
+.venv/
+venv/
+env/
+.pytest_cache/
+.pytest_tmp/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Generated runtime state
+content/transcripts/*.json
+content/session_state/*.json
+content/frameworks/*.md
+
+# Local Obsidian transient files
+Limitless/.obsidian/app.json
+Limitless/.obsidian/workspace.json
+Limitless/.obsidian/workspace-mobile.json
+Limitless/.obsidian/graph.json
+.claude/settings.local.json
+
+# Wallets / secrets
+*.zip
+wallet/
+*.sso
+*.p12
+*.jks
+*.pem
+
+# OS
+.DS_Store
+Thumbs.db

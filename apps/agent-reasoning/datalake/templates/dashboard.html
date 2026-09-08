@@ -1,0 +1,252 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Stats Cards -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-value">{{ stats.total_sessions | default(0) }}</div>
+        <div class="stat-label">Total Sessions</div>
+    </div>
+    <div class="stat-card green">
+        <div class="stat-value">{{ stats.status_counts.completed | default(0) }}</div>
+        <div class="stat-label">Completed</div>
+    </div>
+    <div class="stat-card amber">
+        <div class="stat-value">{{ stats.status_counts.running | default(0) }}</div>
+        <div class="stat-label">Running</div>
+    </div>
+    <div class="stat-card red">
+        <div class="stat-value">{{ stats.status_counts.failed | default(0) }}</div>
+        <div class="stat-label">Failed</div>
+    </div>
+    <div class="stat-card violet">
+        <div class="stat-value">{{ stats.total_events | default(0) }}</div>
+        <div class="stat-label">Total Events</div>
+    </div>
+</div>
+
+<!-- Performance Summary -->
+{% if stats.performance and stats.performance.avg_total_ms %}
+<div class="card mb-6">
+    <div class="card-header">Average Performance (Completed Sessions)</div>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-value" style="font-size: 24px;">{{ stats.performance.avg_ttft_ms | default('--') }}
+                <span style="font-size: 12px; color: var(--text-muted);">ms</span>
+            </div>
+            <div class="stat-label">Avg TTFT</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" style="font-size: 24px;">
+                {% if stats.performance.avg_total_ms %}
+                    {{ stats.performance.avg_total_ms | format_duration }}
+                {% else %}
+                    --
+                {% endif %}
+            </div>
+            <div class="stat-label">Avg Duration</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" style="font-size: 24px;">{{ stats.performance.avg_tokens_per_sec | default('--') }}</div>
+            <div class="stat-label">Avg Tokens/sec</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" style="font-size: 24px;">{{ stats.performance.avg_token_count | default('--') }}</div>
+            <div class="stat-label">Avg Token Count</div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Strategy & Model Breakdown -->
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;" class="mb-6">
+    <!-- By Strategy -->
+    <div class="card">
+        <div class="card-header">Sessions by Strategy</div>
+        {% if stats.by_strategy %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Strategy</th>
+                    <th style="text-align: right;">Sessions</th>
+                    <th style="text-align: right;">Share</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for strat, count in stats.by_strategy.items() | sort(attribute='1', reverse=true) %}
+                <tr>
+                    <td><span class="strategy-chip">{{ strat }}</span></td>
+                    <td style="text-align: right;" class="mono">{{ count }}</td>
+                    <td style="text-align: right;" class="mono text-muted">
+                        {% if stats.total_sessions > 0 %}
+                            {{ "%.1f" | format(count / stats.total_sessions * 100) }}%
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state">
+            <div class="text-muted">No sessions yet</div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- By Model -->
+    <div class="card">
+        <div class="card-header">Sessions by Model</div>
+        {% if stats.by_model %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Model</th>
+                    <th style="text-align: right;">Sessions</th>
+                    <th style="text-align: right;">Share</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for model, count in stats.by_model.items() | sort(attribute='1', reverse=true) %}
+                <tr>
+                    <td class="mono">{{ model }}</td>
+                    <td style="text-align: right;" class="mono">{{ count }}</td>
+                    <td style="text-align: right;" class="mono text-muted">
+                        {% if stats.total_sessions > 0 %}
+                            {{ "%.1f" | format(count / stats.total_sessions * 100) }}%
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state">
+            <div class="text-muted">No sessions yet</div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Strategy Performance -->
+{% if stats.strategy_performance %}
+<div class="card mb-6">
+    <div class="card-header">Performance by Strategy</div>
+    <table>
+        <thead>
+            <tr>
+                <th>Strategy</th>
+                <th style="text-align: right;">Sessions</th>
+                <th style="text-align: right;">Avg Duration</th>
+                <th style="text-align: right;">Avg Tokens/sec</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sp in stats.strategy_performance | sort(attribute='avg_duration_ms') %}
+            <tr>
+                <td><span class="strategy-chip">{{ sp.strategy }}</span></td>
+                <td style="text-align: right;" class="mono">{{ sp.session_count }}</td>
+                <td style="text-align: right;" class="mono">
+                    {% if sp.avg_duration_ms %}
+                        {{ sp.avg_duration_ms | format_duration }}
+                    {% else %}
+                        --
+                    {% endif %}
+                </td>
+                <td style="text-align: right;" class="mono">{{ sp.avg_tokens_per_sec | default('--') }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+<!-- Event Type Distribution -->
+{% if stats.by_event_type %}
+<div class="card mb-6">
+    <div class="card-header">Event Type Distribution</div>
+    <table>
+        <thead>
+            <tr>
+                <th>Event Type</th>
+                <th style="text-align: right;">Count</th>
+                <th>Distribution</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% set max_event_count = stats.by_event_type.values() | max %}
+            {% for etype, count in stats.by_event_type.items() | sort(attribute='1', reverse=true) %}
+            <tr>
+                <td>
+                    <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+                        background: {{ event_colors.get(etype, '#94a3b8') }}; margin-right: 8px;"></span>
+                    <span class="mono">{{ etype }}</span>
+                </td>
+                <td style="text-align: right;" class="mono">{{ count }}</td>
+                <td>
+                    <div style="background: var(--bg-primary); border-radius: 3px; height: 16px; width: 200px;">
+                        <div style="background: {{ event_colors.get(etype, '#94a3b8') }}; border-radius: 3px;
+                            height: 16px; width: {{ (count / max_event_count * 200) | int }}px;
+                            opacity: 0.7;"></div>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+<!-- Recent Sessions -->
+{% if recent_sessions %}
+<div class="card">
+    <div class="card-header">Recent Sessions</div>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Strategy</th>
+                <th>Model</th>
+                <th>Status</th>
+                <th style="text-align: right;">Events</th>
+                <th>Query</th>
+                <th>Created</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in recent_sessions %}
+            <tr>
+                <td>
+                    <a href="/sessions/{{ s.id }}" class="link mono">{{ s.id[:8] }}</a>
+                </td>
+                <td><span class="strategy-chip">{{ s.strategy }}</span></td>
+                <td class="mono text-secondary">{{ s.model }}</td>
+                <td>
+                    <span class="badge badge-{{ s.status }}">{{ s.status }}</span>
+                </td>
+                <td style="text-align: right;" class="mono">{{ s.event_count | default(0) }}</td>
+                <td>
+                    <span class="truncate" title="{{ s.query }}">{{ s.query | truncate_text(60) }}</span>
+                </td>
+                <td class="mono text-muted">
+                    {% if s.created_at %}{{ s.created_at[:19] }}{% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div style="text-align: center; margin-top: 16px;">
+        <a href="/sessions" class="btn">View All Sessions</a>
+    </div>
+</div>
+{% elif not stats_mode %}
+<div class="card">
+    <div class="empty-state">
+        <div class="icon">&#9776;</div>
+        <div style="font-size: 16px; margin-bottom: 8px;">No sessions yet</div>
+        <div class="text-muted">Run a reasoning agent to start collecting traces.</div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

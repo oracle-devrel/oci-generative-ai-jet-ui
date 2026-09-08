@@ -1,0 +1,67 @@
+---
+- name: Install Python 3.11 and unzip
+  ansible.builtin.dnf:
+    name:
+      - python3.11
+      - python3.11-pip
+      - unzip
+    state: present
+    update_cache: yes
+
+- name: Create web directory
+  ansible.builtin.file:
+    path: /home/opc/web
+    state: directory
+    owner: opc
+    group: opc
+    mode: '0755'
+
+- name: Unzip Streamlit sources
+  ansible.builtin.unarchive:
+    src: files/web.zip
+    dest: /home/opc/web
+    remote_src: no
+    owner: opc
+    group: opc
+
+- name: Create venv parent directory
+  ansible.builtin.file:
+    path: /opt/web
+    state: directory
+    mode: '0755'
+
+- name: Create Python venv for Streamlit
+  ansible.builtin.command: /usr/bin/python3.11 -m venv /opt/web/venv
+  args:
+    creates: /opt/web/venv/bin/python
+
+- name: Install Streamlit dependencies into venv
+  ansible.builtin.command: /opt/web/venv/bin/pip install -r /home/opc/web/requirements.txt
+
+- name: Render web.service systemd unit
+  ansible.builtin.template:
+    src: files/web.service.j2
+    dest: /etc/systemd/system/web.service
+    mode: '0644'
+
+- name: Reload systemd daemon
+  ansible.builtin.systemd:
+    daemon_reload: yes
+
+- name: Start web service
+  ansible.builtin.systemd:
+    name: web
+    state: started
+
+- name: Enable web service
+  ansible.builtin.systemd:
+    name: web
+    enabled: yes
+
+- name: Stop firewalld
+  ansible.builtin.command: systemctl stop firewalld
+  failed_when: false
+
+- name: Disable firewalld
+  ansible.builtin.command: systemctl disable firewalld
+  failed_when: false

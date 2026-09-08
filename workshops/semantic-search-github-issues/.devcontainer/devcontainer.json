@@ -1,0 +1,26 @@
+{
+  "name": "Oracle AI Vector Search Tutorial",
+  "image": "mcr.microsoft.com/devcontainers/python:1-3.11-bookworm",
+
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-python.python", "ms-toolsai.jupyter", "ms-toolsai.jupyter-renderers"],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "jupyter.askForKernelRestart": false
+      }
+    }
+  },
+
+  "onCreateCommand": "pip install --no-cache-dir -r .devcontainer/requirements.txt && python .devcontainer/cache_model.py",
+
+  "remoteEnv": {
+    "HF_HOME": "/home/vscode/.cache/huggingface"
+  },
+
+  "postAttachCommand": {
+    "open-notebook": "code notebook.ipynb"
+  },
+
+  "remoteUser": "vscode"
+}

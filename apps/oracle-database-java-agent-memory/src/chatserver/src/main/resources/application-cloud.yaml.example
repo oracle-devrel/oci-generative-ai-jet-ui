@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME:ADMIN}
+    password: ${DB_PASSWORD}
+    oracleucp:
+      initial-pool-size: 2
+      min-pool-size: 2
+      max-pool-size: 5
+
+  ai:
+    ollama:
+      base-url: ${OLLAMA_BASE_URL:http://localhost:11434}
+      chat:
+        model: ${OLLAMA_CHAT_MODEL:qwen2.5}
+
+logging:
+  level:
+    dev.victormartin.agentmemory: INFO

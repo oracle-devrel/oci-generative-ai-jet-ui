@@ -1,0 +1,3 @@
+SET linesize 1000
+SET long 2000
+SET SERVEROUTPUT ON

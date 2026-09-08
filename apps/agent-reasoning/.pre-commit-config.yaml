@@ -1,0 +1,54 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.9.0
+    hooks:
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+      - id: ruff-format
+
+  # ty and prek hooks removed: repos don't have valid pre-commit manifests
+
+  - repo: local
+    hooks:
+      - id: pytest
+        name: pytest
+        entry: bash -c 'PYTHONPATH=src uv run pytest'
+        language: system
+        pass_filenames: false
+        always_run: true
+
+  - repo: local
+    hooks:
+      - id: build-tui
+        name: Build TUI (Go)
+        entry: bash -c 'cd tui && go build -o agent-tui .'
+        language: system
+        pass_filenames: false
+        always_run: true
+
+  # ── Secret detection (added by install-pre-commit-hooks.sh) ──────────
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0
+    hooks:
+      - id: detect-secrets
+        exclude: '(benchmarks/results/|data/sessions/|datalake/|pnpm-lock\.yaml$|package-lock\.json$|yarn\.lock$|go\.sum$|poetry\.lock$|Cargo\.lock$)'
+
+  # ── Block .env files (added by install-pre-commit-hooks.sh) ──────────
+  - repo: local
+    hooks:
+      - id: block-env-files
+        name: Block .env files from being committed
+        entry: bash -c 'exec ~/git/scripts/block-env-files.sh "$@"' --
+        language: system
+        pass_filenames: true
+        stages: [pre-commit]
+
+  # ── Block Claude-generated output (added by install-pre-commit-hooks.sh)
+  - repo: local
+    hooks:
+      - id: block-claude-generated
+        name: Block Claude-generated output directories
+        entry: bash -c 'exec ~/git/scripts/block-claude-generated.sh "$@"' --
+        language: system
+        pass_filenames: true
+        stages: [pre-commit]

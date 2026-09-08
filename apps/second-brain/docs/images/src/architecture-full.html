@@ -1,0 +1,146 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face { font-family: 'Virgil'; src: url('Virgil.woff2') format('woff2'); }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d1117; width: 1200px; padding: 38px 44px 34px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #e6edf3; position: relative; overflow: hidden;
+  }
+  .glow {
+    position: absolute; width: 760px; height: 760px; border-radius: 50%;
+    background: radial-gradient(circle, #1f6feb24 0%, transparent 62%);
+    top: 40px; left: 160px; pointer-events: none;
+  }
+  .title { font-family: 'Virgil'; font-size: 30px; position: relative; }
+  .title .accent { color: #58a6ff; }
+  .subtitle { font-size: 14.5px; color: #9da7b3; margin-top: 6px; position: relative; }
+
+  .lane { position: relative; }
+  .card { border: 1.6px solid; border-radius: 14px; }
+  .lbl { font-family: 'Virgil'; font-size: 17px; }
+  .sub { font-size: 11.5px; opacity: 0.78; }
+  .chips { display: flex; flex-wrap: wrap; gap: 7px; }
+  .chip {
+    font-size: 11.5px; font-weight: 600; border-radius: 999px; padding: 4px 11px;
+    background: rgba(13,17,23,0.5); border: 1px solid rgba(255,255,255,0.16); white-space: nowrap;
+  }
+
+  .sources { margin-top: 24px; background: #16283d; border-color: #58a6ff; color: #dbe9ff;
+             padding: 13px 18px; display: flex; align-items: center; gap: 16px; }
+  .loaders { background: #1c222b; border-color: #5b6c81; color: #d7dee6;
+             padding: 12px 18px; display: flex; align-items: baseline; gap: 14px; }
+  .loaders .sub { font-family: "SF Mono", ui-monospace, Menlo, monospace; font-size: 12px; }
+
+  .varrow { display: flex; justify-content: center; padding: 5px 0; position: relative; }
+
+  .mid { display: flex; gap: 18px; position: relative; }
+  .db {
+    flex: 1; background: linear-gradient(180deg, #171e28, #131922);
+    border: 1.6px solid #9aa7b4; border-radius: 16px; padding: 16px 18px;
+    box-shadow: 0 0 40px #1f6feb1e;
+  }
+  .db .lbl { font-size: 19px; }
+  .pillars { display: flex; gap: 12px; margin-top: 12px; }
+  .pillar { flex: 1; border-radius: 12px; padding: 12px 14px; border: 1.3px solid; }
+  .pillar h4 { font-family: 'Virgil'; font-size: 15px; }
+  .pillar div { font-size: 11.5px; opacity: 0.85; margin-top: 6px; line-height: 1.5; }
+  .p-content { background: #16283d; border-color: #58a6ff; color: #dbe9ff; }
+  .p-wiki    { background: #14301f; border-color: #3fb950; color: #d7f5e1; }
+  .p-mem     { background: #2e2413; border-color: #d29922; color: #f4e4bd; }
+  .bars { display: flex; gap: 12px; margin-top: 12px; }
+  .bar2 { flex: 1; border-radius: 10px; border: 1.3px solid; padding: 9px 13px; }
+  .bar2 b { font-family: 'Virgil'; font-size: 13.5px; font-weight: 400; }
+  .bar2 span { display: block; font-size: 11px; opacity: 0.8; margin-top: 2px; }
+  .hybrid { background: #16283d; border-color: #58a6ff; color: #dbe9ff; }
+  .priv   { background: #331b1b; border-color: #f85149; color: #ffd7d5; }
+
+  .side { flex: 0 0 300px; display: flex; flex-direction: column; gap: 11px; }
+  .agent { background: #14301f; border-color: #3fb950; color: #d7f5e1; padding: 12px 16px; }
+  .agent .foot { font-size: 11px; color: #7ee787; margin-top: 7px; }
+  .loop { background: #14301f; border-color: #2ea043; color: #d7f5e1; padding: 11px 16px; }
+  .loop .sub { font-family: "SF Mono", ui-monospace, Menlo, monospace; font-size: 11px; }
+  .plug { background: #241b38; border-color: #8957e5; color: #e2d9f3; padding: 11px 16px; }
+  .plug .sub { line-height: 1.55; }
+
+  .mcp { margin-top: 12px; background: #2e2413; border-color: #d29922; color: #f4e4bd;
+         padding: 12px 18px; display: flex; align-items: baseline; gap: 14px; }
+  .clients { margin-top: 12px; display: flex; gap: 12px; }
+  .client { flex: 1; background: #1c222b; border: 1.4px solid #5b6c81; color: #d7dee6;
+            border-radius: 12px; padding: 10px 14px; text-align: center;
+            font-family: 'Virgil'; font-size: 14.5px; white-space: nowrap; }
+
+  .num { color: #8d99a7; font-family: 'Virgil'; margin-right: 6px; }
+</style>
+</head>
+<body>
+  <div class="glow"></div>
+  <div class="title">🧠 Second Brain on <span class="accent">Oracle AI Database 26ai</span></div>
+  <div class="subtitle">your sources · one database · agents + MCP. Self-improving, yours, works with any AI chat.</div>
+
+  <div class="card sources lane">
+    <div><span class="num">1 ·</span><span class="lbl">Your sources</span> <span class="sub">swap freely</span></div>
+    <div class="chips">
+      <span class="chip">markdown</span><span class="chip">socials</span><span class="chip">Notion</span>
+      <span class="chip">AI chats</span><span class="chip">notes &amp; docs</span><span class="chip">…anything</span>
+    </div>
+  </div>
+
+  <div class="varrow"><svg width="16" height="20" viewBox="0 0 16 20"><path d="M8 1v13m0 0-5-5m5 5 5-5" stroke="#58a6ff" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg></div>
+
+  <div class="card loaders lane">
+    <div><span class="num">2 ·</span><span class="lbl">Loaders</span> <span class="sub" style="font-family:inherit;">one contract</span></div>
+    <div class="sub">normalize → redact secrets → classify private vs content → embed in-DB</div>
+  </div>
+
+  <div class="varrow"><svg width="16" height="20" viewBox="0 0 16 20"><path d="M8 1v13m0 0-5-5m5 5 5-5" stroke="#8b98a5" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg></div>
+
+  <div class="mid lane">
+    <div class="db">
+      <div><span class="num">3 ·</span><span class="lbl">🗄️ ONE Oracle AI Database 26ai</span></div>
+      <div class="sub" style="margin-top:3px;">relational + JSON Relational Duality + AI Vector Search, one engine</div>
+      <div class="pillars">
+        <div class="pillar p-content"><h4>📝 Content</h4><div>posts + chunks<br>in-DB vectors<br>privacy scope</div></div>
+        <div class="pillar p-wiki"><h4>📖 Wiki</h4><div>synthesized pages<br>cited + linked<br>grows on its own</div></div>
+        <div class="pillar p-mem"><h4>🧩 Memory ×4</h4><div>episodic · semantic<br>conversational<br>procedural</div></div>
+      </div>
+      <div class="bars">
+        <div class="bar2 hybrid"><b>🔍 Hybrid search</b><span>meaning + keywords, fused (RRF)</span></div>
+        <div class="bar2 priv"><b>🔒 Privacy, enforced</b><span>only 'content' is ever read</span></div>
+      </div>
+    </div>
+    <div class="side">
+      <div class="card agent">
+        <div><span class="num">4 ·</span><span class="lbl">🤖 Research agent</span></div>
+        <div class="sub" style="margin-top:4px;">grounded in YOUR work<br>cites your content · remembers every run</div>
+        <div class="foot">agent #1: they all share the brain</div>
+      </div>
+      <div class="card loop">
+        <div class="lbl" style="font-size:15px;">🔄 Daily self-improve</div>
+        <div class="sub" style="margin-top:4px;">pull → classify → grow wiki<br>→ consolidate memory</div>
+      </div>
+      <div class="card plug">
+        <div class="lbl" style="font-size:15px;">🧰 Pluggable</div>
+        <div class="sub" style="margin-top:4px;">LLM: Claude · OpenAI · Ollama (free, local)<br>embeddings: in-DB, no key<br>deploy: laptop ⇄ cloud</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="varrow"><svg width="16" height="20" viewBox="0 0 16 20"><path d="M8 1v13m0 0-5-5m5 5 5-5" stroke="#d29922" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg></div>
+
+  <div class="card mcp lane">
+    <div><span class="num">5 ·</span><span class="lbl">🔌 MCP server</span> <span class="sub" style="font-family:inherit;">the brain, in ANY AI chat</span></div>
+    <div class="sub">7 read tools + 1 gated write · local + hosted (OAuth, fail-closed)</div>
+  </div>
+
+  <div class="clients lane">
+    <div class="client">💬 Claude</div>
+    <div class="client">💬 ChatGPT</div>
+    <div class="client">🌐 open-source clients</div>
+    <div class="client">⚙️ your apps</div>
+  </div>
+</body>
+</html>

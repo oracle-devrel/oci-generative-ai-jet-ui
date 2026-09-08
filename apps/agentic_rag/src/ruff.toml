@@ -1,0 +1,14 @@
+# src/ modules are run directly (not as a package), so absolute imports are required.
+# Disable isort's relative-import conversion for this directory.
+[lint.isort]
+force-single-line = false
+relative-imports-order = "closest-to-furthest"
+known-first-party = [
+    "OraDBVectorStore", "OraDBEventLogger", "db_utils", "db_stats",
+    "local_rag_agent", "pdf_processor", "store", "load_model",
+    "a2a_handler", "a2a_models", "agent_card", "agent_registry",
+    "file_handler", "file_routes", "live_logs", "openai_compat",
+    "settings", "task_manager", "specialized_agent_cards",
+    "reasoning_agent_cards", "reasoning",
+    "agents",
+]

@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agentic-rag
+  labels:
+    app: agentic-rag
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: agentic-rag
+  template:
+    metadata:
+      labels:
+        app: agentic-rag
+    spec:
+      dnsPolicy: Default
+      containers:
+      - name: agentic-rag
+        image: agentic-rag:k8s-test-v2
+        imagePullPolicy:  IfNotPresent
+        resources:
+          requests:
+            memory: "8Gi"
+            cpu: "2"
+            ephemeral-storage: "50Gi"
+          limits:
+            memory: "16Gi"
+            cpu: "4"
+            ephemeral-storage: "100Gi"
+        ports:
+        - containerPort: 7860
+          name: gradio
+        - containerPort: 11434
+          name: ollama-api
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/config.yaml
+          subPath: config.yaml
+        - name: data-volume
+          mountPath: /app/embeddings
+        - name: chroma-volume
+          mountPath: /app/chroma_db
+
+        env:
+        - name: PYTHONUNBUFFERED
+          value: "1"
+        - name: OLLAMA_HOST
+          value: "http://localhost:11434"
+        - name: NVIDIA_VISIBLE_DEVICES
+          value: "all"
+        - name: NVIDIA_DRIVER_CAPABILITIES
+          value: "compute,utility"
+        - name: TORCH_CUDA_ARCH_LIST
+          value: "7.0;7.5;8.0;8.6"
+      volumes:
+      - name: config-volume
+        configMap:
+          name: agentic-rag-config
+      - name: data-volume
+        persistentVolumeClaim:
+          claimName: agentic-rag-data-pvc
+      - name: chroma-volume
+        persistentVolumeClaim:
+          claimName: agentic-rag-chroma-pvc

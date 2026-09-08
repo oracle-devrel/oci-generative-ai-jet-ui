@@ -1,0 +1,9 @@
+dataset	strategy	correct	total	accuracy_pct	ci_95_low	ci_95_high	avg_latency_ms
+arc_challenge	debate	8	50	16.0	8.3	28.5	6.54
+arc_challenge	tot	10	50	20.0	11.2	33.0	4.66
+gsm8k	debate	0	50	0.0	0	7.1	6.59
+gsm8k	tot	0	50	0.0	0	7.1	4.71
+hellaswag	debate	20	50	40.0	27.6	53.8	6.57
+hellaswag	tot	8	50	16.0	8.3	28.5	4.64
+mmlu	debate	9	50	18.0	9.8	30.8	6.6
+mmlu	tot	16	50	32.0	20.8	45.8	6.35

@@ -1,0 +1,11 @@
+# Forbidden imports for advanced (DB-as-only-store) verification.
+# verify.py greps for `import <name>` or `from <name>` and fails if any match.
+# Keep in sync with shared/verify.md "What advanced verify adds".
+redis
+psycopg
+psycopg2
+sqlite3
+chromadb
+qdrant_client
+pinecone
+faiss

@@ -1,0 +1,118 @@
+# docker-compose.yml
+# Spins up the full stack for all three patterns in the article:
+#   - Oracle AI Database Free (memory core, vector search, AQ)
+#   - RabbitMQ (Pattern 3 queue)
+#   - Ollama (local LLM + embeddings, no paid API keys)
+#
+# Usage:
+#   docker compose up -d
+#   docker compose logs -f oracle-db    # watch for "DATABASE IS READY TO USE!"
+#   ./scripts/init-db.sh                # creates schema + loads sample data
+#   ./scripts/pull-models.sh            # pulls the Ollama models used in the demos
+
+name: agent-communication-matrix
+
+services:
+  oracle-db:
+    image: container-registry.oracle.com/database/free:latest
+    container_name: oracle-db
+    ports:
+      - "1521:1521" # SQL*Net listener
+      - "5500:5500" # Enterprise Manager Express (optional)
+    environment:
+      ORACLE_PWD: ${ORACLE_PWD:-DevPassword_123}
+      ORACLE_CHARACTERSET: AL32UTF8
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+      - ./db/init:/opt/oracle/scripts/startup # auto-run on first boot
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "sqlplus",
+          "-L",
+          "system/${ORACLE_PWD:-DevPassword_123}@//localhost:1521/FREEPDB1",
+          "@/dev/null",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 20
+      start_period: 120s
+    shm_size: 2g # required by Oracle DB; will fail to start otherwise
+    restart: unless-stopped
+
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    container_name: rabbitmq
+    ports:
+      - "5672:5672" # AMQP
+      - "15672:15672" # management UI at http://localhost:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:-agent}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS:-agentpass}
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+      - ./rabbitmq/definitions.json:/etc/rabbitmq/definitions.json:ro
+      - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    dns:
+      - 75.75.75.75
+      - 75.75.76.76
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-models:/root/.ollama
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    # Uncomment to enable GPU acceleration on Linux hosts with NVIDIA drivers:
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
+
+  # Optional: a tiny FastAPI edge for Pattern 3, exposed for the demo.
+  # Disabled by default so the base stack stays minimal. Run with:
+  #   docker compose --profile demo up -d
+  pattern3-api:
+    profiles: ["demo"]
+    build:
+      context: ./pattern3
+      dockerfile: Dockerfile
+    container_name: pattern3-api
+    ports:
+      - "8000:8000"
+    environment:
+      DB_USER: ${DB_USER:-agentuser}
+      DB_PASS: ${DB_PASS:-AgentPass_123}
+      DB_DSN: oracle-db:1521/FREEPDB1
+      AMQP_URL: amqp://${RABBITMQ_USER:-agent}:${RABBITMQ_PASS:-agentpass}@rabbitmq:5672/
+      OLLAMA_URL: http://ollama:11434
+    depends_on:
+      oracle-db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      ollama:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  oracle-data:
+  rabbitmq-data:
+  ollama-models:

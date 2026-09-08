@@ -1,0 +1,57 @@
+{
+  "name": "Supply-chain demand-planning agent workshop",
+  "image": "mcr.microsoft.com/devcontainers/python:3.11-bookworm",
+  "hostRequirements": {
+    "cpus": 4,
+    "memory": "8gb"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    }
+  },
+  "forwardPorts": [1521, 8000],
+  "portsAttributes": {
+    "1521": {
+      "label": "Oracle AI Database",
+      "onAutoForward": "silent"
+    },
+    "8000": {
+      "label": "Chat app — backend (FastAPI)",
+      "onAutoForward": "ignore"
+    },
+    "3000": {
+      "label": "Chat app — frontend (Vite)",
+      "onAutoForward": "openPreview"
+    }
+  },
+  "onCreateCommand": "bash .devcontainer/setup_build.sh",
+  "postCreateCommand": "bash .devcontainer/setup_runtime.sh",
+  "postStartCommand": "bash .devcontainer/start_app.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-toolsai.jupyter",
+        "ms-azuretools.vscode-docker",
+        "Oracle.oracledevtools"
+      ],
+      "settings": {
+        "jupyter.notebookFileRoot": "${workspaceFolder}"
+      }
+    }
+  },
+  "containerEnv": {
+    "LLM_PROVIDER": "oci",
+    "LLM_MODEL": "xai.grok-4-1-fast-reasoning",
+    "OCI_GENAI_ENDPOINT": "https://inference.generativeai.us-phoenix-1.oci.oraclecloud.com",
+    "ORACLE_USER": "AGENT",
+    "ORACLE_PASSWORD": "AgentPwd_2025",
+    "ORACLE_DSN": "localhost:1521/FREEPDB1"
+  },
+  "remoteEnv": {
+    "OPENAI_API_KEY": "${localEnv:OPENAI_API_KEY}",
+    "OCI_GENAI_API_KEY": "${localEnv:OCI_GENAI_API_KEY}"
+  }
+}

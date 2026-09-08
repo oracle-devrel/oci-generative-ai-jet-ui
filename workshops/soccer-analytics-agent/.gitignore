@@ -1,0 +1,68 @@
+# Wallet (contains private keys and certificates)
+wallet/
+.wallet/
+
+# ML/data artifacts. This workshop intentionally commits the canonical
+# attendee CSVs and production model artifacts, while ignoring ad hoc outputs.
+*.pkl
+*.parquet
+*.csv
+*.zip
+!data/
+!data/*.csv
+!models/
+!models/best_model.pkl
+!models/predictions.parquet
+
+# Local model experiments
+test_retrain/*
+!test_retrain/
+!test_retrain/train_real_model.py
+
+# Agent/skill directories (workshop skills under .claude/skills/ are tracked;
+# only local-mode artifacts are ignored).
+.agents/
+.claude/local/
+.claude/settings.local.json
+.crush/
+.openhands/
+.serena/
+.omc/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.ruff_cache/
+
+# Generated images
+*.png
+# ...except the attendee screenshots and checked-in ML pipeline diagram.
+!workshop/screenshots/*.png
+!docs/assets/ml_feature_pipeline.png
+
+# Monte Carlo output
+monte_carlo_results.csv
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Plans
+docs/plans/
+task_plan.md
+findings.md
+progress.md
+catboost_info/
+
+# Environment + workshop generated dirs
+.env
+.env.local
+.env.*.local
+.env.workshop
+.env.workshop.local
+onnx_cache/
+test/
+
+# Frontend build artifacts
+frontend/node_modules/
+frontend/dist/

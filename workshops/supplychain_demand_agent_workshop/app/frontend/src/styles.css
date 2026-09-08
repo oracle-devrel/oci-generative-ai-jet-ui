@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Light theme — applied when <html> has class="light" (or no theme class) ─── */
+:root,
+:root.light {
+  --bg-base:  #f7f8fa;
+  --bg-panel: #ffffff;
+  --bg-elev:  #f1f3f5;
+  --bg-hover: #e7eaee;
+
+  --text-primary:   #0a0a0a;
+  --text-accent:    #1f2937;
+  --text-secondary: #525252;
+  --text-muted:     #9ca3af;
+
+  --border-subtle: rgba(0, 0, 0, 0.07);
+  --border-medium: rgba(0, 0, 0, 0.15);
+
+  --overlay-soft:   rgba(0, 0, 0, 0.03);
+  --overlay-medium: rgba(0, 0, 0, 0.06);
+  --overlay-strong: rgba(0, 0, 0, 0.1);
+
+  --scrollbar-track: #eef0f3;
+  --scrollbar-thumb: #c5c9cf;
+  --scrollbar-thumb-hover: #a0a4ab;
+
+  --arch-bg:    #ffffff;
+  --arch-grid:  #e6e8eb;
+}
+
+/* ─── Dark theme — applied when <html> has class="dark" ─── */
+:root.dark {
+  --bg-base:  #0a0a0a;
+  --bg-panel: #121212;
+  --bg-elev:  #1a1a1a;
+  --bg-hover: #202020;
+
+  --text-primary:   #f5f5f5;
+  --text-accent:    #e0e0e0;
+  --text-secondary: #888888;
+  --text-muted:     #555555;
+
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --border-medium: rgba(255, 255, 255, 0.12);
+
+  --overlay-soft:   rgba(255, 255, 255, 0.03);
+  --overlay-medium: rgba(255, 255, 255, 0.06);
+  --overlay-strong: rgba(255, 255, 255, 0.1);
+
+  --scrollbar-track: #1a1a1a;
+  --scrollbar-thumb: #2f2f2f;
+  --scrollbar-thumb-hover: #3a3a3a;
+
+  --arch-bg:   #080808;
+  --arch-grid: #1a1a1a;
+}
+
+@layer base {
+  html, body, #root { @apply h-full; }
+  body {
+    @apply bg-bg-base text-text-primary font-sans antialiased;
+    font-size: 14px;
+  }
+  * { box-sizing: border-box; }
+
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+  ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-thumb-hover); }
+}
+
+@layer components {
+  .pane {
+    @apply bg-bg-panel flex flex-col min-h-0;
+    border: 1px solid var(--border-subtle);
+  }
+  .pane-header {
+    @apply px-4 py-2.5 flex items-center justify-between;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .pane-title {
+    @apply text-[11px] uppercase tracking-wider text-text-secondary font-semibold;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono uppercase tracking-wide;
+  }
+  .badge-running { @apply bg-accent-tool/20   text-accent-tool; }
+  .badge-done    { @apply bg-accent-memory/20 text-accent-memory; }
+  .badge-idle    { @apply bg-overlay-medium   text-text-muted; }
+
+  .prose-msg p { @apply my-2 leading-relaxed; }
+  .prose-msg p:first-child { @apply mt-0; }
+  .prose-msg p:last-child  { @apply mb-0; }
+  .prose-msg code {
+    background: var(--overlay-medium);
+    padding: 0.1em 0.35em;
+    border-radius: 3px;
+    font-size: 12.5px;
+    font-family: "JetBrains Mono", Menlo, Monaco, Consolas, monospace;
+  }
+  .prose-msg pre {
+    background: var(--overlay-soft);
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 12.5px;
+    overflow-x: auto;
+    margin: 0.6em 0;
+  }
+  .prose-msg pre code { background: transparent; padding: 0; }
+  .prose-msg ul, .prose-msg ol { @apply pl-5 my-2; }
+  .prose-msg li { @apply my-0.5; }
+  .prose-msg strong { @apply text-text-primary font-semibold; }
+
+  /* ReactFlow controls — legible on both themes. */
+  .react-flow__controls-button {
+    background: var(--bg-elev) !important;
+    border: 1px solid var(--border-subtle) !important;
+    color: var(--text-primary) !important;
+  }
+  .react-flow__controls-button svg { fill: currentColor; }
+  .react-flow__controls-button:hover { background: var(--bg-hover) !important; }
+}

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+
+  <!-- Dark background -->
+  <rect x="0" y="0" width="1200" height="600" fill="#1e1e2e"/>
+
+  <!-- Title -->
+  <text x="600" y="60" font-size="32" font-weight="700" fill="#e5e5e5" text-anchor="middle">
+    RAG on Oracle AI Database 26ai
+  </text>
+
+  <!-- Documents -->
+  <rect x="40" y="240" width="160" height="100" rx="10" fill="#1e3a5f" stroke="#4a9eed" stroke-width="2"/>
+  <text x="120" y="298" font-size="22" font-weight="600" fill="#e5e5e5" text-anchor="middle">Documents</text>
+
+  <!-- Arrow into Oracle box -->
+  <line x1="200" y1="290" x2="280" y2="290" stroke="#a0a0a0" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- Oracle container box (the main story) -->
+  <rect x="280" y="130" width="540" height="320" rx="14" fill="#1a4d2e" stroke="#22c55e" stroke-width="3"/>
+  <text x="550" y="170" font-size="24" font-weight="700" fill="#e5e5e5" text-anchor="middle">Oracle AI Database 26ai</text>
+
+  <!-- Nested: ONNX Model -->
+  <rect x="310" y="200" width="220" height="70" rx="8" fill="#1e3a5f" stroke="#4a9eed" stroke-width="2"/>
+  <text x="420" y="242" font-size="17" font-weight="600" fill="#e5e5e5" text-anchor="middle">ONNX Embedding Model</text>
+
+  <!-- Nested: Vectors -->
+  <rect x="570" y="200" width="220" height="70" rx="8" fill="#2d1b69" stroke="#8b5cf6" stroke-width="2"/>
+  <text x="680" y="242" font-size="17" font-weight="600" fill="#e5e5e5" text-anchor="middle">Vectors (HNSW Index)</text>
+
+  <!-- Nested: Original Text -->
+  <rect x="310" y="290" width="220" height="70" rx="8" fill="#1a4d4d" stroke="#06b6d4" stroke-width="2"/>
+  <text x="420" y="332" font-size="17" font-weight="600" fill="#e5e5e5" text-anchor="middle">Original Text</text>
+
+  <!-- Nested: Metadata -->
+  <rect x="570" y="290" width="220" height="70" rx="8" fill="#1a4d4d" stroke="#06b6d4" stroke-width="2"/>
+  <text x="680" y="332" font-size="17" font-weight="600" fill="#e5e5e5" text-anchor="middle">Metadata</text>
+
+  <!-- Inner caption -->
+  <text x="550" y="408" font-size="15" font-style="italic" fill="#a0a0a0" text-anchor="middle">
+    one query, no external services
+  </text>
+
+  <!-- Arrow out of Oracle box -->
+  <line x1="820" y1="290" x2="900" y2="290" stroke="#a0a0a0" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- Local LLM -->
+  <rect x="900" y="240" width="200" height="100" rx="10" fill="#1e3a5f" stroke="#4a9eed" stroke-width="2"/>
+  <text x="1000" y="285" font-size="20" font-weight="600" fill="#e5e5e5" text-anchor="middle">Local LLM</text>
+  <text x="1000" y="310" font-size="16" fill="#a0a0a0" text-anchor="middle">(Ollama)</text>
+
+  <!-- Bottom caption -->
+  <text x="600" y="510" font-size="20" fill="#a0a0a0" text-anchor="middle">
+    1 database. 0 external API calls. Everything in one place.
+  </text>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#a0a0a0"/>
+    </marker>
+  </defs>
+
+</svg>

@@ -1,0 +1,5 @@
+- name: Ollama
+  hosts: ollama
+  become: true
+  roles:
+    - runtime

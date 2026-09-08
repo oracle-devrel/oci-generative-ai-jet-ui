@@ -1,0 +1,17 @@
+dataset	strategy	correct	total	accuracy_pct	ci_95_low	ci_95_high	avg_latency_ms
+arc_challenge	consistency	8	50	16.0	8.3	28.5	3.17
+arc_challenge	react	10	50	20.0	11.2	33.0	3.14
+arc_challenge	refinement	10	50	20.0	11.2	33.0	13.27
+arc_challenge	reflection	10	50	20.0	11.2	33.0	6.82
+gsm8k	consistency	4	50	8.0	3.2	18.8	3.21
+gsm8k	react	0	50	0.0	0	7.1	3.09
+gsm8k	refinement	0	50	0.0	0	7.1	12.98
+gsm8k	reflection	13	50	26.0	15.9	39.6	34733.12
+hellaswag	consistency	20	50	40.0	27.6	53.8	3.17
+hellaswag	react	8	50	16.0	8.3	28.5	3.16
+hellaswag	refinement	8	50	16.0	8.3	28.5	13.27
+hellaswag	reflection	8	50	16.0	8.3	28.5	6.85
+mmlu	consistency	9	50	18.0	9.8	30.8	3.14
+mmlu	react	16	50	32.0	20.8	45.8	3.14
+mmlu	refinement	16	50	32.0	20.8	45.8	13.16
+mmlu	reflection	16	50	32.0	20.8	45.8	6.76

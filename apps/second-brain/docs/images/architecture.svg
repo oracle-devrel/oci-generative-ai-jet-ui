@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" font-family="-apple-system, Segoe UI, Roboto, sans-serif">
+  <style>
+    .box{rx:10;ry:10;stroke-width:1.5}
+    .t{fill:#1a2b3c}.s{fill:#5b6b7b;font-size:12px}.h{font-weight:700;font-size:14px;fill:#1a2b3c}
+    .lbl{font-size:11px;fill:#7a8794}.arrow{stroke:#9aa7b4;stroke-width:2;fill:none;marker-end:url(#a)}
+  </style>
+  <defs>
+    <marker id="a" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#9aa7b4"/>
+    </marker>
+  </defs>
+
+  <!-- SOURCES -->
+  <text x="40" y="40" class="h">YOUR SOURCES — you choose</text>
+  <text x="40" y="58" class="lbl">Notion · YouTube · AI chats · docs · bookmarks · email · anything you make or collect</text>
+  <g>
+    <rect x="40" y="72" width="120" height="40" class="box" fill="#eef4fb" stroke="#bcd3ec"/>
+    <text x="100" y="97" text-anchor="middle" class="s">Notion</text>
+    <rect x="172" y="72" width="120" height="40" class="box" fill="#eef4fb" stroke="#bcd3ec"/>
+    <text x="232" y="97" text-anchor="middle" class="s">YouTube</text>
+    <rect x="304" y="72" width="120" height="40" class="box" fill="#eef4fb" stroke="#bcd3ec"/>
+    <text x="364" y="97" text-anchor="middle" class="s">AI chats</text>
+    <rect x="436" y="72" width="120" height="40" class="box" fill="#eef4fb" stroke="#bcd3ec"/>
+    <text x="496" y="97" text-anchor="middle" class="s">docs / notes</text>
+    <rect x="568" y="72" width="120" height="40" class="box" fill="#eef4fb" stroke="#bcd3ec"/>
+    <text x="628" y="97" text-anchor="middle" class="s">…your own</text>
+  </g>
+
+  <!-- ingest arrow -->
+  <path d="M360,116 L360,150" class="arrow"/>
+  <text x="372" y="140" class="lbl">normalize + embed in-DB (no external API)</text>
+
+  <!-- DATABASE -->
+  <rect x="40" y="156" width="648" height="248" rx="14" fill="#f7fafd" stroke="#9aa7b4" stroke-width="2"/>
+  <text x="60" y="182" class="h">ONE Oracle Database 26ai</text>
+  <text x="60" y="200" class="lbl">relational + JSON Relational Duality + AI Vector Search, together</text>
+
+  <rect x="60" y="216" width="190" height="170" class="box" fill="#fff" stroke="#cdd8e3"/>
+  <text x="155" y="240" text-anchor="middle" class="h">Content</text>
+  <text x="155" y="262" text-anchor="middle" class="s">posts + chunks</text>
+  <text x="155" y="280" text-anchor="middle" class="s">Duality views</text>
+  <text x="155" y="298" text-anchor="middle" class="s">vectors (MiniLM)</text>
+
+  <rect x="264" y="216" width="190" height="170" class="box" fill="#fff" stroke="#cdd8e3"/>
+  <text x="359" y="240" text-anchor="middle" class="h">Wiki</text>
+  <text x="359" y="262" text-anchor="middle" class="s">compiled topic pages</text>
+  <text x="359" y="280" text-anchor="middle" class="s">links + citations</text>
+  <text x="359" y="298" text-anchor="middle" class="s">self-improving</text>
+
+  <rect x="468" y="216" width="200" height="170" class="box" fill="#fff" stroke="#cdd8e3"/>
+  <text x="568" y="240" text-anchor="middle" class="h">Agent memory</text>
+  <text x="568" y="262" text-anchor="middle" class="s">episodic · semantic</text>
+  <text x="568" y="280" text-anchor="middle" class="s">conversational</text>
+  <text x="568" y="298" text-anchor="middle" class="s">procedural</text>
+
+  <!-- agent -->
+  <path d="M688,280 L740,280" class="arrow"/>
+  <rect x="744" y="180" width="136" height="120" rx="12" fill="#eaf7ef" stroke="#b7e0c6"/>
+  <text x="812" y="216" text-anchor="middle" class="h">Research agent</text>
+  <text x="812" y="238" text-anchor="middle" class="s">grounded +</text>
+  <text x="812" y="256" text-anchor="middle" class="s">remembers +</text>
+  <text x="812" y="274" text-anchor="middle" class="s">auto-improves</text>
+  <path d="M812,300 L812,320 L812,300" class="arrow"/>
+  <text x="744" y="316" class="lbl">+ live web</text>
+
+  <!-- MCP + clients -->
+  <path d="M360,404 L360,436" class="arrow"/>
+  <rect x="40" y="442" width="648" height="86" rx="12" fill="#fbf6ee" stroke="#e7d6b8"/>
+  <text x="60" y="468" class="h">MCP server — use it from any AI client</text>
+  <text x="60" y="488" class="s">search · fetch · wiki · topics · recent · ingest_note</text>
+  <text x="60" y="510" class="lbl">Claude (desktop / web / phone) · ChatGPT · your apps</text>
+  <path d="M744,330 C744,400 700,420 688,470" class="arrow"/>
+</svg>

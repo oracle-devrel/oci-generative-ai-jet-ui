@@ -1,0 +1,43 @@
+# Oracle Database Free container for local integration testing.
+#
+# Usage:
+#   docker compose -f docker-compose.test.yml up -d
+#   # Wait ~2 minutes for "DATABASE IS READY TO USE" in logs
+#   docker compose -f docker-compose.test.yml logs -f oracle-free
+#   # Then run:
+#   pytest -m integration
+#   # Teardown:
+#   docker compose -f docker-compose.test.yml down -v
+#
+# The matching conftest.py fixtures default to:
+#   ORACLE_DB_DSN=localhost:1521/FREEPDB1
+#   ORACLE_DB_USERNAME=SYSTEM
+#   ORACLE_DB_PASSWORD=OraclePW1_
+#
+# Note: Oracle's publicly available free container is "23ai Free". The user
+# may refer to it as "26ai free" but the image tag is database/free:latest
+# which tracks the current free release.
+
+services:
+  oracle-free:
+    image: container-registry.oracle.com/database/free:latest
+    container_name: agentic-rag-oracle-free
+    environment:
+      ORACLE_PWD: OraclePW1_
+      ORACLE_CHARACTERSET: AL32UTF8
+    ports:
+      - "1521:1521"
+    volumes:
+      - oracle-free-data:/opt/oracle/oradata
+    healthcheck:
+      # Reports healthy once the listener accepts connections. Full DB
+      # startup still takes ~2 minutes; use `docker logs` to wait for
+      # "DATABASE IS READY TO USE" before running tests.
+      test: ["CMD", "/opt/oracle/checkDBStatus.sh"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 120s
+
+volumes:
+  oracle-free-data:

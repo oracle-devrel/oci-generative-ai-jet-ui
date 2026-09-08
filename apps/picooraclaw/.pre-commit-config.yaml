@@ -1,0 +1,45 @@
+# Base pre-commit configuration for jasperan repositories.
+# Deployed automatically by ~/bin/install-pre-commit-hooks.sh
+# Do not edit manually in individual repos — update the template at:
+#   ~/git/scripts/pre-commit-base.yaml
+# and re-run the installer to propagate changes.
+
+repos:
+  # ── File hygiene ──────────────────────────────────────────────
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: '(docs/|dist/|vendor/|\.snap$|\.min\.js$)'
+      - id: end-of-file-fixer
+        exclude: '(docs/|dist/|vendor/|\.snap$|\.min\.js$)'
+      - id: check-yaml
+        args: ['--allow-multiple-documents']
+      - id: check-added-large-files
+        args: ['--maxkb=500']
+      - id: check-merge-conflict
+      - id: detect-private-key
+
+  # ── Secret detection ──────────────────────────────────────────
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0
+    hooks:
+      - id: detect-secrets
+        args: ['--baseline', '.secrets.baseline']
+        exclude: '(pnpm-lock\.yaml|package-lock\.json|yarn\.lock|go\.sum|poetry\.lock|Cargo\.lock)$'
+
+  # ── Custom local hooks ────────────────────────────────────────
+  - repo: local
+    hooks:
+      - id: block-env-files
+        name: Block .env files from being committed
+        entry: bash -c 'exec ~/git/scripts/block-env-files.sh "$@"' --
+        language: system
+        pass_filenames: true
+        stages: [pre-commit]
+      - id: block-claude-generated
+        name: Block Claude-generated output directories
+        entry: bash -c 'exec ~/git/scripts/block-claude-generated.sh "$@"' --
+        language: system
+        pass_filenames: true
+        stages: [pre-commit]

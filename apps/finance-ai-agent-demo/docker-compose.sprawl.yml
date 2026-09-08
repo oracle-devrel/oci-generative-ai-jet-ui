@@ -1,0 +1,93 @@
+version: "3.9"
+
+services:
+  # ---------------------------------------------------------------
+  # PostgreSQL 16 with PostGIS (relational + spatial)
+  # ---------------------------------------------------------------
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: sprawl-postgres
+    environment:
+      POSTGRES_USER: vector
+      POSTGRES_PASSWORD: VectorPwd_2025
+      POSTGRES_DB: financedb
+    ports:
+      - "5432:5432"
+    volumes:
+      - sprawl_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vector -d financedb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+
+  # ---------------------------------------------------------------
+  # Neo4j Community Edition (graph database)
+  # ---------------------------------------------------------------
+  neo4j:
+    image: neo4j:latest
+    container_name: sprawl-neo4j
+    environment:
+      NEO4J_AUTH: neo4j/Neo4jPwd_2025
+      NEO4J_PLUGINS: '["apoc"]'
+      NEO4J_ACCEPT_LICENSE_AGREEMENT: "yes"
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - sprawl_neo4j_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:7474 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
+    restart: unless-stopped
+
+  # ---------------------------------------------------------------
+  # MongoDB Community Edition (JSON / document store)
+  # ---------------------------------------------------------------
+  mongodb:
+    image: mongo:latest
+    container_name: sprawl-mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: MongoPwd_2025
+    ports:
+      - "27017:27017"
+    volumes:
+      - sprawl_mongo_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.runCommand({ping:1})", "--quiet"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+
+  # ---------------------------------------------------------------
+  # Qdrant (vector search engine)
+  # ---------------------------------------------------------------
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: sprawl-qdrant
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - sprawl_qdrant_data:/qdrant/storage
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:6333/healthz || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    restart: unless-stopped
+
+volumes:
+  sprawl_pg_data:
+  sprawl_neo4j_data:
+  sprawl_mongo_data:
+  sprawl_qdrant_data:

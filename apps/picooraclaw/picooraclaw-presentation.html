@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PicoOraClaw - Ultra-lightweight Oracle AI Assistant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ========== RESET & BASE ========== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --electric: #0066ff;
+  --lime: #d4ff00;
+  --navy: #1a1a2e;
+  --navy-light: #22223a;
+  --navy-lighter: #2a2a44;
+  --white: #f0f0f5;
+  --muted: #8888aa;
+  --green: #34d399;
+  --cyan: #38bdf8;
+  --dot-size: 2px;
+  --dot-gap: 20px;
+}
+
+html {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal, .reveal * { transition: none !important; animation: none !important; }
+}
+
+body {
+  font-family: 'Space Mono', monospace;
+  background: var(--navy);
+  color: var(--white);
+  overflow-x: hidden;
+  font-size: clamp(14px, 1.6vw, 18px);
+  line-height: 1.6;
+}
+
+/* ========== SLIDE BASE ========== */
+.slide {
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  scroll-snap-align: start;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: clamp(20px, 4vw, 60px);
+  text-align: center;
+}
+
+/* ========== HALFTONE DOT PATTERN ========== */
+.slide::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(0, 102, 255, 0.08) var(--dot-size), transparent var(--dot-size));
+  background-size: var(--dot-gap) var(--dot-gap);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.slide > * { position: relative; z-index: 1; }
+
+/* ========== TYPOGRAPHY ========== */
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(28px, 5vw, 72px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: clamp(22px, 3.5vw, 52px);
+  line-height: 1.2;
+}
+
+h3 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: clamp(18px, 2.5vw, 36px);
+  line-height: 1.3;
+}
+
+p, li {
+  font-size: clamp(13px, 1.5vw, 18px);
+  line-height: 1.6;
+}
+
+.subtitle {
+  font-size: clamp(14px, 1.8vw, 22px);
+  color: var(--muted);
+  margin-top: clamp(8px, 1vh, 16px);
+}
+
+.tagline {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: clamp(16px, 2.2vw, 30px);
+  color: var(--lime);
+  margin-top: clamp(12px, 2vh, 24px);
+}
+
+/* ========== ACCENT COLORS ========== */
+.electric { color: var(--electric); }
+.lime { color: var(--lime); }
+.cyan { color: var(--cyan); }
+.green { color: var(--green); }
+
+/* ========== SLIDE NUMBER ========== */
+.slide-number {
+  position: absolute;
+  bottom: clamp(8px, 1.5vh, 16px);
+  right: clamp(12px, 2vw, 24px);
+  font-size: clamp(10px, 1vw, 14px);
+  color: var(--muted);
+  opacity: 0.5;
+}
+
+/* ========== SECTION DIVIDER ========== */
+.section-divider {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+}
+
+.section-divider .section-num {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(80px, 20vw, 300px);
+  color: var(--electric);
+  opacity: 0.15;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 1;
+}
+
+.section-divider h2 {
+  font-size: clamp(28px, 5vw, 64px);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.section-divider .section-bar {
+  width: clamp(60px, 10vw, 120px);
+  height: 4px;
+  background: var(--lime);
+  margin: clamp(12px, 2vh, 24px) auto 0;
+}
+
+/* ========== STAT GRID ========== */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(12px, 2vw, 24px);
+  margin-top: clamp(16px, 3vh, 32px);
+  width: 100%;
+  max-width: 900px;
+}
+
+.stat-card {
+  background: var(--navy-lighter);
+  border: 1px solid rgba(0, 102, 255, 0.3);
+  border-radius: 12px;
+  padding: clamp(12px, 2vw, 24px);
+  text-align: center;
+}
+
+.stat-card .number {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(24px, 3.5vw, 48px);
+  color: var(--lime);
+}
+
+.stat-card .label {
+  font-size: clamp(11px, 1.2vw, 15px);
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* ========== CARD GRID ========== */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(clamp(120px, 15vw, 180px), 1fr));
+  gap: clamp(8px, 1.2vw, 16px);
+  margin-top: clamp(12px, 2vh, 24px);
+  width: 100%;
+  max-width: 1000px;
+}
+
+.card {
+  background: var(--navy-lighter);
+  border: 1px solid rgba(0, 102, 255, 0.2);
+  border-radius: 10px;
+  padding: clamp(10px, 1.5vw, 20px);
+  text-align: center;
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+.card:hover {
+  border-color: var(--lime);
+  transform: translateY(-2px);
+}
+
+.card .card-icon {
+  font-size: clamp(20px, 3vw, 36px);
+  margin-bottom: clamp(4px, 0.8vh, 8px);
+}
+
+.card .card-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: clamp(12px, 1.4vw, 17px);
+  color: var(--white);
+}
+
+.card .card-desc {
+  font-size: clamp(10px, 1vw, 13px);
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* ========== CODE BLOCK ========== */
+.code-block {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 102, 255, 0.2);
+  border-radius: 10px;
+  padding: clamp(12px, 2vw, 24px);
+  text-align: left;
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(11px, 1.2vw, 15px);
+  line-height: 1.7;
+  max-width: 900px;
+  width: 100%;
+  margin-top: clamp(12px, 2vh, 20px);
+  overflow: hidden;
+}
+
+.code-block .keyword { color: var(--electric); }
+.code-block .type { color: var(--lime); }
+.code-block .string { color: var(--green); }
+.code-block .comment { color: var(--muted); }
+.code-block .func { color: var(--cyan); }
+
+/* ========== FEATURE LIST ========== */
+.feature-list {
+  list-style: none;
+  text-align: left;
+  max-width: 800px;
+  margin-top: clamp(12px, 2vh, 24px);
+}
+
+.feature-list li {
+  padding: clamp(6px, 1vh, 12px) 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: clamp(13px, 1.4vw, 17px);
+}
+
+.feature-list li::before {
+  content: '\25B8';
+  color: var(--lime);
+  margin-right: 10px;
+}
+
+/* ========== TWO COLUMNS ========== */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(16px, 3vw, 40px);
+  width: 100%;
+  max-width: 1000px;
+  margin-top: clamp(12px, 2vh, 24px);
+  text-align: left;
+}
+
+.two-col .col-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: clamp(14px, 1.6vw, 20px);
+  color: var(--lime);
+  margin-bottom: clamp(6px, 1vh, 12px);
+}
+
+/* ========== BADGE ========== */
+.badge {
+  display: inline-block;
+  background: var(--electric);
+  color: var(--white);
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(10px, 1vw, 13px);
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin: 3px;
+}
+
+.badge.lime { background: var(--lime); color: var(--navy); }
+.badge.cyan { background: var(--cyan); color: var(--navy); }
+
+/* ========== TABLE ========== */
+.schema-table {
+  width: 100%;
+  max-width: 900px;
+  border-collapse: collapse;
+  margin-top: clamp(12px, 2vh, 20px);
+  font-size: clamp(11px, 1.2vw, 14px);
+}
+
+.schema-table th {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  background: var(--electric);
+  color: var(--white);
+  padding: clamp(6px, 1vh, 12px) clamp(8px, 1vw, 16px);
+  text-align: left;
+}
+
+.schema-table td {
+  padding: clamp(5px, 0.8vh, 10px) clamp(8px, 1vw, 16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.schema-table tr:nth-child(even) { background: rgba(0, 102, 255, 0.05); }
+
+/* ========== FLOW DIAGRAM ========== */
+.flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(6px, 1vw, 16px);
+  margin-top: clamp(16px, 3vh, 32px);
+  flex-wrap: wrap;
+}
+
+.flow-box {
+  background: var(--navy-lighter);
+  border: 2px solid var(--electric);
+  border-radius: 10px;
+  padding: clamp(10px, 1.5vw, 20px) clamp(14px, 2vw, 28px);
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: clamp(12px, 1.3vw, 16px);
+}
+
+.flow-arrow {
+  font-size: clamp(16px, 2vw, 28px);
+  color: var(--lime);
+}
+
+/* ========== CTA ========== */
+.cta-box {
+  background: linear-gradient(135deg, var(--electric), #0044cc);
+  border-radius: 14px;
+  padding: clamp(16px, 3vw, 40px);
+  max-width: 700px;
+  margin-top: clamp(16px, 3vh, 32px);
+}
+
+.cta-box code {
+  display: block;
+  background: rgba(0, 0, 0, 0.3);
+  padding: clamp(8px, 1.2vw, 14px);
+  border-radius: 8px;
+  margin-top: clamp(8px, 1vh, 12px);
+  font-size: clamp(12px, 1.3vw, 16px);
+  word-break: break-all;
+}
+
+/* ========== PROGRESS BAR ========== */
+#progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--electric), var(--lime));
+  z-index: 1000;
+  transition: width 0.3s;
+  width: 0%;
+}
+
+/* ========== NAV DOTS ========== */
+#nav-dots {
+  position: fixed;
+  right: clamp(8px, 1.5vw, 20px);
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 1000;
+}
+
+.nav-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--muted);
+  opacity: 0.3;
+  cursor: pointer;
+  transition: opacity 0.3s, background 0.3s, transform 0.3s;
+  border: none;
+  padding: 0;
+}
+
+.nav-dot.active {
+  opacity: 1;
+  background: var(--lime);
+  transform: scale(1.4);
+}
+
+.nav-dot:hover { opacity: 0.7; }
+
+/* ========== REVEAL ANIMATION ========== */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========== RESPONSIVE HEIGHT ========== */
+@media (max-height: 700px) {
+  .slide { padding: clamp(12px, 2vw, 30px); }
+  h1 { font-size: clamp(24px, 4.5vw, 56px); }
+  h2 { font-size: clamp(20px, 3vw, 40px); }
+  .stat-grid { gap: clamp(8px, 1.5vw, 16px); }
+  .card-grid { gap: clamp(6px, 1vw, 10px); }
+}
+
+@media (max-height: 600px) {
+  .slide { padding: clamp(8px, 1.5vw, 20px); }
+  h1 { font-size: clamp(20px, 4vw, 44px); }
+  h2 { font-size: clamp(18px, 2.5vw, 34px); }
+  .stat-card .number { font-size: clamp(18px, 3vw, 36px); }
+  .feature-list li { padding: clamp(3px, 0.6vh, 6px) 0; }
+  .code-block { padding: clamp(8px, 1.5vw, 16px); font-size: clamp(10px, 1.1vw, 13px); }
+}
+
+@media (max-height: 500px) {
+  .slide { padding: clamp(6px, 1vw, 14px); }
+  h1 { font-size: clamp(18px, 3.5vw, 36px); }
+  h2 { font-size: clamp(16px, 2.2vw, 28px); }
+  .tagline { font-size: clamp(12px, 1.6vw, 20px); }
+  .subtitle { font-size: clamp(11px, 1.3vw, 16px); }
+  .stat-grid { grid-template-columns: repeat(3, 1fr); gap: clamp(4px, 1vw, 8px); }
+  .card { padding: clamp(6px, 1vw, 12px); }
+}
+
+@media (max-width: 600px) {
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+  .two-col { grid-template-columns: 1fr; }
+  .card-grid { grid-template-columns: repeat(2, 1fr); }
+  #nav-dots { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<nav id="nav-dots"></nav>
+
+<!-- ==================== SLIDE 1: TITLE ==================== -->
+<section class="slide" data-title="Title">
+  <div class="reveal">
+    <h1><span class="electric">Pico</span><span class="lime">Ora</span>Claw</h1>
+    <p class="tagline">Ultra-lightweight. ~10MB. Oracle-powered.</p>
+    <p class="subtitle">Oracle AI Database-powered AI assistant. Pure Go. Embedded Linux ready.</p>
+    <div style="margin-top: clamp(16px, 3vh, 32px);">
+      <span class="badge">Go</span>
+      <span class="badge lime">~10MB RAM</span>
+      <span class="badge cyan">MIT / Apache-2.0</span>
+    </div>
+  </div>
+  <span class="slide-number">1</span>
+</section>
+
+<!-- ==================== SLIDE 2: THE PITCH ==================== -->
+<section class="slide" data-title="The Pitch">
+  <div class="reveal">
+    <h2>By the Numbers</h2>
+    <p class="subtitle">Everything you need, nothing you don't</p>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="number">27K</div>
+        <div class="label">Lines of Go</div>
+      </div>
+      <div class="stat-card">
+        <div class="number">23</div>
+        <div class="label">Packages</div>
+      </div>
+      <div class="stat-card">
+        <div class="number">~10MB</div>
+        <div class="label">Binary Size</div>
+      </div>
+      <div class="stat-card">
+        <div class="number">15</div>
+        <div class="label">Built-in Tools</div>
+      </div>
+      <div class="stat-card">
+        <div class="number">10</div>
+        <div class="label">Channels</div>
+      </div>
+      <div class="stat-card">
+        <div class="number">6</div>
+        <div class="label">LLM Providers</div>
+      </div>
+    </div>
+  </div>
+  <span class="slide-number">2</span>
+</section>
+
+<!-- ==================== SLIDE 3: WHY ORACLE ==================== -->
+<section class="slide" data-title="Why Oracle">
+  <div class="reveal">
+    <h2>Why <span class="lime">Oracle AI Database</span>?</h2>
+    <ul class="feature-list">
+      <li><strong class="electric">In-database ONNX embeddings</strong> : vector generation without external services</li>
+      <li><strong class="electric">AI Vector Search</strong> : native COSINE similarity on 384-dim vectors</li>
+      <li><strong class="electric">ACID transactions</strong> : real durability for agent memory and state</li>
+      <li><strong class="electric">Multi-agent isolation</strong> : session/workspace separation at the DB level</li>
+      <li><strong class="electric">Graceful fallback</strong> : no Oracle? Falls back to local file-based storage</li>
+    </ul>
+  </div>
+  <span class="slide-number">3</span>
+</section>
+
+<!-- ==================== SLIDE 4: ARCHITECTURE ==================== -->
+<section class="slide" data-title="Architecture">
+  <div class="reveal">
+    <h2>23 Packages in <span class="electric">pkg/</span></h2>
+    <div class="card-grid">
+      <div class="card"><div class="card-title">agent</div><div class="card-desc">Core loop</div></div>
+      <div class="card"><div class="card-title">providers</div><div class="card-desc">LLM backends</div></div>
+      <div class="card"><div class="card-title">tools</div><div class="card-desc">15 built-in</div></div>
+      <div class="card"><div class="card-title">channels</div><div class="card-desc">10 inputs</div></div>
+      <div class="card"><div class="card-title">oracle</div><div class="card-desc">DB layer</div></div>
+      <div class="card"><div class="card-title">skills</div><div class="card-desc">SKILL.md</div></div>
+      <div class="card"><div class="card-title">config</div><div class="card-desc">Env/YAML</div></div>
+      <div class="card"><div class="card-title">bus</div><div class="card-desc">Event bus</div></div>
+      <div class="card"><div class="card-title">session</div><div class="card-desc">Session mgmt</div></div>
+      <div class="card"><div class="card-title">state</div><div class="card-desc">Persistence</div></div>
+      <div class="card"><div class="card-title">cron</div><div class="card-desc">Scheduling</div></div>
+      <div class="card"><div class="card-title">heartbeat</div><div class="card-desc">Proactive exec</div></div>
+      <div class="card"><div class="card-title">voice</div><div class="card-desc">Audio I/O</div></div>
+      <div class="card"><div class="card-title">health</div><div class="card-desc">Health checks</div></div>
+      <div class="card"><div class="card-title">auth</div><div class="card-desc">Authentication</div></div>
+      <div class="card"><div class="card-title">migrate</div><div class="card-desc">DB migrations</div></div>
+      <div class="card"><div class="card-title">devices</div><div class="card-desc">HW interface</div></div>
+    </div>
+  </div>
+  <span class="slide-number">4</span>
+</section>
+
+<!-- ==================== SLIDE 5: SECTION - AGENT CORE ==================== -->
+<section class="slide section-divider" data-title="Agent Core">
+  <span class="section-num">01</span>
+  <div class="reveal">
+    <h2>Agent Core</h2>
+    <div class="section-bar"></div>
+  </div>
+  <span class="slide-number">5</span>
+</section>
+
+<!-- ==================== SLIDE 6: AGENT LOOP ==================== -->
+<section class="slide" data-title="Agent Loop">
+  <div class="reveal">
+    <h2>The Agent Loop</h2>
+    <div class="flow">
+      <div class="flow-box"><span class="lime">Context</span><br>Builder</div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-box"><span class="electric">LLM</span><br>Call</div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-box"><span class="cyan">Tool</span><br>Execution</div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-box"><span class="green">Response</span><br>Dispatch</div>
+    </div>
+    <div class="code-block" style="margin-top: clamp(16px, 2vh, 24px);">
+      <span class="comment">// Managed by session, state, and memory managers</span><br>
+      <span class="keyword">for</span> {<br>
+      &nbsp;&nbsp;ctx := <span class="func">buildContext</span>(session, memory, skills)<br>
+      &nbsp;&nbsp;resp := <span class="func">llm.Complete</span>(ctx)<br>
+      &nbsp;&nbsp;<span class="keyword">if</span> resp.ToolCalls != <span class="keyword">nil</span> {<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;results := <span class="func">executeTool</span>(resp.ToolCalls)<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="func">appendResults</span>(ctx, results)<br>
+      &nbsp;&nbsp;} <span class="keyword">else</span> {<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="func">channel.Send</span>(resp.Message)<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><br>
+      &nbsp;&nbsp;}<br>
+      }
+    </div>
+  </div>
+  <span class="slide-number">6</span>
+</section>
+
+<!-- ==================== SLIDE 7: SECTION - CHANNELS ==================== -->
+<section class="slide section-divider" data-title="Channels">
+  <span class="section-num">02</span>
+  <div class="reveal">
+    <h2>Channels</h2>
+    <div class="section-bar"></div>
+  </div>
+  <span class="slide-number">7</span>
+</section>
+
+<!-- ==================== SLIDE 8: 10 CHANNELS ==================== -->
+<section class="slide" data-title="10 Channels">
+  <div class="reveal">
+    <h2>10 Input <span class="lime">Channels</span></h2>
+    <div class="card-grid">
+      <div class="card"><div class="card-icon">&#9993;</div><div class="card-title">Telegram</div></div>
+      <div class="card"><div class="card-icon">&#128172;</div><div class="card-title">Discord</div></div>
+      <div class="card"><div class="card-icon">&#9889;</div><div class="card-title">Slack</div></div>
+      <div class="card"><div class="card-icon">&#128276;</div><div class="card-title">DingTalk</div></div>
+      <div class="card"><div class="card-icon">&#128154;</div><div class="card-title">LINE</div></div>
+      <div class="card"><div class="card-icon">&#128228;</div><div class="card-title">Feishu</div></div>
+      <div class="card"><div class="card-icon">&#128039;</div><div class="card-title">QQ</div></div>
+      <div class="card"><div class="card-icon">&#128241;</div><div class="card-title">WhatsApp</div></div>
+      <div class="card" style="border-color: var(--lime);"><div class="card-icon">&#128247;</div><div class="card-title lime">MaixCAM</div><div class="card-desc">Vision camera!</div></div>
+      <div class="card"><div class="card-icon">&#129302;</div><div class="card-title">OneBot</div></div>
+    </div>
+  </div>
+  <span class="slide-number">8</span>
+</section>
+
+<!-- ==================== SLIDE 9: SECTION - TOOLS ==================== -->
+<section class="slide section-divider" data-title="Tools">
+  <span class="section-num">03</span>
+  <div class="reveal">
+    <h2>Tools</h2>
+    <div class="section-bar"></div>
+  </div>
+  <span class="slide-number">9</span>
+</section>
+
+<!-- ==================== SLIDE 10: 15 TOOLS ==================== -->
+<section class="slide" data-title="15 Tools">
+  <div class="reveal">
+    <h2>15 Built-in <span class="electric">Tools</span></h2>
+    <div class="card-grid">
+      <div class="card"><div class="card-title lime">Remember</div><div class="card-desc">Oracle-backed</div></div>
+      <div class="card"><div class="card-title lime">Recall</div><div class="card-desc">Vector search</div></div>
+      <div class="card"><div class="card-title">Shell</div><div class="card-desc">Command exec</div></div>
+      <div class="card"><div class="card-title">Edit</div><div class="card-desc">File editing</div></div>
+      <div class="card"><div class="card-title">Filesystem</div><div class="card-desc">Read/write</div></div>
+      <div class="card" style="border-color: var(--lime);"><div class="card-title lime">I2C</div><div class="card-desc">Hardware!</div></div>
+      <div class="card" style="border-color: var(--lime);"><div class="card-title lime">SPI</div><div class="card-desc">Hardware!</div></div>
+      <div class="card"><div class="card-title">Cron</div><div class="card-desc">Scheduling</div></div>
+      <div class="card"><div class="card-title">Message</div><div class="card-desc">Cross-channel</div></div>
+      <div class="card"><div class="card-title">Spawn</div><div class="card-desc">Subagent</div></div>
+      <div class="card"><div class="card-title">Web</div><div class="card-desc">HTTP fetch</div></div>
+      <div class="card"><div class="card-title">Daily Notes</div><div class="card-desc">Journaling</div></div>
+    </div>
+  </div>
+  <span class="slide-number">10</span>
+</section>
+
+<!-- ==================== SLIDE 11: HARDWARE TOOLS ==================== -->
+<section class="slide" data-title="Hardware Tools">
+  <div class="reveal">
+    <h2><span class="lime">Hardware</span> Tools</h2>
+    <p class="subtitle">Unique to PicoOraClaw: direct sensor and peripheral access</p>
+    <div class="two-col">
+      <div>
+        <div class="col-title">I2C Bus</div>
+        <ul class="feature-list">
+          <li>Temperature, humidity, pressure sensors</li>
+          <li>OLED displays, motor controllers</li>
+          <li>Multi-device bus scanning</li>
+          <li>Read/write registers directly</li>
+        </ul>
+      </div>
+      <div>
+        <div class="col-title">SPI Bus</div>
+        <ul class="feature-list">
+          <li>High-speed ADC/DAC chips</li>
+          <li>SD cards, display panels</li>
+          <li>Full-duplex data transfer</li>
+          <li>Robotics motor controllers</li>
+        </ul>
+      </div>
+    </div>
+    <p style="margin-top: clamp(12px, 2vh, 20px); font-size: clamp(12px, 1.3vw, 16px);">
+      <span class="lime">An AI that can read thermometers and drive servos.</span> No external daemon. Pure Go.
+    </p>
+  </div>
+  <span class="slide-number">11</span>
+</section>
+
+<!-- ==================== SLIDE 12: SECTION - LLM PROVIDERS ==================== -->
+<section class="slide section-divider" data-title="LLM Providers">
+  <span class="section-num">04</span>
+  <div class="reveal">
+    <h2>LLM Providers</h2>
+    <div class="section-bar"></div>
+  </div>
+  <span class="slide-number">12</span>
+</section>
+
+<!-- ==================== SLIDE 13: 6 BACKENDS ==================== -->
+<section class="slide" data-title="6 Backends">
+  <div class="reveal">
+    <h2>6 LLM <span class="cyan">Backends</span></h2>
+    <div class="card-grid" style="max-width: 750px;">
+      <div class="card" style="border-color: var(--lime);">
+        <div class="card-icon">&#11088;</div>
+        <div class="card-title lime">Ollama</div>
+        <div class="card-desc">Recommended. Local.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#127760;</div>
+        <div class="card-title">OpenRouter</div>
+        <div class="card-desc">Multi-model proxy</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#9651;</div>
+        <div class="card-title">Anthropic</div>
+        <div class="card-desc">Claude models</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#9679;</div>
+        <div class="card-title">OpenAI</div>
+        <div class="card-desc">GPT models</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#128300;</div>
+        <div class="card-title">Zhipu GLM</div>
+        <div class="card-desc">Chinese LLM</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#9729;</div>
+        <div class="card-title">OCI GenAI</div>
+        <div class="card-desc">Oracle Cloud proxy</div>
+      </div>
+    </div>
+    <p class="subtitle" style="margin-top: clamp(12px, 2vh, 20px);">
+      All providers share the same <span class="electric">LLMProvider</span> interface. Swap with one env var.
+    </p>
+  </div>
+  <span class="slide-number">13</span>
+</section>
+
+<!-- ==================== SLIDE 14: SECTION - ORACLE INTEGRATION ==================== -->
+<section class="slide section-divider" data-title="Oracle Integration">
+  <span class="section-num">05</span>
+  <div class="reveal">
+    <h2>Oracle Integration</h2>
+    <div class="section-bar"></div>
+  </div>
+  <span class="slide-number">14</span>
+</section>
+
+<!-- ==================== SLIDE 15: ORACLE SCHEMA ==================== -->
+<section class="slide" data-title="Oracle Schema">
+  <div class="reveal">
+    <h2>8 Oracle <span class="lime">Tables</span></h2>
+    <table class="schema-table">
+      <tr><th>Table</th><th>Purpose</th></tr>
+      <tr><td><span class="lime">PICO_MEMORIES</span></td><td>Vector-searchable memory store (384-dim embeddings)</td></tr>
+      <tr><td><span class="lime">PICO_SESSIONS</span></td><td>Conversation session tracking &amp; metadata</td></tr>
+      <tr><td><span class="lime">PICO_TRANSCRIPTS</span></td><td>Full message history per session</td></tr>
+      <tr><td><span class="lime">PICO_STATE</span></td><td>Key-value agent state persistence</td></tr>
+      <tr><td><span class="lime">PICO_DAILY_NOTES</span></td><td>Structured daily journal entries</td></tr>
+      <tr><td><span class="lime">PICO_PROMPTS</span></td><td>System prompt templates &amp; versions</td></tr>
+      <tr><td><span class="lime">PICO_CONFIG</span></td><td>Runtime configuration overrides</td></tr>
+      <tr><td><span class="lime">PICO_META</span></td><td>Schema version &amp; migration tracking</td></tr>
+    </table>
+  </div>
+  <span class="slide-number">15</span>
+</section>
+
+<!-- ==================== SLIDE 16: VECTOR SEARCH ==================== -->
+<section class="slide" data-title="Vector Search">
+  <div class="reveal">
+    <h2>AI <span class="electric">Vector Search</span></h2>
+    <div class="code-block">
+      <span class="comment">-- 384-dimensional ALL_MINILM_L12_V2 model</span><br>
+      <span class="comment">-- Loaded via in-database ONNX runtime</span><br><br>
+      <span class="keyword">SELECT</span> content, category,<br>
+      &nbsp;&nbsp;<span class="func">VECTOR_DISTANCE</span>(embedding,<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="func">VECTOR_EMBEDDING</span>(<span class="type">ALL_MINILM_L12_V2</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">USING</span> <span class="string">:query_text</span>),<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="type">COSINE</span>) <span class="keyword">AS</span> distance<br>
+      <span class="keyword">FROM</span> <span class="type">PICO_MEMORIES</span><br>
+      <span class="keyword">WHERE</span> workspace_id = <span class="string">:ws</span><br>
+      <span class="keyword">ORDER BY</span> distance<br>
+      <span class="keyword">FETCH FIRST</span> <span class="string">10</span> <span class="keyword">ROWS ONLY</span>;<br><br>
+      <span class="comment">-- &gt;30% similarity threshold applied in Go</span>
+    </div>
+  </div>
+  <span class="slide-number">16</span>
+</section>
+
+<!-- ==================== SLIDE 17: SECTION - SKILLS & SECURITY ==================== -->
+<section class="slide section-divider" data-title="Skills & Security">
+  <span class="section-num">06</span>
+  <div class="reveal">
+    <h2>Skills &amp; Security</h2>
+    <div class="section-bar"></div>
+  </div>
+  <span class="slide-number">17</span>
+</section>
+
+<!-- ==================== SLIDE 18: SKILLS SYSTEM ==================== -->
+<section class="slide" data-title="Skills">
+  <div class="reveal">
+    <h2>SKILL.md <span class="lime">Extensions</span></h2>
+    <div class="two-col">
+      <div>
+        <div class="col-title">Trusted Skills</div>
+        <ul class="feature-list">
+          <li>User-placed in workspace <code>skills/</code></li>
+          <li>Full tool access (shell, edit, fs)</li>
+          <li>Domain-specific prompt injection</li>
+          <li>Keyword + pattern matching</li>
+        </ul>
+      </div>
+      <div>
+        <div class="col-title">Installed Skills</div>
+        <ul class="feature-list">
+          <li>Registry-sourced, sandboxed</li>
+          <li>Read-only tool ceiling</li>
+          <li>Trust attenuation enforced</li>
+          <li>Budget-aware token allocation</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top: clamp(12px, 2vh, 20px);">
+      <span class="badge">skill_list</span>
+      <span class="badge">skill_search</span>
+      <span class="badge">skill_install</span>
+      <span class="badge">skill_remove</span>
+    </div>
+  </div>
+  <span class="slide-number">18</span>
+</section>
+
+<!-- ==================== SLIDE 19: SECTION - DEPLOYMENT ==================== -->
+<section class="slide section-divider" data-title="Deployment">
+  <span class="section-num">07</span>
+  <div class="reveal">
+    <h2>Deployment</h2>
+    <div class="section-bar"></div>
+  </div>
+  <span class="slide-number">19</span>
+</section>
+
+<!-- ==================== SLIDE 20: EMBEDDED TARGETS ==================== -->
+<section class="slide" data-title="Embedded Targets">
+  <div class="reveal">
+    <h2>Embedded <span class="electric">Targets</span></h2>
+    <div class="stat-grid" style="max-width: 700px;">
+      <div class="stat-card">
+        <div class="number" style="font-size: clamp(18px, 2.5vw, 32px);">RISC-V</div>
+        <div class="label">linux/riscv64</div>
+      </div>
+      <div class="stat-card">
+        <div class="number" style="font-size: clamp(18px, 2.5vw, 32px);">ARM64</div>
+        <div class="label">linux/arm64</div>
+      </div>
+      <div class="stat-card">
+        <div class="number" style="font-size: clamp(18px, 2.5vw, 32px);">x86_64</div>
+        <div class="label">linux/amd64</div>
+      </div>
+    </div>
+    <div class="code-block" style="max-width: 700px;">
+      <span class="comment"># Cross-compile for RISC-V</span><br>
+      <span class="keyword">GOOS</span>=linux <span class="keyword">GOARCH</span>=riscv64 \<br>
+      &nbsp;&nbsp;<span class="func">go build</span> -ldflags <span class="string">"-s -w"</span> -o picooraclaw<br><br>
+      <span class="comment"># Result: ~10MB single binary</span><br>
+      <span class="comment"># Workspace embedded via go:embed</span><br>
+      <span class="comment"># No CGO. No InstantClient. Pure Go.</span>
+    </div>
+  </div>
+  <span class="slide-number">20</span>
+</section>
+
+<!-- ==================== SLIDE 21: DEPLOYMENT OPTIONS ==================== -->
+<section class="slide" data-title="Deployment Options">
+  <div class="reveal">
+    <h2>Deploy <span class="lime">Anywhere</span></h2>
+    <div class="card-grid" style="max-width: 800px;">
+      <div class="card">
+        <div class="card-icon">&#128230;</div>
+        <div class="card-title">Docker</div>
+        <div class="card-desc">Multi-stage build, scratch base</div>
+      </div>
+      <div class="card" style="border-color: var(--lime);">
+        <div class="card-icon">&#9729;</div>
+        <div class="card-title lime">OCI One-Click</div>
+        <div class="card-desc">ARM A1.Flex always-free tier</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#9881;</div>
+        <div class="card-title">systemd</div>
+        <div class="card-desc">Service unit, auto-restart</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#128296;</div>
+        <div class="card-title">make install</div>
+        <div class="card-desc">Direct binary install</div>
+      </div>
+    </div>
+    <div class="code-block" style="max-width: 700px; margin-top: clamp(12px, 2vh, 20px);">
+      <span class="comment"># OCI Always-Free: 4 ARM cores, 24GB RAM</span><br>
+      <span class="keyword">make</span> <span class="func">deploy-oci</span><br><br>
+      <span class="comment"># Or just run it</span><br>
+      <span class="keyword">make</span> <span class="func">build</span> && ./picooraclaw
+    </div>
+  </div>
+  <span class="slide-number">21</span>
+</section>
+
+<!-- ==================== SLIDE 22: CORE INTERFACES ==================== -->
+<section class="slide" data-title="Core Interfaces">
+  <div class="reveal">
+    <h2>Interface-Driven <span class="electric">Architecture</span></h2>
+    <div class="code-block">
+      <span class="keyword">type</span> <span class="type">Tool</span> <span class="keyword">interface</span> {<br>
+      &nbsp;&nbsp;<span class="func">Name</span>() <span class="type">string</span><br>
+      &nbsp;&nbsp;<span class="func">Description</span>() <span class="type">string</span><br>
+      &nbsp;&nbsp;<span class="func">Execute</span>(ctx <span class="type">context.Context</span>, args <span class="type">map[string]any</span>) (<span class="type">ToolResult</span>, <span class="type">error</span>)<br>
+      }<br><br>
+      <span class="keyword">type</span> <span class="type">Channel</span> <span class="keyword">interface</span> {<br>
+      &nbsp;&nbsp;<span class="func">Name</span>() <span class="type">string</span><br>
+      &nbsp;&nbsp;<span class="func">Listen</span>(ctx <span class="type">context.Context</span>) <span class="keyword">&lt;-chan</span> <span class="type">IncomingMessage</span><br>
+      &nbsp;&nbsp;<span class="func">Send</span>(ctx <span class="type">context.Context</span>, msg <span class="type">OutgoingMessage</span>) <span class="type">error</span><br>
+      }<br><br>
+      <span class="keyword">type</span> <span class="type">LLMProvider</span> <span class="keyword">interface</span> {<br>
+      &nbsp;&nbsp;<span class="func">Complete</span>(ctx <span class="type">context.Context</span>, req <span class="type">CompletionRequest</span>) (<span class="type">CompletionResponse</span>, <span class="type">error</span>)<br>
+      }
+    </div>
+  </div>
+  <span class="slide-number">22</span>
+</section>
+
+<!-- ==================== SLIDE 23: WHAT MAKES IT UNIQUE ==================== -->
+<section class="slide" data-title="Unique">
+  <div class="reveal">
+    <h2>What Makes It <span class="lime">Unique</span></h2>
+    <ul class="feature-list" style="max-width: 850px;">
+      <li><strong class="lime">Hardware I2C/SPI tools</strong> : the AI reads sensors, drives motors, talks to peripherals</li>
+      <li><strong class="lime">MaixCAM vision channel</strong> : camera input as a first-class conversation channel</li>
+      <li><strong class="lime">Workspace embedding</strong> : <code>go:embed</code> bakes default configs into the binary</li>
+      <li><strong class="lime">Oracle graceful fallback</strong> : Oracle DB when available, local files when not</li>
+      <li><strong class="lime">Pure Go Oracle driver</strong> : go-ora v2.9.0, no CGO, no InstantClient dependency</li>
+      <li><strong class="lime">~10MB footprint</strong> : runs on devices where Python can't even install</li>
+    </ul>
+  </div>
+  <span class="slide-number">23</span>
+</section>
+
+<!-- ==================== SLIDE 24: CLOSING ==================== -->
+<section class="slide" data-title="Get Started">
+  <div class="reveal">
+    <h1><span class="electric">Get</span> <span class="lime">Started</span></h1>
+    <div class="cta-box">
+      <p style="font-size: clamp(14px, 1.6vw, 20px); margin-bottom: clamp(8px, 1vh, 12px);">Clone, build, run. That's it.</p>
+      <code>git clone https://github.com/jasperan/picooraclaw.git</code>
+      <code>cd picooraclaw && make build</code>
+      <code>./picooraclaw</code>
+    </div>
+    <div style="margin-top: clamp(16px, 3vh, 32px);">
+      <p class="subtitle">Sister projects</p>
+      <div style="margin-top: clamp(8px, 1vh, 12px);">
+        <span class="badge">IronOraClaw</span>
+        <span class="badge lime">PicoOraClaw</span>
+        <span class="badge cyan">ZeroOraClaw</span>
+      </div>
+    </div>
+    <p style="margin-top: clamp(16px, 2vh, 24px); font-size: clamp(11px, 1.2vw, 14px); color: var(--muted);">
+      MIT OR Apache-2.0 &middot; Pure Go &middot; go-ora v2.9.0 &middot; Oracle AI Database
+    </p>
+  </div>
+  <span class="slide-number">24</span>
+</section>
+
+<script>
+class SlidePresentation {
+  constructor() {
+    this.slides = document.querySelectorAll('.slide');
+    this.currentSlide = 0;
+    this.isScrolling = false;
+    this.touchStartY = 0;
+    this.touchStartX = 0;
+
+    this.createNavDots();
+    this.setupIntersectionObserver();
+    this.setupKeyboardNav();
+    this.setupTouchNav();
+    this.setupWheelNav();
+    this.updateProgressBar();
+  }
+
+  createNavDots() {
+    const container = document.getElementById('nav-dots');
+    this.slides.forEach((slide, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'nav-dot';
+      dot.setAttribute('aria-label', slide.dataset.title || `Slide ${i + 1}`);
+      dot.title = slide.dataset.title || `Slide ${i + 1}`;
+      dot.addEventListener('click', () => this.goToSlide(i));
+      container.appendChild(dot);
+    });
+    this.dots = container.querySelectorAll('.nav-dot');
+  }
+
+  setupIntersectionObserver() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const index = Array.from(this.slides).indexOf(entry.target);
+          this.currentSlide = index;
+          this.updateNavDots();
+          this.updateProgressBar();
+
+          // Trigger reveal animations
+          const reveals = entry.target.querySelectorAll('.reveal');
+          reveals.forEach((el, i) => {
+            setTimeout(() => el.classList.add('visible'), i * 150);
+          });
+        } else {
+          // Reset reveals when leaving
+          const reveals = entry.target.querySelectorAll('.reveal');
+          reveals.forEach(el => el.classList.remove('visible'));
+        }
+      });
+    }, { threshold: 0.5 });
+
+    this.slides.forEach(slide => observer.observe(slide));
+  }
+
+  setupKeyboardNav() {
+    document.addEventListener('keydown', (e) => {
+      switch(e.key) {
+        case 'ArrowDown':
+        case 'ArrowRight':
+        case ' ':
+        case 'PageDown':
+          e.preventDefault();
+          this.nextSlide();
+          break;
+        case 'ArrowUp':
+        case 'ArrowLeft':
+        case 'PageUp':
+          e.preventDefault();
+          this.prevSlide();
+          break;
+        case 'Home':
+          e.preventDefault();
+          this.goToSlide(0);
+          break;
+        case 'End':
+          e.preventDefault();
+          this.goToSlide(this.slides.length - 1);
+          break;
+      }
+    });
+  }
+
+  setupTouchNav() {
+    document.addEventListener('touchstart', (e) => {
+      this.touchStartY = e.touches[0].clientY;
+      this.touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+
+    document.addEventListener('touchend', (e) => {
+      const deltaY = this.touchStartY - e.changedTouches[0].clientY;
+      const deltaX = this.touchStartX - e.changedTouches[0].clientX;
+
+      // Only navigate if vertical swipe is dominant and significant
+      if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 50) {
+        if (deltaY > 0) {
+          this.nextSlide();
+        } else {
+          this.prevSlide();
+        }
+      }
+    }, { passive: true });
+  }
+
+  setupWheelNav() {
+    let lastWheel = 0;
+    document.addEventListener('wheel', (e) => {
+      const now = Date.now();
+      if (now - lastWheel < 800) return;
+      lastWheel = now;
+
+      if (e.deltaY > 0) {
+        this.nextSlide();
+      } else if (e.deltaY < 0) {
+        this.prevSlide();
+      }
+    }, { passive: true });
+  }
+
+  nextSlide() {
+    if (this.currentSlide < this.slides.length - 1) {
+      this.goToSlide(this.currentSlide + 1);
+    }
+  }
+
+  prevSlide() {
+    if (this.currentSlide > 0) {
+      this.goToSlide(this.currentSlide - 1);
+    }
+  }
+
+  goToSlide(index) {
+    this.slides[index].scrollIntoView({ behavior: 'smooth' });
+    this.currentSlide = index;
+    this.updateNavDots();
+    this.updateProgressBar();
+  }
+
+  updateNavDots() {
+    this.dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === this.currentSlide);
+    });
+  }
+
+  updateProgressBar() {
+    const progress = ((this.currentSlide + 1) / this.slides.length) * 100;
+    document.getElementById('progress-bar').style.width = `${progress}%`;
+  }
+}
+
+// Initialize on load
+document.addEventListener('DOMContentLoaded', () => {
+  new SlidePresentation();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+{
+  "nodes": [
+    {
+      "id": "topic-main",
+      "type": "file",
+      "file": "10 Topics/Agent Memory.md",
+      "x": -140,
+      "y": 60,
+      "width": 320,
+      "height": 120,
+      "color": "2"
+    },
+    {
+      "id": "concept-main-0",
+      "type": "file",
+      "file": "20 Concepts/Episodic Memory.md",
+      "x": -520,
+      "y": 320,
+      "width": 240,
+      "height": 110,
+      "color": "4"
+    },
+    {
+      "id": "concept-main-1",
+      "type": "file",
+      "file": "20 Concepts/Procedural Memory.md",
+      "x": -260,
+      "y": 320,
+      "width": 240,
+      "height": 110,
+      "color": "4"
+    },
+    {
+      "id": "concept-main-2",
+      "type": "file",
+      "file": "20 Concepts/Semantic Memory.md",
+      "x": 0,
+      "y": 320,
+      "width": 240,
+      "height": 110,
+      "color": "4"
+    },
+    {
+      "id": "topic-secondary",
+      "type": "file",
+      "file": "10 Topics/Agent Loop.md",
+      "x": 520,
+      "y": 120,
+      "width": 280,
+      "height": 110,
+      "color": "5"
+    },
+    {
+      "id": "concept-secondary-0",
+      "type": "file",
+      "file": "20 Concepts/Context Retrieval.md",
+      "x": 420,
+      "y": 340,
+      "width": 210,
+      "height": 100,
+      "color": "6"
+    },
+    {
+      "id": "concept-secondary-1",
+      "type": "file",
+      "file": "20 Concepts/Evaluation.md",
+      "x": 640,
+      "y": 340,
+      "width": 210,
+      "height": 100,
+      "color": "6"
+    },
+    {
+      "id": "concept-secondary-2",
+      "type": "file",
+      "file": "20 Concepts/Execution.md",
+      "x": 860,
+      "y": 340,
+      "width": 210,
+      "height": 100,
+      "color": "6"
+    },
+    {
+      "id": "concept-secondary-3",
+      "type": "file",
+      "file": "20 Concepts/Goal.md",
+      "x": 1080,
+      "y": 340,
+      "width": 210,
+      "height": 100,
+      "color": "6"
+    },
+    {
+      "id": "concept-secondary-4",
+      "type": "file",
+      "file": "20 Concepts/Memory Update.md",
+      "x": 1300,
+      "y": 340,
+      "width": 210,
+      "height": 100,
+      "color": "6"
+    },
+    {
+      "id": "concept-secondary-5",
+      "type": "file",
+      "file": "20 Concepts/Tool Selection.md",
+      "x": 1520,
+      "y": 340,
+      "width": 210,
+      "height": 100,
+      "color": "6"
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-topic-main-concept-main-0",
+      "fromNode": "topic-main",
+      "fromSide": "bottom",
+      "toNode": "concept-main-0",
+      "toSide": "top",
+      "color": "2"
+    },
+    {
+      "id": "edge-topic-main-concept-main-1",
+      "fromNode": "topic-main",
+      "fromSide": "bottom",
+      "toNode": "concept-main-1",
+      "toSide": "top",
+      "color": "2"
+    },
+    {
+      "id": "edge-topic-main-concept-main-2",
+      "fromNode": "topic-main",
+      "fromSide": "bottom",
+      "toNode": "concept-main-2",
+      "toSide": "top",
+      "color": "2"
+    },
+    {
+      "id": "edge-topic-secondary-concept-secondary-0",
+      "fromNode": "topic-secondary",
+      "fromSide": "bottom",
+      "toNode": "concept-secondary-0",
+      "toSide": "top",
+      "color": "5"
+    },
+    {
+      "id": "edge-topic-secondary-concept-secondary-1",
+      "fromNode": "topic-secondary",
+      "fromSide": "bottom",
+      "toNode": "concept-secondary-1",
+      "toSide": "top",
+      "color": "5"
+    },
+    {
+      "id": "edge-topic-secondary-concept-secondary-2",
+      "fromNode": "topic-secondary",
+      "fromSide": "bottom",
+      "toNode": "concept-secondary-2",
+      "toSide": "top",
+      "color": "5"
+    },
+    {
+      "id": "edge-topic-secondary-concept-secondary-3",
+      "fromNode": "topic-secondary",
+      "fromSide": "bottom",
+      "toNode": "concept-secondary-3",
+      "toSide": "top",
+      "color": "5"
+    },
+    {
+      "id": "edge-topic-secondary-concept-secondary-4",
+      "fromNode": "topic-secondary",
+      "fromSide": "bottom",
+      "toNode": "concept-secondary-4",
+      "toSide": "top",
+      "color": "5"
+    },
+    {
+      "id": "edge-topic-secondary-concept-secondary-5",
+      "fromNode": "topic-secondary",
+      "fromSide": "bottom",
+      "toNode": "concept-secondary-5",
+      "toSide": "top",
+      "color": "5"
+    },
+    {
+      "id": "bridge-concept-main-2-concept-secondary-0",
+      "fromNode": "concept-main-2",
+      "fromSide": "right",
+      "toNode": "concept-secondary-0",
+      "toSide": "left",
+      "color": "4",
+      "label": "bridge"
+    },
+    {
+      "id": "bridge-concept-main-1-concept-secondary-5",
+      "fromNode": "concept-main-1",
+      "fromSide": "right",
+      "toNode": "concept-secondary-5",
+      "toSide": "left",
+      "color": "4",
+      "label": "bridge"
+    },
+    {
+      "id": "bridge-concept-main-1-concept-secondary-2",
+      "fromNode": "concept-main-1",
+      "fromSide": "right",
+      "toNode": "concept-secondary-2",
+      "toSide": "left",
+      "color": "4",
+      "label": "bridge"
+    },
+    {
+      "id": "bridge-concept-main-0-concept-secondary-1",
+      "fromNode": "concept-main-0",
+      "fromSide": "right",
+      "toNode": "concept-secondary-1",
+      "toSide": "left",
+      "color": "4",
+      "label": "bridge"
+    },
+    {
+      "id": "bridge-concept-main-0-concept-secondary-4",
+      "fromNode": "concept-main-0",
+      "fromSide": "right",
+      "toNode": "concept-secondary-4",
+      "toSide": "left",
+      "color": "4",
+      "label": "bridge"
+    }
+  ]
+}

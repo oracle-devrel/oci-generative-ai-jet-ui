@@ -1,0 +1,5 @@
+- name: Backend
+  hosts: backend
+  become: true
+  roles:
+    - java

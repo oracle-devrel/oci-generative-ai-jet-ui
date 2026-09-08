@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+/* Geist via Fontsource — bundled, not a CDN. */
+@import "@fontsource/geist-sans/400.css";
+@import "@fontsource/geist-sans/500.css";
+@import "@fontsource/geist-sans/600.css";
+@import "@fontsource/geist-sans/700.css";
+@import "@fontsource/geist-mono/400.css";
+@import "@fontsource/geist-mono/500.css";
+@import "@fontsource/geist-mono/600.css";
+
+/* ---- Design tokens (taste-skill calibrated) ----
+   off-black zinc base (never #000), single desaturated emerald accent,
+   no AI-purple, no neon, tinted shadows only. */
+@theme {
+  --font-sans: "Geist Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --color-ink: #0c0f14; /* off-black charcoal canvas */
+  --color-surface: #12161d;
+  --color-surface-2: #171c25;
+  --color-surface-3: #1d232e;
+  --color-line: #232a36;
+  --color-line-soft: #1b212b;
+
+  --color-fg: #e7edf3;
+  --color-fg-dim: #9aa6b2;
+  --color-fg-faint: #6b7682;
+
+  --color-accent: #2fb573; /* single desaturated emerald, sat < 80% */
+  --color-accent-bright: #36c47e;
+  --color-accent-dim: #1f7d50;
+  --color-accent-deep: #0f3f29;
+
+  --color-amber: #d8a64a; /* db-only status */
+  --color-rose: #c2565c; /* offline / loss accent */
+
+  --shadow-tint: 0 24px 48px -24px rgba(0, 0, 0, 0.65);
+  --shadow-tint-sm: 0 14px 30px -18px rgba(0, 0, 0, 0.55);
+
+  --radius-card: 18px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-ink);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Fixed ambient layer — pointer-events-none, never on a scroll container
+   (taste-skill performance guardrail). */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(56% 46% at 82% -8%, rgba(47, 181, 115, 0.1), transparent 70%),
+    radial-gradient(46% 38% at -6% 104%, rgba(47, 181, 115, 0.05), transparent 70%);
+}
+
+/* Tabular figures for all monospace numerics. */
+.font-mono {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1, "zero" 1;
+}
+
+/* Custom scrollbars — thin, tinted, never default chrome. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--color-line);
+  border-radius: 999px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--color-surface-3);
+}
+
+/* Honor reduced-motion preferences. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

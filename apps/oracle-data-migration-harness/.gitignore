@@ -1,0 +1,12 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+node_modules/
+ui/dist/
+.pytest_cache/
+.DS_Store
+.cache/
+notebooks/.ipynb_checkpoints/
+assets/migration-fallback.mp4
+*.egg-info/

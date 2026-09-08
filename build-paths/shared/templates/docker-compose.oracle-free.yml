@@ -1,0 +1,59 @@
+# Oracle 26ai Free — drop-in for any build-paths project.
+#
+# Port + volume + project-name are parameterised via .env so multiple parallel
+# build-paths runs can coexist on the same host (no collision on 1521).
+# The oracle-aidb-docker-setup skill writes those .env values for you.
+#
+# Required .env keys (skill writes these automatically):
+#   ORACLE_PWD            12+ char password, mixed case, digits, no $/@/"
+#   ORACLE_PORT           host port for the Oracle listener (default 1521)
+#   ORACLE_VOLUME         docker named volume (default oracle-data)
+#   COMPOSE_PROJECT_NAME  isolates this stack from other compose stacks
+#
+# DSN for the Python side: localhost:${ORACLE_PORT}/FREEPDB1
+# EM Express UI:           https://localhost:${ORACLE_EM_PORT}/em
+#                          (user=SYSTEM, pass=ORACLE_PWD)
+
+services:
+  oracle:
+    image: container-registry.oracle.com/database/free:latest
+    container_name: oracle-26ai-free-${COMPOSE_PROJECT_NAME:-default}
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${ORACLE_PORT:-1521}:1521"   # listener
+      - "127.0.0.1:${ORACLE_EM_PORT:-5500}:5500" # EM Express
+    environment:
+      ORACLE_PWD: ${ORACLE_PWD}
+      ORACLE_CHARACTERSET: AL32UTF8
+    volumes:
+      # The volume *alias* `oradata` is fixed; the actual docker volume name
+      # comes from the `volumes:` block below via `name: ${ORACLE_VOLUME...}`.
+      - oradata:/opt/oracle/oradata
+      # Drop SQL files in ./init-schema/ — Oracle runs them once on first boot,
+      # against FREEPDB1, alphabetically. Used by some skills for seed data.
+      - ./init-schema:/opt/oracle/scripts/startup:ro
+    healthcheck:
+      # Use the image's own status script. It returns 0 only when the DB is
+      # actually OPEN — no string matching against sqlplus output.
+      #
+      # The earlier `echo 'SELECT 1 FROM DUAL;' | sqlplus -L ... | grep -q '1'`
+      # check false-positives: when the container starts under the wrong arch
+      # (amd64 layers on an arm64 host, or vice-versa), `su oracle` inside the
+      # entrypoint fails with "Authentication failure", no Oracle processes
+      # ever start, and sqlplus returns an ORA-01034 banner that contains the
+      # digit `1`. The grep matched the error text, compose reported the
+      # container HEALTHY, and the user only discovered the DB was dead when
+      # the first oracledb.connect() failed minutes later.
+      test: ["CMD-SHELL", "/opt/oracle/checkDBStatus.sh"]
+      interval: 15s
+      timeout: 10s
+      retries: 20
+      start_period: 90s
+
+volumes:
+  # Static alias `oradata` (referenced by the service's volumes:) bound to
+  # a parametric docker volume id via `name:`. This lets parallel runs use
+  # the same compose template with different .env values for ORACLE_VOLUME
+  # without colliding.
+  oradata:
+    name: ${ORACLE_VOLUME:-oracle-data}

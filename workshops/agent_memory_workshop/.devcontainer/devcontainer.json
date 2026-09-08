@@ -1,0 +1,49 @@
+{
+  "name": "Oracle Agent Memory Workshop",
+  "image": "mcr.microsoft.com/devcontainers/python:3.11",
+
+  "hostRequirements": {
+    "cpus": 4
+  },
+
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "moby": false,
+      "enableNonRootDocker": "true"
+    }
+  },
+
+  "forwardPorts": [1521],
+  "portsAttributes": {
+    "1521": { "label": "Oracle DB", "onAutoForward": "silent" }
+  },
+
+  "onCreateCommand": "bash .devcontainer/setup_build.sh",
+  "postCreateCommand": "bash .devcontainer/setup_runtime.sh",
+  "postStartCommand": "bash .devcontainer/start_oracle.sh",
+  "postAttachCommand": "code README.md workshop/notebook_student.ipynb docs/part-1-oracle-setup.md docs/part-2-vector-search.md",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-toolsai.jupyter",
+        "ms-toolsai.jupyter-keymap",
+        "ms-toolsai.jupyter-renderers"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "jupyter.notebookFileRoot": "${containerWorkspaceFolder}/workshop"
+      }
+    }
+  },
+
+  "remoteEnv": {
+    "ORACLE_DSN": "localhost:1521/FREEPDB1",
+    "ORACLE_USER": "VECTOR",
+    "ORACLE_PASSWORD": "VectorPwd_2025",
+    "TAVILY_API_KEY": "${localEnv:TAVILY_API_KEY}",
+    "OCI_GENAI_API_KEY": "${localEnv:OCI_GENAI_API_KEY}",
+    "OCI_GENAI_ENDPOINT": "${localEnv:OCI_GENAI_ENDPOINT}"
+  }
+}

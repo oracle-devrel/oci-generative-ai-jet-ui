@@ -1,0 +1,15 @@
+[Unit]
+Description=ShopAssist Streamlit UI
+After=network.target
+
+[Service]
+User=opc
+WorkingDirectory=/home/opc/web
+Environment=BACKEND_URL={{ backend_url }}
+Environment=PATH=/opt/web/venv/bin:/usr/bin:/bin
+ExecStart=/opt/web/venv/bin/streamlit run /home/opc/web/app.py --server.port {{ streamlit_port }} --server.address 0.0.0.0 --server.headless true
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

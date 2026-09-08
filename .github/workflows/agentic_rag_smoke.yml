@@ -1,0 +1,37 @@
+name: agentic_rag smoke tests
+
+on:
+  pull_request:
+    paths:
+      - 'apps/agentic_rag/src/**'
+      - 'apps/agentic_rag/tests/test_smoke_reasoning.py'
+      - '.github/workflows/agentic_rag_smoke.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'apps/agentic_rag/src/**'
+      - 'apps/agentic_rag/tests/test_smoke_reasoning.py'
+      - '.github/workflows/agentic_rag_smoke.yml'
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/agentic_rag
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install minimal test deps
+        # Intentionally NOT installing requirements.txt -- the smoke test
+        # stubs out agent_reasoning and mocks OraDBVectorStore, so it needs
+        # only pytest. This keeps CI fast and hermetic.
+        run: pip install pytest
+
+      - name: Run reasoning smoke tests
+        run: pytest tests/test_smoke_reasoning.py -v

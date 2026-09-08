@@ -1,0 +1,65 @@
+---
+- name: Install JDK 21 (headless)
+  ansible.builtin.package:
+    name: java-21-openjdk-headless
+    update_cache: yes
+
+- name: Create backend config directory
+  ansible.builtin.file:
+    path: "{{ backend_dest_directory }}/config"
+    state: directory
+    owner: opc
+    group: opc
+    mode: '0744'
+
+- name: Copy backend JAR
+  ansible.builtin.copy:
+    src: "files/{{ backend_jar_file }}"
+    dest: "{{ backend_dest_directory }}/{{ backend_jar_file }}"
+    owner: opc
+    group: opc
+    mode: '0640'
+
+- name: Render application.yaml
+  ansible.builtin.template:
+    src: files/application.yaml.j2
+    dest: "{{ backend_dest_directory }}/config/application.yaml"
+    owner: opc
+    group: opc
+    mode: '0640'
+
+- name: Render backend.service systemd unit
+  ansible.builtin.template:
+    src: files/backend.service.j2
+    dest: /etc/systemd/system/backend.service
+    mode: '0644'
+
+- name: Render run.sh launcher
+  ansible.builtin.template:
+    src: files/run.sh.j2
+    dest: "{{ backend_dest_directory }}/run.sh"
+    owner: opc
+    group: opc
+    mode: '0744'
+
+- name: Reload systemd daemon
+  ansible.builtin.systemd:
+    daemon_reload: yes
+
+- name: Start backend service
+  ansible.builtin.systemd:
+    name: backend
+    state: started
+
+- name: Enable backend service
+  ansible.builtin.systemd:
+    name: backend
+    enabled: yes
+
+- name: Stop firewalld
+  ansible.builtin.command: systemctl stop firewalld
+  failed_when: false
+
+- name: Disable firewalld
+  ansible.builtin.command: systemctl disable firewalld
+  failed_when: false

@@ -1,0 +1,12 @@
+# Agent Reasoning Configuration
+# Copy this file to config.yaml and modify as needed
+
+ollama:
+  # Ollama API endpoint
+  # Default: http://localhost:11434 (local Ollama installation)
+  # 
+  # Examples:
+  #   Local:  http://localhost:11434
+  #   Remote: http://192.168.1.100:11434
+  #   Docker: http://host.docker.internal:11434
+  host: http://localhost:11434

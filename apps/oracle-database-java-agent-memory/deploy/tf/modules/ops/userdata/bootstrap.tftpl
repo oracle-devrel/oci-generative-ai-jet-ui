@@ -1,0 +1,83 @@
+#!/bin/bash
+set -e
+
+touch /home/opc/bootstrap.lock
+
+# Wait for outbound network (NAT gateway may take ~60s to start routing after creation)
+for i in 1 2 3 4 5 6 7 8 9 10 11 12; do
+    if curl -fsS --connect-timeout 5 https://yum.oracle.com/ >/dev/null 2>&1; then
+        echo "Outbound network is up."
+        break
+    fi
+    echo "Waiting for outbound network... ($i/12)"
+    sleep 15
+done
+
+# Update repo
+dnf upgrade -y
+dnf install oracle-epel-release-el9 -y
+dnf install ansible-core unzip curl -y
+
+# Get the DB wallet
+curl --fail -sS "${db_wallet_par_full_path}" -o /home/opc/wallet.zip.b64
+base64 -d /home/opc/wallet.zip.b64 > /home/opc/wallet.zip && rm /home/opc/wallet.zip.b64
+mkdir -p /home/opc/wallet
+unzip /home/opc/wallet.zip -d /home/opc/wallet
+chown -R opc:opc /home/opc/wallet
+chown opc:opc /home/opc/wallet.zip
+
+# Get ansible_ops
+curl --fail -sS "${ansible_ops_par_full_path}" -o /home/opc/ansible_ops.zip
+mkdir -p /home/opc/ansible_ops
+unzip /home/opc/ansible_ops.zip -d /home/opc/ansible_ops && \
+    rm /home/opc/ansible_ops.zip
+chown -R opc:opc /home/opc/ansible_ops
+
+# Save private SSH key (for optional cross-VM hops to backend/web/ollama)
+cat <<EOT >> /home/opc/private.key
+${private_key_content}
+EOT
+chown opc:opc /home/opc/private.key
+chmod 400 /home/opc/private.key
+
+cat <<EOT >> /home/opc/ansible_params.json
+{
+  "project_name": "${project_name}",
+  "tenancy_ocid": "${tenancy_ocid}",
+  "user_ocid": "${user_ocid}",
+  "fingerprint": "${fingerprint}",
+  "private_api_key_content": ${jsonencode(private_api_key_content)},
+  "db_service_name": "${db_service_name}",
+  "db_admin_password": "${db_admin_password}",
+  "region_name": "${region_name}",
+  "onnx_model_name": "${onnx_model_name}",
+  "onnx_object_uri": "${onnx_object_uri}",
+  "onnx_object_name": "${onnx_object_name}",
+  "onnx_bucket_name": "${onnx_bucket_name}",
+  "onnx_bucket_namespace": "${onnx_bucket_namespace}"
+}
+EOT
+chown opc:opc /home/opc/ansible_params.json
+chmod 600 /home/opc/ansible_params.json
+
+cat <<EOT >> /home/opc/ops.ini
+[ops]
+localhost ansible_connection=local ansible_user=root
+
+[ops:vars]
+ansible_python_interpreter="/usr/bin/python3"
+EOT
+chown opc:opc /home/opc/ops.ini
+
+touch /home/opc/ansible-playbook.log
+chown opc:opc /home/opc/ansible-playbook.log
+
+ANSIBLE_PYTHON_INTERPRETER="/usr/bin/python3" \
+    ansible-galaxy collection install ansible.posix | tee -a /home/opc/ansible-playbook.log
+
+ANSIBLE_PYTHON_INTERPRETER="/usr/bin/python3" ansible-playbook \
+    -i /home/opc/ops.ini \
+    --extra-vars "@/home/opc/ansible_params.json" \
+    /home/opc/ansible_ops/server.yaml | tee -a /home/opc/ansible-playbook.log
+
+rm /home/opc/bootstrap.lock

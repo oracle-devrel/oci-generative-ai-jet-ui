@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face {
+    font-family: 'Virgil';
+    src: url('Virgil.woff2') format('woff2');
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #f5f1ea;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #1e1e1e;
+    width: 1200px;
+    padding: 44px 48px 40px;
+  }
+  .title { font-family: 'Virgil'; font-size: 33px; font-weight: 400; letter-spacing: 0.2px; }
+  .title .accent { color: #1f6feb; }
+  .subtitle { font-size: 16px; color: #5f5a52; margin-top: 8px; }
+  .row { display: flex; gap: 26px; margin-top: 30px; align-items: stretch; }
+  .card {
+    flex: 1; background: #141a22; border: 1px solid #2b3646;
+    border-radius: 16px;
+    padding: 22px 26px; position: relative;
+  }
+  
+  .card h2 { font-family: 'Virgil'; font-size: 19px; font-weight: 400; letter-spacing: 0.4px; }
+  .card .who { font-size: 13px; color: #9da7b3; margin-top: 3px; margin-bottom: 16px; }
+  .doc h2 { color: #58a6ff; }
+  .graph h2 { color: #3fb950; }
+
+  /* document side */
+  .json {
+    font-family: "SF Mono", ui-monospace, Menlo, monospace; font-size: 14.5px; line-height: 1.62;
+    background: #0d1117; border: 1px solid #263041; border-radius: 12px; padding: 18px 20px;
+  }
+  .k  { color: #79c0ff; }
+  .s  { color: #a5d6ff; }
+  .p  { color: #6e7681; }
+  .nest { border-left: 2px solid #1f6feb55; margin-left: 10px; padding-left: 14px; }
+  .badge {
+    position: absolute; top: -13px; right: 20px; font-size: 12px; font-weight: 600;
+    background: #1f6feb; color: #fff; border-radius: 999px; padding: 4px 12px;
+  }
+  .graph .badge { background: #238636; }
+
+  /* graph side */
+  .gwrap { position: relative; height: 318px; background: #0d1117; border: 1px solid #263041; border-radius: 12px; }
+  svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .node {
+    position: absolute; transform: translate(-50%, -50%);
+    background: #1d4573; border: 1.5px solid #58a6ff; color: #dbe9ff;
+    border-radius: 12px; padding: 9px 14px; font-size: 13.5px; font-weight: 600; white-space: nowrap;
+  }
+  .node.post {
+    background: #10161d; border: 1.5px dashed #8b98a5; color: #c3ccd6; font-weight: 500;
+    border-radius: 999px; font-size: 12.5px; padding: 7px 13px;
+  }
+  .legend { display: flex; gap: 22px; margin-top: 12px; font-size: 12.5px; color: #9da7b3; }
+  .legend span::before { content: ""; display: inline-block; width: 22px; height: 0; border-top: 2.5px solid #3fb950; margin-right: 7px; vertical-align: middle; }
+  .legend .cite::before { border-top: 2.5px dashed #d29922; }
+
+  /* bottom bar */
+  .bottom {
+    margin-top: 26px; display: flex; align-items: center; gap: 16px;
+    background: linear-gradient(90deg, #101a2b, #101d15); border: 1px solid #2b3646;
+    border-radius: 14px; padding: 16px 22px;
+  }
+  .bottom .pill { font-family: 'Virgil';
+    background: #d29922; color: #0d1117; font-weight: 800; font-size: 12.5px;
+    border-radius: 999px; padding: 6px 14px; white-space: nowrap; letter-spacing: 0.4px;
+  }
+  .bottom p { font-size: 14.5px; color: #c9d4de; line-height: 1.5; }
+  .bottom code { font-family: "SF Mono", ui-monospace, Menlo, monospace; color: #79c0ff; font-size: 13.5px; }
+</style>
+</head>
+<body>
+  <div class="title">One wiki page, <span class="accent">two shapes</span></div>
+  <div class="subtitle">Your agents read a friendly document. The engine maintains a consistent graph. Same rows underneath.</div>
+
+  <div class="row">
+    <div class="card doc">
+      <div class="badge">JSON document</div>
+      <h2>What your agents read</h2>
+      <div class="who">one query on <span style="font-family: ui-monospace, Menlo, monospace">wiki_page_dv</span>: citations already nested</div>
+      <div class="json">
+        <div><span class="p">{</span></div>
+        <div class="nest">
+          <div><span class="k">"topic"</span><span class="p">:</span> <span class="s">"LLM Inference"</span><span class="p">,</span></div>
+          <div><span class="k">"summary"</span><span class="p">:</span> <span class="s">"How serving differs from training…"</span><span class="p">,</span></div>
+          <div><span class="k">"links"</span><span class="p">:</span> <span class="s">["AI Infrastructure", "Cloud Computing"]</span><span class="p">,</span></div>
+          <div><span class="k">"citations"</span><span class="p">: [</span></div>
+          <div class="nest">
+            <div><span class="p">{</span> <span class="k">"title"</span><span class="p">:</span> <span class="s">"LLM inference vs traditional inference"</span> <span class="p">},</span></div>
+            <div><span class="p">{</span> <span class="k">"title"</span><span class="p">:</span> <span class="s">"Notes: what changes at serving time"</span> <span class="p">}</span></div>
+          </div>
+          <div><span class="p">]</span></div>
+        </div>
+        <div><span class="p">}</span></div>
+      </div>
+    </div>
+
+    <div class="card graph">
+      <div class="badge">Relational graph</div>
+      <h2>What the engine maintains</h2>
+      <div class="who">cross-links and citations are foreign keys, consistent as content changes</div>
+      <div class="gwrap">
+        <svg viewBox="0 0 480 318">
+          <!-- page->page links (solid green) -->
+          <line x1="150" y1="84"  x2="330" y2="84"  stroke="#3fb950" stroke-width="2.5"/>
+          <line x1="150" y1="84"  x2="240" y2="176" stroke="#3fb950" stroke-width="2.5"/>
+          <line x1="330" y1="84"  x2="240" y2="176" stroke="#3fb950" stroke-width="2.5"/>
+          <!-- citations (dashed gold) -->
+          <line x1="150" y1="84"  x2="118" y2="252" stroke="#d29922" stroke-width="2.2" stroke-dasharray="6 5"/>
+          <line x1="150" y1="84"  x2="330" y2="252" stroke="#d29922" stroke-width="2.2" stroke-dasharray="6 5"/>
+          <line x1="240" y1="176" x2="330" y2="252" stroke="#d29922" stroke-width="2.2" stroke-dasharray="6 5"/>
+        </svg>
+        <div class="node" style="left: 31%; top: 26%;">LLM Inference</div>
+        <div class="node" style="left: 69%; top: 26%;">AI Infrastructure</div>
+        <div class="node" style="left: 50%; top: 55%;">Cloud Computing</div>
+        <div class="node post" style="left: 24%; top: 79%;">🎬 your video</div>
+        <div class="node post" style="left: 69%; top: 79%;">📝 your note</div>
+      </div>
+      <div class="legend">
+        <span>page → page link</span>
+        <span class="cite">citation → your post</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div class="pill">JSON RELATIONAL DUALITY</div>
+    <p>Declare once how the tables compose into a document, and Oracle AI Database 26ai serves
+    <b>both shapes from the same rows</b>: read or write either side, no sync code, no drift.
+    In this build: <code>wiki_page_dv</code>.</p>
+  </div>
+</body>
+</html>

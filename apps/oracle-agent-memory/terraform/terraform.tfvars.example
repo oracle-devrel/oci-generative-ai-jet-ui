@@ -1,0 +1,9 @@
+# Required: your OCI tenancy OCID.
+# Find it under Profile (top-right) → Tenancy in the OCI Console.
+tenancy_ocid = "ocid1.tenancy.oc1..xxxxxxxxxxxxxxxxxxxxxx"
+
+# Optional: leave blank to use the root (tenancy) compartment.
+# compartment_ocid = "ocid1.compartment.oc1..xxxxxxxxxxxxxxxxxxxxxx"
+
+# Optional: region. Must support OCI Generative AI.
+# region = "us-chicago-1"

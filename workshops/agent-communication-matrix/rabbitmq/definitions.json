@@ -1,0 +1,42 @@
+{
+  "vhosts": [{ "name": "/" }],
+  "exchanges": [
+    {
+      "name": "agent.dlx",
+      "vhost": "/",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    }
+  ],
+  "queues": [
+    {
+      "name": "agent.tasks",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-dead-letter-exchange": "agent.dlx",
+        "x-dead-letter-routing-key": "agent.tasks"
+      }
+    },
+    {
+      "name": "agent.tasks.dlq",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    }
+  ],
+  "bindings": [
+    {
+      "source": "agent.dlx",
+      "vhost": "/",
+      "destination": "agent.tasks.dlq",
+      "destination_type": "queue",
+      "routing_key": "agent.tasks",
+      "arguments": {}
+    }
+  ]
+}

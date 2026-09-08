@@ -1,0 +1,12 @@
+oracledb>=2.5.0
+langchain>=1.0.0
+langchain-core>=1.0.0
+langchain-community>=0.4.0
+langchain-oracledb>=1.0.0
+langchain-ollama>=1.0.0
+langchain-text-splitters>=1.0.0
+pypdf>=5.0.0
+python-dotenv>=1.0.0
+streamlit>=1.40.0
+requests>=2.32.0
+certifi>=2024.0.0
