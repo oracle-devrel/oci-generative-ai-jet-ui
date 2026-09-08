@@ -19,7 +19,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.52.0",
-    "react-router-dom": "^6.30.4",
+    "react-router-dom": "^6.30.6",
     "uuid": "^14.0.0",
     "ws": "^8.17.1"
   },
