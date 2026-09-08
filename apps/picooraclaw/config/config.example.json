@@ -108,6 +108,10 @@
     "ollama": {
       "api_key": "",
       "api_base": "http://localhost:11434/v1"
+    },
+    "minimax": {
+      "api_key": "",
+      "api_base": "https://api.minimax.io/v1"
     }
   },
   "tools": {

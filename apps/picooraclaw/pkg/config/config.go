@@ -228,6 +228,7 @@ type ProvidersConfig struct {
 	Moonshot      ProviderConfig `json:"moonshot"`
 	DeepSeek      ProviderConfig `json:"deepseek"`
 	GitHubCopilot ProviderConfig `json:"github_copilot"`
+	MiniMax       ProviderConfig `json:"minimax"`
 }
 
 type ProviderConfig struct {
@@ -369,6 +370,7 @@ func DefaultConfig() *Config {
 			Gemini:     ProviderConfig{},
 			Nvidia:     ProviderConfig{},
 			Moonshot:   ProviderConfig{},
+			MiniMax:    ProviderConfig{},
 		},
 		Gateway: GatewayConfig{
 			Host: "0.0.0.0",

@@ -692,6 +692,32 @@ Get a key at [openrouter.ai/keys](https://openrouter.ai/keys) (200K free tokens/
 </details>
 
 <details>
+<summary><b>MiniMax (high-performance, great value)</b></summary>
+
+```json
+{
+  "agents": {
+    "defaults": {
+      "provider": "minimax",
+      "model": "MiniMax-M2.7"
+    }
+  },
+  "providers": {
+    "minimax": {
+      "api_key": "your-key",
+      "api_base": "https://api.minimax.io/v1"
+    }
+  }
+}
+```
+
+Available models: `MiniMax-M2.7` (default), `MiniMax-M2.7-highspeed` (faster).
+
+Get a key at [platform.minimax.io](https://platform.minimax.io).
+
+</details>
+
+<details>
 <summary><b>Zhipu (best for Chinese users)</b></summary>
 
 ```json
@@ -728,6 +754,7 @@ Get a key at [bigmodel.cn](https://open.bigmodel.cn/usercenter/proj-mgmt/apikeys
 | `gemini` | Gemini models | [aistudio.google.com](https://aistudio.google.com) |
 | `groq` | Fast inference + voice transcription | [console.groq.com](https://console.groq.com) |
 | `deepseek` | DeepSeek models | [platform.deepseek.com](https://platform.deepseek.com) |
+| `minimax` | MiniMax models (M2.7) | [platform.minimax.io](https://platform.minimax.io) |
 | `zhipu` | Zhipu/GLM models | [bigmodel.cn](https://open.bigmodel.cn/usercenter/proj-mgmt/apikeys) |
 
 </details>
@@ -1001,7 +1028,7 @@ docker compose run --rm picoclaw-agent -m "What is 2+2?"
 ## Features
 
 - Single static binary (~10MB RAM), runs on RISC-V/ARM64/x86_64
-- Ollama, OpenRouter, Anthropic, OpenAI, Gemini, Zhipu, DeepSeek, Groq providers
+- Ollama, OpenRouter, Anthropic, OpenAI, Gemini, Zhipu, DeepSeek, Groq, MiniMax providers
 - **Default: [Oracle AI Database 26ai Free](https://www.oracle.com/database/free/)** with AI Vector Search (384-dim ONNX embeddings)
 - Chat channels: Telegram, Discord, Slack, QQ, DingTalk, LINE, Feishu, WhatsApp
 - Scheduled tasks via cron expressions
