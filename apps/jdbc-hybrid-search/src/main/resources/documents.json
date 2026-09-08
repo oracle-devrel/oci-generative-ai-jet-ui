@@ -1,0 +1,134 @@
+[
+  {
+    "title": "Oracle Vector Search for Beginners",
+    "content": "Hands-on beginner walkthrough for Oracle AI Database JDBC vector search, embeddings, cosine similarity, and semantic retrieval basics.",
+    "category": "tutorial",
+    "price": 0.0,
+    "metadata": {
+      "audience": "beginner",
+      "topics": ["vector", "jdbc", "search"],
+      "format": "guide"
+    }
+  },
+  {
+    "title": "Budget-Friendly Hybrid Search Recipes",
+    "content": "Budget-minded Oracle AI Database JDBC vector search for beginners, with starter recipes for JSON topic filters and simple hybrid queries.",
+    "category": "tutorial",
+    "price": 29.0,
+    "metadata": {
+      "audience": "beginner",
+      "topics": ["vector", "json", "jdbc"],
+      "format": "cookbook"
+    }
+  },
+  {
+    "title": "Production Hybrid Search Tuning",
+    "content": "Senior-level tuning clinic for ANN index probes, recall tradeoffs, reranking pipelines, and production relevance diagnostics.",
+    "category": "tutorial",
+    "price": 99.0,
+    "metadata": {
+      "audience": "advanced",
+      "topics": ["vector", "jdbc", "performance"],
+      "format": "workshop"
+    }
+  },
+  {
+    "title": "Spring JPA Relationship Patterns",
+    "content": "Reference on entity graphs, cascading rules, optimistic locking, and repository mappings with Spring Data JPA.",
+    "category": "tutorial",
+    "price": 39.0,
+    "metadata": {
+      "audience": "beginner",
+      "topics": ["spring", "jpa"],
+      "format": "guide"
+    }
+  },
+  {
+    "title": "Oracle JSON Analytics Playbook",
+    "content": "Database engineering playbook for JSON_TABLE projections, JSON_EXISTS filters, aggregation pipelines, and document analytics reporting.",
+    "category": "reference",
+    "price": 45.0,
+    "metadata": {
+      "audience": "intermediate",
+      "topics": ["json", "analytics"],
+      "format": "reference"
+    }
+  },
+  {
+    "title": "Embedding Model Benchmarks for Java",
+    "content": "Comparative benchmark report on Java embedding runtimes, token throughput, latency percentiles, and offline relevance evaluation.",
+    "category": "reference",
+    "price": 79.0,
+    "metadata": {
+      "audience": "intermediate",
+      "topics": ["vector", "java", "models"],
+      "format": "report"
+    }
+  },
+  {
+    "title": "Hybrid Search Architecture Notes",
+    "content": "System design notes covering retrieval stages, lexical fallback, metadata governance, and service boundaries for enterprise search stacks.",
+    "category": "reference",
+    "price": 59.0,
+    "metadata": {
+      "audience": "advanced",
+      "topics": ["vector", "search", "architecture"],
+      "format": "whitepaper"
+    }
+  },
+  {
+    "title": "OCI Generative AI Integration Lab",
+    "content": "Hands-on Java lab for OCI Generative AI service calls, credentials, prompt orchestration, and response handling patterns.",
+    "category": "tutorial",
+    "price": 65.0,
+    "metadata": {
+      "audience": "intermediate",
+      "topics": ["ai", "oci", "java"],
+      "format": "lab"
+    }
+  },
+  {
+    "title": "Oracle Spatial Mapping Basics",
+    "content": "Intro to coordinate systems, geometry indexes, bounding-box predicates, and map query workflows over JDBC with Oracle Spatial.",
+    "category": "tutorial",
+    "price": 35.0,
+    "metadata": {
+      "audience": "beginner",
+      "topics": ["spatial", "jdbc", "maps"],
+      "format": "guide"
+    }
+  },
+  {
+    "title": "Vector Index Maintenance Checklist",
+    "content": "Operations checklist for index health dashboards, rebuild scheduling, drift detection, and service-level readiness reviews.",
+    "category": "reference",
+    "price": 25.0,
+    "metadata": {
+      "audience": "advanced",
+      "topics": ["vector", "index", "operations"],
+      "format": "checklist"
+    }
+  },
+  {
+    "title": "Beginner Text Search with Oracle Text",
+    "content": "Starter guide to Oracle Text keyword indexes, stemming, sections, and relevance ranking for exact term lookup.",
+    "category": "tutorial",
+    "price": 20.0,
+    "metadata": {
+      "audience": "beginner",
+      "topics": ["text", "search", "jdbc"],
+      "format": "guide"
+    }
+  },
+  {
+    "title": "Cost-Aware Semantic Ranking",
+    "content": "Practical guide to balancing inference spend, latency budgets, evaluation sets, and semantic reranking quality targets.",
+    "category": "tutorial",
+    "price": 55.0,
+    "metadata": {
+      "audience": "beginner",
+      "topics": ["vector", "ranking", "budget"],
+      "format": "guide"
+    }
+  }
+]
