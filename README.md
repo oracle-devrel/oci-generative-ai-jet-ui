@@ -2,6 +2,29 @@
 
 This repository contains technical resources to help AI Developers and Engineers build AI applications, agents, and systems using Oracle AI Database and OCI services alongside other key components of the AI/Agent stack.
 
+## 🚀 Features
+
+- Oracle AI Database integrations
+- Agentic AI and Multi-Agent Systems
+- RAG and Hybrid Search Implementations
+- LangChain, LangGraph, and OpenAI SDK examples
+- Production-ready AI applications
+- Memory-Augmented Agent Architectures
+- OCI Generative AI integrations
+- End-to-end workshops and tutorials
+
+  ## 🏗️ Architecture Overview
+
+The repository demonstrates how Oracle AI Database serves as the central intelligence layer for AI applications by providing:
+
+- Vector Search
+- Graph Analytics
+- Relational Data Storage
+- JSON Document Storage
+- Agent Memory
+- Semantic Caching
+- Hybrid Retrieval
+
 ## What You'll Find
 
 This repository is organized into several key areas:
