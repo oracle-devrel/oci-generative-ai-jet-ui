@@ -1,0 +1,22 @@
+services:
+  oracle-db:
+    image: container-registry.oracle.com/database/free:latest
+    container_name: oracle-generative-ui-data-chat
+    ports:
+      - "1522:1521"
+      - "5502:5500"
+    environment:
+      ORACLE_PWD: OraclePwd_2026
+      ORACLE_SID: FREE
+      ORACLE_PDB: FREEPDB1
+    volumes:
+      - oracle_generative_ui_data_chat_data:/opt/oracle/oradata
+    healthcheck:
+      test: ["CMD-SHELL", "echo 'SELECT 1 FROM DUAL;' | sqlplus -s / as sysdba || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 120s
+
+volumes:
+  oracle_generative_ui_data_chat_data:
