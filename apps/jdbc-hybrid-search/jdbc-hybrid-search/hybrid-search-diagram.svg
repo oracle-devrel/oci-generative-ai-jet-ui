@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="760" viewBox="0 0 1360 760">
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; fill: #111827; }
+    .title { font-size: 28px; font-weight: 700; }
+    .subtitle { font-size: 14px; fill: #4b5563; }
+    .tutorial { fill: #0f766e; stroke: white; stroke-width: 2; }
+    .reference { fill: #1d4ed8; stroke: white; stroke-width: 2; }
+    .beginner-ring { fill: none; stroke: #f59e0b; stroke-width: 2; }
+    .line { stroke: #94a3b8; stroke-width: 1.5; stroke-dasharray: 6 4; }
+    .point-number { font-size: 10px; font-weight: 700; fill: white; text-anchor: middle; dominant-baseline: middle; }
+    .line-label-box { fill: rgba(248,250,252,0.96); stroke: #cbd5e1; stroke-width: 1; rx: 5; ry: 5; }
+    .line-label { font-size: 11px; font-weight: 700; fill: #1f2937; }
+    .panel { fill: #f8fafc; stroke: #bfdbfe; stroke-width: 1; rx: 10; ry: 10; }
+    .plot-frame { fill: rgba(255,255,255,0.45); stroke: #bfdbfe; stroke-width: 1.5; rx: 14; ry: 14; }
+    .guide-ring { fill: none; stroke: #dbeafe; stroke-width: 1; }
+    .guide-label { font-size: 11px; fill: #64748b; }
+    .panel-header { font-size: 13px; font-weight: 700; fill: #1e3a8a; }
+    .panel-row { font-size: 12px; fill: #1f2937; }
+    .panel-value { font-size: 12px; font-weight: 700; fill: #1d4ed8; }
+    .legend { font-size: 13px; fill: #374151; }
+  </style>
+  <rect x="0" y="0" width="1360" height="760" fill="#f8fafc"/>
+  <text x="60" y="46" class="title">Hybrid Search Distance Map</text>
+  <text x="60" y="70" class="subtitle">Oracle Vector Search for Beginners is fixed at the center and every other point radius is scaled directly from cosine distance</text>
+  <text x="60" y="90" class="subtitle">Angles are only for separation; the distance from the center point is the meaningful quantity in this chart</text>
+  <text x="60" y="110" class="subtitle">Dashed lines show selected relationships from the center and are labeled with exact cosine distance</text>
+  <rect x="40.00" y="120.00" width="520.00" height="384.00" class="panel"/>
+  <text x="58" y="148" class="panel-header">Point Reference</text>
+  <text x="58" y="160.00" class="panel-value">1</text>
+  <text x="100" y="160.00" class="panel-row">Oracle Vector Search for Beginners (center)</text>
+  <text x="58" y="186.00" class="panel-value">2</text>
+  <text x="100" y="186.00" class="panel-row">Beginner Text Search with Oracle Text</text>
+  <text x="58" y="212.00" class="panel-value">3</text>
+  <text x="100" y="212.00" class="panel-row">Budget-Friendly Hybrid Search Recipes</text>
+  <text x="58" y="238.00" class="panel-value">4</text>
+  <text x="100" y="238.00" class="panel-row">Cost-Aware Semantic Ranking</text>
+  <text x="58" y="264.00" class="panel-value">5</text>
+  <text x="100" y="264.00" class="panel-row">Embedding Model Benchmarks for Java</text>
+  <text x="58" y="290.00" class="panel-value">6</text>
+  <text x="100" y="290.00" class="panel-row">Hybrid Search Architecture Notes</text>
+  <text x="58" y="316.00" class="panel-value">7</text>
+  <text x="100" y="316.00" class="panel-row">OCI Generative AI Integration Lab</text>
+  <text x="58" y="342.00" class="panel-value">8</text>
+  <text x="100" y="342.00" class="panel-row">Oracle JSON Analytics Playbook</text>
+  <text x="58" y="368.00" class="panel-value">9</text>
+  <text x="100" y="368.00" class="panel-row">Oracle Spatial Mapping Basics</text>
+  <text x="58" y="394.00" class="panel-value">10</text>
+  <text x="100" y="394.00" class="panel-row">Production Hybrid Search Tuning</text>
+  <text x="58" y="420.00" class="panel-value">11</text>
+  <text x="100" y="420.00" class="panel-row">Spring JPA Relationship Patterns</text>
+  <text x="58" y="446.00" class="panel-value">12</text>
+  <text x="100" y="446.00" class="panel-row">Vector Index Maintenance Checklist</text>
+  <rect x="582.00" y="122.00" width="716.00" height="576.00" class="plot-frame"/>
+  <circle cx="940.00" cy="410.00" r="57.00" class="guide-ring"/>
+  <text x="1005.00" y="406.00" class="guide-label">0.199</text>
+  <circle cx="940.00" cy="410.00" r="114.00" class="guide-ring"/>
+  <text x="1062.00" y="406.00" class="guide-label">0.399</text>
+  <circle cx="940.00" cy="410.00" r="171.00" class="guide-ring"/>
+  <text x="1119.00" y="406.00" class="guide-label">0.598</text>
+  <circle cx="940.00" cy="410.00" r="228.00" class="guide-ring"/>
+  <text x="1176.00" y="406.00" class="guide-label">0.798</text>
+  <line x1="940.00" y1="410.00" x2="982.66" y2="343.63" class="line"/>
+  <line x1="940.00" y1="410.00" x2="736.23" y2="439.30" class="line"/>
+  <line x1="940.00" y1="410.00" x2="940.00" y2="287.85" class="line"/>
+  <rect x="1005.00" y="362.00" width="62.00" height="20.00" class="line-label-box"/>
+  <text x="1013.00" y="376.00" class="line-label">0.2760</text>
+  <rect x="787.00" y="446.00" width="62.00" height="20.00" class="line-label-box"/>
+  <text x="795.00" y="460.00" class="line-label">0.7202</text>
+  <rect x="843.00" y="339.00" width="62.00" height="20.00" class="line-label-box"/>
+  <text x="851.00" y="353.00" class="line-label">0.4273</text>
+  <circle cx="940.00" cy="410.00" r="11" class="tutorial"/>
+  <circle cx="940.00" cy="410.00" r="16" class="beginner-ring"/>
+  <text x="940.00" y="410.00" class="point-number">1</text>
+  <circle cx="940.00" cy="287.85" r="11" class="tutorial"/>
+  <circle cx="940.00" cy="287.85" r="16" class="beginner-ring"/>
+  <text x="940.00" y="287.85" class="point-number">2</text>
+  <circle cx="982.66" cy="343.63" r="11" class="tutorial"/>
+  <circle cx="982.66" cy="343.63" r="16" class="beginner-ring"/>
+  <text x="982.66" y="343.63" class="point-number">3</text>
+  <circle cx="1101.72" cy="336.15" r="11" class="tutorial"/>
+  <circle cx="1101.72" cy="336.15" r="16" class="beginner-ring"/>
+  <text x="1101.72" y="336.15" class="point-number">4</text>
+  <circle cx="1101.63" cy="433.24" r="11" class="reference"/>
+  <text x="1101.63" y="433.24" class="point-number">5</text>
+  <circle cx="1088.90" cy="539.02" r="11" class="reference"/>
+  <text x="1088.90" y="539.02" class="point-number">6</text>
+  <circle cx="987.74" cy="572.59" r="11" class="tutorial"/>
+  <text x="987.74" y="572.59" class="point-number">7</text>
+  <circle cx="888.40" cy="585.73" r="11" class="reference"/>
+  <text x="888.40" y="585.73" class="point-number">8</text>
+  <circle cx="849.49" cy="488.42" r="11" class="tutorial"/>
+  <circle cx="849.49" cy="488.42" r="16" class="beginner-ring"/>
+  <text x="849.49" y="488.42" class="point-number">9</text>
+  <circle cx="736.23" cy="439.30" r="11" class="tutorial"/>
+  <text x="736.23" y="439.30" class="point-number">10</text>
+  <circle cx="732.60" cy="315.29" r="11" class="tutorial"/>
+  <circle cx="732.60" cy="315.29" r="16" class="beginner-ring"/>
+  <text x="732.60" y="315.29" class="point-number">11</text>
+  <circle cx="820.22" cy="223.62" r="11" class="reference"/>
+  <text x="820.22" y="223.62" class="point-number">12</text>
+  <circle cx="60" cy="540.00" r="8" class="tutorial"/>
+  <text x="78" y="545.00" class="legend">Green points: tutorials</text>
+  <circle cx="60" cy="568.00" r="8" class="reference"/>
+  <text x="78" y="573.00" class="legend">Blue points: reference material</text>
+  <circle cx="60" cy="596.00" r="8" class="tutorial"/>
+  <circle cx="60" cy="596.00" r="13" class="beginner-ring"/>
+  <text x="78" y="601.00" class="legend">Gold rings: beginner audience</text>
+  <line x1="42" y1="624.00" x2="78" y2="624.00" class="line"/>
+  <text x="88" y="629.00" class="legend">Dashed lines: cosine distances from center</text>
+</svg>
