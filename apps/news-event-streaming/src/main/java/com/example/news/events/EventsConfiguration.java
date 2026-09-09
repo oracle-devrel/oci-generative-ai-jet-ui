@@ -3,6 +3,7 @@ package com.example.news.events;
 import java.util.Properties;
 
 import com.example.news.events.producerconsumer.RawNewsProducer;
+import oracle.jdbc.OracleConnection;
 import org.oracle.okafka.clients.producer.KafkaProducer;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +12,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class EventsConfiguration {
+    public static final String PROGRAM_NAME = "devrel-developerhub-news-event-streaming-application";
+
     @Value("${okafka.ojdbcPath}")
     private String ojdbcPath;
 
@@ -56,6 +59,7 @@ public class EventsConfiguration {
         props.put("bootstrap.servers", bootstrapServers);
         // If using Oracle AI Database wallet, pass wallet directory
         props.put("oracle.net.tns_admin", ojdbcPath);
+        props.put(OracleConnection.CONNECTION_PROPERTY_THIN_VSESSION_PROGRAM, PROGRAM_NAME);
         return props;
     }
 }
