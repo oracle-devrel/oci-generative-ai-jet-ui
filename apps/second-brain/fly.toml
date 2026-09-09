@@ -1,0 +1,25 @@
+# Fly.io config for the hosted Second Brain MCP server (kept at repo root so build paths resolve).
+# Pick the Fly region closest to YOUR database region for low latency.
+app = "my-second-brain"   # pick your own globally-unique name (fly apps create)
+primary_region = "iad"
+
+[build]
+  dockerfile = "deploy/Dockerfile"
+
+[http_service]
+  internal_port = 8000
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+
+  [[http_service.checks]]
+    method = "GET"
+    path = "/health"
+    interval = "30s"
+    timeout = "5s"
+    grace_period = "10s"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"

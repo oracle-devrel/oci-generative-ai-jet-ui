@@ -1,0 +1,7 @@
+#!/bin/sh
+# Auto-refresh the agents registry so web/registry.json always matches the committed code.
+# (Never run build_registry by hand — this keeps it current on every commit.)
+[ -x .venv/bin/python ] && PY=.venv/bin/python || PY=python3
+"$PY" scripts/build_registry.py >/dev/null 2>&1 || exit 0
+git add web/registry.json 2>/dev/null
+exit 0

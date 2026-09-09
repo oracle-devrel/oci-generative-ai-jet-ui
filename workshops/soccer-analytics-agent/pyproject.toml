@@ -30,7 +30,7 @@ dev = [
     "ruff>=0.7.0",
     "respx>=0.21.1",
     "optimum[onnxruntime]>=2.1.0",
-    "onnx>=1.21.0",
+    "onnx>=1.22.0",
     "transformers>=4.45,<4.58",
     "onnx2oracle>=0.1.1",
 ]

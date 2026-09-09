@@ -1,0 +1,11 @@
+# Pinned on purpose. The OAuth allowlist in mcp_server.py wraps fastmcp's AuthKit token verifier
+# (an internal seam) — an unpinned fastmcp upgrade could keep auth "working" while silently
+# bypassing the allowlist. Bump versions deliberately and re-test the allowlist (a denied login
+# must stay denied) after any upgrade.
+oracledb==4.0.1
+oracleagentmemory==26.6.0
+fastmcp==3.4.2
+python-dotenv==1.2.2
+uvicorn==0.49.0
+starlette==1.3.1
+anthropic==0.109.1

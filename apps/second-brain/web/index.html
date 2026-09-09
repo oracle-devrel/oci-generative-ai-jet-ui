@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#06070d">
+  <title>Second Brain</title>
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+  <div id="app">
+    <header>
+      <span class="brand"><span class="dot"></span><span id="brand-title">Second Brain</span></span>
+      <nav>
+        <button data-view="graph" class="active">Graph</button>
+        <button data-view="search">Search</button>
+        <button data-view="wiki">Wiki</button>
+        <button data-view="memory">Memory</button>
+        <button data-view="agents">Agents</button>
+        <button data-view="feed">Feed</button>
+        <button data-view="status">Overview</button>
+      </nav>
+      <span class="spacer"></span>
+      <span class="meta" id="header-meta"></span>
+    </header>
+
+    <main>
+      <!-- Graph -->
+      <section class="view active" id="view-graph">
+        <div id="graph"></div>
+        <div class="graph-hint">Click a node to read it · double-click to grow the graph by meaning</div>
+        <button class="graph-toggle" id="focus-toggle" title="Focus on the selected node's neighborhood">Focus: off</button>
+        <div class="graph-legend">
+          <div class="row"><span class="swatch" style="background:var(--topic)"></span> Topic (synthesized)</div>
+          <div class="row"><span class="swatch" style="background:var(--item)"></span> Content item</div>
+          <div class="row"><span class="swatch" style="background:var(--topic-dim);height:2px;width:16px;border-radius:0"></span> cites &nbsp;·&nbsp; <span style="border-top:1px dashed var(--topic);width:16px;display:inline-block"></span> semantic</div>
+        </div>
+        <div class="panel" id="graph-panel"></div>
+        <!-- empty state: shown when the brain has no content yet -->
+        <div class="onboard" id="onboard" hidden>
+          <div class="onboard-box">
+            <h2>Your brain is empty</h2>
+            <p>Nothing has been loaded yet. This view fills itself in from whatever you connect: your posts, videos, notes, and chats. Once content is in, you'll see it here as a searchable, self-organizing graph.</p>
+            <ol class="steps">
+              <li>Load your content with the loaders in <code>scripts/</code> (or the Quickstart in the README).</li>
+              <li>Compile the wiki so topics appear as hubs.</li>
+              <li>Reload this page and the graph, search, and memory views populate automatically.</li>
+            </ol>
+            <p class="onboard-foot">Nothing is stored here but what you load. Private items you tag stay out of every view by design.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Search -->
+      <section class="view" id="view-search">
+        <h1 class="page">Search by meaning</h1>
+        <p class="sub">Semantic + keyword retrieval across everything in the brain.</p>
+        <div class="searchbar">
+          <input id="q" type="text" placeholder="what have I said about…" autocomplete="off" aria-label="Search your brain">
+          <button class="go" id="q-go">Search</button>
+        </div>
+        <div id="search-results"></div>
+      </section>
+
+      <!-- Wiki -->
+      <section class="view" id="view-wiki">
+        <h1 class="page">Wiki topics</h1>
+        <p class="sub">Self-compiled pages synthesizing your content, with citations.</p>
+        <div class="grid" id="topic-chips"></div>
+        <div class="panel" id="wiki-panel"></div>
+      </section>
+
+      <!-- Memory -->
+      <section class="view" id="view-memory">
+        <h1 class="page">Memory</h1>
+        <p class="sub">The agent's experience layer: what it learned, did, can do, and discussed. Private items are filtered out at the database level, so this is safe to show.</p>
+
+        <!-- how it works: the memory lifecycle (click a step to read it) -->
+        <div class="mem-flow" id="mem-flow">
+          <div class="flow-track" id="flow-track"></div>
+          <div class="flow-loop">Consolidate feeds back into Recall, so the next run starts smarter. Experience compounds.</div>
+          <div class="flow-detail" id="flow-detail"></div>
+          <div class="flow-notes">
+            <span class="flow-note flow-note--priv">Anything about deals or fees is tagged private at write time and never stored here.</span>
+            <span class="flow-note flow-note--db">One Oracle database, two shapes: recalled by <b>meaning</b> (vectors) and audited by <b>SQL</b> (relational).</span>
+            <a class="flow-note flow-note--doc" id="flow-doc" href="#" target="_blank" rel="noopener" hidden>How agent memory works ↗</a>
+          </div>
+        </div>
+
+        <!-- the four kinds of memory (definitional reference) -->
+        <div class="hiw">
+          <h2 class="hiw-h">The four kinds of memory</h2>
+          <div class="types-grid">
+            <div class="type-card">
+              <div class="type-head"><span class="kdot" style="background:var(--item)"></span>Episodic</div>
+              <div class="type-analogy">“what I did”</div>
+              <div class="type-desc">Every run: the task, what it did, the outcome, a reward.</div>
+              <div class="type-meta"><span class="mono">agent_memory</span><span>by meaning + SQL audit</span></div>
+            </div>
+            <div class="type-card">
+              <div class="type-head"><span class="kdot" style="background:var(--topic)"></span>Semantic</div>
+              <div class="type-analogy">“what I know”</div>
+              <div class="type-desc">Durable facts distilled from runs: themes, audience, formats, gaps.</div>
+              <div class="type-meta"><span class="mono">semantic_memory</span><span>by meaning</span></div>
+            </div>
+            <div class="type-card">
+              <div class="type-head"><span class="kdot" style="background:var(--ok)"></span>Procedural</div>
+              <div class="type-analogy">“my skills”</div>
+              <div class="type-desc">Its tools, embedded so it loads only the ones relevant to a task.</div>
+              <div class="type-meta"><span class="mono">procedural_memory</span><span>by meaning</span></div>
+            </div>
+            <div class="type-card">
+              <div class="type-head"><span class="kdot" style="background:var(--text-dim)"></span>Conversational</div>
+              <div class="type-analogy">“what we just said”</div>
+              <div class="type-desc">The running dialogue, a bounded recent window for follow-ups.</div>
+              <div class="type-meta"><span class="mono">conversations</span><span>recent window</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- one database, two shapes -->
+        <div class="hiw">
+          <h2 class="hiw-h">One database, two shapes</h2>
+          <div class="db-box">
+            <div class="db-title">Oracle 26ai</div>
+            <div class="db-cols">
+              <div class="db-group">
+                <div class="db-group-h">Knowledge <span>what you made</span></div>
+                <div class="db-chips"><span class="db-chip">posts</span><span class="db-chip">content_chunks</span><span class="db-chip">wiki_pages</span></div>
+              </div>
+              <div class="db-group">
+                <div class="db-group-h">Experience <span>what the agent learned</span></div>
+                <div class="db-chips"><span class="db-chip">agent_memory</span><span class="db-chip">semantic_memory</span><span class="db-chip">procedural_memory</span><span class="db-chip">conversations</span></div>
+              </div>
+            </div>
+            <div class="db-foot">Every row is <b>both</b>: relational (columns you query in SQL) <b>and</b> vector (an embedding you search by meaning). That's why it's one engine, not a database plus a bolted-on vector store.</div>
+          </div>
+        </div>
+
+        <div id="memory-tiles" class="tiles"></div>
+        <div id="memory-body"></div>
+      </section>
+
+      <!-- Agents -->
+      <section class="view" id="view-agents">
+        <h1 class="page">Agents &amp; tools</h1>
+        <p class="sub">Everything you've built on top of the brain, in one place — agents, playbooks, tools, jobs, sources, and integrations.
+          <span class="scope-key"><span class="scope generic">generic</span> ships to everyone <span class="scope private">private</span> yours only</span>
+        </p>
+        <div id="agents-body"></div>
+      </section>
+
+      <!-- Feed -->
+      <section class="view" id="view-feed">
+        <h1 class="page">Recent</h1>
+        <p class="sub">Newest items across your sources.</p>
+        <div id="feed-list"></div>
+      </section>
+
+      <!-- Overview -->
+      <section class="view" id="view-status">
+        <h1 class="page">Your brain at a glance</h1>
+        <p class="sub" id="ov-coverage">What's in your brain, how it breaks down, and whether it's fresh.</p>
+        <div id="overview-tiles" class="tiles"></div>
+        <div class="ov-charts">
+          <div class="ov-card"><h2 class="ov-h">By source</h2><div id="ov-by-source" class="bars"></div></div>
+          <div class="ov-card"><h2 class="ov-h">By type</h2><div id="ov-by-kind" class="bars"></div></div>
+        </div>
+        <div class="ov-card" id="ov-series-card" hidden><h2 class="ov-h">Series</h2><div id="ov-series" class="bars"></div></div>
+        <h2 class="ov-h" style="margin-top:22px">Source health</h2>
+        <pre class="panel-block" id="status-panel">loading…</pre>
+      </section>
+    </main>
+  </div>
+
+  <!-- token gate -->
+  <div class="overlay" id="overlay">
+    <div class="box">
+      <h2>Unlock your brain</h2>
+      <p>This memory view is private. Paste your access token to continue. It stays in this browser.</p>
+      <div class="tokinput">
+        <input id="tok" type="password" placeholder="access token" autocomplete="off" aria-label="Access token">
+        <button class="go" id="tok-go">Enter</button>
+      </div>
+      <div class="err" id="tok-err"></div>
+    </div>
+  </div>
+
+  <script src="/assets/vendor/force-graph.min.js"></script>
+  <script src="/assets/graph.js"></script>
+  <script src="/assets/app.js"></script>
+</body>
+</html>

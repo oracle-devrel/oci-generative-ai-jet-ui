@@ -4,7 +4,7 @@ cached-property==1.5.2
 certifi==2024.7.4
 cffi==2.0.0
 circuitbreaker==1.4.0
-cryptography==46.0.7
+cryptography==50.0.0
 oci==2.170.0
 pycparser==2.21
 pyOpenSSL==26.0.0
@@ -14,4 +14,4 @@ pytz==2023.3.post1
 six==1.16.0
 throttler==1.2.2
 websockets==12.0
-pypdf==6.12.0
+pypdf==6.15.0

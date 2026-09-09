@@ -1,0 +1,16 @@
+# Hosted-MCP image only needs deploy/ + oracle/agent/. Keep everything else out of the build
+# context (smaller upload, and no secrets/private data sent to the builder).
+.git/
+.venv/
+oracle/models/
+oracle/.env
+*.env
+sources/
+private/
+exports/
+docs/
+tests/
+node_modules/
+**/__pycache__/
+*.pyc
+*.bak

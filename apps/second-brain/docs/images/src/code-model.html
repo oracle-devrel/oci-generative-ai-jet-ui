@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face { font-family: 'Virgil'; src: url('Virgil.woff2') format('woff2'); }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #f5f1ea; width: 1200px; padding: 44px 48px 40px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #1e1e1e;
+  }
+  .title { font-family: 'Virgil'; font-size: 30px; }
+  .title .accent { color: #2ea043; }
+  .subtitle { font-size: 15px; color: #5f5a52; margin-top: 7px; }
+
+  .window {
+    margin-top: 26px; background: #141a22; border: 1px solid #2b3646; border-radius: 14px;
+    overflow: hidden; box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+  }
+  .bar {
+    display: flex; align-items: center; gap: 8px; padding: 11px 16px;
+    background: #10151c; border-bottom: 1px solid #2b3646;
+  }
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .d1 { background: #ff5f57; } .d2 { background: #febc2e; } .d3 { background: #28c840; }
+  .path { margin-left: 10px; font-size: 12.5px; color: #8d99a7;
+          font-family: "SF Mono", ui-monospace, Menlo, monospace; }
+  .badge { margin-left: auto; font-family: 'Virgil'; font-size: 14px; color: #d29922; }
+
+  pre {
+    font-family: "SF Mono", ui-monospace, Menlo, monospace; font-size: 16px; line-height: 1.7;
+    padding: 20px 24px; white-space: pre; overflow: hidden; color: #c9d4de;
+  }
+  .kw { color: #ff7b72; }
+  .fn { color: #d2a8ff; }
+  .st { color: #a5d6ff; }
+  .cm { color: #7ee787; opacity: 0.85; font-style: italic; }
+  .pm { color: #79c0ff; }
+
+  .foot { margin-top: 16px; display: flex; align-items: baseline; gap: 10px; }
+  .foot .hand { font-family: 'Virgil'; font-size: 16px; color: #2ea043; }
+  .foot span { font-size: 13px; color: #5f5a52; }
+</style>
+</head>
+<body>
+  <div class="title">The embedding model lives <span class="accent">inside the database</span></div>
+  <div class="subtitle">One call registers an open-source ONNX model in the engine. After this, embeddings are just SQL: no API, no key, no data leaving.</div>
+
+  <div class="window">
+    <div class="bar">
+      <div class="dot d1"></div><div class="dot d2"></div><div class="dot d3"></div>
+      <div class="path">oracle/setup/01_load_onnx_model.sql</div>
+      <div class="badge">Step 1's bootstrap ran this for you</div>
+    </div>
+<pre><span class="kw">EXEC</span> <span class="fn">DBMS_VECTOR.LOAD_ONNX_MODEL</span>(
+  <span class="pm">directory</span>  =&gt; <span class="st">'VEC_MODELS'</span>,                 <span class="cm">-- where the .onnx file was mounted</span>
+  <span class="pm">file_name</span>  =&gt; <span class="st">'all_MiniLM_L12_v2.onnx'</span>,    <span class="cm">-- open-source MiniLM, 384 dims</span>
+  <span class="pm">model_name</span> =&gt; <span class="st">'MINILM'</span>,                     <span class="cm">-- the name SQL will call it by</span>
+  <span class="pm">metadata</span>   =&gt; <span class="fn">JSON</span>(<span class="st">'{"function":"embedding", "embeddingOutput":"embedding",
+                       "input":{"input":["DATA"]}}'</span>));</pre>
+  </div>
+
+  <div class="foot">
+    <span class="hand">from now on:</span>
+    <span style="font-family:'SF Mono', ui-monospace, Menlo, monospace; font-size:14px; color:#1e1e1e;">VECTOR_EMBEDDING(MINILM USING :text AS DATA)</span>
+    <span>anywhere SQL runs</span>
+  </div>
+</body>
+</html>
