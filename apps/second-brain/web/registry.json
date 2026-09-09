@@ -1,0 +1,358 @@
+{
+  "categories": [
+    {
+      "key": "agents",
+      "label": "Agents",
+      "desc": "Reasoning agents grounded in your content + memory.",
+      "items": [
+        {
+          "name": "Agent",
+          "desc": "The agent loop: Claude drafts a hook, tests it, and remembers the outcome.",
+          "where": "oracle/agent/agent.py",
+          "scope": "generic"
+        },
+        {
+          "name": "Digest agent",
+          "desc": "Weekly digest agent: what the brain did last week, readable with Monday coffee.",
+          "where": "oracle/agent/digest_agent.py",
+          "scope": "generic"
+        },
+        {
+          "name": "Idea agent",
+          "desc": "Idea & repurposing agent: suggests what to make next and how to repurpose what you've made,",
+          "where": "oracle/agent/idea_agent.py",
+          "scope": "generic"
+        },
+        {
+          "name": "Research agent",
+          "desc": "The research agent: Claude, grounded in YOUR content, with memory.",
+          "where": "oracle/agent/research_agent.py",
+          "scope": "generic"
+        }
+      ]
+    },
+    {
+      "key": "tools",
+      "label": "Tools",
+      "desc": "The MCP tools that reach the brain from any AI client.",
+      "items": [
+        {
+          "name": "search",
+          "desc": "Search your second brain (your videos, posts, AI chats, notes, ideas/scripts, and code",
+          "where": "mcp_server.py",
+          "scope": "generic"
+        },
+        {
+          "name": "fetch",
+          "desc": "Fetch the full content of one search result by its `id`. Returns {id, title, text, url,",
+          "where": "mcp_server.py",
+          "scope": "generic"
+        },
+        {
+          "name": "overview",
+          "desc": "A high-level map of the brain: how many items, broken down by platform and by content",
+          "where": "mcp_server.py",
+          "scope": "generic"
+        },
+        {
+          "name": "source_status",
+          "desc": "LIVE health + freshness: is the sync pipeline ALIVE (heartbeat from its machine),",
+          "where": "mcp_server.py",
+          "scope": "generic"
+        },
+        {
+          "name": "wiki",
+          "desc": "Fetch a compiled WIKI PAGE: a synthesized overview of everything in the brain about a",
+          "where": "mcp_server.py",
+          "scope": "generic"
+        },
+        {
+          "name": "topics",
+          "desc": "List the compiled wiki topics: the synthesized knowledge pages over the user's content.",
+          "where": "mcp_server.py",
+          "scope": "generic"
+        },
+        {
+          "name": "recent",
+          "desc": "The k most recently published items in the brain, newest first.",
+          "where": "mcp_server.py",
+          "scope": "generic"
+        },
+        {
+          "name": "by_series",
+          "desc": "List items in a content SERIES. Call with NO series to see the available series + counts;",
+          "where": "mcp_server.py",
+          "scope": "generic"
+        },
+        {
+          "name": "related",
+          "desc": "Find the items SEMANTICALLY NEAREST to one anchor: neighbors by meaning between",
+          "where": "mcp_server.py",
+          "scope": "generic"
+        },
+        {
+          "name": "ingest_note",
+          "desc": "Save a note/idea to the brain, embedded for future semantic search.",
+          "where": "mcp_server.py",
+          "scope": "generic"
+        },
+        {
+          "name": "save_chat",
+          "desc": "Capture THIS conversation into the second brain, in real time: no data export",
+          "where": "mcp_server.py",
+          "scope": "generic"
+        }
+      ]
+    },
+    {
+      "key": "playbooks",
+      "label": "Playbooks",
+      "desc": "Prompt recipes any MCP client runs with the read tools.",
+      "items": [
+        {
+          "name": "research_brief",
+          "desc": "Research a question grounded in the user's own content, with citations: the repo's research-agent loop, run by the client.",
+          "where": "mcp_server.py",
+          "scope": "generic"
+        },
+        {
+          "name": "interview_prep",
+          "desc": "Prep a briefing for meeting/interviewing a person: what the user has covered with/about them before, plus what's new.",
+          "where": "mcp_server.py",
+          "scope": "generic"
+        },
+        {
+          "name": "caption_pack",
+          "desc": "Draft platform-native captions for new content, in the user's own voice learned from their posted captions.",
+          "where": "mcp_server.py",
+          "scope": "generic"
+        },
+        {
+          "name": "weekly_review",
+          "desc": "A weekly review: what's new in the brain, how it connects to existing knowledge, and what to make next.",
+          "where": "mcp_server.py",
+          "scope": "generic"
+        }
+      ]
+    },
+    {
+      "key": "sources",
+      "label": "Sources",
+      "desc": "Loaders that pull your content in (official APIs and your exports).",
+      "items": [
+        {
+          "name": "Chatgpt",
+          "desc": "Collect step (ChatGPT chats): your OpenAI data export -> the brain.",
+          "where": "scripts/chatgpt.py",
+          "scope": "generic"
+        },
+        {
+          "name": "Claude chats",
+          "desc": "Collect step (Claude chats): your exported conversations -> the brain.",
+          "where": "scripts/claude_chats.py",
+          "scope": "generic"
+        },
+        {
+          "name": "Claude code",
+          "desc": "Collect step (Claude Code): your local session transcripts -> the brain.",
+          "where": "scripts/claude_code.py",
+          "scope": "generic"
+        },
+        {
+          "name": "Freshness",
+          "desc": "Source freshness check: how long since each source last got new data?",
+          "where": "scripts/freshness.py",
+          "scope": "generic"
+        },
+        {
+          "name": "Gdrive",
+          "desc": "Collect step (Google Drive): folders you SHARE with the loader -> the brain.",
+          "where": "scripts/gdrive.py",
+          "scope": "generic"
+        },
+        {
+          "name": "Instagram",
+          "desc": "Ingest your Instagram content + performance into the brain via the **Instagram API with",
+          "where": "scripts/instagram.py",
+          "scope": "generic"
+        },
+        {
+          "name": "Instagram export",
+          "desc": "Backfill Instagram from a data export: captions + dates + spoken-word transcripts.",
+          "where": "scripts/instagram_export.py",
+          "scope": "generic"
+        },
+        {
+          "name": "Linkedin",
+          "desc": "Ingest LinkedIn posts into the brain from a JSON file of {time, text} objects.",
+          "where": "scripts/linkedin.py",
+          "scope": "generic"
+        },
+        {
+          "name": "Linkedin apify",
+          "desc": "Collect step (LinkedIn): scheduled self-scrape of YOUR OWN public posts via a",
+          "where": "scripts/linkedin_apify.py",
+          "scope": "generic"
+        },
+        {
+          "name": "Linkedin harvest",
+          "desc": "Load a LinkedIn activity harvest (browser-collected JSON) into the brain.",
+          "where": "scripts/linkedin_harvest.py",
+          "scope": "generic"
+        },
+        {
+          "name": "Notion",
+          "desc": "Collect step (Notion): your content calendar + planning/brand pages -> the brain.",
+          "where": "scripts/notion.py",
+          "scope": "generic"
+        },
+        {
+          "name": "Obsidian",
+          "desc": "Collect step (Obsidian / any local vault): notes AND documents -> the brain.",
+          "where": "scripts/obsidian.py",
+          "scope": "generic"
+        },
+        {
+          "name": "Substack",
+          "desc": "Collect step (Substack): your published newsletter/blog posts -> the brain.",
+          "where": "scripts/substack.py",
+          "scope": "generic"
+        },
+        {
+          "name": "Youtube",
+          "desc": "Collect step (YouTube): yt-dlp metadata -> canonical Markdown + Oracle.",
+          "where": "scripts/youtube.py",
+          "scope": "generic"
+        }
+      ]
+    },
+    {
+      "key": "jobs",
+      "label": "Jobs & loops",
+      "desc": "Background automation that keeps the brain fed and fresh.",
+      "items": [
+        {
+          "name": "Apply schema",
+          "desc": "Apply the schema files (oracle/schema/0*.sql) over a db.connect() connection.",
+          "where": "scripts/apply_schema.py",
+          "scope": "generic"
+        },
+        {
+          "name": "Classify private",
+          "desc": "Clean up imported chats: separate PRIVATE material and prune OFF-TOPIC noise, so the content",
+          "where": "scripts/classify_private.py",
+          "scope": "generic"
+        },
+        {
+          "name": "Classify series",
+          "desc": "Tag a content series by STYLE: for series whose published posts don't name the series.",
+          "where": "scripts/classify_series.py",
+          "scope": "generic"
+        },
+        {
+          "name": "Consolidate",
+          "desc": "Standalone entrypoint: re-consolidate the agent's episodic memory into semantic facts.",
+          "where": "scripts/consolidate.py",
+          "scope": "generic"
+        },
+        {
+          "name": "Context pack",
+          "desc": "Generate a paste-able CONTEXT PACK from the brain: the 'personal context markdown'",
+          "where": "scripts/context_pack.py",
+          "scope": "generic"
+        },
+        {
+          "name": "Copy local to cloud",
+          "desc": "Copy the brain from the local Oracle container to the cloud Autonomous DB.",
+          "where": "scripts/copy_local_to_cloud.py",
+          "scope": "generic"
+        },
+        {
+          "name": "Lint wiki",
+          "desc": "Wiki lint: surface review candidates over the compiled wiki. READ-ONLY; never auto-applies.",
+          "where": "scripts/lint_wiki.py",
+          "scope": "generic"
+        },
+        {
+          "name": "Load model cloud",
+          "desc": "Load the ONNX embedding model ('MINILM') into the database directly as a BLOB.",
+          "where": "scripts/load_model_cloud.py",
+          "scope": "generic"
+        },
+        {
+          "name": "Memory review",
+          "desc": "Memory hygiene review: the FORGETTING report. Report-only: it never deletes.",
+          "where": "scripts/memory_review.py",
+          "scope": "generic"
+        },
+        {
+          "name": "Oamp sweep",
+          "desc": "Daily privacy sweep of the OAMP memory store (the default backend).",
+          "where": "scripts/oamp_sweep.py",
+          "scope": "generic"
+        },
+        {
+          "name": "Reset sample",
+          "desc": "Wipe the sample content (and everything derived from it) for a clean start.",
+          "where": "scripts/reset_sample.py",
+          "scope": "generic"
+        },
+        {
+          "name": "Review",
+          "desc": "Nightly review (propose-only): surfaces things to look at; never changes anything.",
+          "where": "scripts/review.py",
+          "scope": "generic"
+        },
+        {
+          "name": "Search",
+          "desc": "Search your brain by meaning, from the terminal.",
+          "where": "scripts/search.py",
+          "scope": "generic"
+        },
+        {
+          "name": "Sync",
+          "desc": "Keep the brain current: and never let the derived layers go stale.",
+          "where": "scripts/sync.py",
+          "scope": "generic"
+        },
+        {
+          "name": "Youtube transcripts",
+          "desc": "Enrich YouTube content with TRANSCRIPTS.",
+          "where": "scripts/youtube_transcripts.py",
+          "scope": "generic"
+        }
+      ]
+    },
+    {
+      "key": "integrations",
+      "label": "Integrations",
+      "desc": "How the brain reaches the outside world.",
+      "items": [
+        {
+          "name": "Hosted MCP server",
+          "desc": "Hosted MCP server: the same brain tools as mcp_server.py, but over HTTP so Claude (web/mobile),",
+          "where": "oracle/agent/mcp_http.py",
+          "scope": "generic"
+        },
+        {
+          "name": "Web memory UI",
+          "desc": "Read-only WEB UI over the second brain: a browser-facing memory view (graph + search +",
+          "where": "oracle/agent/webui.py",
+          "scope": "generic"
+        },
+        {
+          "name": "Telegram idea-capture",
+          "desc": "Minimal Telegram Bot API helper: push a message out, and (for a DEDICATED bot) read",
+          "where": "oracle/agent/telegram_api.py",
+          "scope": "generic"
+        },
+        {
+          "name": "Slack brain-dump",
+          "desc": "Minimal Slack Web API helper: post a message, read a channel, react. Generic and",
+          "where": "oracle/agent/slack_api.py",
+          "scope": "generic"
+        }
+      ]
+    }
+  ]
+}

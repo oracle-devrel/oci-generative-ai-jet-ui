@@ -1,0 +1,2 @@
+oracle-vecdb
+python-dotenv

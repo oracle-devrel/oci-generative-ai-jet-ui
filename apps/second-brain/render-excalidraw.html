@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>excalidraw renderer</title></head>
+<body>
+<div id="status">loading…</div>
+<script>
+  // Excalidraw fetches its hand-drawn fonts relative to this path:
+  window.EXCALIDRAW_ASSET_PATH = "https://esm.sh/@excalidraw/excalidraw@0.18.0/dist/prod/";
+</script>
+<script type="module">
+  const status = (m) => { document.getElementById("status").textContent = m; window.__status = m; };
+  try {
+    status("importing excalidraw…");
+    const { exportToSvg } = await import("https://esm.sh/@excalidraw/excalidraw@0.18.0?bundle");
+    const scenes = [
+      { src: "/docs/images/architecture.excalidraw",      out: "architecture-full-hand.svg" },
+      { src: "/docs/images/architecture-hero.excalidraw", out: "architecture-hero-hand.svg" },
+    ];
+    for (const s of scenes) {
+      status(`rendering ${s.src}…`);
+      const scene = await (await fetch(s.src)).json();
+      const svg = await exportToSvg({
+        elements: scene.elements,
+        appState: { ...scene.appState, exportBackground: true,
+                    exportWithDarkMode: false, exportPadding: 24 },
+        files: scene.files || {},
+      });
+      const xml = new XMLSerializer().serializeToString(svg);
+      const r = await fetch(`http://127.0.0.1:8123/save?name=${s.out}`,
+                            { method: "POST", body: xml,
+                              headers: { "X-Render": "1" } });
+      if (!r.ok) throw new Error(`save failed for ${s.out}`);
+    }
+    status("DONE");
+  } catch (e) {
+    status("ERROR: " + (e && e.message ? e.message : String(e)));
+  }
+</script>
+</body>
+</html>

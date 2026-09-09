@@ -138,4 +138,4 @@ Traditional caches key by the literal request — two prompts asking the same th
 
 - `notebooks/memory_context_engineering_agents.ipynb` — the six types of persistent memory for AI agents
 - `notebooks/oracle_agentic_rag_hybrid_search.ipynb` — vector + keyword + hybrid search in a single SQL query
-- `notebooks/oracle_langchain_example.ipynb` — first-look RAG on Oracle vector storage with LangChain
+- `notebooks/langchain_ecosystem/oracle_langchain_example.ipynb` — first-look RAG on Oracle vector storage with LangChain

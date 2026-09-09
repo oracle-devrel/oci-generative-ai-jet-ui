@@ -235,3 +235,9 @@ notebooks/config.yaml
 !apps/tanstack-shoe-store/.vscode/
 
 build-paths/tests/
+
+# Local AI tooling output (.omx, distinct from already-ignored .omc)
+.omx/
+
+# Local CYP 2026-05 guide diagrams/visuals - not committed upstream
+guides/cyp-2026-05/

@@ -1,0 +1,3 @@
+# Re-track demo files the Oracle hub's root .gitignore (*.lock, lib/) would otherwise drop.
+!agent/uv.lock
+!frontend/src/lib/

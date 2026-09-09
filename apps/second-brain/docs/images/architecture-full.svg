@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 780" font-family="-apple-system, Segoe UI, Roboto, sans-serif">
+  <style>
+    .box{stroke-width:1.5}
+    .title{font-weight:700;font-size:17px;fill:#1a2b3c}
+    .h{font-weight:700;font-size:14px;fill:#1a2b3c}
+    .h2{font-weight:700;font-size:12.5px;fill:#1a2b3c}
+    .s{font-size:12px;fill:#4a5a6b}
+    .s2{font-size:11px;fill:#4a5a6b}
+    .lbl{font-size:11px;fill:#7a8794}
+    .arrow{stroke:#9aa7b4;stroke-width:2;fill:none;marker-end:url(#a)}
+    .loop{stroke:#7fbf97;stroke-width:2;fill:none;marker-end:url(#g);stroke-dasharray:5 4}
+  </style>
+  <defs>
+    <marker id="a" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#9aa7b4"/></marker>
+    <marker id="g" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#7fbf97"/></marker>
+  </defs>
+
+  <rect width="1040" height="780" fill="#ffffff"/>
+
+  <!-- TITLE -->
+  <text x="32" y="40" class="title">Second Brain on Oracle AI Database 26ai — full architecture</text>
+  <text x="32" y="60" class="lbl">your sources → one database (content · wiki · memory) → a research agent + an MCP server — self-improving, private, and reachable anywhere</text>
+
+  <!-- SOURCES -->
+  <text x="32" y="88" class="h">1 · YOUR SOURCES — you choose, and swap freely</text>
+  <g>
+    <rect x="32"  y="98" width="104" height="38" rx="9" class="box" fill="#eef4fb" stroke="#bcd3ec"/>
+    <text x="84"  y="122" text-anchor="middle" class="s">Notion</text>
+    <rect x="148" y="98" width="104" height="38" rx="9" class="box" fill="#eef4fb" stroke="#bcd3ec"/>
+    <text x="200" y="122" text-anchor="middle" class="s">YouTube</text>
+    <rect x="264" y="98" width="104" height="38" rx="9" class="box" fill="#eef4fb" stroke="#bcd3ec"/>
+    <text x="316" y="122" text-anchor="middle" class="s">Instagram</text>
+    <rect x="380" y="98" width="104" height="38" rx="9" class="box" fill="#eef4fb" stroke="#bcd3ec"/>
+    <text x="432" y="122" text-anchor="middle" class="s">AI chats</text>
+    <rect x="496" y="98" width="104" height="38" rx="9" class="box" fill="#eef4fb" stroke="#bcd3ec"/>
+    <text x="548" y="122" text-anchor="middle" class="s">LinkedIn</text>
+    <rect x="612" y="98" width="104" height="38" rx="9" class="box" fill="#eef4fb" stroke="#bcd3ec"/>
+    <text x="664" y="122" text-anchor="middle" class="s">…your own</text>
+  </g>
+
+  <!-- LOADERS -->
+  <path d="M374,136 L374,150" class="arrow"/>
+  <rect x="32" y="150" width="684" height="50" rx="10" class="box" fill="#f4f7fa" stroke="#cdd8e3"/>
+  <text x="46" y="171" class="h2">2 · Loaders (scripts/) → the one contract</text>
+  <text x="46" y="190" class="s2">normalize → posts(title · text · url · date) · redact secrets · classify visibility · embed in-DB (MiniLM) — no external embedding API</text>
+
+  <!-- DATABASE -->
+  <path d="M374,200 L374,216" class="arrow"/>
+  <rect x="32" y="216" width="684" height="292" rx="14" fill="#f7fafd" stroke="#9aa7b4" stroke-width="2"/>
+  <text x="46" y="242" class="h">3 · ONE Oracle AI Database 26ai</text>
+  <text x="46" y="260" class="lbl">relational + JSON Relational Duality + AI Vector Search — one engine, no glue</text>
+
+  <!-- content -->
+  <rect x="46" y="272" width="212" height="150" rx="10" class="box" fill="#fff" stroke="#cdd8e3"/>
+  <text x="152" y="295" text-anchor="middle" class="h2">Content</text>
+  <text x="152" y="317" text-anchor="middle" class="s2">posts + content_chunks</text>
+  <text x="152" y="337" text-anchor="middle" class="s2">Duality view: post_dv</text>
+  <text x="152" y="357" text-anchor="middle" class="s2">vectors: MiniLM (in-DB)</text>
+  <text x="152" y="377" text-anchor="middle" class="s2">series · visibility scope</text>
+  <text x="152" y="404" text-anchor="middle" class="lbl">everything you make</text>
+
+  <!-- wiki -->
+  <rect x="266" y="272" width="212" height="150" rx="10" class="box" fill="#fff" stroke="#cdd8e3"/>
+  <text x="372" y="295" text-anchor="middle" class="h2">Compiled Wiki</text>
+  <text x="372" y="317" text-anchor="middle" class="s2">wiki_pages (doc + vector)</text>
+  <text x="372" y="337" text-anchor="middle" class="s2">page_links (graph)</text>
+  <text x="372" y="357" text-anchor="middle" class="s2">page_sources (citations)</text>
+  <text x="372" y="377" text-anchor="middle" class="s2">Duality: wiki_page_dv</text>
+  <text x="372" y="404" text-anchor="middle" class="lbl">synthesized · grows itself</text>
+
+  <!-- memory -->
+  <rect x="486" y="272" width="216" height="150" rx="10" class="box" fill="#fff" stroke="#cdd8e3"/>
+  <text x="594" y="295" text-anchor="middle" class="h2">Agent memory — 4 types</text>
+  <text x="594" y="317" text-anchor="middle" class="s2">episodic · semantic</text>
+  <text x="594" y="337" text-anchor="middle" class="s2">conversational</text>
+  <text x="594" y="357" text-anchor="middle" class="s2">procedural</text>
+  <text x="594" y="377" text-anchor="middle" class="s2">consolidated by the LLM</text>
+  <text x="594" y="404" text-anchor="middle" class="lbl">what the agent learns</text>
+
+  <!-- retrieval + privacy footer -->
+  <rect x="46" y="436" width="326" height="58" rx="9" class="box" fill="#eef4fb" stroke="#bcd3ec"/>
+  <text x="60" y="457" class="h2">Hybrid retrieval</text>
+  <text x="60" y="476" class="s2">semantic vectors + keyword, fused (RRF)</text>
+  <text x="60" y="490" class="lbl">across wiki · item · passage, ranked together</text>
+
+  <rect x="386" y="436" width="316" height="58" rx="9" class="box" fill="#fbeeee" stroke="#e3bcbc"/>
+  <text x="400" y="457" class="h2">🔒 Privacy scope</text>
+  <text x="400" y="476" class="s2">only visibility='content' is ever read</text>
+  <text x="400" y="490" class="lbl">searched · compiled into the wiki · consolidated</text>
+
+  <!-- RESEARCH AGENT -->
+  <path d="M702,330 L740,330" class="arrow"/>
+  <text x="726" y="322" text-anchor="middle" class="lbl"> </text>
+  <rect x="740" y="228" width="268" height="180" rx="12" class="box" fill="#eaf7ef" stroke="#b7e0c6"/>
+  <text x="874" y="254" text-anchor="middle" class="h">4 · Research agent (Claude)</text>
+  <text x="874" y="278" text-anchor="middle" class="s2">tools: search · get_post ·</text>
+  <text x="874" y="296" text-anchor="middle" class="s2">get_wiki_page · live web</text>
+  <text x="874" y="320" text-anchor="middle" class="s2">grounded — cites your work</text>
+  <text x="874" y="342" text-anchor="middle" class="s2">recalls + records memory</text>
+  <text x="874" y="366" text-anchor="middle" class="s2">auto-consolidates over time</text>
+  <text x="874" y="392" text-anchor="middle" class="lbl">retrieves knowledge + memory together</text>
+
+  <!-- SELF-IMPROVING LOOP -->
+  <rect x="740" y="424" width="268" height="84" rx="12" class="box" fill="#eef7f0" stroke="#b7e0c6"/>
+  <text x="756" y="447" class="h2">↻ Self-improving sync (daily)</text>
+  <text x="756" y="467" class="s2">pull → classify (safety net) →</text>
+  <text x="756" y="485" class="s2">refresh + GROW wiki → consolidate</text>
+  <path d="M740,466 C716,466 710,466 702,466" class="loop"/>
+  <path d="M874,424 L874,410" class="loop"/>
+
+  <!-- MCP SERVER -->
+  <path d="M374,508 L374,524" class="arrow"/>
+  <rect x="32" y="524" width="684" height="92" rx="12" class="box" fill="#fbf6ee" stroke="#e7d6b8"/>
+  <text x="46" y="550" class="h">5 · MCP server — your brain as a tool for any AI client</text>
+  <text x="46" y="573" class="s2">read: search · fetch · wiki · topics · recent · by_series · overview   ·   write: ingest_note (gated)</text>
+  <text x="46" y="597" class="lbl">local (stdio)  +  hosted (HTTP · OAuth allowlist · fail-closed · rate-limited · MCP_READONLY) · injection-guarded</text>
+
+  <!-- CLIENTS -->
+  <path d="M374,616 L374,632" class="arrow"/>
+  <g>
+    <rect x="32"  y="632" width="220" height="42" rx="9" class="box" fill="#f0f2f4" stroke="#cdd8e3"/>
+    <text x="142" y="658" text-anchor="middle" class="s">Claude — desktop · web · phone</text>
+    <rect x="264" y="632" width="200" height="42" rx="9" class="box" fill="#f0f2f4" stroke="#cdd8e3"/>
+    <text x="364" y="658" text-anchor="middle" class="s">ChatGPT</text>
+    <rect x="476" y="632" width="240" height="42" rx="9" class="box" fill="#f0f2f4" stroke="#cdd8e3"/>
+    <text x="596" y="658" text-anchor="middle" class="s">your apps · Claude Code</text>
+  </g>
+
+  <!-- PLUGGABLE + CLOUD -->
+  <rect x="740" y="524" width="268" height="150" rx="12" class="box" fill="#f4f2fb" stroke="#d6cfe8"/>
+  <text x="756" y="548" class="h2">Pluggable by design</text>
+  <text x="756" y="570" class="s2">LLM: Claude (default) — or OpenAI /</text>
+  <text x="756" y="588" class="s2">local open-source (e.g. Ollama)</text>
+  <text x="756" y="612" class="s2">Embeddings: open-source MiniLM, in-DB</text>
+  <text x="756" y="630" class="s2">— search needs no API key</text>
+  <text x="756" y="654" class="s2">Deploy: local Docker  ⇄  Oracle</text>
+  <text x="756" y="672" class="s2">Autonomous (cloud, optional)</text>
+
+  <text x="32" y="708" class="lbl">The database is the constant; the LLM is pluggable. Content, its meaning (vectors), the synthesized wiki, and the agent's memory all live in one Oracle 26ai engine.</text>
+</svg>
