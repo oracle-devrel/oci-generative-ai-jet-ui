@@ -1,0 +1,4 @@
+[
+  {"query": "Oracle AI Database", "expect_title_contains": "oracle", "k": 8},
+  {"query": "AI vector search explained", "expect_title_contains": "vector", "k": 8}
+]

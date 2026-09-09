@@ -1,0 +1,676 @@
+date,home_team,away_team,winner,first_shooter
+1967-08-22,India,Taiwan,Taiwan,
+1971-11-14,South Korea,Vietnam Republic,South Korea,
+1972-05-07,South Korea,Iraq,Iraq,
+1972-05-17,Thailand,South Korea,South Korea,
+1972-05-19,Thailand,Cambodia,Thailand,
+1973-04-21,Senegal,Ghana,Ghana,
+1973-06-14,Guinea,Mali,Guinea,
+1973-06-14,Mauritius,Tanzania,Mauritius,
+1973-07-26,Malaysia,Kuwait,Malaysia,
+1973-07-26,Cambodia,Singapore,Singapore,
+1973-07-27,Bangladesh,Thailand,Thailand,
+1973-07-28,Myanmar,South Korea,Myanmar,
+1973-08-09,India,Vietnam Republic,Vietnam Republic,
+1973-08-23,Algeria,Syria,Syria,
+1973-08-25,Algeria,Iraq,Algeria,
+1973-09-06,Singapore,Vietnam Republic,Vietnam Republic,
+1974-03-28,Qatar,United Arab Emirates,Qatar,
+1974-07-24,Hong Kong,Indonesia,Indonesia,
+1974-08-01,India,Indonesia,Indonesia,
+1974-10-09,Syria,Morocco,Morocco,
+1974-11-22,Libya,Tunisia,Tunisia,
+1974-12-18,South Korea,Malaysia,South Korea,
+1975-07-13,Morocco,Ghana,Morocco,
+1975-11-09,Kenya,Malawi,Kenya,
+1975-12-09,Thailand,Malaysia,Thailand,
+1975-12-23,Libya,Syria,Syria,
+1976-06-20,Czechoslovakia,Germany,Czechoslovakia,Czechoslovakia
+1976-12-22,South Korea,Malaysia,Malaysia,
+1977-01-09,Tunisia,Morocco,Tunisia,
+1977-03-22,Argentina,Iran,Argentina,
+1977-06-26,Zambia,Algeria,Zambia,
+1977-07-27,Iran,Morocco,Iran,
+1977-08-31,Paraguay,Argentina,Paraguay,
+1979-01-13,Guinea-Bissau,Mali,Mali,
+1979-01-14,Guinea-Bissau,Guinea,Guinea,
+1979-04-29,Cameroon,Guinea,Guinea,
+1979-05-22,Argentina,Netherlands,Argentina,Argentina
+1979-08-31,Seychelles,Mauritius,Seychelles,
+1979-09-29,Indonesia,Thailand,Indonesia,
+1980-02-16,Gambia,Mauritania,Gambia,
+1980-03-19,Algeria,Egypt,Algeria,
+1980-06-21,Italy,Czechoslovakia,Czechoslovakia,Italy
+1980-07-12,Nigeria,Tunisia,Nigeria,
+1980-11-30,Zambia,Morocco,Morocco,
+1980-12-31,Hong Kong,China PR,China PR,
+1981-02-13,Mali,Guinea,Guinea,
+1981-05-10,Rwanda,Ethiopia,Ethiopia,
+1981-12-13,Malaysia,Singapore,Malaysia,
+1982-02-21,Ivory Coast,Togo,Togo,
+1982-02-22,Ivory Coast,Burkina Faso,Burkina Faso,
+1982-03-19,Libya,Ghana,Ghana,
+1982-05-15,Thailand,Singapore,Thailand,
+1982-05-17,Thailand,South Korea,Thailand,
+1982-07-08,Germany,France,Germany,France
+1982-10-17,Indonesia,Malaysia,Indonesia,
+1982-11-27,Uganda,Kenya,Kenya,
+1983-02-06,Senegal,Niger,Senegal,
+1983-02-20,Gambia,Sierra Leone,Gambia,
+1983-02-27,Mali,Guinea,Mali,
+1983-04-22,Egypt,Congo,Egypt,
+1983-04-24,Mauritius,Ethiopia,Ethiopia,
+1983-06-04,Thailand,Malaysia,Thailand,
+1983-07-18,Hong Kong,Thailand,Thailand,
+1983-08-28,Morocco,Nigeria,Nigeria,
+1983-12-15,Ivory Coast,Mali,Ivory Coast,
+1983-12-18,Mali,Nigeria,Mali,
+1984-02-16,Sierra Leone,Mali,Sierra Leone,
+1984-02-19,Sierra Leone,Senegal,Senegal,
+1984-03-14,Egypt,Nigeria,Nigeria,
+1984-03-14,Algeria,Cameroon,Cameroon,
+1984-03-28,Iraq,Qatar,Iraq,
+1984-06-24,Denmark,Spain,Spain,Denmark
+1984-07-15,Senegal,Angola,Angola,
+1984-11-23,Kenya,Somalia,Kenya,
+1984-11-28,Ghana,Togo,Ghana,
+1984-12-08,Kenya,Somalia,Kenya,
+1984-12-13,Saudi Arabia,Iran,Saudi Arabia,
+1984-12-15,Malawi,Zambia,Zambia,
+1984-12-16,Iran,Kuwait,Kuwait,
+1984-12-16,Chad,Equatorial Guinea,Chad,
+1984-12-19,Central African Republic,Gabon,Gabon,
+1984-12-20,Congo,Cameroon,Cameroon,
+1985-04-16,Mozambique,Malawi,Mozambique,
+1985-04-21,Madagascar,Egypt,Egypt,
+1985-07-10,Bahrain,Qatar,Bahrain,
+1985-07-12,Saudi Arabia,Qatar,Saudi Arabia,
+1985-08-25,Mali,Guinea,Guinea,
+1985-08-31,Mauritius,Réunion,Mauritius,
+1985-09-15,Mozambique,Libya,Mozambique,
+1985-10-11,Kenya,Uganda,Kenya,
+1985-12-15,Singapore,Malaysia,Singapore,
+1985-12-25,Pakistan,Nepal,Nepal,
+1985-12-25,Bangladesh,India,India,
+1986-03-21,Egypt,Cameroon,Egypt,
+1986-06-21,Brazil,France,France,Brazil
+1986-06-21,Mexico,Germany,Germany,Germany
+1986-06-22,Spain,Belgium,Belgium,Spain
+1986-10-01,Saudi Arabia,Iraq,Saudi Arabia,
+1986-10-01,South Korea,Iran,South Korea,
+1986-10-01,United Arab Emirates,Indonesia,Indonesia,
+1986-10-01,Kuwait,China PR,Kuwait,
+1986-10-03,Saudi Arabia,Kuwait,Saudi Arabia,
+1986-10-19,Gabon,Angola,Angola,
+1986-12-17,Chad,Gabon,Chad,
+1987-03-01,Mali,Sierra Leone,Mali,
+1987-03-02,Senegal,Sierra Leone,Senegal,
+1987-06-19,Australia,Egypt,Australia,
+1987-06-21,South Korea,Australia,South Korea,
+1987-07-19,DR Congo,Senegal,DR Congo,
+1987-08-08,Ivory Coast,Madagascar,Ivory Coast,
+1987-08-09,Cameroon,Egypt,Egypt,
+1987-08-10,Kenya,Malawi,Malawi,
+1987-12-13,Malawi,Zimbabwe,Zimbabwe,
+1987-12-18,Equatorial Guinea,Gabon,Gabon,
+1987-12-27,Ethiopia,Zimbabwe,Ethiopia,
+1988-01-06,South Korea,Egypt,South Korea,
+1988-03-23,Algeria,Nigeria,Nigeria,
+1988-03-26,Morocco,Algeria,Algeria,
+1988-03-31,Germany,Sweden,Sweden,Sweden
+1988-05-05,Mali,Senegal,Mali,
+1988-05-08,Guinea,Mali,Guinea,
+1988-05-28,Canada,Greece,Canada,
+1988-07-19,Egypt,Syria,Syria,
+1988-07-21,Iraq,Syria,Iraq,
+1988-09-29,Chile,Ecuador,Ecuador,
+1988-10-16,Eswatini,Tanzania,Eswatini,
+1988-12-06,Central African Republic,Gabon,Gabon,
+1988-12-17,China PR,Iran,Iran,
+1988-12-18,South Korea,Saudi Arabia,Saudi Arabia,South Korea
+1989-04-23,Ghana,Gabon,Gabon,
+1989-04-23,Kenya,Sudan,Kenya,
+1989-08-30,Indonesia,Thailand,Indonesia,
+1989-11-08,Iran,Uganda,Uganda,
+1989-11-12,Iraq,Uganda,Iraq,
+1989-12-11,Chad,Cameroon,Cameroon,
+1989-12-16,Malawi,Uganda,Uganda,
+1990-01-28,Nigeria,Senegal,Nigeria,
+1990-02-04,United States,Colombia,Colombia,Colombia
+1990-02-20,Colombia,Russia,Colombia,Colombia
+1990-05-18,Zimbabwe,Eswatini,Zimbabwe,
+1990-06-25,Republic of Ireland,Romania,Republic of Ireland,Romania
+1990-06-30,Yugoslavia,Argentina,Argentina,Argentina
+1990-07-03,Italy,Argentina,Argentina,Italy
+1990-07-04,Germany,England,Germany,England
+1990-08-03,China PR,South Korea,South Korea,
+1990-10-01,Saudi Arabia,North Korea,North Korea,
+1990-10-06,Iran,North Korea,Iran,
+1990-12-17,Tanzania,Uganda,Uganda,
+1990-12-17,Central African Republic,Equatorial Guinea,Central African Republic,
+1991-01-21,Cameroon,Algeria,Cameroon,
+1991-01-21,Senegal,Ivory Coast,Ivory Coast,
+1991-01-22,Senegal,Algeria,Senegal,
+1991-01-23,Ivory Coast,Cameroon,Ivory Coast,
+1991-06-14,South Korea,Australia,South Korea,
+1991-06-16,Italy,Russia,Italy,Russia
+1991-07-07,United States,Honduras,United States,United States
+1991-08-08,Czechoslovakia,Yugoslavia,Czechoslovakia,
+1991-09-20,Fiji,Solomon Islands,Fiji,
+1991-09-28,Egypt,Mali,Egypt,
+1991-12-02,Indonesia,Singapore,Indonesia,
+1991-12-04,Indonesia,Thailand,Indonesia,
+1992-01-23,Cameroon,Ivory Coast,Ivory Coast,Ivory Coast
+1992-01-26,Ghana,Ivory Coast,Ivory Coast,Ivory Coast
+1992-06-22,Netherlands,Denmark,Denmark,Netherlands
+1992-06-27,Cuba,Martinique,Martinique,
+1992-08-29,Japan,South Korea,Japan,
+1992-09-15,Syria,Egypt,Egypt,
+1992-11-08,China PR,United Arab Emirates,China PR,
+1992-11-25,Uganda,Zambia,Uganda,
+1993-01-23,Japan,Switzerland,Switzerland,
+1993-02-20,Finland,Estonia,Finland,
+1993-02-24,Argentina,Denmark,Argentina,Argentina
+1993-05-27,Bolivia,Paraguay,Bolivia,
+1993-05-28,Martinique,Saint Kitts and Nevis,Martinique,
+1993-05-30,Jamaica,Martinique,Martinique,
+1993-06-17,Singapore,Myanmar,Singapore,
+1993-06-26,Colombia,Uruguay,Colombia,Colombia
+1993-06-27,Brazil,Argentina,Argentina,Brazil
+1993-07-01,Colombia,Argentina,Argentina,Colombia
+1993-08-15,Australia,Canada,Australia,Australia
+1993-10-24,Burundi,Guinea,Guinea,
+1993-12-26,Nepal,India,Nepal,
+1994-01-29,Burkina Faso,Guinea,Burkina Faso,
+1994-04-06,Nigeria,Ivory Coast,Nigeria,Nigeria
+1994-07-05,Mexico,Bulgaria,Bulgaria,Mexico
+1994-07-10,Romania,Sweden,Sweden,Sweden
+1994-07-17,Brazil,Italy,Brazil,Italy
+1994-12-08,Tanzania,Uganda,Tanzania,
+1995-01-10,Denmark,Mexico,Denmark,Denmark
+1995-01-13,Mexico,Nigeria,Mexico,Nigeria
+1995-02-26,Japan,South Korea,Japan,
+1995-03-31,India,Bangladesh,India,
+1995-05-21,Antigua and Barbuda,Saint Kitts and Nevis,Antigua and Barbuda,
+1995-06-09,Paraguay,Bolivia,Paraguay,
+1995-07-16,Paraguay,Colombia,Colombia,Colombia
+1995-07-17,United States,Mexico,United States,United States
+1995-07-17,Brazil,Argentina,Brazil,Brazil
+1995-07-23,Uruguay,Brazil,Uruguay,Uruguay
+1995-08-24,Fiji,Solomon Islands,Solomon Islands,
+1995-11-28,Mauritania,Sierra Leone,Sierra Leone,
+1995-12-02,Gabon,Cameroon,Cameroon,
+1995-12-02,Algeria,Ivory Coast,Ivory Coast,
+1995-12-06,Ethiopia,Zanzibar,Zanzibar,
+1995-12-07,Honduras,Costa Rica,Honduras,
+1995-12-25,Bangladesh,Sri Lanka,Bangladesh,
+1995-12-27,Sri Lanka,Nepal,Sri Lanka,
+1996-01-28,Gabon,Tunisia,Tunisia,Tunisia
+1996-02-22,Japan,Sweden,Sweden,
+1996-04-28,Barbados,Jamaica,Jamaica,
+1996-05-05,Guyana,Suriname,Suriname,
+1996-06-05,Martinique,Suriname,Martinique,
+1996-06-22,England,Spain,England,England
+1996-06-22,France,Netherlands,France,Netherlands
+1996-06-26,France,Czech Republic,Czech Republic,France
+1996-06-26,England,Germany,Germany,England
+1996-08-25,Ethiopia,Uganda,Ethiopia,
+1996-11-29,Sudan,Kenya,Sudan,
+1996-12-11,Morocco,Croatia,Croatia,
+1996-12-12,Croatia,Czech Republic,Croatia,
+1996-12-19,Iran,Saudi Arabia,Saudi Arabia,Iran
+1996-12-21,Iran,Kuwait,Iran,Kuwait
+1996-12-21,United Arab Emirates,Saudi Arabia,Saudi Arabia,Saudi Arabia
+1996-12-27,Benin,Burkina Faso,Benin,
+1997-02-07,Russia,Serbia,Russia,
+1997-04-10,India,Iraq,Iraq,
+1997-06-22,Ecuador,Mexico,Mexico,Ecuador
+1997-07-10,Trinidad and Tobago,Jamaica,Trinidad and Tobago,
+1997-10-18,Indonesia,Thailand,Thailand,
+1997-10-20,Haiti,Cuba,Haiti,
+1997-10-22,Cuba,Cameroon,Cuba,
+1997-12-07,Gambia,Guinea,Guinea,
+1998-01-31,Egypt,South Korea,South Korea,
+1998-01-31,Iran,Chile,Iran,
+1998-02-21,Burkina Faso,Tunisia,Burkina Faso,Burkina Faso
+1998-02-21,Ivory Coast,Egypt,Egypt,Ivory Coast
+1998-02-27,Burkina Faso,DR Congo,DR Congo,DR Congo
+1998-04-22,Hungary,North Macedonia,Hungary,
+1998-05-29,Belgium,England,Belgium,Belgium
+1998-05-29,Morocco,France,Morocco,Morocco
+1998-06-30,Argentina,England,Argentina,Argentina
+1998-07-03,France,Italy,France,France
+1998-07-07,Brazil,Netherlands,Brazil,Brazil
+1998-08-15,Réunion,Madagascar,Réunion,
+1998-09-05,Indonesia,Thailand,Indonesia,
+1998-11-17,Guatemala,Honduras,Guatemala,
+1998-11-18,Guatemala,Mexico,Guatemala,
+1998-12-02,United Arab Emirates,North Korea,United Arab Emirates,
+1998-12-14,Qatar,Kuwait,Kuwait,
+1999-05-22,Malawi,Namibia,Namibia,
+1999-06-16,Thailand,New Zealand,Thailand,
+1999-06-19,New Zealand,Poland,Poland,
+1999-07-10,Mexico,Peru,Mexico,Mexico
+1999-07-10,Paraguay,Uruguay,Uruguay,Uruguay
+1999-07-13,Uruguay,Chile,Uruguay,Uruguay
+1999-07-18,Eswatini,Zimbabwe,Eswatini,
+1999-07-31,Namibia,South Africa,Namibia,
+1999-08-03,Rwanda,Kenya,Kenya,
+1999-08-07,Rwanda,Burundi,Rwanda,
+1999-08-07,Zambia,Mozambique,Zambia,
+1999-08-14,Indonesia,Singapore,Indonesia,
+1999-08-28,Namibia,Eswatini,Namibia,
+1999-11-26,Gabon,Togo,Togo,
+2000-02-04,Romania,Georgia,Romania,
+2000-02-12,South Africa,Tunisia,South Africa,South Africa
+2000-02-13,Nigeria,Cameroon,Cameroon,Nigeria
+2000-02-19,United States,Colombia,Colombia,United States
+2000-03-19,Suriname,Saint Lucia,Suriname,
+2000-04-29,British Virgin Islands,Sint Maarten,British Virgin Islands,
+2000-04-30,British Virgin Islands,Antigua and Barbuda,Antigua and Barbuda,
+2000-05-10,Maldives,Sri Lanka,Sri Lanka,
+2000-05-11,Senegal,Mali,Senegal,
+2000-05-20,Malawi,Angola,Angola,
+2000-05-21,Barbados,Cuba,Barbados,
+2000-06-04,France,Japan,France,France
+2000-06-07,Iran,Egypt,Egypt,
+2000-06-11,Lesotho,Zambia,Lesotho,
+2000-06-29,Netherlands,Italy,Italy,Italy
+2000-07-14,Libya,Chad,Libya,
+2000-07-16,Mozambique,Lesotho,Lesotho,
+2000-09-03,Togo,Sierra Leone,Togo,
+2000-10-04,United Arab Emirates,South Korea,United Arab Emirates,
+2000-10-28,Kenya,Uganda,Uganda,
+2000-12-02,Ethiopia,Rwanda,Ethiopia,
+2001-01-17,China PR,Egypt,Egypt,
+2001-01-27,South Korea,Paraguay,South Korea,
+2001-02-11,Eswatini,Zambia,Eswatini,
+2001-07-12,Ynys Môn,Jersey,Ynys Môn,
+2001-07-13,Guernsey,Ynys Môn,Guernsey,
+2001-07-29,Uruguay,Honduras,Honduras,Uruguay
+2001-08-03,China PR,North Korea,North Korea,
+2001-08-03,Kuwait,Trinidad and Tobago,Kuwait,
+2001-08-05,Kuwait,North Korea,North Korea,
+2001-08-18,Zambia,Angola,Angola,
+2001-10-24,Kenya,Uganda,Kenya,
+2001-10-24,Tanzania,DR Congo,Tanzania,
+2001-12-18,Ethiopia,Burundi,Ethiopia,
+2002-01-06,Martinique,Haiti,Martinique,
+2002-01-26,Canada,Martinique,Canada,Canada
+2002-01-27,Mexico,South Korea,South Korea,South Korea
+2002-01-30,United States,Canada,United States,United States
+2002-02-10,Senegal,Cameroon,Cameroon,Cameroon
+2002-02-12,Cyprus,Switzerland,Cyprus,
+2002-02-15,China PR,Slovenia,Slovenia,
+2002-02-16,Thailand,North Korea,North Korea,
+2002-03-30,Botswana,South Africa,South Africa,
+2002-05-17,Russia,Belarus,Belarus,
+2002-05-19,Russia,Serbia,Serbia,
+2002-06-16,Spain,Republic of Ireland,Spain,Republic of Ireland
+2002-06-22,South Korea,Spain,South Korea,South Korea
+2002-07-21,South Africa,Madagascar,South Africa,
+2002-09-05,Iraq,Iran,Iraq,
+2002-09-07,Syria,Iran,Iran,
+2002-09-17,Iran,Morocco,Iran,
+2002-09-19,Iran,Paraguay,Iran,
+2002-10-23,Kenya,South Africa,Kenya,
+2002-10-26,Tanzania,South Africa,South Africa,
+2002-10-26,Kenya,Uganda,Kenya,
+2002-11-19,South Africa,Senegal,Senegal,
+2002-12-27,Niger,Burkina Faso,Burkina Faso,
+2002-12-29,Niger,Mali,Niger,
+2003-01-20,Bangladesh,Maldives,Bangladesh,
+2003-02-04,Uruguay,Iran,Uruguay,Iran
+2003-03-07,Benin,Niger,Benin,
+2003-03-15,Guadeloupe,French Guiana,Guadeloupe,
+2003-03-22,Mozambique,Lesotho,Mozambique,
+2003-03-27,Tunisia,Ghana,Tunisia,
+2003-03-30,Ghana,Madagascar,Ghana,
+2003-05-24,Botswana,Malawi,Malawi,
+2003-07-09,New Caledonia,Vanuatu,New Caledonia,
+2003-08-16,Malawi,Zambia,Malawi,
+2003-09-24,Algeria,Gabon,Algeria,
+2003-09-26,Algeria,Burkina Faso,Algeria,
+2003-12-08,Kenya,Rwanda,Rwanda,
+2003-12-08,Sudan,Uganda,Uganda,
+2004-02-11,Tunisia,Nigeria,Tunisia,Tunisia
+2004-02-19,Kazakhstan,Armenia,Kazakhstan,
+2004-02-28,Lesotho,Botswana,Botswana,
+2004-06-23,Jordan,Syria,Syria,
+2004-06-24,Portugal,England,Portugal,England
+2004-06-26,Sweden,Netherlands,Netherlands,Sweden
+2004-07-18,Angola,Botswana,Angola,
+2004-07-21,Uruguay,Brazil,Brazil,Brazil
+2004-07-25,Argentina,Brazil,Brazil,Argentina
+2004-07-30,Uzbekistan,Bahrain,Bahrain,Bahrain
+2004-07-31,Japan,Jordan,Japan,Japan
+2004-08-03,China PR,Iran,China PR,China PR
+2004-10-22,Nigeria,Ecuador,Ecuador,
+2004-10-24,Zimbabwe,Zambia,Zambia,
+2004-11-20,Zambia,Angola,Angola,
+2004-11-30,Thailand,Estonia,Thailand,
+2004-11-30,Singapore,Hong Kong,Hong Kong,
+2004-12-02,Thailand,Slovakia,Slovakia,
+2004-12-03,Bahrain,Latvia,Bahrain,
+2004-12-03,Finland,Oman,Oman,
+2004-12-22,Ethiopia,Kenya,Ethiopia,
+2004-12-24,Qatar,Oman,Qatar,
+2005-02-08,Cyprus,Austria,Cyprus,
+2005-02-09,Austria,Latvia,Latvia,
+2005-02-27,Costa Rica,Honduras,Costa Rica,
+2005-04-16,Namibia,Botswana,Botswana,
+2005-05-15,Jersey,Guernsey,Guernsey,
+2005-06-26,Mexico,Argentina,Argentina,Mexico
+2005-07-17,South Africa,Panama,Panama,Panama
+2005-07-24,United States,Panama,United States,Panama
+2005-07-28,Kuwait,United Arab Emirates,United Arab Emirates,
+2005-07-30,Egypt,United Arab Emirates,Egypt,
+2005-08-13,South Africa,Zambia,Zambia,
+2005-08-15,Ukraine,Israel,Israel,
+2005-11-16,Australia,Uruguay,Australia,Australia
+2005-12-10,Syria,Iraq,Iraq,
+2005-12-10,Zanzibar,Uganda,Zanzibar,
+2006-02-04,Nigeria,Tunisia,Nigeria,Nigeria
+2006-02-04,Cameroon,Ivory Coast,Ivory Coast,Cameroon
+2006-02-10,Egypt,Ivory Coast,Egypt,Egypt
+2006-02-28,Finland,Kazakhstan,Kazakhstan,
+2006-03-01,Finland,Belarus,Finland,
+2006-04-29,Lesotho,Mozambique,Lesotho,
+2006-04-30,Mauritius,Mozambique,Mozambique,
+2006-05-21,Botswana,South Africa,Botswana,
+2006-06-03,Northern Cyprus,Zanzibar,Northern Cyprus,
+2006-06-26,Switzerland,Ukraine,Ukraine,Ukraine
+2006-06-30,Germany,Argentina,Germany,Germany
+2006-07-01,England,Portugal,Portugal,Portugal
+2006-07-09,Italy,France,Italy,Italy
+2006-07-22,Namibia,Seychelles,Seychelles,
+2007-04-29,Mozambique,Zimbabwe,Mozambique,
+2007-05-06,Guernsey,Jersey,Jersey,
+2007-05-26,Malawi,South Africa,South Africa,
+2007-05-26,Eswatini,Mauritius,Mauritius,
+2007-07-10,Uruguay,Brazil,Brazil,Brazil
+2007-07-21,Japan,Australia,Japan,Australia
+2007-07-22,Iran,South Korea,South Korea,South Korea
+2007-07-25,Iraq,South Korea,Iraq,South Korea
+2007-07-28,South Korea,Japan,South Korea,South Korea
+2007-07-29,Botswana,Angola,Botswana,
+2007-08-18,Mauritius,Mayotte,Mayotte,
+2007-08-18,Madagascar,Réunion,Réunion,
+2007-10-24,South Africa,Zambia,South Africa,
+2008-05-05,Jersey,Guernsey,Jersey,
+2008-06-20,Croatia,Turkey,Turkey,Croatia
+2008-06-22,Spain,Italy,Spain,Spain
+2008-07-27,Zambia,Zimbabwe,Zambia,
+2008-09-30,New Caledonia,Martinique,Martinique,
+2009-06-26,Provence,Sápmi,Sápmi,
+2009-07-23,Costa Rica,Mexico,Mexico,Mexico
+2009-10-28,Zimbabwe,South Africa,Zimbabwe,
+2010-01-25,Zambia,Nigeria,Nigeria,Zambia
+2010-05-21,Corsica,Gabon,Corsica,
+2010-06-29,Paraguay,Japan,Paraguay,Paraguay
+2010-07-02,Uruguay,Ghana,Uruguay,Uruguay
+2010-09-22,French Guiana,Mayotte,Mayotte,
+2010-09-23,Guadeloupe,New Caledonia,New Caledonia,
+2010-09-26,Guadeloupe,Tahiti,Tahiti,
+2010-09-29,New Caledonia,Tahiti,Tahiti,
+2010-10-02,Réunion,Martinique,Martinique,
+2011-01-25,Japan,South Korea,Japan,Japan
+2011-02-08,Romania,Ukraine,Ukraine,
+2011-02-09,Sweden,Ukraine,Ukraine,
+2011-05-08,Guernsey,Jersey,Jersey,
+2011-06-08,Uruguay,Netherlands,Uruguay,Netherlands
+2011-06-18,Costa Rica,Honduras,Honduras,Costa Rica
+2011-06-19,Panama,El Salvador,Panama,Panama
+2011-06-29,Saare County,Åland Islands,Åland Islands,
+2011-06-30,Isle of Man,Menorca,Menorca,
+2011-07-12,Saint Lucia,Aruba,Saint Lucia,
+2011-07-16,Argentina,Uruguay,Uruguay,Argentina
+2011-07-17,Brazil,Paraguay,Paraguay,Brazil
+2011-07-20,Paraguay,Venezuela,Paraguay,Paraguay
+2011-08-11,Mayotte,Mauritius,Mauritius,
+2011-08-13,Seychelles,Mauritius,Seychelles,
+2012-02-05,Gabon,Mali,Mali,Gabon
+2012-02-12,Zambia,Ivory Coast,Zambia,Ivory Coast
+2012-06-03,Finland,Latvia,Latvia,Finland
+2012-06-17,Mozambique,Tanzania,Mozambique,
+2012-06-24,England,Italy,Italy,Italy
+2012-06-27,Portugal,Spain,Spain,Spain
+2012-08-25,Alderney,Sealand,Sealand,
+2012-09-02,India,Cameroon,India,
+2012-09-29,Réunion,Martinique,Réunion,
+2012-10-13,Uganda,Zambia,Zambia,
+2012-11-21,Argentina,Brazil,Brazil,Argentina
+2013-01-23,Sweden,North Korea,Sweden,
+2013-02-02,South Africa,Mali,Mali,South Africa
+2013-02-06,Burkina Faso,Ghana,Burkina Faso,Ghana
+2013-06-27,Spain,Italy,Spain,Italy
+2013-06-30,Uruguay,Italy,Italy,Uruguay
+2013-07-13,Zimbabwe,Malawi,Zimbabwe,
+2013-07-14,Angola,Lesotho,Lesotho,
+2013-07-17,Zambia,South Africa,Zambia,
+2014-05-05,Sealand,Chagos Islands,Chagos Islands,
+2014-05-29,Latvia,Estonia,Latvia,Estonia
+2014-06-04,Abkhazia,South Ossetia,South Ossetia,
+2014-06-04,Ellan Vannin,Iraqi Kurdistan,Ellan Vannin,
+2014-06-05,Padania,Abkhazia,Padania,
+2014-06-05,Occitania,Iraqi Kurdistan,Iraqi Kurdistan,
+2014-06-07,Padania,Iraqi Kurdistan,Padania,
+2014-06-08,County of Nice,Ellan Vannin,County of Nice,
+2014-06-28,Brazil,Chile,Brazil,Brazil
+2014-06-29,Costa Rica,Greece,Costa Rica,Costa Rica
+2014-07-05,Netherlands,Costa Rica,Netherlands,Costa Rica
+2014-07-09,Netherlands,Argentina,Argentina,Netherlands
+2015-01-23,Iran,Iraq,Iraq,Iran
+2015-01-23,Japan,United Arab Emirates,United Arab Emirates,Japan
+2015-01-30,Curaçao,Aruba,Aruba,
+2015-02-07,Equatorial Guinea,DR Congo,DR Congo,Equatorial Guinea
+2015-02-08,Ivory Coast,Ghana,Ivory Coast,Ghana
+2015-05-24,Zambia,Namibia,Namibia,
+2015-05-24,South Africa,Botswana,Botswana,
+2015-05-25,Mozambique,Malawi,Mozambique,
+2015-05-27,South Africa,Malawi,Malawi,
+2015-06-21,Ellan Vannin,Felvidék,Ellan Vannin,
+2015-06-26,Argentina,Colombia,Argentina,Colombia
+2015-06-27,Brazil,Paraguay,Paraguay,Brazil
+2015-07-02,Gibraltar,Åland Islands,Åland Islands,
+2015-07-04,Chile,Argentina,Chile,Chile
+2015-07-19,Trinidad and Tobago,Panama,Panama,Panama
+2015-07-25,United States,Panama,Panama,United States
+2015-10-13,El Salvador,Guatemala,Guatemala,
+2016-05-27,Corsica,Basque Country,Basque Country,
+2016-06-01,United Koreans in Japan,Northern Cyprus,Northern Cyprus,
+2016-06-02,Iraqi Kurdistan,Padania,Padania,
+2016-06-03,Bosnia and Herzegovina,Denmark,Bosnia and Herzegovina,
+2016-06-03,Thailand,Syria,Thailand,
+2016-06-03,Vietnam,Hong Kong,Vietnam,
+2016-06-03,Iraqi Kurdistan,Western Armenia,Western Armenia,
+2016-06-03,Chagos Islands,Raetia,Raetia,
+2016-06-04,United Koreans in Japan,Iraqi Kurdistan,United Koreans in Japan,United Koreans in Japan
+2016-06-05,Abkhazia,Panjab,Abkhazia,
+2016-06-11,Papua New Guinea,New Zealand,New Zealand,New Zealand
+2016-06-17,Peru,Colombia,Colombia,Colombia
+2016-06-18,Namibia,Botswana,Botswana,
+2016-06-18,South Africa,Lesotho,South Africa,
+2016-06-19,Zambia,Eswatini,Eswatini,
+2016-06-22,Botswana,DR Congo,Botswana,
+2016-06-25,Switzerland,Poland,Poland,Switzerland
+2016-06-26,Argentina,Chile,Chile,Chile
+2016-06-30,Poland,Portugal,Portugal,Portugal
+2016-07-02,Germany,Italy,Germany,Italy
+2016-08-01,Felvidék,Kárpátalja,Felvidék,
+2017-01-11,Chile,Croatia,Chile,
+2017-01-14,China PR,Croatia,China PR,
+2017-01-28,Senegal,Cameroon,Cameroon,Senegal
+2017-02-01,Burkina Faso,Egypt,Egypt,Egypt
+2017-06-09,Kárpátalja,Ellan Vannin,Kárpátalja,
+2017-06-09,Padania,Abkhazia,Padania,
+2017-06-10,Northern Cyprus,Padania,Padania,
+2017-06-28,Portugal,Chile,Chile,Chile
+2017-06-29,Hitra,Western Isles,Western Isles,
+2017-06-29,Greenland,Menorca,Greenland,
+2017-07-01,Namibia,Lesotho,Lesotho,
+2017-07-07,Tanzania,Lesotho,Tanzania,
+2017-07-16,Thailand,Belarus,Thailand,
+2018-03-21,South Africa,Angola,South Africa,
+2018-03-21,Zambia,Zimbabwe,Zambia,
+2018-03-22,Thailand,Gabon,Thailand,
+2018-03-24,Angola,Zimbabwe,Angola,
+2018-06-02,Zambia,Namibia,Zambia,
+2018-06-03,Andorra,Cape Verde,Cape Verde,
+2018-06-03,South Africa,Madagascar,Madagascar,
+2018-06-03,Zimbabwe,Botswana,Zimbabwe,
+2018-06-05,Matabeleland,Kabylia,Kabylia,
+2018-06-06,Lesotho,Zimbabwe,Zimbabwe,
+2018-06-09,Tibet,United Koreans in Japan,United Koreans in Japan,
+2018-06-09,Panjab,Cascadia,Panjab,
+2018-06-09,Padania,Székely Land,Padania,
+2018-06-09,Northern Cyprus,Kárpátalja,Kárpátalja,
+2018-07-01,Russia,Spain,Russia,Spain
+2018-07-01,Croatia,Denmark,Croatia,Denmark
+2018-07-03,Colombia,England,England,Colombia
+2018-07-07,Russia,Croatia,Croatia,Russia
+2019-01-20,Jordan,Vietnam,Vietnam,Vietnam
+2019-01-21,Australia,Uzbekistan,Australia,Australia
+2019-03-23,Oman,Singapore,Oman,
+2019-05-11,Guernsey,Jersey,Jersey,
+2019-06-01,Lesotho,Uganda,Lesotho,
+2019-06-02,South Africa,Botswana,Botswana,
+2019-06-02,Zambia,Malawi,Zambia,
+2019-06-04,South Africa,Uganda,South Africa,
+2019-06-05,Zimbabwe,Zambia,Zambia,
+2019-06-06,Abkhazia,Western Armenia,Western Armenia,
+2019-06-06,South Ossetia,Chameria,South Ossetia,
+2019-06-07,Lesotho,Zimbabwe,Zimbabwe,
+2019-06-07,South Africa,Malawi,South Africa,
+2019-06-08,Abkhazia,Chameria,Abkhazia,
+2019-06-09,Switzerland,England,England,England
+2019-06-27,Brazil,Paraguay,Brazil,Paraguay
+2019-06-28,Colombia,Chile,Chile,Colombia
+2019-06-29,Mexico,Costa Rica,Mexico,Mexico
+2019-06-29,Uruguay,Peru,Peru,Uruguay
+2019-07-05,Morocco,Benin,Benin,Benin
+2019-07-07,Madagascar,DR Congo,Madagascar,Madagascar
+2019-07-08,Ghana,Tunisia,Tunisia,Ghana
+2019-07-11,Ivory Coast,Algeria,Algeria,Algeria
+2019-07-28,Mauritius,Réunion,Réunion,
+2019-09-08,Tanzania,Burundi,Tanzania,Tanzania
+2019-10-13,Chad,Liberia,Chad,
+2019-10-13,Gambia,Djibouti,Gambia,
+2020-10-08,Bosnia and Herzegovina,Northern Ireland,Northern Ireland,Bosnia and Herzegovina
+2020-10-08,Slovakia,Republic of Ireland,Slovakia,Slovakia
+2020-10-08,Scotland,Israel,Scotland,Scotland
+2020-11-12,Serbia,Scotland,Scotland,Scotland
+2021-06-03,Mexico,Costa Rica,Mexico,Mexico
+2021-06-06,Honduras,Costa Rica,Honduras,Costa Rica
+2021-06-28,France,Switzerland,Switzerland,Switzerland
+2021-07-02,Peru,Paraguay,Peru,Paraguay
+2021-07-02,Switzerland,Spain,Spain,Spain
+2021-07-03,Uruguay,Colombia,Colombia,Colombia
+2021-07-06,Italy,Spain,Italy,Italy
+2021-07-06,Trinidad and Tobago,French Guiana,Trinidad and Tobago,French Guiana
+2021-07-06,Argentina,Colombia,Argentina,Colombia
+2021-07-06,Guatemala,Guadeloupe,Guadeloupe,Guatemala
+2021-07-11,England,Italy,Italy,Italy
+2021-07-16,Senegal,Eswatini,Senegal,Eswatini
+2021-07-18,Eswatini,Mozambique,Eswatini,Mozambique
+2021-07-18,South Africa,Senegal,South Africa,South Africa
+2021-11-19,Sri Lanka,Seychelles,Seychelles,
+2021-12-11,Morocco,Algeria,Algeria,Algeria
+2021-12-18,Qatar,Egypt,Qatar,Qatar
+2022-01-23,Burkina Faso,Gabon,Burkina Faso,Gabon
+2022-01-26,Ivory Coast,Egypt,Egypt,Ivory Coast
+2022-01-26,Mali,Equatorial Guinea,Equatorial Guinea,Equatorial Guinea
+2022-02-03,Cameroon,Egypt,Egypt,Cameroon
+2022-02-05,Cameroon,Burkina Faso,Cameroon,Cameroon
+2022-02-06,Senegal,Egypt,Senegal,Senegal
+2022-03-25,Tajikistan,Uganda,Uganda,
+2022-03-29,Kazakhstan,Moldova,Kazakhstan,Moldova
+2022-03-29,Senegal,Egypt,Senegal,Senegal
+2022-06-13,Australia,Peru,Australia,Australia
+2022-06-14,Chile,Ghana,Ghana,Chile
+2022-07-12,Zambia,Botswana,Zambia,
+2022-07-13,South Africa,Mozambique,Mozambique,
+2022-07-13,Senegal,Eswatini,Senegal,
+2022-07-17,Mozambique,Senegal,Senegal,
+2022-09-22,Thailand,Malaysia,Malaysia,
+2022-09-23,Iraq,Oman,Oman,
+2022-09-25,Malaysia,Tajikistan,Tajikistan,
+2022-11-16,Lithuania,Iceland,Iceland,Lithuania
+2022-11-16,Latvia,Estonia,Latvia,Latvia
+2022-11-19,Latvia,Iceland,Iceland,Iceland
+2022-12-05,Japan,Croatia,Croatia,Japan
+2022-12-06,Morocco,Spain,Morocco,Morocco
+2022-12-09,Croatia,Brazil,Croatia,Croatia
+2022-12-09,Netherlands,Argentina,Argentina,Netherlands
+2022-12-18,Argentina,France,Argentina,France
+2023-06-16,Curaçao,Saint Kitts and Nevis,Saint Kitts and Nevis,Saint Kitts and Nevis
+2023-06-17,Guyana,Grenada,Guyana,Guyana
+2023-06-17,Suriname,Puerto Rico,Puerto Rico,Suriname
+2023-06-18,Croatia,Spain,Spain,Croatia
+2023-06-20,Saint Kitts and Nevis,French Guiana,Saint Kitts and Nevis,French Guiana
+2023-07-01,India,Lebanon,India,India
+2023-07-04,India,Kuwait,India,India
+2023-07-09,United States,Canada,United States,Canada
+2023-07-09,Orkney,Greenland,Greenland,
+2023-07-12,United States,Panama,Panama,United States
+2023-07-13,Åland Islands,Falkland Islands,Åland Islands,Åland Islands
+2023-07-14,Malawi,Lesotho,Lesotho,
+2023-07-16,South Africa,Malawi,South Africa,
+2023-09-07,Iraq,India,Iraq,India
+2023-09-10,Thailand,Iraq,Iraq,Thailand
+2023-10-13,Iraq,Qatar,Qatar,Qatar
+2023-11-21,Mexico,Honduras,Mexico,Mexico
+2023-12-02,Solomon Islands,New Caledonia,New Caledonia,
+2024-01-28,Egypt,DR Congo,DR Congo,Egypt
+2024-01-28,Tajikistan,United Arab Emirates,Tajikistan,Tajikistan
+2024-01-29,Ivory Coast,Senegal,Ivory Coast,Senegal
+2024-01-30,Saudi Arabia,South Korea,South Korea,Saudi Arabia
+2024-01-31,Iran,Syria,Iran,Iran
+2024-02-03,Cape Verde,South Africa,South Africa,Cape Verde
+2024-02-03,Qatar,Uzbekistan,Qatar,Uzbekistan
+2024-02-07,Nigeria,South Africa,Nigeria,Nigeria
+2024-03-23,Tunisia,Croatia,Croatia,Croatia
+2024-03-26,New Zealand,Tunisia,Tunisia,New Zealand
+2024-03-26,Wales,Poland,Poland,Poland
+2024-03-26,Georgia,Greece,Georgia,Georgia
+2024-03-26,Turks and Caicos Islands,Anguilla,Anguilla,Turks and Caicos Islands
+2024-03-26,British Virgin Islands,United States Virgin Islands,British Virgin Islands,British Virgin Islands
+2024-06-11,Lithuania,Estonia,Estonia,Lithuania
+2024-07-01,Portugal,Slovenia,Portugal,Slovenia
+2024-07-04,Argentina,Ecuador,Argentina,Argentina
+2024-07-05,Portugal,France,France,France
+2024-07-05,Venezuela,Canada,Canada,Venezuela
+2024-07-06,England,Switzerland,England,England
+2024-07-06,Uruguay,Brazil,Uruguay,Uruguay
+2024-07-13,Canada,Uruguay,Uruguay,Canada
+2024-09-08,Tajikistan,Philippines,Tajikistan,
+2024-09-10,Cambodia,Sri Lanka,Sri Lanka,Cambodia
+2025-06-08,Portugal,Spain,Portugal,Portugal
+2025-06-28,Panama,Honduras,Honduras,Panama
+2025-06-29,Canada,Guatemala,Guatemala,Canada
+2025-06-29,United States,Costa Rica,United States,Costa Rica
+2025-07-13,Gozo,Shetland,Gozo,Gozo
+2025-07-17,Gozo,Western Isles,Gozo,
+2025-08-13,United States Virgin Islands,Turks and Caicos Islands,United States Virgin Islands,
+2025-11-13,Iran,Cape Verde,Iran,
+2025-11-16,Nigeria,DR Congo,DR Congo,Nigeria
+2025-11-17,Cape Verde,Egypt,Egypt,
+2025-11-18,Iran,Uzbekistan,Uzbekistan,
+2025-11-23,Papua New Guinea,Vanuatu,Vanuatu,
+2025-11-25,Palestine,Libya,Palestine,
+2025-11-26,Oman,Somalia,Oman,
+2025-11-26,Comoros,Yemen,Comoros,
+2025-12-12,Algeria,United Arab Emirates,United Arab Emirates,
+2026-01-03,Mali,Tunisia,Mali,Tunisia
+2026-01-14,Morocco,Nigeria,Morocco,Morocco
+2026-01-17,Egypt,Nigeria,Nigeria,Nigeria
+2026-03-26,Wales,Bosnia and Herzegovina,Bosnia and Herzegovina,Bosnia and Herzegovina
+2026-03-26,Czech Republic,Republic of Ireland,Czech Republic,Republic of Ireland
+2026-03-27,Kenya,Estonia,Estonia,Estonia
+2026-03-28,Namibia,Comoros,Namibia,
+2026-03-30,Azerbaijan,Sierra Leone,Azerbaijan,
+2026-03-30,Cape Verde,Finland,Cape Verde,Cape Verde
+2026-03-30,Gabon,Trinidad and Tobago,Gabon,
+2026-03-30,Uzbekistan,Venezuela,Uzbekistan,
+2026-03-31,Bosnia and Herzegovina,Italy,Bosnia and Herzegovina,Bosnia and Herzegovina
+2026-03-31,Czech Republic,Denmark,Czech Republic,Denmark

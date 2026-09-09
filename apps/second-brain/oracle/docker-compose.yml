@@ -1,0 +1,41 @@
+# Oracle 26ai Free — local database for the Second Brain demo.
+#
+# Uses the community gvenzl image (arm64-friendly, no registry login required). It tracks the
+# latest Oracle Database Free release, which includes AI Vector Search + in-DB ONNX embeddings
+# + JSON Relational Duality — everything this demo needs.
+#
+# Alternative (official): container-registry.oracle.com/database/free:latest
+# (requires `docker login container-registry.oracle.com` after accepting the license).
+#
+# Start:   docker compose up -d
+# Logs:    docker compose logs -f oracle      # wait for "DATABASE IS READY TO USE!"
+# Connect: localhost:1521  service=FREEPDB1  user=SYSTEM  password=${ORACLE_PWD}
+# Stop:    docker compose down                # add -v to also wipe the data volume
+
+services:
+  oracle:
+    image: gvenzl/oracle-free:23.26.2   # Oracle Database 23ai, Release Update 26 ("26ai")
+    platform: linux/arm64        # remove on Intel; gvenzl publishes amd64 + arm64
+    container_name: ccc-oracle
+    ports:
+      # loopback only — your brain DB (with published placeholder passwords) must not be
+      # reachable from the LAN / a coffee-shop network. Widen deliberately if you must.
+      - "127.0.0.1:1521:1521"
+    environment:
+      ORACLE_PASSWORD: ${ORACLE_PWD:-CHANGE_ME_SysPwd1}  # SYS/SYSTEM password (gvenzl var name)
+      APP_USER: ccc                                 # creates the CCC app schema for us
+      APP_USER_PASSWORD: ${APP_PWD:-CHANGE_ME_AppPwd1}
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+      # schema scripts run automatically on FIRST startup, in filename order:
+      - ./schema:/container-entrypoint-initdb.d
+      # the in-DB embedding model, loaded once via setup/01_load_onnx_model.sql:
+      - ./models:/models:ro
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+
+volumes:
+  oracle-data:

@@ -1,0 +1,20 @@
+services:
+  oracle:
+    image: ${ORACLE_IMAGE:-container-registry.oracle.com/database/free:latest}
+    container_name: soccer-oracle
+    ports:
+      - "127.0.0.1:1525:1521"
+    environment:
+      ORACLE_PWD: ${ORACLE_ADMIN_PASSWORD:-SoccerAdmin2026#}
+      ORACLE_CHARACTERSET: AL32UTF8
+    volumes:
+      - soccer_oracle_data:/opt/oracle/oradata
+    healthcheck:
+      test: ["CMD-SHELL", "echo 'SELECT 424242 AS probe FROM DUAL;' | sqlplus -s -L system/${ORACLE_ADMIN_PASSWORD:-SoccerAdmin2026#}@//localhost:1521/FREEPDB1 | grep -Eq '^[[:space:]]*424242[[:space:]]*$'"]
+      interval: 10s
+      timeout: 5s
+      retries: 60
+      start_period: 120s
+
+volumes:
+  soccer_oracle_data:

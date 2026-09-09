@@ -1,0 +1,43 @@
+{
+  "name": "idp-db26ai-aws",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "pnpm --if-present --filter '@idp/*' build",
+    "dev": "pnpm --filter @idp/web dev",
+    "dev:api": "pnpm --filter @idp/api dev",
+    "clean": "pnpm --parallel exec -- rm -rf node_modules dist tsconfig.tsbuildinfo",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "format": "oxfmt --write",
+    "format:check": "oxfmt --check",
+    "typecheck": "pnpm --if-present --filter '@idp/*' typecheck",
+    "test": "pnpm --if-present --filter '@idp/*' test",
+    "check": "pnpm lint && pnpm format:check && pnpm typecheck",
+    "samples": "tsx scripts/generate-sample-docs.ts",
+    "db:setup": "tsx scripts/db-setup.ts",
+    "db:setup-oci-credential": "tsx scripts/db-setup-oci-credential.ts",
+    "db:setup-onnx": "tsx scripts/db-setup-onnx.ts",
+    "seed": "tsx scripts/seed.ts",
+    "cdk": "pnpm --filter @idp/infrastructure cdk",
+    "cdk:deploy": "pnpm --filter @idp/infrastructure cdk deploy",
+    "cdk:destroy": "pnpm --filter @idp/infrastructure cdk destroy",
+    "cdk:synth": "pnpm --filter @idp/infrastructure cdk synth"
+  },
+  "devDependencies": {
+    "@types/node": "^22.9.0",
+    "dotenv": "^16.4.7",
+    "esbuild": "^0.28.1",
+    "oxfmt": "^0.33.0",
+    "oxlint": "^1.0.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3",
+    "vitest": "^3.2.6"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=10.0.0"
+  },
+  "packageManager": "pnpm@10.0.0"
+}

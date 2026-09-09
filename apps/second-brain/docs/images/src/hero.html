@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face {
+    font-family: 'Virgil';
+    src: url('Virgil.woff2') format('woff2');
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d1117;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #e6edf3;
+    width: 1200px;
+    padding: 40px 48px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .glow {
+    position: absolute; width: 720px; height: 720px; border-radius: 50%;
+    background: radial-gradient(circle, #1f6feb26 0%, transparent 62%);
+    top: -170px; left: 240px; pointer-events: none;
+  }
+  .hand { font-family: 'Virgil', cursive; font-weight: 400; }
+
+  .title { font-family: 'Virgil'; font-size: 34px; letter-spacing: 0.2px; position: relative; }
+  .title .accent { color: #58a6ff; }
+  .subtitle { font-size: 15.5px; color: #9da7b3; margin-top: 8px; position: relative; }
+
+  .flow { display: flex; align-items: center; gap: 0; margin-top: 30px; position: relative; }
+
+  /* sketchy border: uneven radii + slight tilt */
+  .card {
+    border: 2px solid; padding: 18px 20px;
+    border-radius: 16px;
+  }
+  .card h3 { font-family: 'Virgil'; font-size: 18px; display: flex; gap: 9px; align-items: center; white-space: nowrap; }
+  .card .sub { font-size: 12px; margin-top: 4px; opacity: 0.75; }
+  .chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
+  .chip {
+    font-size: 11.5px; font-weight: 600; padding: 4.5px 11px;
+    background: rgba(13,17,23,0.5); border: 1.4px solid rgba(255,255,255,0.16); white-space: nowrap;
+    border-radius: 999px;
+  }
+
+  .sources { flex: 0 0 218px; background: #16283d; border-color: #58a6ff; color: #dbe9ff; }
+
+  .db {
+    flex: 0 0 336px; background: linear-gradient(180deg, #1a222d, #151c26);
+    border-color: #9aa7b4; color: #e6edf3; padding: 20px 22px;
+    box-shadow: 0 0 40px #1f6feb22; border-radius: 18px;
+  }
+  .db h3 { font-size: 20px; }
+
+  .stack { flex: 1; display: flex; flex-direction: column; gap: 12px; }
+  .mini {
+    border: 2px solid; padding: 11px 18px; display: flex; align-items: baseline; gap: 10px;
+    border-radius: 14px;
+  }
+  .mini b { font-family: 'Virgil'; font-size: 16.5px; font-weight: 400; white-space: nowrap; }
+  .mini span { font-size: 12px; opacity: 0.78; }
+  .agent { background: #14301f; border-color: #3fb950; color: #d7f5e1; }
+  .mcp   { background: #2e2413; border-color: #d29922; color: #f4e4bd; }
+  .apps  { background: #1c222b; border-color: #5b6c81; color: #d7dee6; }
+
+  .arrow { flex: 0 0 48px; display: flex; align-items: center; justify-content: center; }
+
+  .foot {
+    margin-top: 26px; display: flex; gap: 28px; font-size: 13.5px; color: #8d99a7;
+    position: relative; align-items: baseline;
+  }
+  .foot .tag { font-family: 'Virgil'; font-size: 16.5px; color: #3fb950; }
+</style>
+</head>
+<body>
+  <div class="glow"></div>
+  <div class="title">🧠 A Second Brain on <span class="accent">Oracle AI Database 26ai</span></div>
+  <div class="subtitle">One engine holds your content, its meaning, and your agents' memory. Reach it from any AI chat.</div>
+
+  <div class="flow">
+    <div class="card sources">
+      <h3>📥 Your sources</h3>
+      <div class="sub">swap freely, you choose</div>
+      <div class="chips">
+        <span class="chip">markdown</span><span class="chip">socials</span>
+        <span class="chip">AI chats</span><span class="chip">notes &amp; docs</span>
+      </div>
+    </div>
+
+    <div class="arrow">
+      <svg width="38" height="22" viewBox="0 0 38 22"><path d="M2 13 C 12 9, 20 12, 30 10 m0 0 -6.5 -5.5 M30 10 l-5.5 7" stroke="#58a6ff" stroke-width="2.6" fill="none" stroke-linecap="round"/></svg>
+    </div>
+
+    <div class="card db">
+      <h3>🗄️ ONE Oracle AI Database 26ai</h3>
+      <div class="sub">relational + JSON Duality + AI Vector Search</div>
+      <div class="chips">
+        <span class="chip">📝 content</span>
+        <span class="chip">📖 self-growing wiki</span>
+        <span class="chip">🧩 memory ×4</span>
+        <span class="chip">in-DB embeddings</span>
+        <span class="chip">🔒 privacy scope</span>
+      </div>
+    </div>
+
+    <div class="arrow">
+      <svg width="38" height="22" viewBox="0 0 38 22"><path d="M2 9 C 12 13, 20 10, 30 12 m0 0 -6.5 -5.5 M30 12 l-5.5 7" stroke="#3fb950" stroke-width="2.6" fill="none" stroke-linecap="round"/></svg>
+    </div>
+
+    <div class="stack">
+      <div class="mini agent"><b>🤖 Research agent</b><span>grounded, remembers, improves</span></div>
+      <div class="mini mcp"><b>🔌 MCP server</b><span>the brain, in any AI chat</span></div>
+      <div class="mini apps"><b>💬 Claude · ChatGPT · open-source clients</b></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span class="tag">Build it once, feed it forever</span>
+    <span>runs free on your laptop, or always-on in Oracle Cloud</span>
+    <span>self-improving on a daily loop</span>
+  </div>
+</body>
+</html>

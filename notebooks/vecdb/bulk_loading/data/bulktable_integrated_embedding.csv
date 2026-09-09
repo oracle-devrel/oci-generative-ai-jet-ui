@@ -1,0 +1,16 @@
+METADATA,ID
+"{""TICKET_ID"":""INC-1021"",""SERVICE"":""WiFi"",""SLA"":""Gold"",""SITE"":""NYC-01"",""DESCRIPTION"":""WiFi throughput dips below KPI during lunch rush at flagship store.""}",22dc4989-fdd6-4e65-9487-7c140bacd1b2
+"{""TICKET_ID"":""INC-1022"",""SERVICE"":""POS"",""SLA"":""Silver"",""SITE"":""NYC-02"",""DESCRIPTION"":""POS terminals intermittently fail to authorize chip cards.""}",cb61351c-501a-4291-a38b-e20c04a32cc2
+"{""TICKET_ID"":""INC-1023"",""SERVICE"":""Inventory"",""SLA"":""Bronze"",""SITE"":""SFO-03"",""DESCRIPTION"":""Inventory scanners cannot sync new barcodes to ERP.""}",aa4daf32-0853-42e6-994e-2fbe47aa3212
+"{""TICKET_ID"":""INC-1024"",""SERVICE"":""Video"",""SLA"":""Gold"",""SITE"":""DFW-11"",""DESCRIPTION"":""CCTV analytics workload stalls after model redeploy.""}",7e38e409-4929-4cad-8622-f133979eab3c
+"{""TICKET_ID"":""INC-1025"",""SERVICE"":""Curbside"",""SLA"":""Silver"",""SITE"":""MIA-07"",""DESCRIPTION"":""Curbside pickup tablets reboot when pushing large updates.""}",6ce65564-ec8d-428a-a623-ae67cefc964a
+"{""TICKET_ID"":""INC-1026"",""SERVICE"":""5G-Core"",""SLA"":""Bronze"",""SITE"":""SEA-05"",""DESCRIPTION"":""Private 5G radios show degraded latency in loading dock.""}",0de58ad3-95f2-4b1f-916e-bcab4fe18192
+"{""TICKET_ID"":""INC-1027"",""SERVICE"":""Security"",""SLA"":""Gold"",""SITE"":""NYC-01"",""DESCRIPTION"":""Self-checkout cameras lag and miss loss-prevention cues.""}",556ed21a-d901-42ae-b02f-0b9bdbce2157
+"{""TICKET_ID"":""INC-1028"",""SERVICE"":""Signage"",""SLA"":""Silver"",""SITE"":""NYC-02"",""DESCRIPTION"":""Digital signage fails to refresh promotional playlists.""}",917a6d91-3ef0-40fa-8502-b783726258d3
+"{""TICKET_ID"":""INC-1029"",""SERVICE"":""WiFi"",""SLA"":""Bronze"",""SITE"":""SFO-03"",""DESCRIPTION"":""Temperature sensors stream duplicate readings overnight.""}",49b05c07-98c8-4a45-9a3f-b51b39fde1bc
+"{""TICKET_ID"":""INC-1030"",""SERVICE"":""POS"",""SLA"":""Gold"",""SITE"":""DFW-11"",""DESCRIPTION"":""Pharmacy kiosks throw SSL errors while calling APIs.""}",dde576e4-60b8-4644-b7e6-e801c66961f3
+"{""TICKET_ID"":""INC-1031"",""SERVICE"":""Inventory"",""SLA"":""Silver"",""SITE"":""MIA-07"",""DESCRIPTION"":""Robotic replenishment bots lose SLAM localization.""}",dd78ed11-ca40-4d28-833f-a91be99a4649
+"{""TICKET_ID"":""INC-1032"",""SERVICE"":""Video"",""SLA"":""Bronze"",""SITE"":""SEA-05"",""DESCRIPTION"":""Drone-delivery telemetry fails geofencing validation.""}",2c1cada7-47e8-4337-ae64-12601fad708a
+"{""TICKET_ID"":""INC-1033"",""SERVICE"":""Curbside"",""SLA"":""Gold"",""SITE"":""NYC-01"",""DESCRIPTION"":""Store-associate copilot keeps timing out on search prompts.""}",8369dfcd-cb86-4480-8d7b-d4abb169aac0
+"{""TICKET_ID"":""INC-1034"",""SERVICE"":""5G-Core"",""SLA"":""Silver"",""SITE"":""NYC-02"",""DESCRIPTION"":""Vision defect detector misclassifies seasonal displays.""}",74f9ae9d-301b-445b-89ae-0e563116591e
+"{""TICKET_ID"":""INC-1035"",""SERVICE"":""Security"",""SLA"":""Bronze"",""SITE"":""SFO-03"",""DESCRIPTION"":""Customer sentiment topic modeling drifts after reindex.""}",90820c07-92da-4763-bc11-818181e3cd13

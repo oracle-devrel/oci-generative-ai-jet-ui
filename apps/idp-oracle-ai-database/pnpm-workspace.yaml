@@ -1,0 +1,6 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+  - "services/functions/*"
+  - "infrastructure"
+  - "scripts"

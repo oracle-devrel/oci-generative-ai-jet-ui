@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+langchain
+sentence-transformers
+torch
+transformers<4.49
+tqdm
+python-dotenv
+oracle-vecdb
