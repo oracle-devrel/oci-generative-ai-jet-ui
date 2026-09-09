@@ -7,8 +7,16 @@ import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.List;
 
+import javax.sql.DataSource;
+
+import com.example.news.events.EventsConfiguration;
+import oracle.jdbc.OracleConnection;
+import oracle.ucp.jdbc.PoolDataSource;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
@@ -69,6 +77,28 @@ public class NewsEventStreamingIT {
 
     @Autowired
     RawNewsProducer rawNewsProducer;
+
+    @Autowired
+    DataSource dataSource;
+
+    @Test
+    public void dataSourceSetsSessionProgram() throws Exception {
+        assertThat(dataSource).isInstanceOf(PoolDataSource.class);
+        assertThat(((PoolDataSource) dataSource).getConnectionProperty(
+                OracleConnection.CONNECTION_PROPERTY_THIN_VSESSION_PROGRAM
+        )).isEqualTo(EventsConfiguration.PROGRAM_NAME);
+
+        try (Connection connection = dataSource.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery("""
+                     select program
+                     from v$session
+                     where audsid = sys_context('USERENV', 'SESSIONID')
+                     """)) {
+            assertThat(resultSet.next()).isTrue();
+            assertThat(resultSet.getString(1)).isEqualTo(EventsConfiguration.PROGRAM_NAME);
+        }
+    }
 
     @Test
     public void newsWorkflow() throws Exception {

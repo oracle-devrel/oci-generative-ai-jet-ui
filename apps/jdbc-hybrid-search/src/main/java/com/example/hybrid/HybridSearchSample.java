@@ -1,6 +1,7 @@
 package com.example.hybrid;
 
 import com.example.hybrid.diagram.DiagramGenerator;
+import oracle.jdbc.OracleConnection;
 import oracle.jdbc.datasource.impl.OracleDataSource;
 
 import java.sql.Connection;
@@ -10,8 +11,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Properties;
 
 public class HybridSearchSample {
+    static final String PROGRAM_NAME = "devrel-developerhub-jdbc-hybrid-search";
+
     static final String INSERT_SQL = """
             insert into hybrid_documents (title, content, category, price, metadata, embedding)
             values (?, ?, ?, ?, ?, ?)
@@ -123,6 +127,9 @@ public class HybridSearchSample {
         ds.setURL(url);
         ds.setUser(username);
         ds.setPassword(password);
+        Properties connectionProperties = new Properties();
+        connectionProperties.setProperty(OracleConnection.CONNECTION_PROPERTY_THIN_VSESSION_PROGRAM, PROGRAM_NAME);
+        ds.setConnectionProperties(connectionProperties);
         return ds;
     }
 }
