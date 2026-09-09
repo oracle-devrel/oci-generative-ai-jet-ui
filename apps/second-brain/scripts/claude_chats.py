@@ -17,6 +17,8 @@ import pathlib
 import oracledb
 from dotenv import load_dotenv
 
+from redaction import redact
+
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 load_dotenv(ROOT / "oracle" / ".env")
 oracledb.defaults.fetch_lobs = False
@@ -44,9 +46,9 @@ def text_for(c):
     """Distilled summary if present; else the human turns (the questions you asked)."""
     s = (c.get("summary") or "").strip()
     if s:
-        return s
+        return redact(s)
     humans = [m.get("text", "") for m in (c.get("chat_messages") or []) if m.get("sender") == "human"]
-    return ("\n".join(humans))[:1500]
+    return redact(("\n".join(humans))[:1500])
 
 
 def chunks_of(c, size=1500):
@@ -57,7 +59,7 @@ def chunks_of(c, size=1500):
         if not t:
             continue
         who = "Human" if m.get("sender") == "human" else "Assistant"
-        piece = f"{who}: {t}"
+        piece = f"{who}: {redact(t)}"
         if buf and len(buf) + len(piece) + 1 > size:
             out.append(buf)
             buf = piece
@@ -96,7 +98,7 @@ def main():
                     vector_embedding(MINILM using :emb as data))
             returning post_id into :outid
             """,
-            title=name[:1000], caption=body, pub=iso(c.get("created_at")), emb=emb, outid=outid,
+            title=redact(name)[:1000], caption=body, pub=iso(c.get("created_at")), emb=emb, outid=outid,
         )
         post_id = int(outid.getvalue()[0])
         # the FULL content, chunked into passages (the detail)

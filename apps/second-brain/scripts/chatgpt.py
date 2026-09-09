@@ -13,7 +13,6 @@ import datetime
 import glob
 import json
 import pathlib
-import re
 import sys
 
 import oracledb
@@ -25,21 +24,8 @@ import db  # noqa: E402  (loads .env + connects to the configured DB, wallet-awa
 oracledb.defaults.fetch_lobs = False
 EXPORT_DIR = ROOT / "exports" / "chatgpt"
 
-# redact obvious credentials before anything hits the database
-SECRETS = [
-    re.compile(r"sk-ant-[A-Za-z0-9_-]{20,}"),
-    re.compile(r"sk-[A-Za-z0-9_-]{20,}"),   # OpenAI classic + sk-proj-... project keys
-    re.compile(r"AKIA[0-9A-Z]{16}"),
-    re.compile(r"ghp_[A-Za-z0-9]{36}"),
-    re.compile(r"xox[baprs]-[A-Za-z0-9-]{10,}"),
-    re.compile(r"AIza[0-9A-Za-z_-]{35}"),
-]
-
-
-def redact(t):
-    for pat in SECRETS:
-        t = pat.sub("[REDACTED]", t)
-    return t
+# redact obvious credentials before anything hits the database (shared list, all loaders)
+from redaction import redact  # noqa: E402
 
 
 def ts(epoch):

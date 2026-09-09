@@ -13,7 +13,6 @@ Run from repo root:  ./.venv/bin/python scripts/claude_code.py
 import json
 import os
 import pathlib
-import re
 
 import oracledb
 from dotenv import load_dotenv
@@ -23,24 +22,8 @@ load_dotenv(ROOT / "oracle" / ".env")
 oracledb.defaults.fetch_lobs = False
 PROJECTS = pathlib.Path.home() / ".claude" / "projects"
 
-SECRET_PATTERNS = [
-    re.compile(r"sk-ant-[A-Za-z0-9_\-]{20,}"),
-    re.compile(r"sk-[A-Za-z0-9_\-]{20,}"),                 # OpenAI classic + sk-proj-... keys
-    re.compile(r"AIza[0-9A-Za-z_\-]{35}"),                 # Google API key
-    re.compile(r"ntn_[A-Za-z0-9]{20,}"),
-    re.compile(r"secret_[A-Za-z0-9]{20,}"),
-    re.compile(r"AKIA[0-9A-Z]{16}"),
-    re.compile(r"gh[pousr]_[A-Za-z0-9]{20,}"),
-    re.compile(r"github_pat_[A-Za-z0-9_]{20,}"),
-    re.compile(r"xox[baprs]-[A-Za-z0-9\-]{10,}"),
-    re.compile(r"-----BEGIN [A-Z ]*PRIVATE KEY-----[\s\S]*?-----END [A-Z ]*PRIVATE KEY-----"),
-]
-
-
-def redact(s):
-    for pat in SECRET_PATTERNS:
-        s = pat.sub("[REDACTED]", s)
-    return s
+# one shared list for every loader (scripts/redaction.py)
+from redaction import redact  # noqa: E402
 
 
 def connect():

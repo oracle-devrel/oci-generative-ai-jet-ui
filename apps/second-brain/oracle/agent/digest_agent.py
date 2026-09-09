@@ -15,6 +15,7 @@ import datetime
 import content
 import db
 import llm
+import oamp_memory
 
 SCHEMA = {"type": "object", "additionalProperties": False,
           "properties": {"digest": {"type": "string"}}, "required": ["digest"]}
@@ -42,19 +43,24 @@ def collect(conn):
     facts = cur.fetchone()[0]
     cur.execute("""SELECT run_id, task FROM agent_memory
                    WHERE created_at >= SYSTIMESTAMP - INTERVAL '7' DAY
+                     AND NVL(visibility,'content')='content'
                    ORDER BY created_at DESC FETCH FIRST 12 ROWS ONLY""")
     runs = [f"[{r}] {t}" for r, t in cur.fetchall()]
     return published, wiki, total, facts, runs
 
 
 def save_note(conn, title, text):
+    # the digest synthesizes from many sources, so it gets the same write-time deny-list
+    # check as memory: a body that trips it is stored quarantined, out of every read path
+    vis = "business" if oamp_memory.violates_privacy(f"{title}\n{text}") else "content"
     with conn.cursor() as cur:
         cur.execute("alter session disable parallel dml")
         outid = cur.var(int)
-        cur.execute("INSERT INTO posts (platform_id, kind, title, caption, content_embedding) "
-                    "VALUES ('note','note', :t, :c, VECTOR_EMBEDDING(MINILM USING :e AS DATA)) "
+        cur.execute("INSERT INTO posts (platform_id, kind, title, caption, visibility, "
+                    "content_embedding) "
+                    "VALUES ('note','note', :t, :c, :v, VECTOR_EMBEDDING(MINILM USING :e AS DATA)) "
                     "RETURNING post_id INTO :outid",
-                    t=title[:1000], c=text[:8000], e=f"{title}. {text}"[:3000], outid=outid)
+                    t=title[:1000], c=text[:8000], v=vis, e=f"{title}. {text}"[:3000], outid=outid)
         pid = int(outid.getvalue()[0])
         for i, para in enumerate(content.note_chunks(text)):
             cur.execute("INSERT INTO content_chunks (post_id, seq, chunk, embedding) "

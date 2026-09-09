@@ -32,6 +32,7 @@ Related notebooks are grouped into their own folders, each with a dedicated READ
 | [`agent_memory/`](./agent_memory)               | Notebooks built on the **[Oracle AI Agent Memory](https://www.oracle.com/database/ai-agent-memory/)** package (`oracleagentmemory`) — the developer guide, benchmarks vs. naive memory, and framework examples (OpenAI Agents SDK, Claude Agent SDK, LangGraph).                               |
 | [`langchain_ecosystem/`](./langchain_ecosystem) | Notebooks built on the **LangChain ecosystem** (LangChain, LangGraph, Deep Agents) with Oracle's `langchain-oracledb` / `langgraph-oracledb` / `langchain-oci` integrations — a RAG starter, semantic cache + chat history, a Deep Agents research agent, and a multi-agent triage supervisor. |
 | [`multicloud/`](./multicloud)                   | AWS, Azure, Google Cloud, and MongoDB API samples running Oracle AI Database outside OCI.                                                                                                                                                                                                      |
+| [`vecdb/`](./vecdb)                             | AI Database vector development notebooks, including auto-embedding, BYOV, semantic search, indexing, bulk loading, OCI embeddings, Gemini RAG, parks search, and Private AI Services Container integration.                                                                                 |
 
 ## Getting Started
 

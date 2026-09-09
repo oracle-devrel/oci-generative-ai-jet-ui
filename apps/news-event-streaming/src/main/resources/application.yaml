@@ -1,0 +1,53 @@
+
+okafka:
+  ojdbcPath: ${OJDBC_PATH}
+  bootstrapServers: ${BOOTSTRAP_SERVERS:localhost:1521}
+  serviceName: ${OKAFKA_SERVICE_NAME:freepdb1}
+  securityProtocol: ${OKAFKA_SECURITY_PROTOCOL:PLAINTEXT}
+
+news:
+  threads:
+    newsParserConsumerProducer: 3
+    newsConsumer: 3
+  topic:
+    raw: news_raw
+    parsed: news_parsed
+
+oci:
+  chatModelID: ${OCI_CHAT_MODEL_ID}
+  embeddingModelID: ${OCI_EMBEDDING_MODEL_ID}
+  compartment: ${OCI_COMPARTMENT_ID}
+  chat:
+    preambleOverride: ""
+    temperature: 1.0
+    frequencyPenalty: 0.0
+    presencePenalty: 0.0
+    maxTokens: 4000
+    topP: 0.75
+    topK: 0
+    inferenceRequestType: COHERE
+
+spring:
+  datasource:
+    username: testuser
+    password: testpwd
+    url: jdbc:oracle:thin:@localhost:1521/freepdb1
+    driver-class-name: oracle.jdbc.OracleDriver
+    type: oracle.ucp.jdbc.PoolDataSourceImpl
+    oracleucp:
+      initial-pool-size: 1
+      min-pool-size: 1
+      max-pool-size: 30
+      connection-pool-name: OracleDatabaseTest
+      connection-factory-class-name: oracle.jdbc.pool.OracleDataSource
+  threads:
+    virtual:
+      enabled: true # Turn on Java Virtual Threads
+
+logging:
+  level:
+    org:
+      apache:
+        kafka: WARN
+      oracle:
+        okafka: WARN

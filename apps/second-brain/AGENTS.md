@@ -81,12 +81,23 @@ MCP server. Everything below is what a maintainer would tell you on day one.
 The rules above are Tier 1: text you read and follow. This repo also ships Tier 2 —
 enforcement that doesn't depend on you remembering:
 
-- **Shipped hook (already active in Claude Code):** the checked-in
-  `.claude/settings.json` carries a PreToolUse hook that BLOCKS any agent edit to a
-  `*.env` file, with the reason returned to you. Claude Code asks the user to approve
-  project hooks on first use — approving is recommended. Other tools (Cursor, etc.):
-  wire the same guard into your tool's equivalent hook mechanism; the command inside
-  the settings file is plain python3 reading the tool call as JSON on stdin.
+- **Env-guard hook (paste into `.claude/settings.json` in your copy):** this hub's
+  root `.gitignore` excludes `.claude/`, so the hook file can't ship inside this
+  snapshot — create it yourself before letting an agent loose. It carries a PreToolUse
+  hook that BLOCKS any agent edit to a `.env`-style file (`.env`, `foo.env`,
+  `.env.local`, … — `.env.example` stays editable), with the reason returned to you.
+  Claude Code asks the user to approve project hooks on first use — approving is
+  recommended. Other tools (Cursor, etc.): wire the same guard into your tool's
+  equivalent hook mechanism; the command is plain python3 reading the tool call as
+  JSON on stdin. The canonical repo
+  ([LindaHaviv/second-brain](https://github.com/LindaHaviv/second-brain)) ships this
+  exact file at `.claude/settings.json`; copy it verbatim:
+
+  ```json
+  {"hooks": {"PreToolUse": [{"matcher": "Write|Edit|MultiEdit|NotebookEdit",
+    "hooks": [{"type": "command",
+    "command": "python3 -c \"import json,sys,os; d=json.load(sys.stdin); p=str(d.get('tool_input',{}).get('file_path','')); b=os.path.basename(p); hit=(b.endswith('.env') or b.startswith('.env')) and not b.endswith('.env.example'); sys.exit(0) if not hit else (sys.stderr.write('BLOCKED by repo hook: '+p+' is a secrets file. Real values belong in the user-managed .env (never written by an agent, never committed); document new variables in oracle/.env.example instead.'), sys.exit(2))\""}]}]}}
+  ```
 - **Opt-in hook (paste into `.claude/settings.local.json` if you want tests enforced,
   not just requested):** run the suite whenever the agent finishes a turn. Caveat: it
   needs the local database running, so enable it only after the Quickstart works.

@@ -15,6 +15,7 @@ import datetime
 import json
 import os
 import pathlib
+import re
 
 import oracledb
 from dotenv import load_dotenv
@@ -75,6 +76,11 @@ def main():
     cur.execute("delete from posts where platform_id='youtube'")
 
     for v in videos:
+        # the id names a file on disk — accept only the 11-char YouTube shape, so a
+        # tampered jsonl can never write outside sources/youtube/
+        if not re.fullmatch(r"[\w-]{11}", v["id"]):
+            print(f"  skipping malformed video id: {v['id']!r}")
+            continue
         title = v.get("title") or ""
         desc = v.get("description") or ""
         # 1) canonical Markdown

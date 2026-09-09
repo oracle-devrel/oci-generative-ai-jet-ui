@@ -2,7 +2,7 @@ anthropic>=0.40
 oracledb>=2.0
 oracleagentmemory>=26.6.0   # Oracle AI Agent Memory — the default memory backend (oamp_memory.py)
 python-dotenv>=1.0
-fastmcp>=2.0
+fastmcp==3.4.2              # pinned to match deploy/requirements.txt — the OAuth allowlist wraps a fastmcp-internal seam; re-test tests/test_brain.py auth cases after any bump
 notion-client>=2.0          # scripts/notion.py + content_ops loader
 pypdf>=5.1
 google-auth>=2.35

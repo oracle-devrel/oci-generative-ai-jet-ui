@@ -96,7 +96,9 @@ def main():
         print(f"linkedin scrape ran <{CADENCE_DAYS}d ago — nothing to do (weekly cadence)")
         return
     import requests
-    r = requests.post(API, params={"timeout": 180, "token": token},
+    # token travels in the Authorization header, never the URL (query strings land in logs)
+    r = requests.post(API, params={"timeout": 180},
+                      headers={"Authorization": f"Bearer {token}"},
                       json={"targetUrls": [profile], "maxPosts": MAX_POSTS,
                             "postedLimit": POSTED_LIMIT, "includeReposts": False},
                       timeout=300)

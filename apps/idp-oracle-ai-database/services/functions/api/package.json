@@ -14,7 +14,7 @@
     "@idp/logger": "workspace:*",
     "@idp/schemas": "workspace:*",
     "@idp/shared": "workspace:*",
-    "hono": "^4.6.10",
+    "hono": "^4.12.34",
     "oracledb": "^6.7.0"
   },
   "devDependencies": {

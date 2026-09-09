@@ -1,11 +1,40 @@
+# Python
 .venv/
 __pycache__/
 *.pyc
+
+# Secrets & local config (keep *.env.example tracked)
 *.env
+
+# Oracle Autonomous wallet — NEVER commit (mTLS keys to your cloud DB)
 *-wallet/
 wallet/
+cwallet.sso
+ewallet.p12
+ewallet.pem
+tnsnames.ora
+sqlnet.ora
+keystore.jks
+truststore.jks
+ojdbc.properties
+*.wallet.zip
+
+# Large / local artifacts
+oracle/models/
+models/
 exports/
+
+# Personal notes — not for the public repo
 private/
+
+# Your own ingested content — generate your own via the tutorial
 sources/*/
+
+# OS / misc
 .DS_Store
 node_modules/
+oracle/agent/demo_screenshot.py
+
+# Claude Code tool config (permission history names local file moves — personal)
+.claude/*
+!.claude/settings.json

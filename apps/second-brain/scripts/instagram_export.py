@@ -134,7 +134,15 @@ def main():
     n = merged = skip = chunks = 0
     for it in list(reels(root)) + list(photo_posts(root)):
         cap = (it["caption"] or "").strip()
-        transcript = parse_srt(str(root / it["sub"])) if it["sub"] else ""
+        # subtitle paths come from the export's own JSON — resolve and require they stay
+        # inside the export root, so a tampered archive can't read arbitrary local files
+        transcript = ""
+        if it["sub"]:
+            sub_path = (root / it["sub"]).resolve()
+            if sub_path.is_relative_to(root.resolve()):
+                transcript = parse_srt(str(sub_path))
+            else:
+                print(f"  skipping subtitle outside export root: {it['sub']!r}")
         if transcript and not mostly_english(transcript):
             transcript = ""
         body = cap + (("\n\n[transcript] " + transcript) if transcript else "")

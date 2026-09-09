@@ -68,9 +68,15 @@ def main():
         print("privacy default ON: copying visibility='content' only; "
               f"skipping {', '.join(PRIVATE_TABLES)} (use --include-private to override)")
 
+    # no password fallback, ever — same rule as oracle/agent/db.py: a hardcoded default
+    # silently "works" against a DB that happens to use the demo password
+    local_pwd = os.environ.get("LOCAL_APP_PWD")
+    if not local_pwd:
+        sys.exit("LOCAL_APP_PWD is not set — export it (the LOCAL database's app-user "
+                 "password) before copying to the cloud brain.")
     local = oracledb.connect(
         user=os.environ.get("LOCAL_DB_USER", "CCC"),
-        password=os.environ.get("LOCAL_APP_PWD", "CHANGE_ME_AppPwd1"),   # local sandbox placeholder; override via env
+        password=local_pwd,
         dsn=os.environ.get("LOCAL_DB_DSN", "localhost:1521/FREEPDB1"))
     cloud = db.connect()
     lc, cc = local.cursor(), cloud.cursor()
