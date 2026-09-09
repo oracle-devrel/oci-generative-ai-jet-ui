@@ -1,0 +1,29 @@
+/
+/ $Header: requirements.txt 15-jun-2026.09:29:50 tanisaga Exp $
+/
+/ requirements.txt
+/
+/ Copyright (c) 2026, Oracle and/or its affiliates.
+/
+/   NAME
+/     requirements.txt - Dependencies required for
+/     OCI IAM LangChain demo
+/
+/   DESCRIPTION
+/     <short description of component this file declares/defines>
+/
+/   NOTES
+/     <other useful comments, qualifications, etc.>
+/
+/   MODIFIED   (MM/DD/YY)
+/   tanisaga    06/15/26 - Creation
+/
+
+langchain
+langchain-core
+langchain-oci
+oci
+oracledb
+python-dotenv
+pyjwt
+requests
