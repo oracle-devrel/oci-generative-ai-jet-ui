@@ -127,7 +127,7 @@ Commands:
   /preferences            preferences only
   /facts                  facts only (active + provisional grouped)
   /episodes               episodes only
-  /trace                  last 5 trace events for the current run
+  /trace [n]              show last n trace events (default 5)
   /confirm <fact_id>      flip a provisional fact to active
   /run new                start a new run_id without exiting
   /reset confirm          drop all tables, re-create them, re-seed (irreversible)
@@ -438,7 +438,27 @@ async def handle_command(
     elif cmd == "/episodes":
         await _dump_episodes(manager, session)
     elif cmd == "/trace":
-        for e in (await manager.trace.get_run(session.run_id))[-5:]:
+        limit = 5
+
+        if arg:
+            try:
+                limit = int(arg)
+
+                if limit <= 0:
+                    console.print(
+                        "  [yellow]number must be greater than 0[/yellow]"
+                    )
+                    return True
+
+            except ValueError:
+                console.print(
+                    "  [yellow]usage:[/yellow] /trace [number]"
+                )
+                return True
+
+        traces = await manager.trace.get_run(session.run_id)
+
+        for e in traces[-limit:]:
             console.print(
                 f"  [dim]t{e['turn_index']}[/dim] "
                 f"[yellow]{e['event_type']}[/yellow]: "
