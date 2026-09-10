@@ -692,6 +692,30 @@ Get a key at [openrouter.ai/keys](https://openrouter.ai/keys) (200K free tokens/
 </details>
 
 <details>
+<summary><b>OrcaRouter (OpenAI-compatible AI gateway)</b></summary>
+
+```json
+{
+  "agents": {
+    "defaults": {
+      "provider": "orcarouter",
+      "model": "orcarouter/fusion"
+    }
+  },
+  "providers": {
+    "orcarouter": {
+      "api_key": "sk-orca-xxx",  # pragma: allowlist secret
+      "api_base": "https://api.orcarouter.ai/v1"
+    }
+  }
+}
+```
+
+Get a key at [orcarouter.ai](https://www.orcarouter.ai). OrcaRouter exposes a provider/model namespace across many models with adaptive routing, automatic failover, observability, guardrails, and agent-tool governance on the same OpenAI-compatible endpoint. See the "All supported providers" list below for alternatives.
+
+</details>
+
+<details>
 <summary><b>Zhipu (best for Chinese users)</b></summary>
 
 ```json
@@ -724,6 +748,7 @@ Get a key at [bigmodel.cn](https://open.bigmodel.cn/usercenter/proj-mgmt/apikeys
 | `ollama` | Local open-weight inference (no cloud) | [ollama.com](https://ollama.com) |
 | `openai` | GPT models / any OpenAI-compatible API | [platform.openai.com](https://platform.openai.com) |
 | `openrouter` | Access to all models | [openrouter.ai](https://openrouter.ai/keys) |
+| `orcarouter` | OpenAI-compatible AI gateway (routing, failover, guardrails) | [orcarouter.ai](https://www.orcarouter.ai) |
 | `anthropic` | Claude models | [console.anthropic.com](https://console.anthropic.com) |
 | `gemini` | Gemini models | [aistudio.google.com](https://aistudio.google.com) |
 | `groq` | Fast inference + voice transcription | [console.groq.com](https://console.groq.com) |

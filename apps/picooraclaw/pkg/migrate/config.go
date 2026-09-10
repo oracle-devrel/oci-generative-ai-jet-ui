@@ -15,6 +15,7 @@ var supportedProviders = map[string]bool{
 	"anthropic":  true,
 	"openai":     true,
 	"openrouter": true,
+	"orcarouter": true,
 	"groq":       true,
 	"vllm":       true,
 	"gemini":     true,
@@ -110,6 +111,8 @@ func ConvertConfig(data map[string]interface{}) (*config.Config, []string, error
 				cfg.Providers.OpenAI = pc
 			case "openrouter":
 				cfg.Providers.OpenRouter = pc
+			case "orcarouter":
+				cfg.Providers.OrcaRouter = pc
 			case "groq":
 				cfg.Providers.Groq = pc
 			case "vllm":
@@ -237,6 +240,9 @@ func MergeConfig(existing, incoming *config.Config) *config.Config {
 	}
 	if existing.Providers.OpenRouter.APIKey == "" {
 		existing.Providers.OpenRouter = incoming.Providers.OpenRouter
+	}
+	if existing.Providers.OrcaRouter.APIKey == "" {
+		existing.Providers.OrcaRouter = incoming.Providers.OrcaRouter
 	}
 	if existing.Providers.Groq.APIKey == "" {
 		existing.Providers.Groq = incoming.Providers.Groq

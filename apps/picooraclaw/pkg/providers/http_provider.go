@@ -422,6 +422,15 @@ func CreateProvider(cfg *config.Config) (LLMProvider, error) {
 					apiBase = "https://openrouter.ai/api/v1"
 				}
 			}
+		case "orcarouter":
+			if cfg.Providers.OrcaRouter.APIKey != "" {
+				apiKey = cfg.Providers.OrcaRouter.APIKey
+				if cfg.Providers.OrcaRouter.APIBase != "" {
+					apiBase = cfg.Providers.OrcaRouter.APIBase
+				} else {
+					apiBase = "https://api.orcarouter.ai/v1"
+				}
+			}
 		case "gemini", "google":
 			if cfg.Providers.Gemini.APIKey != "" {
 				apiKey = cfg.Providers.Gemini.APIKey
@@ -488,6 +497,15 @@ func CreateProvider(cfg *config.Config) (LLMProvider, error) {
 			proxy = cfg.Providers.Moonshot.Proxy
 			if apiBase == "" {
 				apiBase = "https://api.moonshot.cn/v1"
+			}
+
+		case strings.HasPrefix(model, "orcarouter/"):
+			apiKey = cfg.Providers.OrcaRouter.APIKey
+			proxy = cfg.Providers.OrcaRouter.Proxy
+			if cfg.Providers.OrcaRouter.APIBase != "" {
+				apiBase = cfg.Providers.OrcaRouter.APIBase
+			} else {
+				apiBase = "https://api.orcarouter.ai/v1"
 			}
 
 		case strings.HasPrefix(model, "openrouter/") || strings.HasPrefix(model, "anthropic/") || strings.HasPrefix(model, "openai/") || strings.HasPrefix(model, "meta-llama/") || strings.HasPrefix(model, "deepseek/") || strings.HasPrefix(model, "google/"):

@@ -90,6 +90,9 @@ func TestDefaultConfig_Providers(t *testing.T) {
 	if cfg.Providers.OpenRouter.APIKey != "" {
 		t.Error("OpenRouter API key should be empty by default")
 	}
+	if cfg.Providers.OrcaRouter.APIKey != "" {
+		t.Error("OrcaRouter API key should be empty by default")
+	}
 	if cfg.Providers.Groq.APIKey != "" {
 		t.Error("Groq API key should be empty by default")
 	}

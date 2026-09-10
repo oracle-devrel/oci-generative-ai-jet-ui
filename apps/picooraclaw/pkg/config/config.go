@@ -220,6 +220,7 @@ type ProvidersConfig struct {
 	Anthropic     ProviderConfig `json:"anthropic"`
 	OpenAI        ProviderConfig `json:"openai"`
 	OpenRouter    ProviderConfig `json:"openrouter"`
+	OrcaRouter    ProviderConfig `json:"orcarouter"`
 	Groq          ProviderConfig `json:"groq"`
 	VLLM          ProviderConfig `json:"vllm"`
 	Gemini        ProviderConfig `json:"gemini"`
@@ -364,6 +365,7 @@ func DefaultConfig() *Config {
 			Anthropic:  ProviderConfig{},
 			OpenAI:     ProviderConfig{APIKey: "oci-genai", APIBase: "http://localhost:9999/v1"},
 			OpenRouter: ProviderConfig{},
+			OrcaRouter: ProviderConfig{},
 			Groq:       ProviderConfig{},
 			VLLM:       ProviderConfig{},
 			Gemini:     ProviderConfig{},
@@ -476,6 +478,9 @@ func (c *Config) GetAPIKey() string {
 	if c.Providers.OpenRouter.APIKey != "" {
 		return c.Providers.OpenRouter.APIKey
 	}
+	if c.Providers.OrcaRouter.APIKey != "" {
+		return c.Providers.OrcaRouter.APIKey
+	}
 	if c.Providers.Anthropic.APIKey != "" {
 		return c.Providers.Anthropic.APIKey
 	}
@@ -502,6 +507,12 @@ func (c *Config) GetAPIBase() string {
 			return c.Providers.OpenRouter.APIBase
 		}
 		return "https://openrouter.ai/api/v1"
+	}
+	if c.Providers.OrcaRouter.APIKey != "" {
+		if c.Providers.OrcaRouter.APIBase != "" {
+			return c.Providers.OrcaRouter.APIBase
+		}
+		return "https://api.orcarouter.ai/v1"
 	}
 	if c.Providers.VLLM.APIKey != "" && c.Providers.VLLM.APIBase != "" {
 		return c.Providers.VLLM.APIBase

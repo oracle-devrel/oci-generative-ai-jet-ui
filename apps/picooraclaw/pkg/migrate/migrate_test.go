@@ -153,6 +153,9 @@ func TestConvertConfig(t *testing.T) {
 				"openrouter": map[string]interface{}{
 					"api_key": "sk-or-test",
 				},
+				"orcarouter": map[string]interface{}{
+					"api_key": "sk-orca-test",
+				},
 				"groq": map[string]interface{}{
 					"api_key": "gsk-test",
 				},
@@ -171,6 +174,9 @@ func TestConvertConfig(t *testing.T) {
 		}
 		if cfg.Providers.OpenRouter.APIKey != "sk-or-test" {
 			t.Errorf("OpenRouter.APIKey = %q, want %q", cfg.Providers.OpenRouter.APIKey, "sk-or-test")
+		}
+		if cfg.Providers.OrcaRouter.APIKey != "sk-orca-test" {
+			t.Errorf("OrcaRouter.APIKey = %q, want %q", cfg.Providers.OrcaRouter.APIKey, "sk-orca-test")
 		}
 		if cfg.Providers.Groq.APIKey != "gsk-test" {
 			t.Errorf("Groq.APIKey = %q, want %q", cfg.Providers.Groq.APIKey, "gsk-test")
@@ -305,6 +311,7 @@ func TestMergeConfig(t *testing.T) {
 		incoming := config.DefaultConfig()
 		incoming.Providers.Anthropic.APIKey = "sk-ant-incoming"
 		incoming.Providers.OpenRouter.APIKey = "sk-or-incoming"
+		incoming.Providers.OrcaRouter.APIKey = "sk-orca-incoming"
 
 		result := MergeConfig(existing, incoming)
 		if result.Providers.Anthropic.APIKey != "sk-ant-incoming" {
@@ -312,6 +319,9 @@ func TestMergeConfig(t *testing.T) {
 		}
 		if result.Providers.OpenRouter.APIKey != "sk-or-incoming" {
 			t.Errorf("OpenRouter.APIKey = %q, want %q", result.Providers.OpenRouter.APIKey, "sk-or-incoming")
+		}
+		if result.Providers.OrcaRouter.APIKey != "sk-orca-incoming" {
+			t.Errorf("OrcaRouter.APIKey = %q, want %q", result.Providers.OrcaRouter.APIKey, "sk-orca-incoming")
 		}
 	})
 
@@ -633,6 +643,9 @@ func TestRunFullMigration(t *testing.T) {
 			"openrouter": map[string]interface{}{
 				"apiKey": "sk-or-migrate-test",
 			},
+			"orcarouter": map[string]interface{}{
+				"apiKey": "sk-orca-migrate-test",
+			},
 		},
 		"channels": map[string]interface{}{
 			"telegram": map[string]interface{}{
@@ -690,6 +703,9 @@ func TestRunFullMigration(t *testing.T) {
 	}
 	if picoConfig.Providers.OpenRouter.APIKey != "sk-or-migrate-test" {
 		t.Errorf("OpenRouter.APIKey = %q, want %q", picoConfig.Providers.OpenRouter.APIKey, "sk-or-migrate-test")
+	}
+	if picoConfig.Providers.OrcaRouter.APIKey != "sk-orca-migrate-test" {
+		t.Errorf("OrcaRouter.APIKey = %q, want %q", picoConfig.Providers.OrcaRouter.APIKey, "sk-orca-migrate-test")
 	}
 	if !picoConfig.Channels.Telegram.Enabled {
 		t.Error("Telegram should be enabled")

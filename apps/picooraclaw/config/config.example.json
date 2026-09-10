@@ -84,6 +84,10 @@
       "api_key": "sk-or-v1-xxx",
       "api_base": ""
     },
+    "orcarouter": {
+      "api_key": "",
+      "api_base": ""
+    },
     "groq": {
       "api_key": "gsk_xxx",
       "api_base": ""

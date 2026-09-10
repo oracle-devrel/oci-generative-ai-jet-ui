@@ -220,7 +220,7 @@ func onboard() {
 	fmt.Printf("%s picooraclaw is ready!\n", logo)
 	fmt.Println("\nNext steps:")
 	fmt.Println("  1. Add your API key to", configPath)
-	fmt.Println("     Get one at: https://openrouter.ai/keys")
+	fmt.Println("     Get one at: https://openrouter.ai/keys or https://www.orcarouter.ai")
 	fmt.Println("  2. Chat: picooraclaw agent -m \"Hello!\"")
 }
 
