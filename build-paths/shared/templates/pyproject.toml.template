@@ -15,7 +15,7 @@ authors = [
 # The skill uncomments exactly one inference block during scaffolding.
 # Leaving them all uncommented is wrong — pick the user's chosen backend.
 dependencies = [
-    "oracledb>=2.4",
+    "oracledb>=2.5",
     "langchain-oracledb>=0.1",
     "langchain>=0.3",
     "langchain-core>=0.3",
