@@ -13,6 +13,7 @@
 
 ## Prerequisites
 - `.env` with VecDB credentials (`VECDB_REST_URL`, `VECDB_USERNAME`, `VECDB_PASSWORD`).
+> **Security note:** Do not store passwords in source code or commit `.env` files. Never commit a real password.
 - Gemini API key via `GOOGLE_API_KEY`. Optional overrides: `GEMINI_EMBED_MODEL` (default `gemini-embedding-001`) and `GEMINI_CHAT_MODEL` (default `gemini-2.5-flash`).
 - Python 3.10+ with `oracle-vecdb`, `python-dotenv`, `pandas`, `google-generativeai`.
 

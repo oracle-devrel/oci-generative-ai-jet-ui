@@ -68,9 +68,9 @@ def sidebar_configuration():
         st.subheader("Vector Store (Oracle VecDB)")
         vecdb_host = st.text_input(
             "ORDS VecDB Base URL",
-            placeholder="https://<host>/ords/vector3/_/db-api/stable",
+            placeholder="https://<host>/ords/<vector_user>/_/db-api/stable/vecdb/",
             value=st.session_state.vecdb_host or "",
-            help="Your Oracle VecDB ORDS endpoint. Example: https://host/ords/vector3/_/db-api/stable/vecdb",
+            help="Your Oracle VecDB SDK REST endpoint. Example: https://host/ords/vector_user/_/db-api/stable/vecdb/",
         )
         vecdb_username = st.text_input(
             "Database Username",
@@ -278,7 +278,7 @@ def document_process_and_upload_tab():
                 2000,
                 500,
                 step=50,
-                help="Size of each text chunk in words",
+                help="Size of each text chunk in characters",
             )
 
         with col2:
@@ -288,7 +288,7 @@ def document_process_and_upload_tab():
                 500,
                 50,
                 step=10,
-                help="Number of overlapping words between chunks",
+                help="Number of overlapping characters between chunks",
             )
 
         st.subheader("Vector table name")

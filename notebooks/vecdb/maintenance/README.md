@@ -11,6 +11,7 @@
 
 ## Prerequisites
 - `.env` with VecDB credentials.
+> **Security note:** Do not store passwords in source code or commit `.env` files. Never commit a real password.
 - Python 3.10+ with `oracle-vecdb`, `python-dotenv`, `pandas`.
 
 Execute the notebook to sample maintenance routines and drop the demo tables when done.

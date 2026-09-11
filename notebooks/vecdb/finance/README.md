@@ -18,6 +18,7 @@ This directory contains two complementary oracle-vecdb notebook walkthroughs for
 
 ### Prerequisites
 - `.env` file populated with `VECDB_REST_URL` and credentials.
+> **Security note:** Do not store passwords in source code or commit `.env` files. Never commit a real password.
 - Python 3.9+ virtual environment with the `oracle-vecdb` SDK installed.
 - Register the notebook kernel using the project virtual environment (e.g. `python -m ipykernel install --user --name vecdb-finance --display-name "Python (.venv finance)"`).
 

@@ -16,6 +16,7 @@
 
 ## Prerequisites
 - `.env` with `VECDB_REST_URL`, `VECDB_USERNAME`/`VECDB_USER`, `VECDB_PASSWORD`, and optional `SEARCH_TABLE` override.
+> **Security note:** Do not store passwords in source code or commit `.env` files. Never commit a real password.
 - Python 3.10+ with `oracle-vecdb`, `python-dotenv`, `pandas` (installed automatically by the notebook if missing).
 - Network access to your VecDB endpoint.
 

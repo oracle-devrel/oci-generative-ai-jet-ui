@@ -18,6 +18,7 @@
 
 ## Prerequisites
 - `.env` containing `VECDB_REST_URL`, `VECDB_USERNAME`/`VECDB_USER`, `VECDB_PASSWORD`, and optional overrides for `EMBED_MODEL_NAME`, `EMBED_BYOV_TABLE`, `EMBED_AUTO_TABLE`, and `EMBED_HF_MODEL_NAME`.
+> **Security note:** Do not store passwords in source code or commit `.env` files. Never commit a real password.
 - Python 3.10+ with the following packages (installed by the first cell if missing): `oracle-vecdb`, `python-dotenv`, `pandas`, `sentence-transformers`.
 - Outbound access to your VecDB endpoint and any HuggingFace model downloads required for BYOV.
 

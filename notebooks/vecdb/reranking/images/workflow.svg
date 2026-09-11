@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="500" viewBox="0 0 1400 500" role="img" aria-labelledby="title desc">
+  <title id="title">In-database reranking workflow</title>
+  <desc id="desc">The notebook host starts a Linux x86_64 conversion container. The container downloads a model from Hugging Face and converts it to ONNX. The ONNX model is uploaded to OCI Object Storage and exposed with a temporary PAR URL. Oracle AI Database loads the model and reranks documents.</desc>
+
+  <rect width="1400" height="500" fill="#ffffff"/>
+  <text x="700" y="38" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#172b4d">In-database reranking model pipeline</text>
+  <text x="700" y="66" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#52606d">From Hugging Face model to live VecDB reranking</text>
+
+  <defs>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M 0 0 L 11 5.5 L 0 11 z" fill="#52606d"/>
+    </marker>
+  </defs>
+
+  <g font-family="Arial, Helvetica, sans-serif">
+    <rect x="30" y="105" width="285" height="295" rx="20" fill="#eaf2ff" stroke="#7aa7d9" stroke-width="2"/>
+    <circle cx="70" cy="145" r="21" fill="#3973b9"/>
+    <text x="70" y="152" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">1</text>
+    <text x="108" y="152" font-size="21" font-weight="700" fill="#172b4d">Notebook host</text>
+    <line x1="55" y1="180" x2="290" y2="180" stroke="#b8d0eb" stroke-width="2"/>
+    <text x="55" y="220" font-size="17" font-weight="700" fill="#172b4d">Prepare and coordinate</text>
+    <text x="55" y="258" font-size="16" fill="#334e68">.env + Jupyter + Python</text>
+    <text x="55" y="292" font-size="16" fill="#334e68">Docker / Podman</text>
+    <text x="55" y="326" font-size="16" fill="#334e68">OCI CLI</text>
+
+    <rect x="355" y="105" width="285" height="295" rx="20" fill="#f2ecff" stroke="#a995d6" stroke-width="2"/>
+    <circle cx="395" cy="145" r="21" fill="#7655b8"/>
+    <text x="395" y="152" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">2</text>
+    <text x="425" y="152" font-size="19" font-weight="700" fill="#172b4d">Conversion container</text>
+    <line x1="380" y1="180" x2="615" y2="180" stroke="#cfc3ee" stroke-width="2"/>
+    <text x="380" y="220" font-size="17" font-weight="700" fill="#172b4d">Download and convert</text>
+    <text x="380" y="258" font-size="16" fill="#334e68">Linux x86_64</text>
+    <text x="380" y="292" font-size="16" fill="#334e68">Python 3.13 + OML4Py</text>
+    <text x="380" y="326" font-size="16" fill="#334e68">Hugging Face → ONNX</text>
+
+    <rect x="680" y="105" width="285" height="295" rx="20" fill="#fff4e5" stroke="#d8ad6b" stroke-width="2"/>
+    <circle cx="720" cy="145" r="21" fill="#bd7b16"/>
+    <text x="720" y="152" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">3</text>
+    <text x="758" y="152" font-size="21" font-weight="700" fill="#172b4d">OCI Object Storage</text>
+    <line x1="705" y1="180" x2="940" y2="180" stroke="#ecd3a8" stroke-width="2"/>
+    <text x="705" y="220" font-size="17" font-weight="700" fill="#172b4d">Publish the artifact</text>
+    <text x="705" y="258" font-size="16" fill="#334e68">Upload ONNX model</text>
+    <text x="705" y="292" font-size="16" fill="#334e68">Create temporary PAR</text>
+    <text x="705" y="326" font-size="16" fill="#334e68">Return PAR URL</text>
+
+    <rect x="1005" y="105" width="365" height="295" rx="20" fill="#eaf7ef" stroke="#75b98e" stroke-width="2"/>
+    <circle cx="1045" cy="145" r="21" fill="#2e8b57"/>
+    <text x="1045" y="152" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">4</text>
+    <text x="1083" y="152" font-size="21" font-weight="700" fill="#172b4d">Oracle AI Database</text>
+    <line x1="1030" y1="180" x2="1345" y2="180" stroke="#b8dfc4" stroke-width="2"/>
+    <text x="1030" y="220" font-size="17" font-weight="700" fill="#172b4d">Load and use the model</text>
+    <text x="1030" y="258" font-size="16" fill="#334e68">Load model from PAR URL</text>
+    <text x="1030" y="292" font-size="16" fill="#334e68">Run in-database reranking</text>
+    <text x="1030" y="326" font-size="16" fill="#334e68">Return relevance scores</text>
+
+    <line x1="320" y1="255" x2="345" y2="255" stroke="#52606d" stroke-width="3" marker-end="url(#arrow)"/>
+
+    <line x1="645" y1="255" x2="670" y2="255" stroke="#52606d" stroke-width="3" marker-end="url(#arrow)"/>
+
+    <line x1="970" y1="255" x2="995" y2="255" stroke="#52606d" stroke-width="3" marker-end="url(#arrow)"/>
+  </g>
+</svg>

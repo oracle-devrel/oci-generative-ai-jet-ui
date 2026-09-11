@@ -44,6 +44,7 @@ Copy `.env.example` to `.env` and replace values:
 | `HTTP_PROXY` | Optional: proxy for outbound HTTP traffic. |
 | `HTTPS_PROXY` | Optional: proxy for outbound HTTPS traffic. |
 | `NO_PROXY` | Optional: comma-separated hosts that bypass proxies. |
+> **Security note:** Do not store passwords in source code or commit `.env` files. Never commit a real password.
 
 ## Notebook Flow Highlights
 - **Private AI Services Container client**: a minimal wrapper around `POST /v1/embeddings` with API key auth.

@@ -15,6 +15,7 @@ This directory contains two complementary VecDB walkthroughs:
 
 ## Prerequisites
 - `.env` with `VECDB_REST_URL`, `VECDB_USERNAME`, `VECDB_PASSWORD`, optional `INDEX_MODEL_TABLE` override.
+> **Security note:** Do not store passwords in source code or commit `.env` files. Never commit a real password.
 - Python 3.10+ with `oracle-vecdb`, `python-dotenv`, `pandas`; `sentence-transformers` is optional but recommended for the HNSW demo when you want real embeddings.
 
 Execute the notebooks top-to-bottom. The shared connection cells load credentials once, and the final cleanup steps leave VecDB tidy for future demos.
