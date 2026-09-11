@@ -11,7 +11,6 @@
 
 ### Prerequisites
 - `.env` file with `VECDB_REST_URL`, username/password or token credentials.
-> **Security note:** Do not store passwords in source code or commit `.env` files. Never commit a real password.
 - Python 3.10+ environment with `oracle-vecdb`, `python-dotenv`, and `pandas` installed.
 - Register the notebook kernel against your project virtual environment before running cells.
 

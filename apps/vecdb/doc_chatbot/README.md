@@ -64,13 +64,12 @@ This sample highlights Oracle AI Database as the vector retrieval layer of the a
 ## Prerequisites
 
 - Python 3.10+
-- Streamlit and the other dependencies installed from `requirements.txt`
-- Oracle AI Database 23.26.3 or later with ORDS 26.2.2 or later and the VecDB REST API enabled
+- Streamlit
+- Access to Oracle AI Database (26ai) with Vector capabilities exposed via ORDS (VecDB API)
   - An ORDS-exposed Oracle VecDB endpoint reachable from the machine running the app
-  - An SDK REST endpoint such as `https://<host>/ords/<vector_user>/_/db-api/stable/vecdb/`
-  - A vector user with the required privileges and either its password or a bearer token
-- A chat backend: Ollama running locally or an OpenAI-compatible API with its endpoint, API key, and model name
-- An embedding backend: Sentence-Transformers is the default; Ollama and OpenAI-compatible APIs are also supported
+  - ORDS VecDB base URL (e.g. `https://<host>/ords/vector3/_/db-api/stable/vecdb`)
+  - Database username and password for a user/schema with vector privileges (e.g. VECTOR3)
+- Ollama (for local LLM/embeddings) OR API from LLM providers (like OpenAI, Openrouter, etc.)
 
 ---
 
@@ -79,26 +78,20 @@ This sample highlights Oracle AI Database as the vector retrieval layer of the a
 1. Clone this repository
 
    ```bash
-   git clone https://github.com/oracle-devrel/oracle-ai-developer-hub.git
-   cd oracle-ai-developer-hub/apps/vecdb/doc_chatbot
+   git clone <repo-url>
+   cd doc_chatbot
    ```
 
 2. (Recommended) Create and activate a virtual environment
 
    ```bash
-   # macOS/Linux
    python3 -m venv venv
    source venv/bin/activate
-
-   # Windows PowerShell
-   py -m venv venv
-   .\venv\Scripts\Activate.ps1
    ```
 
 3. Install dependencies
    ```bash
-   python -m pip install --upgrade pip
-   python -m pip install -r requirements.txt
+   pip install -r requirements.txt
    ```
 
 ---
@@ -115,12 +108,10 @@ This sample highlights Oracle AI Database as the vector retrieval layer of the a
 
 2. Configure the sidebar
    - Vector Store (Oracle VecDB):
-     - ORDS VecDB Base URL: e.g. `https://<host>/ords/<vector_user>/_/db-api/stable/vecdb/`
-     - Database Username: e.g. VECTOR3
-     - Password: your password, or provide a bearer access token
+     - ORDS VecDB Base URL: e.g. `https://<host>/ords/vector3/_/db-api/stable/vecdb`
+     - Database Username: your vector user
+     - Password: your password
      - Click "Test Connection"
-
-     > **Security note:** Do not store passwords in source code or commit `.env` files. Never commit a real password.
    - Language Model: Choose your preferred chat model (OpenAI-compatible API or Ollama)
    - Embedding Model: Select embedding generation method (Sentence-Transformers, OpenAI-compatible API, or Ollama)
 
@@ -131,10 +122,10 @@ This sample highlights Oracle AI Database as the vector retrieval layer of the a
 
 3. Upload Documents and Start Chatting
    - Document Upload: Process and chunk your documents
-   - Select **Process Documents** to store the processed document vectors in Oracle VecDB (a vector table will be created and populated)
+   - Database Upload: Store processed document vectors in Oracle VecDB (a vector table will be created and populated)
    - Main Chat Interface: Ask questions about your documents
-   - Vector Table Name: Enter the target table name before processing the uploaded chunks; the default is `qa_chatbot_docs`
-   - Processing Parameters: Configure the chunk size and overlap in characters before vectorization
+   - Vector Table Name: Enter the target table name before processing the uploaded chunks
+   - Processing Parameters: Configure chunk size and overlap size before vectorization
    - Clicking **Process Documents** extracts text from the uploaded files, splits the content into chunks, generates embeddings, recreates the target Oracle VecDB table, attempts to create a vector index, and uploads chunk vectors together with metadata.
 
   <p align="center">
@@ -149,8 +140,8 @@ This sample highlights Oracle AI Database as the vector retrieval layer of the a
 - Connection validation:
   - Initializes the Oracle VecDB client and validates connectivity with `describe_vector_database()`
 - Table management:
-  - Attempts to drop the existing vector table: `drop_vector_table(name=...)`
-  - Creates a new dense vector table: `create_vector_table(name=..., comment=...)`
+  - Attempts to drop the existing vector table: `drop_vector_table(table_name=...)`
+  - Creates a new dense vector table: `create_vector_table(table_name=..., vector_type="dense")`
   - Attempts to create a vector index: `create_index(table_name=...)`
 - Upsert vectors:
   - Uploads chunk records in the form `{"id": "...", "dense_vector": [...], "metadata": {...}}`
@@ -182,7 +173,7 @@ This payload structure enables Oracle VecDB to support both semantic retrieval a
 ```
 doc_chatbot/
 ├── app/
-│   ├── main.py
+│   ├── main_vecdb.py
 │   └── utility/
 │       ├── document_processor.py
 │       └── model.py

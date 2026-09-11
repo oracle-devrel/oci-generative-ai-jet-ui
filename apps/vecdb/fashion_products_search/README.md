@@ -73,11 +73,9 @@ load_dotenv(override=True)
 
 ORACLE_VECDB_REST_URL = os.getenv("VECDB_REST_URL")
 ORACLE_USERNAME = os.getenv("VECDB_USERNAME")
-password="<vecdb_password>"
+ORACLE_PASSWORD = os.getenv("VECDB_PASSWORD")
 ORACLE_ACCESS_TOKEN = os.getenv("VECDB_ACCESS_TOKEN")
 ```
-
-> **Security note:** Do not store passwords in source code or commit `.env` files. Never commit a real password.
 
 You can still override other settings (e.g., `ORACLE_IMAGE_TABLE`, `ORACLE_TEXT_TABLE`) via environment variables if needed.
 

@@ -45,7 +45,6 @@ Each scenario walks through table provisioning, `load_vectors`, job inspection, 
   - `BYO_MANUAL_CSV_URL` → signed Object Storage URL for `bulktable_byov_ids.csv`
   - `BYO_AUTO_CSV_URL` → signed Object Storage URL for `bulktable_byov_auto_ids.csv`
 - Object Storage access to host the CSVs (public PAR URLs or buckets readable by VecDB).
-> **Security note:** Do not store passwords in source code or commit `.env` files. Never commit a real password.
 
 > **Auto-ID reminder:** Scenario C only produces database-generated IDs when the CSV omits the `ID` column (or leaves it empty). Create an ID-free dataset (see `bulktable_byov_auto_ids.csv`), upload it to Object Storage, and point `BYO_AUTO_CSV_URL` to that object before running the auto-ID cells.
 

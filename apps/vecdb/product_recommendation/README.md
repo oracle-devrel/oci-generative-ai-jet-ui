@@ -151,7 +151,6 @@ Backend configuration is loaded from environment variables.
    - `VECDB_USERNAME`
    - `VECDB_PASSWORD`
    - optionally, `VECDB_ACCESS_TOKEN` (takes precedence over username/password)
-> **Security note:** Do not store passwords in source code or commit `.env` files. Never commit a real password.
 
 Optional overrides include:
 - `ORACLE_TEXT_TABLE`

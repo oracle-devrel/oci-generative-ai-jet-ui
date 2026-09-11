@@ -10,7 +10,6 @@
 ## Prerequisites
 - OCI tenancy with Generative AI service access and an embedding model ID.
 - Oracle Autonomous AI Vector Database credentials stored in `.env` (host, username, password).
-> **Security note:** Do not store passwords in source code or commit `.env` files. Never commit a real password.
 - Python 3.10+ environment with the packages listed in the notebook's setup cell.
 
 Set `DROP_TABLE_WHEN_DONE=true` in your environment before running the cleanup cell if you want the demo table removed automatically.

@@ -48,7 +48,6 @@ python3 app.py
 ```
 
 Alternatively, set `VECDB_USERNAME` and `VECDB_PASSWORD` instead of `VECDB_ACCESS_TOKEN`. Bearer-token authentication takes precedence when both are set. TLS verification is enabled by default; set `VECDB_SELF_SIGNED_SSL=true` only for a development endpoint with an internal or otherwise untrusted certificate.
-> **Security note:** Do not store passwords in source code or commit `.env` files. Never commit a real password.
 
 When configured, the app calls `OracleVecDB.query()` with a hosted text query and reports the VecDB call time separately from application-side response processing. A city/radius adds a QBE GeoJSON `$near` filter on `metadata.location`; leaving it blank, or using **Clear location**, runs semantic search across all parks. The Advanced metadata panel generates an optional JSON filter directly for VecDB. It covers `PARK_CODE`, `NAME`, `DESIGNATION`, `STATES`, `DESCRIPTION`, `DIRECTIONS_INFO`, and `WEATHER_INFO`; two completed conditions are combined with `$and`.
 
