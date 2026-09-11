@@ -33,13 +33,15 @@ spring:
     password: testpwd
     url: jdbc:oracle:thin:@localhost:1521/freepdb1
     driver-class-name: oracle.jdbc.OracleDriver
-    type: oracle.ucp.jdbc.PoolDataSourceImpl
+    type: oracle.ucp.jdbc.PoolDataSource
     oracleucp:
       initial-pool-size: 1
       min-pool-size: 1
       max-pool-size: 30
       connection-pool-name: OracleDatabaseTest
       connection-factory-class-name: oracle.jdbc.pool.OracleDataSource
+      connection-properties:
+        "[v$session.program]": devrel-developerhub-news-event-streaming-application
   threads:
     virtual:
       enabled: true # Turn on Java Virtual Threads

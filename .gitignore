@@ -241,3 +241,6 @@ build-paths/tests/
 
 # Local CYP 2026-05 guide diagrams/visuals - not committed upstream
 guides/cyp-2026-05/
+
+# Local telemetry validation helper
+scripts/check_oracle_program_identifiers.py

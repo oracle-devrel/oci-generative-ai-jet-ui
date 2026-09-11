@@ -24,6 +24,8 @@ import sys
 
 import oracledb
 
+oracledb.defaults.program = "devrel-developerhub-{{project_slug}}"
+
 
 def _connect():
     return oracledb.connect(
