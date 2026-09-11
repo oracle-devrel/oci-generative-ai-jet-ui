@@ -1,6 +1,7 @@
 # Oracle AI Developer Hub
 
-This repository contains technical resources to help AI Developers and Engineers build AI applications, agents, and systems using Oracle AI Database and OCI services alongside other key components of the AI/Agent stack.
+This repository contains the  technical resources to help AI Developers and Engineers build AI applications, agents, and systems using Oracle AI Database and OCI services alongside other key components of the AI/Agent stack.
+
 
 ## What You'll Find
 
