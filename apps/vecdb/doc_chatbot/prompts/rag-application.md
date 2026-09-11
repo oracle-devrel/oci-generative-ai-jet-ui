@@ -6,15 +6,20 @@ application to build from scratch: use a sparse checkout, install its
 documented dependencies, and run it. Once it is running, point the user to the
 sample README for instructions on modifying or extending it.
 
-Use an existing Oracle AI Database deployment that meets the supported database
-and ORDS versions in the sample README. Before running the mapped sample
-against VecDB, determine whether ORDS is available. Ask for missing existing
-connection details only when the user wants to run against a database: the SDK
-REST URL plus username/password or a bearer token. Never print or commit those
-values.
+Use an existing Oracle AI Database 26ai+ deployment at database version
+`23.26.3` or later. Before running the mapped sample against VecDB, determine
+whether ORDS is available. This Python SDK sample requires an existing ORDS
+endpoint at version `26.2.2` or later. Ask for missing existing connection
+details: REST URL plus username/password or bearer/API token.
 
 Do not provision or create a database instance, tenancy, ORDS deployment,
 schema, user, or credentials.
+
+Use the public Python SDK, installed with:
+
+```bash
+python -m pip install oracle-vecdb
+```
 
 From the intended working directory, use a Git sparse checkout so only the
 mapped application is fetched:
@@ -27,31 +32,34 @@ git sparse-checkout set apps/vecdb/doc_chatbot
 cd apps/vecdb/doc_chatbot
 ```
 
-Read the sample's README and dependency files. The README is the source of
-truth for installation, configuration, and usage: follow its documented
-commands and run the application from the documented entry point, currently
-`streamlit run app/main.py`. Install the declared dependencies in the sample's
-virtual environment; `requirements.txt` includes the public `oracle-vecdb`
-package. Preserve the sample as
+Read the sample's README and dependency files. Use the README's documented
+installation and run commands for the Streamlit sample. Install the declared
+dependencies in the sample's virtual environment, then install the public SDK.
+Preserve the sample as
 the baseline; adapt it rather than substituting an unrelated app, LLM
 architecture, or vector-store abstraction.
 
-## TLS
+## TLS preflight
 
-Keep TLS certificate and hostname verification enabled. Do not use `curl -k`,
-disable certificate verification, or change the sample's source code to bypass
-TLS checks. If the endpoint uses a private or self-signed certificate, stop and
-ask the user to configure trust on the host according to their environment
-before continuing.
+Keep TLS certificate and hostname verification enabled. Do not change the
+sample's source code to handle certificate trust. Instead, configure the
+virtual environment to use the operating-system trust store:
+
+```bash
+python -m pip install pip-system-certs
+```
+
+Run the SDK preflight in a new Python process after this installation. The
+preflight must be read-only.
 
 ## Run the application
 
 Follow the instructions in the README to run the application.
 
-## Oracle Version Notes
+## Oracle Version Notes (19c vs 26ai)
 
-Oracle Database 19c does not support this VecDB sample. Follow the supported
-database and ORDS versions stated in the sample README.
+Oracle Database 19c does not support this VecDB sample. Use Oracle AI Database
+26ai+ at database version `23.26.3` or later with ORDS `26.2.2` or later.
 
 ## Sources
 

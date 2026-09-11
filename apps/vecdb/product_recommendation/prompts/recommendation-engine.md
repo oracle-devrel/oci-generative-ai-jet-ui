@@ -8,10 +8,10 @@ running, point the user to the sample README for instructions on modifying or
 extending it.
 
 Use Oracle Autonomous AI Vector Database or an existing Oracle AI Database
-deployment that meets the supported database and ORDS versions in the sample
-README. Before running the mapped sample against VecDB, determine whether ORDS
-is available. Ask for missing existing connection details: REST URL plus
-username/password or a bearer token.
+26ai+ deployment at database version `23.26.3` or later, along with an existing
+ORDS endpoint at version `26.2.2` or later. Before running the mapped sample
+against VecDB, determine whether ORDS is available. Ask for missing existing
+connection details: REST URL plus username/password or bearer/API token.
 
 Do not provision or create a database instance, tenancy, ORDS deployment,
 schema, user, or credentials.
@@ -33,10 +33,8 @@ git sparse-checkout set apps/vecdb/product_recommendation
 cd apps/vecdb/product_recommendation
 ```
 
-Inspect the sample's README and dependency files. The README is the source of
-truth for installation, configuration, dataset loading, and usage. Preserve the
-sample as the baseline; adapt it rather than substituting an unrelated app or
-architecture.
+Inspect the sample's README and dependency files. Preserve the sample as the baseline; adapt it
+rather than substituting an unrelated app or architecture.
 
 ## Connection configuration
 
@@ -50,13 +48,18 @@ Pause and wait for the user to confirm that the configuration is complete
 before running the SDK preflight, downloading a dataset, creating or populating
 vector tables, or starting the application.
 
-## TLS
+## TLS preflight
 
-Keep TLS certificate and hostname verification enabled. Do not use `curl -k`,
-disable certificate verification, or change the sample's source code to bypass
-TLS checks. If the endpoint uses a private or self-signed certificate, stop and
-ask the user to configure trust on the host according to their environment
-before continuing.
+Keep TLS certificate and hostname verification enabled. Do not change the
+sample's source code to handle certificate trust. Instead, configure the
+virtual environment to use the operating-system trust store:
+
+```bash
+python -m pip install pip-system-certs
+```
+
+Run the SDK preflight in a new Python process after this installation. The
+preflight must be read-only.
 
 ## Dataset setup and VecDB writes
 
@@ -92,10 +95,10 @@ the local URLs, and the next adaptation step. Never report secrets or customer
 data. Do not replace the stable mapping: it is
 `apps/vecdb/product_recommendation` from the public repository `main` branch.
 
-## Oracle Version Notes
+## Oracle Version Notes (19c vs 26ai)
 
-Oracle Database 19c does not support this VecDB sample. Follow the supported
-database and ORDS versions stated in the sample README.
+Oracle Database 19c does not support this VecDB sample. Use Oracle AI Database
+26ai+ at database version `23.26.3` or later with ORDS `26.2.2` or later.
 
 ## Sources
 

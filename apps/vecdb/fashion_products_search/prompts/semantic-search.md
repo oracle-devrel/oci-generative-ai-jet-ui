@@ -36,9 +36,7 @@ Do not choose on the user's behalf. Pass the user's choice through to the README
 
 After the user chooses a dataset, copy `backend/.env.example` to `backend/.env`. Tell the user the absolute path to the `.env` file and ask them to populate the connection details themselves. Do not display, read back, copy, or include those details in logs, generated content, source control, or completion reports. Pause until the user confirms that the file is complete, then continue with the README instructions.
 
-Treat Kaggle credentials as an optional secret: ask only if the README or the
-dataset download requires them, and keep them out of generated content and
-source control.
+Treat Kaggle or Hugging Face credentials as optional secrets: ask only if the README or the download requires them, and keep them out of generated content and source control.
 
 ## Setup, loading, and running
 
