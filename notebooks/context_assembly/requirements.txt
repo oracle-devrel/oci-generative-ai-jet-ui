@@ -1,0 +1,11 @@
+oracledb==26.0.1
+python-dotenv==1.2.3
+nbformat==5.11.1
+nbclient==0.11.0
+ipykernel==7.3.0
+tiktoken==0.14.0
+fastmcp==4.0.10
+mcp==2.2.0
+openai==3.20.0
+pytest==9.1.1
+jsonschema==4.26.0

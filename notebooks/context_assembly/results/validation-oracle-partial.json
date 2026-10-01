@@ -1,0 +1,16 @@
+{
+  "mode": "oracle-partial",
+  "oracle": {
+    "database_version": "23.26.3.0.0",
+    "observed_undo_retention_seconds": "900",
+    "undo_note": "Observed setting only; does not guarantee retention and is not an Autonomous default."
+  },
+  "vpd": {
+    "acme": 5,
+    "globex": 1,
+    "no_context": 0,
+    "flashback_checked": false
+  },
+  "flashback": "Not run: EXECUTE on SYS.DBMS_FLASHBACK requires approval.",
+  "complete_oracle_walkthrough": false
+}

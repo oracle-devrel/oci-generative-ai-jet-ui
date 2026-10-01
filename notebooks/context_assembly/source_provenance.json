@@ -1,0 +1,37 @@
+{
+  "multitenant_schema_walkthrough.ipynb": {
+    "sha256": "8d26cf5e1bd37cf05b26dbe85db10b3ec0305a0e20542d57b5975321504ac2be",
+    "cells": [
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25,
+      31,
+      37,
+      39
+    ]
+  },
+  "two_layer_pattern_walkthrough.ipynb": {
+    "sha256": "8674ddd51ec53e11c2529745f6b2b051560393bb9e690f35cb084d790eb9788a",
+    "cells": [
+      15,
+      17,
+      21,
+      23
+    ]
+  },
+  "hybrid_retrieval_pipeline.ipynb": {
+    "sha256": "1f41a372b72877a57554b258f6a65466efd88d5f93ec18ccc42abcdc5f0e3de0",
+    "cells": [
+      12,
+      17,
+      34,
+      8
+    ]
+  }
+}
