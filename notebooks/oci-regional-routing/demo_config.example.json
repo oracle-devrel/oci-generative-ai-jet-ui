@@ -1,0 +1,8 @@
+{
+  "oci_profile": "<YOUR_OCI_PROFILE>",
+  "compartment_id": "<YOUR_COMPARTMENT_OCID>",
+  "routing_profile_id": "<YOUR_ROUTING_PROFILE_OCID>",
+  "model_id": "google.gemini-2.5-flash",
+  "direct_region": "us-chicago-1",
+  "profile_region": "<YOUR_ROUTING_PROFILE_REGION>"
+}
