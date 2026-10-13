@@ -1,0 +1,170 @@
+{
+  "source": "Fictional groups modelled on GLEIF Level 2 structure; synthetic LEIs with valid ISO 17442 check digits",
+  "synthetic": true,
+  "groups": [
+    {
+      "alias": "Acme",
+      "root": "HF002CE18CF92C432A31",
+      "nodes": [
+        {
+          "lei": "HF002CE18CF92C432A31",
+          "name": "ACME FINANCIAL GROUP, INC.",
+          "parent": null,
+          "source": "synthetic · modelled on the GLEIF Level 2 relationship structure; not a real entity"
+        },
+        {
+          "lei": "HF009840D786E606F262",
+          "name": "ACME ASSET MANAGEMENT LUXEMBOURG S.A.",
+          "parent": "HF002CE18CF92C432A31",
+          "source": "synthetic · modelled on the GLEIF Level 2 relationship structure; not a real entity",
+          "relationship": "IS_DIRECTLY_CONSOLIDATED_BY"
+        },
+        {
+          "lei": "HF000CC7CD364B40EA52",
+          "name": "Halden International Management Inc.",
+          "parent": "HF002CE18CF92C432A31",
+          "source": "synthetic · modelled on the GLEIF Level 2 relationship structure; not a real entity",
+          "relationship": "IS_DIRECTLY_CONSOLIDATED_BY"
+        },
+        {
+          "lei": "HF00DF218FEADC260856",
+          "name": "Corvane Global, LLC",
+          "parent": "HF002CE18CF92C432A31",
+          "source": "synthetic · modelled on the GLEIF Level 2 relationship structure; not a real entity",
+          "relationship": "IS_DIRECTLY_CONSOLIDATED_BY"
+        },
+        {
+          "lei": "HF00241D1E7003A81C25",
+          "name": "Banco Acme S.A.",
+          "parent": "HF002CE18CF92C432A31",
+          "source": "synthetic · modelled on the GLEIF Level 2 relationship structure; not a real entity",
+          "relationship": "IS_DIRECTLY_CONSOLIDATED_BY"
+        }
+      ],
+      "scope": "root plus four directly consolidated subsidiaries"
+    },
+    {
+      "alias": "Northwind",
+      "root": "HF009D928508AE5F2215",
+      "nodes": [
+        {
+          "lei": "HF009D928508AE5F2215",
+          "name": "NORTHWIND BANCORP PLC",
+          "parent": null,
+          "source": "synthetic · modelled on the GLEIF Level 2 relationship structure; not a real entity"
+        },
+        {
+          "lei": "HF009E9ED45E5133D915",
+          "name": "NORTHWIND GLOBAL SERVICES (UK) PARIS BRANCH",
+          "parent": "HF009D928508AE5F2215",
+          "source": "synthetic · modelled on the GLEIF Level 2 relationship structure; not a real entity",
+          "relationship": "IS_DIRECTLY_CONSOLIDATED_BY"
+        },
+        {
+          "lei": "HF007C58CF43A6BAA628",
+          "name": "SOREL GROUP LLC",
+          "parent": "HF009D928508AE5F2215",
+          "source": "synthetic · modelled on the GLEIF Level 2 relationship structure; not a real entity",
+          "relationship": "IS_DIRECTLY_CONSOLIDATED_BY"
+        },
+        {
+          "lei": "HF00AF876EF699254C23",
+          "name": "NORTHWIND MIDDLE EAST HOLDINGS B.V.",
+          "parent": "HF009D928508AE5F2215",
+          "source": "synthetic · modelled on the GLEIF Level 2 relationship structure; not a real entity",
+          "relationship": "IS_DIRECTLY_CONSOLIDATED_BY"
+        },
+        {
+          "lei": "HF001EE4F9907C923E15",
+          "name": "NORTHWIND GLOBAL SERVICES (ASIA) HOLDINGS LIMITED",
+          "parent": "HF009D928508AE5F2215",
+          "source": "synthetic · modelled on the GLEIF Level 2 relationship structure; not a real entity",
+          "relationship": "IS_DIRECTLY_CONSOLIDATED_BY"
+        }
+      ],
+      "scope": "root plus four directly consolidated subsidiaries"
+    },
+    {
+      "alias": "Contoso",
+      "root": "HF009A97A6EE61A41115",
+      "nodes": [
+        {
+          "lei": "HF009A97A6EE61A41115",
+          "name": "CONTOSO BANQUE S.A.",
+          "parent": null,
+          "source": "synthetic · modelled on the GLEIF Level 2 relationship structure; not a real entity"
+        },
+        {
+          "lei": "HF008C7C3407215EB966",
+          "name": "TOLVEN SARL IMPEX",
+          "parent": "HF009A97A6EE61A41115",
+          "source": "synthetic · modelled on the GLEIF Level 2 relationship structure; not a real entity",
+          "relationship": "IS_DIRECTLY_CONSOLIDATED_BY"
+        },
+        {
+          "lei": "HF0030A805B918E7A191",
+          "name": "CONTOSO ARGENTINA ASSET MANAGEMENT S.A.",
+          "parent": "HF009A97A6EE61A41115",
+          "source": "synthetic · modelled on the GLEIF Level 2 relationship structure; not a real entity",
+          "relationship": "IS_DIRECTLY_CONSOLIDATED_BY"
+        },
+        {
+          "lei": "HF003ABE38EF3274A210",
+          "name": "BOURSE-VALMONT",
+          "parent": "HF009A97A6EE61A41115",
+          "source": "synthetic · modelled on the GLEIF Level 2 relationship structure; not a real entity",
+          "relationship": "IS_DIRECTLY_CONSOLIDATED_BY"
+        },
+        {
+          "lei": "HF00A7CB7A82456DE616",
+          "name": "CONTOSO FACTOR - SOCIEDADE FINANCEIRA DE CRÉDITO, S.A.",
+          "parent": "HF009A97A6EE61A41115",
+          "source": "synthetic · modelled on the GLEIF Level 2 relationship structure; not a real entity",
+          "relationship": "IS_DIRECTLY_CONSOLIDATED_BY"
+        }
+      ],
+      "scope": "root plus four directly consolidated subsidiaries"
+    },
+    {
+      "alias": "Fabrikam",
+      "root": "HF00A93197B19E5B4E19",
+      "nodes": [
+        {
+          "lei": "HF00A93197B19E5B4E19",
+          "name": "THE FABRIKAM GROUP, INC.",
+          "parent": null,
+          "source": "synthetic · modelled on the GLEIF Level 2 relationship structure; not a real entity"
+        },
+        {
+          "lei": "HF009A300FAB75A51706",
+          "name": "LANTERN PRIVATE EQUITY FUND LP",
+          "parent": "HF00A93197B19E5B4E19",
+          "source": "synthetic · modelled on the GLEIF Level 2 relationship structure; not a real entity",
+          "relationship": "IS_DIRECTLY_CONSOLIDATED_BY"
+        },
+        {
+          "lei": "HF00D7B69BF3E2B46A28",
+          "name": "Fabrikam ART Limited",
+          "parent": "HF00A93197B19E5B4E19",
+          "source": "synthetic · modelled on the GLEIF Level 2 relationship structure; not a real entity",
+          "relationship": "IS_DIRECTLY_CONSOLIDATED_BY"
+        },
+        {
+          "lei": "HF0082AF842CDB313374",
+          "name": "HARBORLINE OFFSHORE HOLDINGS LP",
+          "parent": "HF00A93197B19E5B4E19",
+          "source": "synthetic · modelled on the GLEIF Level 2 relationship structure; not a real entity",
+          "relationship": "IS_DIRECTLY_CONSOLIDATED_BY"
+        },
+        {
+          "lei": "HF00B485088F49BC6293",
+          "name": "VANTOR VINTAGE III INC.",
+          "parent": "HF00A93197B19E5B4E19",
+          "source": "synthetic · modelled on the GLEIF Level 2 relationship structure; not a real entity",
+          "relationship": "IS_DIRECTLY_CONSOLIDATED_BY"
+        }
+      ],
+      "scope": "root plus four directly consolidated subsidiaries"
+    }
+  ]
+}

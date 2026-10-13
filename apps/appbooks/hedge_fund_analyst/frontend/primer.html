@@ -1,0 +1,107 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Deep Data Security primer · Hedge Fund Analyst</title><link rel="icon" href="data:,"><link rel="stylesheet" href="/static/styles.css"><link rel="stylesheet" href="/static/primer.css"></head><body>
+<header><a class="brand" href="/">H<span> / HEDGE FUND ANALYST</span></a><nav><a href="#idea">The idea</a><a href="#blocks">Building blocks</a><a href="#demo">In this demo</a><a href="#proof">Live proof</a><a href="#agents">Agent patterns</a><a href="#lessons">Lessons</a><a href="#quiz">Check yourself</a><a href="/">← Back to the demo</a></nav></header>
+<main class="primer">
+
+<section class="p-hero"><p class="eyebrow">PRIMER · ORACLE DEEP DATA SECURITY</p><h1>The database decides<span>who sees which rows, columns and cells, for every statement, whoever wrote the SQL.</span></h1>
+<p class="lede">An agent can write any SQL. A prompt can say anything. Deep Data Security (DDS) moves the access decision out of the prompt and the application and into Oracle AI Database, where it applies to the end user behind the request. This page teaches it from the objects the Hedge Fund Analyst demo actually created, then lets you prove it against the live database.</p>
+<div class="legend-badges"><span class="badge-verified">Verified on this database</span> = run here on Oracle AI Database 26ai Free 23.26.2 <span class="badge-docs">From Oracle docs</span> = documented, not exercised in this demo</div></section>
+
+<section id="idea"><p class="eyebrow">01 · THE IDEA</p><h2>One rule, enforced underneath the agent</h2>
+<p>Without DDS, an agent's database account usually sees everything, and the application (or the prompt) is trusted to filter. With DDS, the database knows the <b>end user</b> and applies that user's <b>data grants</b> to every statement, including model-written SQL, so the same query returns different, correctly entitled results for different people.</p>
+<div class="flow" aria-label="How Oracle decides one statement">
+ <div class="f-step"><small>1 · statement</small><b>Agent runs SQL</b><code>SELECT … FROM HF_POSITIONS</code></div><span class="f-arrow">→</span>
+ <div class="f-step"><small>2 · who</small><b>End user</b><code>hf_credit</code></div><span class="f-arrow">→</span>
+ <div class="f-step"><small>3 · which roles</small><b>Data role</b><code>HF_CREDIT_ROLE</code></div><span class="f-arrow">→</span>
+ <div class="f-step self"><small>4 · which rows / columns</small><b>Data grant</b><code>WHERE desk = 'Credit'</code></div><span class="f-arrow">→</span>
+ <div class="f-step"><small>5 · result + audit</small><b>Only entitled rows</b><code>audited as hf_credit</code></div></div>
+<div class="contrast"><div><h3>Without DDS</h3><ul><li>Filters live in app code and prompts (<code>WHERE desk = :desk</code>).</li><li>A prompt injection or a buggy tool path can drop the filter.</li><li>Audit shows the agent's account, not the person.</li></ul></div><div><h3>With DDS</h3><ul><li>Filters live in the database as data grants.</li><li>Model-written SQL, <code>OR 1=1</code>, and “show both desks” still return only entitled rows.</li><li>Unified Auditing records the end user.</li></ul></div></div></section>
+
+<section id="blocks"><p class="eyebrow">02 · BUILDING BLOCKS</p><h2>Five objects you need to know</h2><div class="blocks">
+<article><h3>End user</h3><p>The person (or caller) the database authorizes. Created in the database or mapped from an identity provider (Microsoft Entra ID, OCI IAM).</p><pre>CREATE END USER "hf_credit" IDENTIFIED BY "…";   -- direct logon (this demo)
+CREATE END USER emma;                            -- no password: identity asserted by the application</pre><p class="note"><span class="badge-verified">Verified</span> both forms accepted on 23.26.2.</p></article>
+<article><h3>Data role</h3><p>A role that carries data grants. Granted to end users; it can also carry ordinary roles (for example, a role with <code>CREATE SESSION</code>, without which the end user cannot log in).</p><pre>CREATE DATA ROLE HF_CREDIT_ROLE;
+GRANT HF_CONNECT TO HF_CREDIT_ROLE;        -- HF_CONNECT has CREATE SESSION
+GRANT DATA ROLE HF_CREDIT_ROLE TO "hf_credit";</pre><p class="note"><span class="badge-verified">Verified</span> a data role without a login role gave ORA-01045.</p></article>
+<article><h3>Data grant</h3><p>The rule: which operation, on which object, which rows (a <code>WHERE</code> predicate) and optionally which columns, for which data role.</p><pre>CREATE DATA GRANT HF_OWNER.HF_POSITIONS_CREDIT
+  AS SELECT ON HF_OWNER.HF_POSITIONS
+  WHERE desk = 'Credit' TO HF_CREDIT_ROLE;
+
+-- column-limited (hide margin), from the Oracle example
+CREATE OR REPLACE DATA GRANT owner.dg_desk_a
+  AS SELECT (id, desk, counterparty, notional)
+  ON owner.positions WHERE desk = 'A' TO desk_a_role;
+SET USE DATA GRANTS ONLY ON owner.positions ENABLED;</pre><p class="note"><span class="badge-verified">Verified</span> row grants in the demo; column-limited grant and <code>SET USE DATA GRANTS ONLY</code> accepted on 23.26.2 (whether a hidden column errors or returns NULL was not yet tested).</p></article>
+<article><h3>End-user security context</h3><p>For agents that connect with their <b>own</b> account: a payload attached per request carrying the end user's identity, a database-access token from an identity provider, optional extra data roles and context attributes. Oracle validates it, applies it for that request, and swaps or clears it when the connection is reused or released.</p><pre>ctx = oracledb.create_end_user_security_context(
+    end_user_identity=user_token,          # or local end-user name + key
+    database_access_token=db_token,         # IAM on-behalf-of or client credentials
+    data_roles=["hcm_role"], attributes={...})
+connection.set_end_user_security_context(ctx)
+…  # run the agent's SQL
+connection.clear_end_user_security_context()</pre><p class="note"><span class="badge-docs">From Oracle docs</span> python-oracledb 4.0+ Thin mode; the agent account needs <code>CREATE SESSION</code> and <code>CREATE END USER SECURITY CONTEXT</code> (privilege grant <span class="badge-verified">verified</span>).</p></article>
+<article><h3>Application identity</h3><p>The agent or application as a first-class principal, mapped to its identity-provider client. It can be granted data roles (including disabled ones it may enable for a task); from 23.26.3 it can also be the logon principal that attaches end-user contexts.</p><pre>CREATE OR REPLACE APPLICATION IDENTITY hcm_app
+  MAPPED TO 'AZURE_CLIENT_ID=…';
+CREATE OR REPLACE DATA ROLE summarize_sales_role DISABLED;
+GRANT DATA ROLE summarize_sales_role TO hcm_app;</pre><p class="note"><span class="badge-docs">From Oracle docs</span> not used in this demo.</p></article>
+<article><h3>Reading identity in SQL</h3><p>Predicates, views and audit can read who the end user is. This demo uses both forms.</p><pre>SELECT ORA_END_USER_CONTEXT.username,
+       SYS_CONTEXT('USERENV','AUTHENTICATED_IDENTITY')
+FROM dual;   -- hf_credit, hf_credit</pre><p class="note"><span class="badge-verified">Verified</span> the identity survives definer-rights execution, which is why the graph views use it.</p></article>
+</div></section>
+
+<section id="demo"><p class="eyebrow">03 · IN THIS DEMO</p><h2>What the Hedge Fund Analyst actually created</h2>
+<div class="demo-grid"><div><h3>Identities and roles</h3><table class="ptable"><tbody>
+<tr><th>End users</th><td><code>"hf_credit"</code>, <code>"hf_markets"</code> (password, direct logon)</td></tr>
+<tr><th>Data roles</th><td><code>HF_CREDIT_ROLE</code>, <code>HF_MARKETS_ROLE</code>, each with <code>HF_CONNECT</code> (CREATE SESSION)</td></tr>
+<tr><th>Desk-scoped grants</th><td><code>HF_DESKS</code>, <code>HF_PORTFOLIOS</code>, <code>HF_POSITIONS</code>, <code>HF_COLLATERAL</code>, <code>HF_NOTES</code>, <code>HF_CHUNKS</code> (research vectors), <code>HF_GOLDEN</code>: <code>WHERE desk = '&lt;desk&gt;'</code></td></tr>
+<tr><th>Shared grants</th><td><code>HF_ISSUERS</code>, <code>HF_ENTITIES</code>, <code>HF_RELATIONSHIPS</code>, <code>HF_INSTRUMENTS</code>, <code>HF_PRICES</code>, <code>HF_SEMANTICS</code>, <code>HF_CAPABILITIES</code>: all rows</td></tr>
+<tr><th>Object grants via role</th><td>ONNX embedding and reranker models, <code>READ</code> on property graph <code>HF_GRAPH</code></td></tr>
+<tr><th>Audit</th><td>Unified Audit policy <code>HF_FINANCE_READS</code> on positions, collateral, semantics, notes and chunks; reads tagged with a per-turn request ID</td></tr>
+<tr><th>Not DDS</th><td>Agent memory and the cache tier are isolated by <b>per-desk schemas</b> (<code>HF_CREDIT_MEM</code>, <code>HF_MARKETS_MEM</code>), not data grants</td></tr></tbody></table></div>
+<div><h3>The setup loop (scripts/bootstrap.py)</h3><pre>CREATE ROLE HF_CONNECT;  GRANT CREATE SESSION TO HF_CONNECT;
+-- for each desk in (Credit, Markets):
+CREATE DATA ROLE HF_&lt;DESK&gt;_ROLE;
+CREATE END USER "hf_&lt;desk&gt;" IDENTIFIED BY "…";
+GRANT HF_CONNECT TO HF_&lt;DESK&gt;_ROLE;
+GRANT DATA ROLE HF_&lt;DESK&gt;_ROLE TO "hf_&lt;desk&gt;";
+-- desk-scoped table
+CREATE DATA GRANT HF_OWNER.HF_POSITIONS_&lt;DESK&gt;
+  AS SELECT ON HF_OWNER.HF_POSITIONS
+  WHERE desk = '&lt;Desk&gt;' TO HF_&lt;DESK&gt;_ROLE;
+-- shared table
+CREATE DATA GRANT HF_OWNER.HF_ENTITIES_&lt;DESK&gt;
+  AS SELECT ON HF_OWNER.HF_ENTITIES TO HF_&lt;DESK&gt;_ROLE;</pre>
+<p class="note">The app never adds a desk filter. Both the plane and the naive agent connect as the selected end user, so even the naive agent's model-written SQL is entitled.</p></div></div></section>
+
+<section id="proof"><p class="eyebrow">04 · LIVE PROOF</p><h2>Run the checks as both analysts</h2>
+<p>Each check runs the <b>same SQL</b> under <code>hf_credit</code> and <code>hf_markets</code> against the live database, then reads that run's Unified Audit records. Nothing is cached or precomputed.</p>
+<button id="run-proof" class="run">Run the checks ▶</button><span id="proof-status" class="muted"></span>
+<div id="proof-out"></div></section>
+
+<section id="agents"><p class="eyebrow">05 · AGENT PATTERNS</p><h2>Two ways an agent can carry the user's identity</h2><div class="patterns">
+<article class="pattern"><span class="tag ok">Pattern A · used in this demo</span><h3>Direct logon as the end user</h3>
+<div class="flow small"><div class="f-step"><b>Analyst picks desk</b></div><span class="f-arrow">→</span><div class="f-step"><b>Agent connects as</b><code>hf_credit</code></div><span class="f-arrow">→</span><div class="f-step self"><b>Data grants</b></div><span class="f-arrow">→</span><div class="f-step"><b>Entitled rows</b></div></div>
+<ul><li>Works locally with database-managed end users and passwords.</li><li>One connection pool per end user; fine for a two-desk demo, heavy for thousands of users.</li><li>The persona dropdown is a trusted laptop selector, not production authentication.</li></ul><p class="note"><span class="badge-verified">Verified</span> on 23.26.2.</p></article>
+<article class="pattern"><span class="tag next">Pattern B · the agentic target</span><h3>Agent account + per-request end-user context</h3>
+<div class="flow small"><div class="f-step"><b>User signs in</b><code>IAM token</code></div><span class="f-arrow">→</span><div class="f-step"><b>Agent connects as itself</b><code>CREATE SESSION only</code></div><span class="f-arrow">→</span><div class="f-step self"><b>Attach context</b><code>identity + DB token</code></div><span class="f-arrow">→</span><div class="f-step"><b>Grants of that user</b></div></div>
+<ul><li>Two tokens: the end user's identity and a database-access token (on-behalf-of or client credentials) from Entra ID or OCI IAM.</li><li>Needs a TLS connection and the identity provider configured in the database, even for locally managed end users.</li><li>No context attached → the agent's own least-privileged view (our probe: the agent account could not even see the table, ORA-00942).</li><li>23.26.3 adds the application identity as logon principal, data roles in local payloads and OCI IAM auth tokens.</li></ul><p class="note"><span class="badge-docs">From Oracle docs</span> not runnable locally without an identity provider.</p></article></div></section>
+
+<section id="lessons"><p class="eyebrow">06 · LESSONS FROM BUILDING THIS</p><h2>What we hit, so you don't have to</h2><div class="lessons">
+<article><h3>Definer-rights objects can bypass grants</h3><p>SQL property graphs run with the owner's rights. A graph over base tables showed both desks to each analyst. Fix: desk vertices come from views filtered on <code>SYS_CONTEXT('USERENV','AUTHENTICATED_IDENTITY')</code>. <span class="badge-verified">Verified</span></p></article>
+<article><h3>Revalidation restored a stale, leaky graph</h3><p>After <code>CREATE OR REPLACE PROPERTY GRAPH</code>, invalidating the graph and revalidating it brought back the old base-table definition. Fix: <code>DROP</code> + <code>CREATE</code>, a fail-closed setup check, and a live isolation check in the status row. <span class="badge-verified">Verified</span></p></article>
+<article><h3>True Cache cannot serve DDS end users here</h3><p>An end-user logon to the read-only True Cache instance fails with <code>ORA-16000</code>. Entitled reads stay on the primary; True Cache serves only identities that hold no other desk's data. <span class="badge-verified">Verified</span></p></article>
+<article><h3>Data roles need a login role</h3><p>Granting a data role is not enough to connect. Grant a role holding <code>CREATE SESSION</code> to the data role (the demo's <code>HF_CONNECT</code>). <span class="badge-verified">Verified</span></p></article>
+<article><h3>Remove app-side filters, then test</h3><p>Keep <code>WHERE desk = …</code> out of tool code and prompts, otherwise you are testing the app, not the database. The live checks above use no filter, <code>OR 1=1</code>, and an explicit request for both desks.</p></article>
+<article><h3>Audit tells you who, if you tag the turn</h3><p>Unified Audit records the end user (<code>END_USER_NAME</code>). Setting a request ID as the session's client identifier lets each agent turn find its own records.</p></article>
+</div>
+<h3 class="vh">Versions</h3><table class="ptable versions"><thead><tr><th></th><th>This demo</th><th>Notes</th></tr></thead><tbody>
+<tr><th>Database</th><td>Oracle AI Database 26ai Free 23.26.2.0.0</td><td>End users, data roles, row and column data grants, <code>CREATE END USER SECURITY CONTEXT</code> all accepted</td></tr>
+<tr><th>23.26.3 adds</th><td>not installed</td><td>MFA for local end users; cross-table data grants; application identity as logon principal; OCI IAM auth tokens; data roles in local end-user payloads; data authorization for analytics</td></tr>
+<tr><th>python-oracledb</th><td>4.0.2</td><td>DDS context APIs since 4.0, Thin mode only; 26.0 adds asyncio and the <code>end_user_sec_provider</code> plugin updates</td></tr></tbody></table></section>
+
+<section id="quiz"><p class="eyebrow">07 · CHECK YOURSELF</p><h2>Five questions</h2><div id="quiz-out"></div></section>
+
+<section id="sources"><p class="eyebrow">SOURCES</p><ul class="sources">
+<li><a href="https://docs.oracle.com/en/database/oracle/oracle-database/26/ddscg/understand-oracle-deep-data-security.html" target="_blank" rel="noopener">Deep Data Security Guide: Understand Oracle Deep Data Security</a></li>
+<li><a href="https://docs.oracle.com/en/database/oracle/oracle-database/26/ddscg/end-user-security-context.html" target="_blank" rel="noopener">End-user security context</a> · <a href="https://docs.oracle.com/en/database/oracle/oracle-database/26/ddscg/configure-python-applications.html" target="_blank" rel="noopener">Configure Python applications</a> · <a href="https://docs.oracle.com/en/database/oracle/oracle-database/26/ddscg/configure-database-local-end-user-authentication.html" target="_blank" rel="noopener">Local end-user authentication</a></li>
+<li><a href="https://docs.oracle.com/en/database/oracle/oracle-database/26/ddscg/changes-this-release-oracle-deep-data-security.html" target="_blank" rel="noopener">Changes in 23.26.3</a> · <a href="https://docs.oracle.com/en-us/iaas/autonomous-database-serverless/doc/deep-data-security.html" target="_blank" rel="noopener">Autonomous AI Database DDS example</a> · <a href="https://www.oracle.com/a/ocom/docs/security/deep-data-security-faq.pdf" target="_blank" rel="noopener">DDS FAQ (PDF)</a></li>
+<li><a href="https://python-oracledb.readthedocs.io/en/latest/release_notes.html" target="_blank" rel="noopener">python-oracledb release notes</a> · <a href="https://blogs.oracle.com/developers/database-enforced-authorization-for-agentic-ai-net-applications" target="_blank" rel="noopener">Agentic .NET walkthrough (two-token pattern)</a></li></ul></section>
+</main><footer>DEEP DATA SECURITY PRIMER <span>Hedge Fund Analyst · The Intelligence Plane</span></footer><script src="/static/primer.js"></script></body></html>
