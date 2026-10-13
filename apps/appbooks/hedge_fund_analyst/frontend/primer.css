@@ -1,0 +1,45 @@
+.primer{max-width:1200px}
+.primer section{padding:34px 0 30px;border-top:1px solid var(--line)}
+.primer .p-hero{border-top:0;padding-top:46px}
+.primer h1{max-width:900px}.primer h1>span{font-size:26px}
+.primer h2{font-size:28px;margin:6px 0 14px}.primer h3{margin:0 0 8px}
+.primer p,.primer li{font-size:14px;line-height:1.7;color:#2f3f3a;max-width:880px}
+.lede{font-size:15px!important;color:var(--muted)!important}
+.legend-badges{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:11px;color:var(--muted);margin-top:14px}
+.badge-verified,.badge-docs{display:inline-block;font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px;white-space:nowrap}
+.badge-verified{background:#e3f0e1;color:#006b47}.badge-docs{background:#e6eef7;color:#1f5a96}
+.primer code{font:12px ui-monospace,SFMono-Regular,Menlo,monospace;background:#eef1ea;padding:1px 5px;border-radius:3px}
+.primer pre{font:12px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre;overflow-x:auto;background:#f2f4ed;border:1px solid var(--line);border-radius:6px;padding:12px 14px}
+.primer pre code{background:none;padding:0}
+.note{font-size:12px!important;color:var(--muted)!important}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:18px 0}
+.f-step{flex:1 1 150px;background:var(--white);border:1px solid var(--line);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:4px}
+.f-step small{font-size:10px;letter-spacing:.6px;text-transform:uppercase;color:var(--muted)}.f-step b{font-size:13px}
+.f-step.self{border-color:#006b47;background:#e3f0e1}.f-arrow{align-self:center;color:var(--muted);font-size:16px}
+.flow.small .f-step{flex-basis:110px;padding:9px}.flow.small .f-step b{font-size:12px}
+.contrast,.patterns,.demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.contrast>div,.pattern{background:var(--white);border:1px solid var(--line);border-radius:8px;padding:16px 18px}
+.contrast ul,.pattern ul{padding-left:18px;margin:6px 0}
+.blocks{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:14px}
+.blocks article,.lessons article{background:var(--white);border:1px solid var(--line);border-radius:8px;padding:16px 18px;min-width:0}
+.lessons{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.ptable{width:100%;border-collapse:collapse;font-size:12.5px;background:var(--white);border:1px solid var(--line);border-radius:8px}
+.ptable th,.ptable td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line);font-size:12.5px;position:static;max-width:none}
+.ptable th{width:150px;color:var(--ink);font-weight:600;background:#f7f8f3}
+.versions{margin-top:10px}.vh{margin-top:24px}
+.tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.4px;padding:3px 8px;border-radius:3px;margin-bottom:8px}.tag.ok{background:#e3f0e1;color:#006b47}.tag.next{background:#e6eef7;color:#1f5a96}
+.run{background:var(--green);color:#fff;border:0;padding:12px 18px;font-size:13px;margin-right:10px}
+.proof{display:grid;grid-template-columns:minmax(220px,1.1fr) 1fr 1fr;gap:0;margin-top:16px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--white)}
+.proof>div{padding:10px 12px;border-bottom:1px solid var(--line);font-size:12px;min-width:0;overflow-wrap:anywhere}
+.proof .ph{background:#f2f4ed;font-weight:700;font-size:11px;letter-spacing:.4px}
+.proof .pl b{display:block;font-size:12.5px}.proof .pl code{display:block;margin-top:4px;white-space:normal;font-size:10.5px;color:var(--muted)}
+.pass{color:#006b47;font-weight:700}.fail{color:#aa4533;font-weight:700}
+.audit-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.audit-grid h3{font-size:13px}
+.quiz-q{background:var(--white);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin-bottom:10px}
+.quiz-q p{margin:0 0 8px;font-weight:600}.quiz-q button{margin:4px 6px 4px 0;font-size:12px;text-align:left}
+.quiz-q button.right{border-color:#006b47;background:#e3f0e1;color:#00513a}.quiz-q button.wrong{border-color:#aa4533;background:#fbeee9;color:#aa4533}
+.quiz-q .why{font-size:12.5px;color:var(--muted);margin-top:6px}
+.sources li{font-size:13px}.sources a{color:var(--green);text-decoration:underline}
+@media(max-width:800px){.contrast,.patterns,.demo-grid,.audit-grid{grid-template-columns:1fr}.proof{grid-template-columns:1fr}.proof .ph:nth-child(2),.proof .ph:nth-child(3){display:none}.f-arrow{transform:rotate(90deg)}.flow{flex-direction:column}.primer h1>span{font-size:20px}}
+.contrast>div,.demo-grid>div,.patterns>article,.audit-grid>div{min-width:0}.demo-grid>div,.audit-grid>div{overflow-x:auto}

@@ -1,0 +1,80 @@
+{
+  "executed_at": "2026-09-29T12:17:34.462325+00:00",
+  "database_mode": "fixture",
+  "model": "gpt-4.1-mini",
+  "sample_size_per_case": 1,
+  "cases": [
+    {
+      "case": "canonical_excluded",
+      "initial_fact_present": false,
+      "initial_exclusions": [
+        {
+          "ref": [
+            "entity",
+            "helios-v2",
+            2
+          ],
+          "rule": "slice_budget",
+          "priority": 0.5448696431513115
+        }
+      ],
+      "initial_local_text_tokens": 758,
+      "tool_calls": [
+        {
+          "name": "lookup_entity",
+          "arguments": {
+            "subject": "Helios-RAG",
+            "predicate": "BEIR score"
+          }
+        }
+      ],
+      "result": {
+        "mode": "live",
+        "answer": "You mentioned Helios-RAG scored 0.92 on BEIR. Could you please clarify which retrieval workload or exact benchmark metric you are referring to? This will ensure I verify the correct number for you.",
+        "calls": [
+          {
+            "request_hash": "0450da6b847782462a7657d398d3a81f72a566b80581ad16c0a1104c3cc00619",
+            "input_tokens": 671,
+            "output_tokens": 24
+          },
+          {
+            "request_hash": "ba7a8a8f120bf973adac7978c72e9b08b71f05c4e9ad77ef9a6e52e6444fc5f9",
+            "input_tokens": 760,
+            "output_tokens": 44
+          }
+        ]
+      }
+    },
+    {
+      "case": "required_canonical_fact",
+      "initial_fact_present": true,
+      "initial_exclusions": [],
+      "initial_local_text_tokens": 772,
+      "tool_calls": [
+        {
+          "name": "lookup_entity",
+          "arguments": {
+            "subject": "helios-v2",
+            "predicate": "BEIR score"
+          }
+        }
+      ],
+      "result": {
+        "mode": "live",
+        "answer": "Helios-RAG was previously reported to have scored 0.92 on BEIR, and it won the July evaluation. However, after a data contamination correction on August 17, its corrected BEIR score is now 0.78 (block B52a6dcb933). So, the earlier 0.92 figure is outdated. \n\nConsidering the correction, Helios-RAG's current BEIR score is 0.78. Whether it is still the one to beat depends on how other retrieval systems compare against this revised benchmark. Would you like me to compare Helios-RAG against other systems based on this updated score?",
+        "calls": [
+          {
+            "request_hash": "cb4dfa82a0a6b0beaca078e6a6433f629a969fc9cd0b41e4fa97a07aca2794b1",
+            "input_tokens": 685,
+            "output_tokens": 24
+          },
+          {
+            "request_hash": "4394f99cfdc5aabfa97cdc72dcdeb7f824199799d9f7e66f21fde39838bdb233",
+            "input_tokens": 774,
+            "output_tokens": 131
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "count": 50,
+  "methods": [
+    "independent numeric tolerance",
+    "LLM as judge for text (unscored if judge disabled)"
+  ],
+  "seed": 131026,
+  "synthetic": true
+}

@@ -1,0 +1,59 @@
+{
+  "mode": "fixture",
+  "dependencies": {
+    "oracledb": "26.0.1",
+    "mcp": "1.30.0",
+    "tiktoken": "0.14.0",
+    "openai": "3.20.0"
+  },
+  "mcp": [
+    {
+      "tools": [
+        "clarify",
+        "expand",
+        "lookup_entity",
+        "search_memory"
+      ],
+      "lookup_version": 2,
+      "cross_tenant_argument_rejected": true,
+      "guessed_handle_rejected": true,
+      "elicitation": "accept"
+    },
+    {
+      "tools": [
+        "clarify",
+        "expand",
+        "lookup_entity",
+        "search_memory"
+      ],
+      "lookup_version": 2,
+      "cross_tenant_argument_rejected": true,
+      "guessed_handle_rejected": true,
+      "elicitation": "decline"
+    },
+    {
+      "tools": [
+        "clarify",
+        "expand",
+        "lookup_entity",
+        "search_memory"
+      ],
+      "lookup_version": 2,
+      "cross_tenant_argument_rejected": true,
+      "guessed_handle_rejected": true,
+      "elicitation": "cancel"
+    },
+    {
+      "tools": [
+        "clarify",
+        "expand",
+        "lookup_entity",
+        "search_memory"
+      ],
+      "lookup_version": 2,
+      "cross_tenant_argument_rejected": true,
+      "guessed_handle_rejected": true,
+      "elicitation": "needs_user"
+    }
+  ]
+}

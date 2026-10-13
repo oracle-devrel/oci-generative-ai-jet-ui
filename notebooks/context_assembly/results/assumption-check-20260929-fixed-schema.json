@@ -1,0 +1,80 @@
+{
+  "executed_at": "2026-09-29T12:18:35.078488+00:00",
+  "database_mode": "fixture",
+  "model": "gpt-4.1-mini",
+  "sample_size_per_case": 1,
+  "cases": [
+    {
+      "case": "canonical_excluded",
+      "initial_fact_present": false,
+      "initial_exclusions": [
+        {
+          "ref": [
+            "entity",
+            "helios-v2",
+            2
+          ],
+          "rule": "slice_budget",
+          "priority": 0.5448696431513115
+        }
+      ],
+      "initial_local_text_tokens": 804,
+      "tool_calls": [
+        {
+          "name": "lookup_entity",
+          "arguments": {
+            "subject": "Helios-RAG",
+            "predicate": "benchmark_score"
+          }
+        }
+      ],
+      "result": {
+        "mode": "live",
+        "answer": "Helios-RAG was previously reported to score 0.92 on the BEIR benchmark, but after a data-contamination correction on August 17, its corrected score is 0.78 nDCG@10 on BEIR (block B52a6dcb933). So Helios-RAG is no longer at 0.92 as before; the corrected score should be considered when comparing retrieval systems.",
+        "calls": [
+          {
+            "request_hash": "16cf099a1aaf2284f513d8e76ef14d7c9ae927bed94ae36d7f01f615e356004c",
+            "input_tokens": 711,
+            "output_tokens": 23
+          },
+          {
+            "request_hash": "18477d0d90a9b9529d32a0cd95df30494cda6c93818396a2de31e64f38d32fd9",
+            "input_tokens": 909,
+            "output_tokens": 86
+          }
+        ]
+      }
+    },
+    {
+      "case": "required_canonical_fact",
+      "initial_fact_present": true,
+      "initial_exclusions": [],
+      "initial_local_text_tokens": 794,
+      "tool_calls": [
+        {
+          "name": "lookup_entity",
+          "arguments": {
+            "subject": "helios-v2",
+            "predicate": "benchmark_score"
+          }
+        }
+      ],
+      "result": {
+        "mode": "live",
+        "answer": "Regarding Helios-RAG's performance on BEIR for the retrieval workload, the latest verified benchmark score I have is 0.78 nDCG@10 after the August 17 data-contamination correction (block B52a6dcb933). \n\nThe 0.92 figure you mentioned appears to be an older, superseded benchmark value (block Bf22c03bbfc). So currently, Helios-RAG scores 0.78 on BEIR, which is the accurate number to refer to. \n\nWould you like me to check if this is still the best retrieval system or if any others have surpassed that score?",
+        "calls": [
+          {
+            "request_hash": "884f550f6a4a2e7ed9308cd33351ce8761a52797ffeb8676d23efd1eabd56824",
+            "input_tokens": 701,
+            "output_tokens": 23
+          },
+          {
+            "request_hash": "a3cc61600eb5b09f9fd78658298ae1cffd63ce9d5d710af4b28f6d8adc3432d4",
+            "input_tokens": 789,
+            "output_tokens": 131
+          }
+        ]
+      }
+    }
+  ]
+}

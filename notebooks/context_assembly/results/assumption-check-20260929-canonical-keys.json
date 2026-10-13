@@ -1,0 +1,80 @@
+{
+  "executed_at": "2026-09-29T12:19:26.767446+00:00",
+  "database_mode": "fixture",
+  "model": "gpt-4.1-mini",
+  "sample_size_per_case": 1,
+  "cases": [
+    {
+      "case": "canonical_excluded",
+      "initial_fact_present": false,
+      "initial_exclusions": [
+        {
+          "ref": [
+            "entity",
+            "helios-v2",
+            2
+          ],
+          "rule": "slice_budget",
+          "priority": 0.5448696431513115
+        }
+      ],
+      "initial_local_text_tokens": 799,
+      "tool_calls": [
+        {
+          "name": "lookup_entity",
+          "arguments": {
+            "subject": "Helios-RAG",
+            "predicate": "benchmark_score"
+          }
+        }
+      ],
+      "result": {
+        "mode": "live",
+        "answer": "Helios-RAG was previously reported to score 0.92 nDCG@10 on the BEIR benchmark (historical, helios-v1). However, after a data-contamination correction on August 17, its updated score is 0.78 nDCG@10 on BEIR (helios-v2). So Helios-RAG is still strong but not as high as initially reported.",
+        "calls": [
+          {
+            "request_hash": "d854e63d139f48814d09332b396e8984aeef24fc78478ff5a400cc2507c2be0a",
+            "input_tokens": 703,
+            "output_tokens": 23
+          },
+          {
+            "request_hash": "57abf88396d50856a23ff00451329987aa3d879c152fe43ae3bb12dde2f5fad9",
+            "input_tokens": 901,
+            "output_tokens": 85
+          }
+        ]
+      }
+    },
+    {
+      "case": "required_canonical_fact",
+      "initial_fact_present": true,
+      "initial_exclusions": [],
+      "initial_local_text_tokens": 802,
+      "tool_calls": [
+        {
+          "name": "lookup_entity",
+          "arguments": {
+            "subject": "Helios-RAG",
+            "predicate": "benchmark_score"
+          }
+        }
+      ],
+      "result": {
+        "mode": "live",
+        "answer": "Helios-RAG previously scored 0.92 nDCG@10 on BEIR, but after an August 17 data-contamination correction, the accurate current score is 0.78 nDCG@10. So, 0.78 is the correct benchmark to consider now. Would you like a comparison with other retrieval systems to see if Helios-RAG is still the best?",
+        "calls": [
+          {
+            "request_hash": "19c4ac12a669c5b3274d688ee39bee4043eb953223ff405bf081c3e7c94a26cc",
+            "input_tokens": 706,
+            "output_tokens": 23
+          },
+          {
+            "request_hash": "9287470e47a500587e55e3ad7ddb01b5aad28eb4730baf91701fe4dc9ca018f2",
+            "input_tokens": 904,
+            "output_tokens": 82
+          }
+        ]
+      }
+    }
+  ]
+}

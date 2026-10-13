@@ -1,0 +1,51 @@
+name: hedge-fund-analyst
+services:
+  database:
+    image: container-registry.oracle.com/database/free:latest
+    container_name: hf-oracle
+    hostname: hf-oracle
+    ports: ["127.0.0.1:${HF_DB_PORT:-1523}:1521"]
+    environment:
+      ORACLE_PWD: ${HF_OWNER_PASSWORD:?Run scripts/local_env.py first}
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+      - ./models:/opt/oracle/hf_models:ro
+    shm_size: 1g
+    healthcheck:
+      test: ["CMD", "/opt/oracle/checkDBStatus.sh"]
+      interval: 15s
+      timeout: 10s
+      retries: 60
+    restart: unless-stopped
+  private-ai:
+    profiles: [private-ai]
+    image: container-registry.oracle.com/database/private-ai:medium-cpu-infer-latest
+    container_name: hf-private-ai
+    ports: ["127.0.0.1:8443:8443"]
+    environment:
+      PRIVATE_AI_CONFIG_FILE: /privateai/config/privateai.json
+      PRIVATE_AI_LOG_STDOUT_ENABLED: "true"
+    volumes:
+      - ./models:/privateai/models:ro
+      - ./config:/privateai/config:ro
+      - ./var/privateai-secrets:/run/secrets:ro
+    restart: unless-stopped
+  true-cache:
+    profiles: [true-cache]
+    image: container-registry.oracle.com/database/free:latest
+    container_name: hf-true-cache
+    hostname: hf-true-cache
+    ports: ["127.0.0.1:1524:1521"]
+    environment:
+      ORACLE_PWD: ${HF_OWNER_PASSWORD:?Run scripts/local_env.py first}
+      TRUE_CACHE: "true"
+      AUTO_TRUE_CACHE_SETUP: "false"
+    volumes:
+      - true-cache-data:/opt/oracle/oradata
+      - ./var/true-cache:/opt/oracle/hf_tc:ro
+    entrypoint: ["/bin/bash", "/opt/oracle/hf_tc/start.sh"]
+    shm_size: 1g
+    restart: "no"
+volumes:
+  oracle-data:
+  true-cache-data:

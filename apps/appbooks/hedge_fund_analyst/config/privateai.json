@@ -1,0 +1,17 @@
+{
+  "models": [
+    {
+      "name": "qwen2.5-3b-instruct-q4_k_m",
+      "path": "qwen2.5-3b-instruct-q4_k_m.gguf",
+      "runtime": "llamacpp",
+      "context_size": 8192,
+      "startup_timeout": 1200,
+      "capabilities": ["TEXT_GENERATION"],
+      "runtime_arguments": ["-c", "8192", "-t", "4"]
+    }
+  ],
+  "environment": {
+    "PRIVATE_AI_ALLOWED_MESSAGE_ROLES": ["system", "user", "assistant"],
+    "PRIVATE_AI_HTTP_READ_TIMEOUT": 240
+  }
+}
