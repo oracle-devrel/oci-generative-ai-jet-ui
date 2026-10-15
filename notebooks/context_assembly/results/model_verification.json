@@ -1,0 +1,92 @@
+{
+  "comparison": {
+    "answer": "The Letta paper describes memory eviction as a process driven by pressure on the working context: when the context nears its limit, the oldest span of messages is compressed into a summary and the original messages are evicted from the window. This process is recursive, as summaries can be further summarized, allowing graceful degradation and preservation of a decaying trace of the entire history over long sessions.\n\nIn comparison, the AgentCore Memory approach separates short-term and long-term memory. Short-term memory holds raw session events which expire automatically after a configured event expiry period. Meanwhile, long-term memory holds durable records extracted from those events by configurable strategies. Thus, AgentCore recommends configuring extraction strategies to determine what information outlives the raw session events, rather than recursive summarization used by Letta.\n\nIn summary:\n- Letta uses recursive summarization to compress and evict data while preserving a trace.\n- AgentCore relies on event expiry for raw data removal, and extraction strategies for durable long-term memory retention.",
+    "calls": [
+      {
+        "input_tokens": 3719,
+        "output_tokens": 18,
+        "request_hash": "d4410e70713a3657f14aa6c50ceb500a1f7a6bd2d2271350f654526bd52d13de"
+      },
+      {
+        "input_tokens": 4078,
+        "output_tokens": 19,
+        "request_hash": "34a89e456b17e18e49dcf2a72e935a6f0b66db136cde1128dfc5a47516db6063"
+      },
+      {
+        "input_tokens": 4391,
+        "output_tokens": 201,
+        "request_hash": "8d241671f0647f9ab80b73aa99b5011b044a007894d257c3ef13f76b50563e63"
+      }
+    ],
+    "evaluation": {
+      "citation_ids": [],
+      "corrected_value_present": null,
+      "memory_citations_present": false,
+      "note": "Presence checks; comparative claims and citation support need editorial review."
+    },
+    "mode": "live"
+  },
+  "compression": {
+    "cascade_test_rolled_back": true,
+    "compression_ref": [
+      "compression",
+      "compression-851de9927bfe115775166317308546",
+      1
+    ],
+    "full_tokens": 114,
+    "mismatched_source_rejected": true,
+    "parent_document_cascade_checked": true,
+    "replay": {
+      "authorization": "current",
+      "hash_matches": true,
+      "request_hash": "9f45d4c867a11b4d9f5e918d5e56402814cfe60e18732ba7f619de080051b953",
+      "scn": 4370745,
+      "scores": "recorded"
+    },
+    "retained_text_revalidated": true,
+    "source_ref": [
+      "kb",
+      "corpus_310a87b39b828c8547e2a0ad",
+      null
+    ],
+    "summary_tokens": 88
+  },
+  "fact_check": {
+    "answer": "Helios-RAG's BEIR retrieval score was originally reported as 0.92 nDCG@10, but this was corrected to 0.78 after discovering a data contamination issue where test passages leaked into training data. The architecture stayed the same, but the corrected score is 0.78 nDCG@10, which is below some higher benchmarks set by others. So, Helios-RAG is no longer the top performer as was initially thought.",
+    "calls": [
+      {
+        "input_tokens": 2438,
+        "output_tokens": 28,
+        "request_hash": "20d09f59d10e4e2187348c3c95f716a3975dd7f87deae8f0e7a764e94ab3c85a"
+      },
+      {
+        "input_tokens": 2697,
+        "output_tokens": 96,
+        "request_hash": "0dc668d2a389fa29c80096bc944fdfffd99da10fae47c534e8f3db2ab2b66ccb"
+      }
+    ],
+    "evaluation": {
+      "citation_ids": [],
+      "corrected_value_present": true,
+      "memory_citations_present": false,
+      "note": "Presence checks; comparative claims and citation support need editorial review."
+    },
+    "mode": "live"
+  },
+  "missing_detail": {
+    "answer": "AgentCore retains raw session events based on a retention policy configured per memory resource. The raw session events, which form the short-term event stream, expire automatically after a specified period in days set for each memory resource. Long-term records, however, persist independently and are not affected by the raw event expiry. (Blocks B21ad7df14c, B59da737f8e)",
+    "calls": [
+      {
+        "input_tokens": 2160,
+        "output_tokens": 21,
+        "request_hash": "0e41ad726f13ffeda2c29d2e3ddda8611d8955733bd30ffa39716a7429ead9ce"
+      },
+      {
+        "input_tokens": 2472,
+        "output_tokens": 81,
+        "request_hash": "f287aef0e579945ada2bb5d814e22a523b79a11a1033d09e5f7a6c9166e187d9"
+      }
+    ],
+    "mode": "live"
+  }
+}

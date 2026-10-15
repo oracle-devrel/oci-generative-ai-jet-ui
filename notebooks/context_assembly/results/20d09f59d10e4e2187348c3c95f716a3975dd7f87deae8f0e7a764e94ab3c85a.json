@@ -1,0 +1,958 @@
+{
+  "mode": "live",
+  "request_hash": "20d09f59d10e4e2187348c3c95f716a3975dd7f87deae8f0e7a764e94ab3c85a",
+  "model": "gpt-4.1-mini-2025-04-14",
+  "response": {
+    "id": "resp_08eee5bf8d71f8b6016abd3553802887d29682230fb78429c8",
+    "created_at": 1790784851.0,
+    "metadata": {},
+    "model": "gpt-4.1-mini-2025-04-14",
+    "object": "response",
+    "output": [
+      {
+        "arguments": "{\"predicate\":\"beir_ndcg10\",\"subject\":\"model:helios-rag\"}",
+        "call_id": "call_lYjcP8esa6Y43O11rayC0Lek",
+        "name": "lookup_entity",
+        "type": "function_call",
+        "id": "fc_08eee5bf8d71f8b6016abd35540af887d29df8e09006484a9d",
+        "status": "completed"
+      }
+    ],
+    "parallel_tool_calls": false,
+    "temperature": 1.0,
+    "tool_choice": "auto",
+    "tools": [
+      {
+        "name": "clarify",
+        "parameters": {
+          "additionalProperties": false,
+          "properties": {
+            "question": {
+              "maxLength": 300,
+              "type": "string"
+            }
+          },
+          "required": [
+            "question"
+          ],
+          "type": "object"
+        },
+        "strict": true,
+        "type": "function",
+        "description": "Ask which retrieval workload the user means."
+      },
+      {
+        "name": "expand",
+        "parameters": {
+          "additionalProperties": false,
+          "properties": {
+            "block_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "block_id"
+          ],
+          "type": "object"
+        },
+        "strict": true,
+        "type": "function",
+        "description": "Expand a pointer issued in the current window."
+      },
+      {
+        "name": "lookup_entity",
+        "parameters": {
+          "additionalProperties": false,
+          "properties": {
+            "predicate": {
+              "description": "Canonical field key. beir_ndcg10 includes the benchmark name and metric in its result.",
+              "enum": [
+                "beir_ndcg10"
+              ],
+              "type": "string"
+            },
+            "subject": {
+              "description": "Canonical entity name, not a memory row ID.",
+              "enum": [
+                "model:helios-rag"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "subject",
+            "predicate"
+          ],
+          "type": "object"
+        },
+        "strict": true,
+        "type": "function",
+        "description": "Read the current canonical fact and labeled history for a named entity."
+      },
+      {
+        "name": "search_memory",
+        "parameters": {
+          "additionalProperties": false,
+          "properties": {
+            "query": {
+              "maxLength": 500,
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "query"
+          ],
+          "type": "object"
+        },
+        "strict": true,
+        "type": "function",
+        "description": "Search accessible memory."
+      }
+    ],
+    "top_p": 1.0,
+    "background": false,
+    "completed_at": 1790784852.0,
+    "max_output_tokens": 400,
+    "prompt_cache_retention": "in_memory",
+    "reasoning": {},
+    "service_tier": "default",
+    "status": "completed",
+    "text": {
+      "format": {
+        "type": "text"
+      },
+      "verbosity": "medium"
+    },
+    "top_logprobs": 0,
+    "truncation": "disabled",
+    "usage": {
+      "input_tokens": 1717,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 28,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 1745
+    },
+    "billing": {
+      "payer": "developer"
+    },
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "store": false,
+    "tool_usage": {
+      "image_gen": {
+        "input_tokens": 0,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "output_tokens": 0,
+        "output_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "total_tokens": 0
+      },
+      "web_search": {
+        "num_requests": 0
+      }
+    }
+  },
+  "manifest": {
+    "mode": "oracle",
+    "renderer_version": "context-renderer-2",
+    "selection_version": "context-selection-2",
+    "code_hash": "55582d12518969ca94f1d7fe7bbc0a8821ff4cd2a1aad2ce82fc0f1722dba1bc",
+    "evaluation_time": "2026-09-28T12:00:00",
+    "scn": 3997581,
+    "model": "gpt-4.1-mini",
+    "encoding": "o200k_base",
+    "scope": {
+      "tenant_id": "acme",
+      "user_id": "user:jane@acme.com",
+      "agent_id": "agent:research_v1",
+      "thread_id": "thread_demo"
+    },
+    "budget_ref": [
+      "guideline",
+      "context_context_budget",
+      1
+    ],
+    "policy_hash": "453f6368999a13f3be234b1d38dc6876b5c29dbfcf09dff4f772754461d0c64f",
+    "intent": "fact_check",
+    "round": 0,
+    "request_hash": "20d09f59d10e4e2187348c3c95f716a3975dd7f87deae8f0e7a764e94ab3c85a",
+    "fixed_refs": [
+      [
+        "guideline",
+        "context_context_budget",
+        1
+      ],
+      [
+        "guideline",
+        "context_context_rules",
+        1
+      ],
+      [
+        "guideline",
+        "ctxseed_69186c85403b46d0dd54460d",
+        1
+      ],
+      [
+        "persona",
+        "ctxseed_1f10f8e2d9a59a6ffaac153f",
+        null
+      ],
+      [
+        "tool",
+        "context_tool_clarify",
+        1
+      ],
+      [
+        "tool",
+        "context_tool_expand",
+        1
+      ],
+      [
+        "tool",
+        "context_tool_lookup_entity",
+        1
+      ],
+      [
+        "tool",
+        "context_tool_search_memory",
+        1
+      ],
+      [
+        "conversation",
+        "context_question",
+        null
+      ]
+    ],
+    "admit_current": true,
+    "required_refs": [
+      [
+        "entity",
+        "ctxseed_2688f0418960d68379370cf8",
+        2
+      ]
+    ],
+    "candidate_scores": [
+      {
+        "ref": [
+          "guideline",
+          "ctxseed_69186c85403b46d0dd54460d",
+          1
+        ],
+        "rerank": 0.0
+      },
+      {
+        "ref": [
+          "guideline",
+          "context_context_budget",
+          1
+        ],
+        "rerank": 0.0
+      },
+      {
+        "ref": [
+          "guideline",
+          "context_context_rules",
+          1
+        ],
+        "rerank": 0.0
+      },
+      {
+        "ref": [
+          "persona",
+          "ctxseed_1f10f8e2d9a59a6ffaac153f",
+          null
+        ],
+        "rerank": 0.0
+      },
+      {
+        "ref": [
+          "tool",
+          "context_tool_search_memory",
+          1
+        ],
+        "rerank": 0.0
+      },
+      {
+        "ref": [
+          "tool",
+          "context_tool_lookup_entity",
+          1
+        ],
+        "rerank": 0.0
+      },
+      {
+        "ref": [
+          "tool",
+          "context_tool_expand",
+          1
+        ],
+        "rerank": 0.0
+      },
+      {
+        "ref": [
+          "tool",
+          "context_tool_clarify",
+          1
+        ],
+        "rerank": 0.0
+      },
+      {
+        "ref": [
+          "entity",
+          "context_deleted",
+          1
+        ],
+        "rerank": 3.764208257807572e-05
+      },
+      {
+        "ref": [
+          "entity",
+          "context_future",
+          1
+        ],
+        "rerank": 3.7625860659270096e-05
+      },
+      {
+        "ref": [
+          "entity",
+          "ctxseed_62986a13e1e8341162510897",
+          1
+        ],
+        "rerank": 9.123445529422825e-05
+      },
+      {
+        "ref": [
+          "entity",
+          "ctxseed_4fb93df06968cd85a1f06dfb",
+          2
+        ],
+        "rerank": 3.7646641765028786e-05
+      },
+      {
+        "ref": [
+          "entity",
+          "ctxseed_ac760ed5f12c3f9fa0459951",
+          1
+        ],
+        "rerank": 0.9523477697782248
+      },
+      {
+        "ref": [
+          "entity",
+          "ctxseed_2688f0418960d68379370cf8",
+          2
+        ],
+        "rerank": 0.3618180166982049
+      },
+      {
+        "ref": [
+          "entity",
+          "ctxseed_32d047efbd9fbc1c3b2c86c8",
+          1
+        ],
+        "rerank": 6.4695152643592e-05
+      },
+      {
+        "ref": [
+          "entity",
+          "ctxseed_79d4e00add7c056af48c0e48",
+          1
+        ],
+        "rerank": 3.76228108581946e-05
+      },
+      {
+        "ref": [
+          "workflow",
+          "ctxseed_4cdadf50cf94d6a6fc4a182f",
+          1
+        ],
+        "rerank": 3.7641615920799166e-05
+      },
+      {
+        "ref": [
+          "summary",
+          "context_july_summary",
+          1
+        ],
+        "rerank": 0.7207378490737211
+      },
+      {
+        "ref": [
+          "summary",
+          "ctxseed_d97efa1e54191e8f47f03d67",
+          1
+        ],
+        "rerank": 0.7853537188245786
+      },
+      {
+        "ref": [
+          "summary",
+          "ctxseed_23e1a961edaf64d1def5bd6f",
+          1
+        ],
+        "rerank": 3.7616676124884006e-05
+      },
+      {
+        "ref": [
+          "conversation",
+          "context_july_event",
+          null
+        ],
+        "rerank": 0.7207378490737211
+      },
+      {
+        "ref": [
+          "conversation",
+          "ctxseed_51d4ac7e68173cf942988d01",
+          null
+        ],
+        "rerank": 3.769524755136148e-05
+      },
+      {
+        "ref": [
+          "conversation",
+          "ctxseed_db48e532c3ac063a8ce441cd",
+          null
+        ],
+        "rerank": 0.9806833930559266
+      },
+      {
+        "ref": [
+          "conversation",
+          "ctxseed_c1b5bb4c73356b570682e230",
+          null
+        ],
+        "rerank": 4.6608791116920554e-05
+      },
+      {
+        "ref": [
+          "conversation",
+          "ctxseed_8211cb83d919225d9a1693d7",
+          null
+        ],
+        "rerank": 0.9308263348897543
+      },
+      {
+        "ref": [
+          "conversation",
+          "context_question",
+          null
+        ],
+        "rerank": 0.0
+      },
+      {
+        "ref": [
+          "conversation",
+          "ctxseed_fd5939f2ef641009d397b74e",
+          null
+        ],
+        "rerank": 3.763048965320145e-05
+      },
+      {
+        "ref": [
+          "conversation",
+          "ctxseed_1f493c47c7742fadee582bef",
+          null
+        ],
+        "rerank": 3.761599454959848e-05
+      },
+      {
+        "ref": [
+          "kb",
+          "kbc_5cb55eb9d0f6007ee063020011acf98d",
+          null
+        ],
+        "rerank": 0.8652315751256509
+      },
+      {
+        "ref": [
+          "kb",
+          "kbc_5cb55eb9d0f7007ee063020011acf98d",
+          null
+        ],
+        "rerank": 0.01958767682444256
+      }
+    ],
+    "dependencies": [
+      [
+        "guideline",
+        "context_context_budget",
+        1
+      ],
+      [
+        "guideline",
+        "context_context_rules",
+        1
+      ],
+      [
+        "guideline",
+        "ctxseed_69186c85403b46d0dd54460d",
+        1
+      ],
+      [
+        "persona",
+        "ctxseed_1f10f8e2d9a59a6ffaac153f",
+        null
+      ],
+      [
+        "tool",
+        "context_tool_clarify",
+        1
+      ],
+      [
+        "tool",
+        "context_tool_expand",
+        1
+      ],
+      [
+        "tool",
+        "context_tool_lookup_entity",
+        1
+      ],
+      [
+        "tool",
+        "context_tool_search_memory",
+        1
+      ],
+      [
+        "conversation",
+        "context_question",
+        null
+      ],
+      [
+        "entity",
+        "ctxseed_2688f0418960d68379370cf8",
+        2
+      ],
+      [
+        "conversation",
+        "ctxseed_8211cb83d919225d9a1693d7",
+        null
+      ],
+      [
+        "document",
+        "ctxseed_94bfffc3bc6cbcef58b29e24",
+        1
+      ],
+      [
+        "entity",
+        "ctxseed_4fb93df06968cd85a1f06dfb",
+        2
+      ],
+      [
+        "conversation",
+        "ctxseed_1f493c47c7742fadee582bef",
+        null
+      ],
+      [
+        "entity",
+        "ctxseed_32d047efbd9fbc1c3b2c86c8",
+        1
+      ],
+      [
+        "conversation",
+        "ctxseed_c1b5bb4c73356b570682e230",
+        null
+      ],
+      [
+        "entity",
+        "ctxseed_79d4e00add7c056af48c0e48",
+        1
+      ],
+      [
+        "conversation",
+        "ctxseed_51d4ac7e68173cf942988d01",
+        null
+      ],
+      [
+        "workflow",
+        "ctxseed_4cdadf50cf94d6a6fc4a182f",
+        1
+      ],
+      [
+        "kb",
+        "kbc_5cb55eb9d0f6007ee063020011acf98d",
+        null
+      ],
+      [
+        "kb",
+        "kbc_5cb55eb9d0f7007ee063020011acf98d",
+        null
+      ],
+      [
+        "summary",
+        "ctxseed_d97efa1e54191e8f47f03d67",
+        1
+      ],
+      [
+        "summary",
+        "context_july_summary",
+        1
+      ],
+      [
+        "entity",
+        "ctxseed_ac760ed5f12c3f9fa0459951",
+        1
+      ],
+      [
+        "conversation",
+        "context_july_event",
+        null
+      ],
+      [
+        "summary",
+        "ctxseed_23e1a961edaf64d1def5bd6f",
+        1
+      ],
+      [
+        "conversation",
+        "ctxseed_db48e532c3ac063a8ce441cd",
+        null
+      ],
+      [
+        "conversation",
+        "ctxseed_fd5939f2ef641009d397b74e",
+        null
+      ]
+    ],
+    "local_text_tokens": 1813,
+    "allocation": {
+      "evidence": {
+        "base": 644,
+        "carry_in": 0,
+        "used": 261
+      },
+      "durable_facts": {
+        "base": 1031,
+        "carry_in": 383,
+        "used": 384
+      },
+      "volatile_tail": {
+        "base": 644,
+        "carry_in": 1030,
+        "used": 365
+      },
+      "recalled_history": {
+        "base": 257,
+        "carry_in": 1309,
+        "used": 275
+      }
+    },
+    "excluded": [
+      {
+        "ref": [
+          "entity",
+          "context_deleted",
+          1
+        ],
+        "rule": "lifecycle"
+      },
+      {
+        "ref": [
+          "entity",
+          "context_future",
+          1
+        ],
+        "rule": "lifecycle"
+      },
+      {
+        "ref": [
+          "entity",
+          "ctxseed_62986a13e1e8341162510897",
+          1
+        ],
+        "rule": "lifecycle"
+      },
+      {
+        "ref": [
+          "entity",
+          "ctxseed_ac760ed5f12c3f9fa0459951",
+          1
+        ],
+        "rule": "lifecycle"
+      },
+      {
+        "ref": [
+          "conversation",
+          "context_july_event",
+          null
+        ],
+        "rule": "exact_text_duplicate"
+      }
+    ],
+    "blocks": [
+      {
+        "id": "B331ec01f36",
+        "ref": [
+          "entity",
+          "ctxseed_2688f0418960d68379370cf8",
+          2
+        ],
+        "tier": "full",
+        "slice": "durable_facts",
+        "tokens": 68,
+        "annotation_refs": [],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 0
+      },
+      {
+        "id": "Be89c3be48e",
+        "ref": [
+          "entity",
+          "ctxseed_4fb93df06968cd85a1f06dfb",
+          2
+        ],
+        "tier": "full",
+        "slice": "durable_facts",
+        "tokens": 72,
+        "annotation_refs": [],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 1
+      },
+      {
+        "id": "B91f8fda9c4",
+        "ref": [
+          "entity",
+          "ctxseed_32d047efbd9fbc1c3b2c86c8",
+          1
+        ],
+        "tier": "full",
+        "slice": "durable_facts",
+        "tokens": 72,
+        "annotation_refs": [],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 2
+      },
+      {
+        "id": "Bda64346ca5",
+        "ref": [
+          "entity",
+          "ctxseed_79d4e00add7c056af48c0e48",
+          1
+        ],
+        "tier": "full",
+        "slice": "durable_facts",
+        "tokens": 65,
+        "annotation_refs": [],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 3
+      },
+      {
+        "id": "Ba65b008a74",
+        "ref": [
+          "workflow",
+          "ctxseed_4cdadf50cf94d6a6fc4a182f",
+          1
+        ],
+        "tier": "full",
+        "slice": "durable_facts",
+        "tokens": 107,
+        "annotation_refs": [],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 4
+      },
+      {
+        "id": "B62c36b5016",
+        "ref": [
+          "kb",
+          "kbc_5cb55eb9d0f6007ee063020011acf98d",
+          null
+        ],
+        "tier": "full",
+        "slice": "evidence",
+        "tokens": 145,
+        "annotation_refs": [],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 5
+      },
+      {
+        "id": "B4d50aad86a",
+        "ref": [
+          "kb",
+          "kbc_5cb55eb9d0f7007ee063020011acf98d",
+          null
+        ],
+        "tier": "full",
+        "slice": "evidence",
+        "tokens": 116,
+        "annotation_refs": [],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 6
+      },
+      {
+        "id": "B3331ce5713",
+        "ref": [
+          "summary",
+          "ctxseed_d97efa1e54191e8f47f03d67",
+          1
+        ],
+        "tier": "full",
+        "slice": "recalled_history",
+        "tokens": 107,
+        "annotation_refs": [],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 7
+      },
+      {
+        "id": "Bb08645346e",
+        "ref": [
+          "summary",
+          "context_july_summary",
+          1
+        ],
+        "tier": "full",
+        "slice": "recalled_history",
+        "tokens": 96,
+        "annotation_refs": [
+          {
+            "source": [
+              "entity",
+              "ctxseed_ac760ed5f12c3f9fa0459951",
+              1
+            ],
+            "current": [
+              "entity",
+              "ctxseed_2688f0418960d68379370cf8",
+              2
+            ]
+          }
+        ],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 8
+      },
+      {
+        "id": "B0b326be125",
+        "ref": [
+          "summary",
+          "ctxseed_23e1a961edaf64d1def5bd6f",
+          1
+        ],
+        "tier": "full",
+        "slice": "recalled_history",
+        "tokens": 72,
+        "annotation_refs": [],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 9
+      },
+      {
+        "id": "B963b68d2fa",
+        "ref": [
+          "conversation",
+          "ctxseed_db48e532c3ac063a8ce441cd",
+          null
+        ],
+        "tier": "full",
+        "slice": "volatile_tail",
+        "tokens": 66,
+        "annotation_refs": [],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 10
+      },
+      {
+        "id": "B547950cc59",
+        "ref": [
+          "conversation",
+          "ctxseed_51d4ac7e68173cf942988d01",
+          null
+        ],
+        "tier": "full",
+        "slice": "volatile_tail",
+        "tokens": 54,
+        "annotation_refs": [],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 11
+      },
+      {
+        "id": "Bd237c8afcc",
+        "ref": [
+          "conversation",
+          "ctxseed_8211cb83d919225d9a1693d7",
+          null
+        ],
+        "tier": "full",
+        "slice": "volatile_tail",
+        "tokens": 65,
+        "annotation_refs": [],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 12
+      },
+      {
+        "id": "B370fe1fd2a",
+        "ref": [
+          "conversation",
+          "ctxseed_c1b5bb4c73356b570682e230",
+          null
+        ],
+        "tier": "full",
+        "slice": "volatile_tail",
+        "tokens": 60,
+        "annotation_refs": [],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 13
+      },
+      {
+        "id": "B8b6a5662e5",
+        "ref": [
+          "conversation",
+          "ctxseed_fd5939f2ef641009d397b74e",
+          null
+        ],
+        "tier": "full",
+        "slice": "volatile_tail",
+        "tokens": 68,
+        "annotation_refs": [],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 14
+      },
+      {
+        "id": "B7ca1aa68e9",
+        "ref": [
+          "conversation",
+          "ctxseed_1f493c47c7742fadee582bef",
+          null
+        ],
+        "tier": "full",
+        "slice": "volatile_tail",
+        "tokens": 52,
+        "annotation_refs": [],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 15
+      }
+    ],
+    "question_ref": [
+      "conversation",
+      "context_question",
+      null
+    ],
+    "estimated_input_tokens": 2438,
+    "transcript_items": 2,
+    "token_count_method": "local_with_reserve"
+  }
+}

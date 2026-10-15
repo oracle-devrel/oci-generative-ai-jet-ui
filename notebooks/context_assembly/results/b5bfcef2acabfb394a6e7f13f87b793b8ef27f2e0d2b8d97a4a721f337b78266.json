@@ -1,0 +1,467 @@
+{
+  "mode": "live",
+  "request_hash": "b5bfcef2acabfb394a6e7f13f87b793b8ef27f2e0d2b8d97a4a721f337b78266",
+  "model": "gpt-4.1-mini-2025-04-14",
+  "response": {
+    "id": "resp_04adad60a2808fef016abb2fe2758c87d2a4895ae5adf00072",
+    "created_at": 1790652386.0,
+    "metadata": {},
+    "model": "gpt-4.1-mini-2025-04-14",
+    "object": "response",
+    "output": [
+      {
+        "id": "msg_04adad60a2808fef016abb2fe5ff2487d282bed9243f351bfe",
+        "content": [
+          {
+            "annotations": [],
+            "text": "Helios-RAG was previously reported with a 0.92 BEIR score in the July evaluation, but after a data-contamination correction on August 17, its accurate score on the research workload for BEIR is 0.78 nDCG@10. So for the research workload, Helios-RAG's current best benchmark is 0.78 nDCG@10, not 0.92. It remains a top contender but with this updated figure. (Reference: block B52a6dcb933)",
+            "type": "output_text",
+            "logprobs": []
+          }
+        ],
+        "role": "assistant",
+        "status": "completed",
+        "type": "message"
+      }
+    ],
+    "parallel_tool_calls": false,
+    "temperature": 1.0,
+    "tool_choice": "auto",
+    "tools": [
+      {
+        "name": "clarify",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "question": {
+              "type": "string",
+              "maxLength": 300
+            }
+          },
+          "required": [
+            "question"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true,
+        "type": "function",
+        "description": "Ask which retrieval workload the user means."
+      },
+      {
+        "name": "expand",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "block_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "block_id"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true,
+        "type": "function",
+        "description": "Expand a pointer issued in the current window."
+      },
+      {
+        "name": "lookup_entity",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "subject": {
+              "type": "string"
+            },
+            "predicate": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "subject",
+            "predicate"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true,
+        "type": "function",
+        "description": "Read the current fact and labeled history."
+      },
+      {
+        "name": "search_memory",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 500
+            }
+          },
+          "required": [
+            "query"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true,
+        "type": "function",
+        "description": "Search accessible synthetic memory."
+      }
+    ],
+    "top_p": 1.0,
+    "background": false,
+    "completed_at": 1790652390.0,
+    "max_output_tokens": 400,
+    "prompt_cache_retention": "in_memory",
+    "reasoning": {},
+    "service_tier": "default",
+    "status": "completed",
+    "text": {
+      "format": {
+        "type": "text"
+      },
+      "verbosity": "medium"
+    },
+    "top_logprobs": 0,
+    "truncation": "disabled",
+    "usage": {
+      "input_tokens": 1036,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 110,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 1146
+    },
+    "billing": {
+      "payer": "developer"
+    },
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "store": false,
+    "tool_usage": {
+      "image_gen": {
+        "input_tokens": 0,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "output_tokens": 0,
+        "output_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "total_tokens": 0
+      },
+      "web_search": {
+        "num_requests": 0
+      }
+    }
+  },
+  "manifest": {
+    "mode": "fixture",
+    "renderer_version": "ca6-renderer-1",
+    "selection_version": "ca6-selection-1",
+    "evaluation_time": "2026-09-28T12:00:00",
+    "scn": 1,
+    "model": "gpt-4.1-mini",
+    "encoding": "o200k_base",
+    "scope": {
+      "tenant_id": "acme",
+      "user_id": "jane",
+      "agent_id": "research",
+      "thread_id": "t2"
+    },
+    "budget_ref": [
+      "guideline",
+      "budget",
+      1
+    ],
+    "policy_hash": "56ed144229688f2f69a91f70071b7ec6cc79423e4ab09160e988886a0f51c2e7",
+    "intent": "fact_check",
+    "round": 1,
+    "request_hash": "b5bfcef2acabfb394a6e7f13f87b793b8ef27f2e0d2b8d97a4a721f337b78266",
+    "fixed_refs": [
+      [
+        "guideline",
+        "budget",
+        1
+      ],
+      [
+        "guideline",
+        "rules",
+        1
+      ],
+      [
+        "persona",
+        "research-persona",
+        1
+      ],
+      [
+        "tool",
+        "clarify",
+        1
+      ],
+      [
+        "tool",
+        "expand",
+        1
+      ],
+      [
+        "tool",
+        "lookup_entity",
+        1
+      ],
+      [
+        "tool",
+        "search_memory",
+        1
+      ],
+      [
+        "conversation",
+        "question",
+        1
+      ]
+    ],
+    "local_text_tokens": 976,
+    "allocation": {
+      "evidence": {
+        "base": 288,
+        "carry_in": 0,
+        "used": 163
+      },
+      "durable_facts": {
+        "base": 460,
+        "carry_in": 125,
+        "used": 190
+      },
+      "volatile_tail": {
+        "base": 288,
+        "carry_in": 395,
+        "used": 48
+      },
+      "recalled_history": {
+        "base": 115,
+        "carry_in": 635,
+        "used": 121
+      }
+    },
+    "excluded": [
+      {
+        "ref": [
+          "entity",
+          "helios-v1",
+          1
+        ],
+        "rule": "lifecycle"
+      },
+      {
+        "ref": [
+          "entity",
+          "future-fact",
+          1
+        ],
+        "rule": "lifecycle"
+      },
+      {
+        "ref": [
+          "entity",
+          "deleted-fact",
+          1
+        ],
+        "rule": "lifecycle"
+      },
+      {
+        "ref": [
+          "conversation",
+          "duplicate-current",
+          1
+        ],
+        "rule": "exact_text_duplicate"
+      }
+    ],
+    "blocks": [
+      {
+        "id": "B9dbc1b5835",
+        "ref": [
+          "summary",
+          "evaluation-july",
+          1
+        ],
+        "tier": "full",
+        "slice": "durable_facts",
+        "tokens": 76,
+        "annotation_refs": [
+          {
+            "source": [
+              "entity",
+              "helios-v1",
+              1
+            ],
+            "current": [
+              "entity",
+              "helios-v2",
+              2
+            ]
+          }
+        ],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 0
+      },
+      {
+        "id": "Bf9c4e8756f",
+        "ref": [
+          "workflow",
+          "verification",
+          1
+        ],
+        "tier": "full",
+        "slice": "durable_facts",
+        "tokens": 50,
+        "annotation_refs": [],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 1
+      },
+      {
+        "id": "B52a6dcb933",
+        "ref": [
+          "entity",
+          "helios-v2",
+          2
+        ],
+        "tier": "full",
+        "slice": "durable_facts",
+        "tokens": 64,
+        "annotation_refs": [],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 2
+      },
+      {
+        "id": "B9075743feb",
+        "ref": [
+          "kb",
+          "eviction-note-a",
+          1
+        ],
+        "tier": "full",
+        "slice": "evidence",
+        "tokens": 59,
+        "annotation_refs": [],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 3
+      },
+      {
+        "id": "B10a9c69307",
+        "ref": [
+          "kb",
+          "eviction-note-b",
+          1
+        ],
+        "tier": "full",
+        "slice": "evidence",
+        "tokens": 56,
+        "annotation_refs": [],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 4
+      },
+      {
+        "id": "Be65db7c650",
+        "ref": [
+          "kb",
+          "research-note",
+          1
+        ],
+        "tier": "pointer",
+        "slice": "evidence",
+        "tokens": 48,
+        "annotation_refs": [],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 5
+      },
+      {
+        "id": "B2babb49c01",
+        "ref": [
+          "conversation",
+          "old-answer",
+          1
+        ],
+        "tier": "full",
+        "slice": "recalled_history",
+        "tokens": 71,
+        "annotation_refs": [
+          {
+            "source": [
+              "entity",
+              "helios-v1",
+              1
+            ],
+            "current": [
+              "entity",
+              "helios-v2",
+              2
+            ]
+          }
+        ],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 6
+      },
+      {
+        "id": "Bf22c03bbfc",
+        "ref": [
+          "assessment",
+          "old-claim-signal",
+          1
+        ],
+        "tier": "full",
+        "slice": "recalled_history",
+        "tokens": 50,
+        "annotation_refs": [],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 7
+      },
+      {
+        "id": "B2a2b4d163e",
+        "ref": [
+          "conversation",
+          "recent-turn",
+          1
+        ],
+        "tier": "full",
+        "slice": "volatile_tail",
+        "tokens": 48,
+        "annotation_refs": [],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 8
+      },
+      {
+        "id": "Bf639e7db28",
+        "ref": [
+          "conversation",
+          "clarification-result",
+          1
+        ],
+        "tier": "full",
+        "slice": "tool_results",
+        "tokens": 72,
+        "annotation_refs": [],
+        "compression_ref": null,
+        "origin": "query"
+      }
+    ],
+    "provider_input_tokens": 1036,
+    "transcript_items": 4,
+    "token_count_method": "provider"
+  }
+}

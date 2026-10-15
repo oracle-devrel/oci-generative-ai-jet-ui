@@ -1,0 +1,3 @@
+-r requirements.txt
+pytest>=9,<10
+playwright>=1.60,<2

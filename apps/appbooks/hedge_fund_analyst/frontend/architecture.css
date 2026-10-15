@@ -1,0 +1,87 @@
+/* Interactive reference architecture. Light theme only, like the rest of the app. */
+.arch{--ink:#162925;--muted:#6b7771;--line:#d9dfd6;--bg:#f4f5ee;--white:#fffefa;--plane:#006b47;--naive:#bf714d;--edge:#a9b2a6;--off:#c3c9bf;--hit:#b8d977;--bad:#aa4533;color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.arch-head{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between;margin-bottom:12px}
+.arch-summary{display:flex;flex-wrap:wrap;gap:8px}
+.arch-lane-summary{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--white);border-radius:5px;padding:7px 10px;font-size:11px;color:var(--muted)}
+.arch-lane-summary b{color:var(--ink);font-weight:600}
+.arch-lane-summary i{width:9px;height:9px;border-radius:50%;flex:none}
+.arch-lane-summary.plane i{background:var(--plane)}.arch-lane-summary.naive i{background:var(--naive)}
+.arch-lane-summary .ok{color:var(--plane);font-weight:600}.arch-lane-summary .no{color:var(--bad);font-weight:600}
+.arch-actions{display:flex;gap:8px;align-items:center}
+.arch-actions button{font:inherit;font-size:11px;border:1px solid var(--line);background:var(--white);border-radius:5px;padding:7px 11px;color:var(--ink);cursor:pointer}
+.arch-actions button:hover{border-color:var(--plane)}.arch-actions button:disabled{opacity:.45;cursor:default}
+.arch-legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:10.5px;color:var(--muted);margin-top:8px}
+.arch-legend span{display:inline-flex;align-items:center;gap:6px}
+.arch-legend i{display:inline-block;width:18px;height:10px;border-radius:2px;border:1.5px solid var(--edge);background:var(--white)}
+.arch-legend .lg-plane i{border-color:var(--plane);border-width:2px}.arch-legend .lg-naive i{border-color:var(--naive);border-width:2px}
+.arch-legend .lg-shared i{border-color:var(--ink);border-width:2px;background:linear-gradient(90deg,var(--plane) 0 3px,var(--white) 3px calc(100% - 3px),var(--naive) calc(100% - 3px))}
+.arch-legend .lg-off i{border-style:dashed;background:var(--bg)}
+.arch-legend .lg-hit i{background:var(--hit);border-color:#8fb24f}
+.arch-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--white);-webkit-overflow-scrolling:touch}
+.arch-scroll svg{display:block;width:100%;min-width:1100px;height:auto}
+.arch figure{margin:0}
+.arch figcaption{font-size:11px;color:var(--muted);line-height:1.6;margin-top:8px}
+/* SVG parts */
+.arch .band{stroke:none}.arch .band.plane{fill:rgba(0,107,71,.045)}.arch .band.shared{fill:rgba(22,41,37,.035)}.arch .band.naive{fill:rgba(191,113,77,.06)}
+.arch .band-label{font-size:10.5px;font-weight:700;letter-spacing:1.6px;fill:var(--muted)}
+.arch .band-label.plane{fill:var(--plane)}.arch .band-label.naive{fill:#9a5636}
+.arch .db-box{fill:rgba(22,41,37,.025);stroke:var(--line);stroke-dasharray:none}
+.arch .db-title{font-size:10px;font-weight:700;letter-spacing:1.5px;fill:var(--muted)}
+.arch .edge{fill:none;stroke:var(--edge);stroke-width:1.6;stroke-linejoin:round;transition:stroke .25s,opacity .25s}
+.arch .edge-halo{fill:none;stroke:var(--white);stroke-width:7;stroke-linejoin:round}
+.arch .edge.inactive{stroke:var(--off);stroke-dasharray:5 4}
+.arch .edge.faded{opacity:.35}
+.arch .edge.on-plane{stroke:var(--plane);stroke-width:2.6;opacity:1}
+.arch .edge.on-naive{stroke:var(--naive);stroke-width:2.6;opacity:1}
+.arch .edge-label{font-size:11px;fill:var(--muted);paint-order:stroke;stroke:var(--white);stroke-width:4px;stroke-linejoin:round}
+.arch .edge-label.faded{opacity:.4}
+.arch .overlay{fill:none;stroke-width:2.6;stroke-linejoin:round;pointer-events:none}
+.arch .overlay.plane{stroke:var(--plane)}.arch .overlay.naive{stroke:var(--naive)}
+.arch .pulse{pointer-events:none}.arch .pulse.plane{fill:var(--plane)}.arch .pulse.naive{fill:var(--naive)}
+.arch .node{cursor:pointer;outline:none;transition:opacity .25s}
+.arch .node rect.box{fill:var(--white);stroke:#bfc7bc;stroke-width:1.3;transition:stroke .25s,stroke-width .25s}
+.arch .node:hover rect.box,.arch .node:focus-visible rect.box{stroke:var(--ink);stroke-width:2}
+.arch .node:focus-visible rect.focus{display:block}
+.arch .node rect.focus{display:none;fill:none;stroke:var(--ink);stroke-width:1.5;stroke-dasharray:3 3}
+.arch .node.selected rect.box{stroke:var(--ink);stroke-width:2.2}
+.arch .node .stripe{display:none}
+.arch .node.v-plane .stripe.plane,.arch .node.v-naive .stripe.naive{display:block}
+.arch .stripe.plane{fill:var(--plane)}.arch .stripe.naive{fill:var(--naive)}
+.arch .node.v-plane rect.box{stroke:var(--plane);stroke-width:2.2}
+.arch .node.v-naive rect.box{stroke:var(--naive);stroke-width:2.2}
+.arch .node.v-plane.v-naive rect.box{stroke:var(--ink);stroke-width:2.2}
+.arch .node.faded{opacity:.38}
+.arch .node .title{font-size:14px;font-weight:650;fill:var(--ink)}
+.arch .node .sub{font-size:11.5px;fill:var(--muted)}
+.arch .node .step{font-size:11.5px;fill:var(--ink)}
+.arch .node .step.muted{fill:var(--muted)}
+.arch .node .dot.plane{fill:var(--plane)}.arch .node .dot.naive{fill:var(--naive)}
+.arch .node.off rect.box{fill:var(--bg);stroke:#9aa497;stroke-dasharray:6 4}
+.arch .node.off .title{fill:var(--muted)}
+.arch .badge rect{rx:3;stroke:var(--white);stroke-width:2;paint-order:stroke}.arch .badge text{font-size:9.5px;font-weight:700;letter-spacing:.6px}
+.arch .badge.off rect{fill:#e9ebe4;stroke:#9aa497;stroke-dasharray:3 2}.arch .badge.off text{fill:var(--muted)}
+.arch .badge.hit rect{fill:var(--hit)}.arch .badge.hit text{fill:#203e33}
+.arch .badge.refused rect,.arch .badge.blocked rect,.arch .badge.error rect{fill:#f6e1da}.arch .badge.refused text,.arch .badge.blocked text,.arch .badge.error text{fill:var(--bad)}
+.arch .badge.skipped rect{fill:#eef0e9}.arch .badge.skipped text{fill:var(--muted)}
+.arch .badge.miss rect{fill:#eef0e9}.arch .badge.miss text{fill:var(--muted)}
+.arch .subbadge rect{fill:#e9ebe4;stroke:#9aa497;stroke-dasharray:3 2}.arch .subbadge text{font-size:10px;fill:var(--muted)}
+.arch .subbadge.on rect{fill:#e7efdf;stroke:var(--plane);stroke-dasharray:none}.arch .subbadge.on text{fill:var(--plane)}
+/* Details + tooltip */
+.arch-details{margin-top:12px;border:1px solid var(--line);border-radius:8px;background:var(--white);padding:14px 16px;font-size:12px;line-height:1.6}
+.arch-details h4{margin:0 0 2px;font-size:14px}
+.arch-details .role{color:var(--muted);margin:0 0 8px}
+.arch-details .feature{font-size:11px;margin:0 0 10px}.arch-details .feature b{font-weight:600}
+.arch-details .lanes{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.arch-details .lane{border-left:3px solid var(--line);padding:4px 10px;background:#fafaf6}
+.arch-details .lane.plane{border-color:var(--plane)}.arch-details .lane.naive{border-color:var(--naive)}
+.arch-details .lane b{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.arch-details .lane p{margin:2px 0}.arch-details .lane .none{color:var(--muted)}
+.arch-details .state{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.5px;padding:1px 6px;border-radius:3px;background:#eef0e9;color:var(--muted);margin-left:6px;vertical-align:1px}
+.arch-details .state.hit{background:var(--hit);color:#203e33}.arch-details .state.refused,.arch-details .state.error,.arch-details .state.blocked{background:#f6e1da;color:var(--bad)}
+.arch-details .state.ok{background:#e7efdf;color:var(--plane)}
+.arch-details .hint{color:var(--muted)}
+.arch-tip{position:fixed;z-index:60;max-width:300px;background:#162925;color:#f4f5ee;font:11.5px/1.5 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:8px 10px;border-radius:5px;pointer-events:none;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+.arch-tip b{display:block;font-size:12px;margin-bottom:2px}
+.arch-tip em{display:block;font-style:normal;color:#b8d977;margin-top:4px}
+@media (max-width:650px){.arch-details .lanes{grid-template-columns:1fr}.arch-head{align-items:flex-start}}
+@media (prefers-reduced-motion:reduce){.arch .node,.arch .edge,.arch .node rect.box{transition:none}}

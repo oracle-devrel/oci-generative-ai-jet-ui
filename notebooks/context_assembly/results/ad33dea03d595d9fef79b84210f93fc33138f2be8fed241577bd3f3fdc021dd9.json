@@ -1,0 +1,92 @@
+{
+  "mode": "live",
+  "purpose": "compression",
+  "request_hash": "ad33dea03d595d9fef79b84210f93fc33138f2be8fed241577bd3f3fdc021dd9",
+  "source_refs": [
+    [
+      "kb",
+      "research-note",
+      1
+    ]
+  ],
+  "model": "gpt-4.1-mini-2025-04-14",
+  "response": {
+    "id": "resp_0aa8feb9792ce204016abbad1c7fd887d2aae2023e371c0c6a",
+    "created_at": 1790684444.0,
+    "metadata": {},
+    "model": "gpt-4.1-mini-2025-04-14",
+    "object": "response",
+    "output": [
+      {
+        "id": "msg_0aa8feb9792ce204016abbad1d15c487d2ab46e823e4c32161",
+        "content": [
+          {
+            "annotations": [],
+            "text": "When summarizing retrieved material, it is important to preserve the original source versions.",
+            "type": "output_text",
+            "logprobs": []
+          }
+        ],
+        "role": "assistant",
+        "status": "completed",
+        "type": "message"
+      }
+    ],
+    "parallel_tool_calls": true,
+    "temperature": 1.0,
+    "tool_choice": "auto",
+    "tools": [],
+    "top_p": 1.0,
+    "background": false,
+    "completed_at": 1790684445.0,
+    "max_output_tokens": 150,
+    "prompt_cache_retention": "in_memory",
+    "reasoning": {},
+    "service_tier": "default",
+    "status": "completed",
+    "text": {
+      "format": {
+        "type": "text"
+      },
+      "verbosity": "medium"
+    },
+    "top_logprobs": 0,
+    "truncation": "disabled",
+    "usage": {
+      "input_tokens": 424,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 17,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 441
+    },
+    "billing": {
+      "payer": "developer"
+    },
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "store": false,
+    "tool_usage": {
+      "image_gen": {
+        "input_tokens": 0,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "output_tokens": 0,
+        "output_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "total_tokens": 0
+      },
+      "web_search": {
+        "num_requests": 0
+      }
+    }
+  }
+}
