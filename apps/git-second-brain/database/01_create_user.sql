@@ -1,0 +1,34 @@
+-- =====================================================================
+-- Git Second Brain – Oracle AI Database 26ai user setup
+--
+-- Run as SYS / SYSTEM (or any DBA) against the target PDB:
+--   sqlplus system/Welcome_123@//localhost:1521/FREEPDB1 @01_create_user.sql
+-- =====================================================================
+
+-- Drop the user if it already exists (CASCADE removes all owned objects)
+BEGIN
+   EXECUTE IMMEDIATE 'DROP USER GITHUB_SECOND_BRAIN CASCADE';
+EXCEPTION
+   WHEN OTHERS THEN
+      IF SQLCODE != -01918 THEN -- ORA-01918: user does not exist
+         RAISE;
+      END IF;
+END;
+/
+
+CREATE USER GITHUB_SECOND_BRAIN
+IDENTIFIED BY "ChangeMe_123!"
+DEFAULT TABLESPACE USERS
+TEMPORARY TABLESPACE TEMP
+PROFILE DEFAULT
+ACCOUNT UNLOCK;
+
+GRANT CREATE SESSION   TO GITHUB_SECOND_BRAIN;
+GRANT CREATE TABLE     TO GITHUB_SECOND_BRAIN;
+GRANT CREATE VIEW      TO GITHUB_SECOND_BRAIN;
+GRANT CREATE SEQUENCE  TO GITHUB_SECOND_BRAIN;
+GRANT CREATE PROCEDURE TO GITHUB_SECOND_BRAIN;
+GRANT CREATE TRIGGER   TO GITHUB_SECOND_BRAIN;
+GRANT CREATE TYPE      TO GITHUB_SECOND_BRAIN;
+
+ALTER USER GITHUB_SECOND_BRAIN QUOTA UNLIMITED ON USERS;

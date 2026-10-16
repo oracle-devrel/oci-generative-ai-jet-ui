@@ -1,0 +1,2 @@
+oracledb>=2.2.0,<4
+sentence-transformers>=5.0,<6

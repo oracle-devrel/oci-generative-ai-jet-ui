@@ -1,0 +1,6 @@
+oracledb>=2.2.0,<4
+sentence-transformers>=5.0,<6
+langchain>=1.2,<2
+langchain-core>=1.2,<2
+langchain-openai>=1.1,<2
+streamlit>=1.38,<2
