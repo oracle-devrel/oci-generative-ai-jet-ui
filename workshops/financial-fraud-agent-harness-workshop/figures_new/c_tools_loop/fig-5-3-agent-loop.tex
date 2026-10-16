@@ -1,0 +1,39 @@
+\begin{tikzpicture}[font=\small, node distance=1cm]
+\tikzset{dia/.style={diamond, aspect=2.1, draw=jnb-grey-cell-edge, fill=jnb-grey-cell-fill, line width=0.9pt, inner sep=1pt, align=center, text=jnb-text-body, font=\footnotesize},
+         stp/.style={box, align=center, font=\footnotesize, rounded corners=3pt}}
+% ---------------------------------------------------------------- entry row
+\node[boxinp, font=\footnotesize, align=center] (uq) at (0.2,7.6) {user question};
+\node[boxthird, font=\footnotesize, align=center] (lg) at (3.4,7.6) {save the\\question};
+\node[stp] (bc) at (6.9,7.6) {build context\\\muted{\S5.2}};
+\node[stp] (rt) at (10.5,7.6) {find tools\\(best \fourth{6})};
+\draw[flowin] (uq) -- (lg); \draw[flow] (lg) -- (bc); \draw[flow] (bc) -- (rt);
+\draw[flow] (rt.south) -- (rt.south |- 0,5.7);
+\node[note, anchor=west] at (12.4,7.6) {starting messages: system prompt + context};
+
+% ---------------------------------------------------------------- the loop
+\draw[fourth, dashed, line width=1pt, rounded corners=6pt] (-1.4,5.7) rectangle (17.7,-1.2);
+\node[fourth, anchor=north west, font=\footnotesize] at (-1.25,5.6) {repeat up to \hl{8} steps:};
+\node[dia] (g) at (1.3,1.9) {elapsed $>$\\\fourth{360 s}?};
+\node[boxout, font=\footnotesize, align=center] (ch) at (5.7,1.9) {ask the model\\(with the tool list)};
+\node[dia, draw=jnb-highlight, fill=jnb-highlight!22!jnb-surface-bg, line width=1.8pt] (d) at (9.6,1.9) {tool\\request?};
+\node[stp, align=left, text width=4.4cm] (x) at (14.9,1.9) {\footnotesize run the requested tool\\[-1pt]\footnotesize bad input $\to$ empty input\\[-1pt]\footnotesize unknown tool or failure\\[-1pt]\footnotesize $\to$ an error message\\[-1pt]\footnotesize add the result to the chat};
+\draw[flow] (g) -- node[note, above] {no} (ch);
+\draw[flow] (ch) -- (d);
+\draw[flow] (d) -- node[note, above] {yes} (x);
+% back edge: observe, then the next step
+\draw[hl, line width=1.4pt, ->] (x.north) -- ++(0,1.0) -| (g.north);
+\node[hl, font=\footnotesize, anchor=south] at (7.4,4.15) {observe $\to$ next step};;
+
+% ---------------------------------------------------------------- exits
+\node[boxout, font=\footnotesize, align=center] (fn) at (9.6,-2.9) {final answer = model reply};
+\draw[flowout] (d.south) -- node[note, right] {no} (fn.north);
+\node[boxneg, font=\footnotesize, align=center, text width=4.9cm] (ff) at (1.9,-2.9)
+  {\negc{no final answer yet}: add\\``Budget exhausted. Give your best answer now, no more tools.''\\ask the model again, without tools};
+\draw[neg, line width=1pt, ->] (g.south) -- node[note, left] {yes} (g |- ff.north);
+\node[note, anchor=west, neg] at (1.55,0.1) {budget spent,\\or all 8 steps used};
+\node[boxthird, font=\footnotesize, align=center, text width=4.8cm] (lo) at (14.9,-2.9) {save the answer\\store an \emph{episodic} memory};
+\draw[flow] (fn.east) -- (lo.west);
+\draw[neg, line width=1pt, ->] (ff.south) -- ++(0,-0.8) -| ([xshift=-0.8cm]lo.south);
+\draw[flowout] (lo.east) -- ++(0.5,0) node[out, anchor=west, font=\footnotesize] {return the answer};
+\node[note, anchor=north west] at (-1.3,-5.6) {Defaults of the agent loop: at most \fourth{8} steps, \fourth{360} seconds.};
+\end{tikzpicture}

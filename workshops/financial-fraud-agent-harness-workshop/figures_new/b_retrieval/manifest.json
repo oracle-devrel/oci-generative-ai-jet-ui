@@ -1,0 +1,12 @@
+[
+  {
+    "number": "3.1",
+    "svg": "fig-3.1-bi-vs-cross.svg",
+    "caption": "Pass 1 is fast: every document is prepared once, ahead of time. Pass 2 is slower but more careful: it re-reads only the best candidates against the question."
+  },
+  {
+    "number": "3.2",
+    "svg": "fig-3.2-rrf-curve.svg",
+    "caption": "Points a result earns from one search, based on its rank (<code>1/(k+r)</code>, <code>k = 60</code>). The highlighted gap shows why a result found by both searches always beats one found by only one."
+  }
+]

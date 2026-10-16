@@ -1,0 +1,84 @@
+% Joint distribution of two consecutive tokens, drawn twice: isometric bars (left) and
+% the annotated matrix (right). Reproduces SITP Figure I.2.3 with the jnb preamble.
+%
+%   rows = input  W_{t-1} (blue)      columns = output  W_t (orange)
+%   one highlighted element: p(to, meet) = 0.16  (cuboid + matrix cell)
+%
+% Compile:  jnb.tikz_file("joint_bigram.tex")   or paste into a  %%tikz  cell.
+%
+% Layout coordinates are given in "reference pixels" through \rp{x}{y} (x right, y DOWN,
+% 1px = 0.0198cm) so every annotation can be compared 1:1 with the reference crop.
+\newcommand{\rpc}[2]{\fpeval{(#1)*0.0198}cm,\fpeval{-(#2)*0.0198}cm}
+\newcommand{\rp}[2]{(\rpc{#1}{#2})}
+\begin{tikzpicture}
+% ------------------------------------------------------------------ left: isometric bars
+% x axis = row index i (down-left), y axis = column index j (down-right), z = height.
+\begin{scope}[shift={(\rpc{484}{203})}, x={(-1.208cm,-0.515cm)}, y={(0.812cm,-0.446cm)}, z={(0cm,1cm)}]
+  \jnbbars[scale=9, min=0.24, hl={3/4}, cuboid={gap=0.15}]{%
+    {.01,.15,.01,.02,.01},
+    {.01,.01,.16,.01,.01},
+    {.01,.01,.01,.16,.01},
+    {.01,.01,.01,.01,.16},
+    {.14,.02,.01,.02,.01}}
+\end{scope}
+
+% axis arrows + names (input along rows, output along columns)
+\draw[inp arrow] \rp{388}{18} -- \rp{152}{117};
+\node[inp] at \rp{265}{45} {\Large$w_{t-1}$};
+\draw[out arrow] \rp{567}{18} -- \rp{787}{136};
+\node[out] at \rp{690}{50} {\Large$w_t$};
+\node at \rp{476}{56} {\Large$V$};
+\node at \rp{476}{95} {\Large$\mathbb{N}$};
+
+% row labels (down-left edge) and column labels (down-right edge)
+\foreach \tok [count=\i from 0] in {Hello,world,nice,to,meet}{
+  \node[inp, anchor=east] at \rp{335-61*\i}{132+26*\i} {\texttt{\tok}};
+  \node[inp, anchor=east] at \rp{420-61*\i}{132+26*\i} {$i=\i$};
+  \node[out, anchor=west] at \rp{543+41*\i}{139+22.5*\i} {$j=\i$};
+  \node[out, anchor=west] at \rp{627+41*\i}{139+22.5*\i} {\texttt{\tok}};
+}
+
+% leader line from the highlighted cuboid to its value
+\draw[leader] \rp{472}{350} -- \rp{576}{408};
+\node[out, anchor=west] at \rp{586}{410} {\Large$p(\mathtt{to},\mathtt{meet})=0.16$};
+
+% defining equation
+\node at \rp{438}{516} {\Large
+  $p_{\inp{W_{t-1}},\out{W_t}}(\inp{v_i},\out{v_j})$\hspace{2.4em}%
+  $\sum_{\inp{i}}\sum_{\out{j}}p=1$};
+
+% ------------------------------------------------------------------ right: annotated matrix
+\begin{scope}[shift={(\rpc{1068}{172})}]
+  \jnbmatrix[name=P, cw=1.711cm, ch=0.962cm, hl={3/4}]{%
+    {0.01,0.15,0.01,0.02,0.01},
+    {0.01,0.01,0.16,0.01,0.01},
+    {0.01,0.01,0.01,0.16,0.01},
+    {0.01,0.01,0.01,0.01,0.16},
+    {0.14,0.02,0.01,0.02,0.01}}
+  % marginal: the row sum for i = 3, in the input colour
+  \node[jnb cell inp, font=\small, minimum width=1.711cm, minimum height=0.962cm, anchor=west]
+    (marg) at ([xshift=0.28cm]P-3-4.east) {0.20};
+  \node[inp, font=\small, anchor=west] at ([xshift=0.47cm]marg.east) {$\sum_j P_{3j}$};
+\end{scope}
+
+% output arrow over the columns, input arrow down the rows
+\draw[out arrow] \rp{1068}{97} -- \rp{1500}{97};
+\node[out, font=\small] at \rp{1285}{73} {$w_t$};
+\draw[inp arrow] \rp{913}{172} -- \rp{913}{413};
+\node[inp, font=\small, rotate=90] at \rp{890}{292} {$w_{t-1}$};
+\node[font=\small] at \rp{970}{124} {$V$};
+\node[font=\small] at \rp{1028}{153} {$\mathbb{N}$};
+
+\foreach \tok [count=\k from 0] in {Hello,world,nice,to,meet}{
+  % column header (output) and row label (input)
+  \node[out, font=\small] at \rp{1068+86.4*(\k+0.5)}{124} {\texttt{\tok}};
+  \node[out, font=\scriptsize] at \rp{1068+86.4*(\k+0.5)}{153} {$j=\k$};
+  \node[inp, font=\small, anchor=east] at \rp{997}{172+48.6*(\k+0.5)} {\texttt{\tok}};
+  \node[inp, font=\scriptsize, anchor=east] at \rp{1048}{172+48.6*(\k+0.5)} {$i=\k$};
+}
+
+% defining equation of the matrix
+\node[font=\small] at \rp{1318}{475} {%
+  $P_{\inp{i}\out{j}}\;=\;p_{\inp{W_1},\out{W_2}}(\inp{v_i},\out{v_j})$\hspace{2.2em}%
+  $\sum_{\inp{i}}\sum_{\out{j}}P_{\inp{i}\out{j}}=1$};
+\end{tikzpicture}

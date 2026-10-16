@@ -1,0 +1,32 @@
+[
+  {
+    "number": "4.1",
+    "svg": "fig-4.1-toolbox-flow.svg",
+    "caption": "Lane A happens once per tool, when it is added. Lane B happens on every turn and shows the agent only the few tools closest to the question. Both meet in the <code>toolbox</code> table, where tools are stored."
+  },
+  {
+    "number": "4.2",
+    "svg": "fig-4.2-register.svg",
+    "caption": "How a tool is registered: its description and a searchable database row are created. The highlighted input has a default, so it is marked optional."
+  },
+  {
+    "number": "5.1",
+    "svg": "fig-5.1-hierarchy.svg",
+    "caption": "Instruction hierarchy. Higher tiers win a conflict; the highlighted tier is the standing rules, and tier 4 is information only, never orders."
+  },
+  {
+    "number": "5.2",
+    "svg": "fig-5.2-summarize.svg",
+    "caption": "Schematic, not measured. Look at the break-even point: left of it the card costs more than the transcript, right of it less."
+  },
+  {
+    "number": "5.3",
+    "svg": "fig-5.3-agent-loop.svg",
+    "caption": "Flow of one agent turn (TODO 8). The highlighted branch, where the model requests tools, is the part you write; the red path is the forced final answer."
+  },
+  {
+    "number": "5.4",
+    "svg": "fig-5.4-offload.svg",
+    "caption": "Schematic, not to scale. The conversation keeps a preview and a pointer; the full output stays in the database."
+  }
+]
