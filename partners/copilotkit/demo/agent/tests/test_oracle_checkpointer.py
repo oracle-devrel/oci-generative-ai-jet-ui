@@ -34,6 +34,7 @@ async def test_checkpoint_survives_fresh_saver() -> None:
 
     This proves durability: the checkpoint lives in Oracle, not in-process RAM.
     """
+    oracledb.defaults.program = "devrel-developerhub-copilotkit-demo"
     import oracledb
     from langchain_core.messages import AIMessage, HumanMessage
     from langgraph.graph import END, START, MessagesState, StateGraph

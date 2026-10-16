@@ -60,6 +60,7 @@ def load_from_csv():
 
 def load_from_oracle():
     """Load from Oracle ADB."""
+    oracledb.defaults.program = "devrel-developerhub-soccer-analytics-agent"
     import oracledb
     connection = oracledb.connect(
         user="worldcup", password="YourPassword123#",

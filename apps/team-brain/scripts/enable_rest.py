@@ -10,6 +10,7 @@ from __future__ import annotations
 import oracledb
 
 from team_brain.config import ORACLE_DSN, ORACLE_PASSWORD, ORACLE_USER
+oracledb.defaults.program = "devrel-developerhub-team-brain"
 
 conn = oracledb.connect(user=ORACLE_USER, password=ORACLE_PASSWORD, dsn=ORACLE_DSN)
 cur = conn.cursor()

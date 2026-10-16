@@ -29,6 +29,7 @@ from team_brain.access import AccessError, Identity
 from team_brain.config import ORACLE_DSN, ORACLE_PASSWORD, ORACLE_USER
 from team_brain.db import DocumentDB, IdentityError
 from team_brain.schema import Document
+oracledb.defaults.program = "devrel-developerhub-team-brain"
 
 pytestmark = pytest.mark.requires_oracle
 

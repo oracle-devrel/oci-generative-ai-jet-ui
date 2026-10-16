@@ -31,6 +31,7 @@ The CYP wiring lives in `shared/snippets/oamp_helpers.py`. The full hand-rolled 
 
 ```python
 import oracledb
+oracledb.defaults.program = "devrel-developerhub-oracleagentmemory-oamp-reference"
 from oracleagentmemory.core import OracleAgentMemory
 from oracleagentmemory.apis.thread import Message
 from shared.snippets.oamp_helpers import make_oamp_client, make_oamp_thread

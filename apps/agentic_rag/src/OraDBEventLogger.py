@@ -5,6 +5,7 @@ import yaml
 from pathlib import Path
 from datetime import datetime
 import uuid
+oracledb.defaults.program = "devrel-developerhub-agentic-rag"
 
 
 class OraDBEventLogger:

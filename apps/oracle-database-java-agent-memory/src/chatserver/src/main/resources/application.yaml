@@ -14,6 +14,8 @@ spring:
     type: oracle.ucp.jdbc.PoolDataSourceImpl
     oracleucp:
       connection-pool-name: chatserver-pool
+      connection-properties:
+        "[v$session.program]": devrel-developerhub-oracle-database-java-agent-memory
       initial-pool-size: 5
       min-pool-size: 5
       max-pool-size: 20

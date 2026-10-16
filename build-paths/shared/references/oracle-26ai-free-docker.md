@@ -84,7 +84,7 @@ The skill MUST `docker compose up -d --wait` (which respects healthchecks) or po
 | Where | Form |
 | --- | --- |
 | Default (skills) | `localhost:1521/FREEPDB1` |
-| Easy connect string | `oracledb.connect(user="SYSTEM", password=PWD, dsn="localhost:1521/FREEPDB1")` |
+| Easy connect string | `oracledb.connect(user="SYSTEM", password=PWD, dsn="localhost:1521/FREEPDB1", program="devrel-developerhub-oracle-26ai-free-docker")` |
 | Autonomous DB (out of scope v1) | mTLS wallet path; the skill detects this case and asks the user to provide their own wallet |
 
 ## Common ORA codes the skill should translate for the user

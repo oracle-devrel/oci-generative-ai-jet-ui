@@ -467,6 +467,7 @@ For complex document structures requiring transformation:
 ```python
 from pymongo import MongoClient
 import oracledb  # python-oracledb (successor to cx_Oracle; install with: pip install oracledb)
+oracledb.defaults.program = "devrel-developerhub-migrating-mongodb-to-oracle"
 import json
 from bson import ObjectId
 from datetime import datetime

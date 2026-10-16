@@ -22,6 +22,8 @@ from dotenv import load_dotenv
 import oracledb
 from typesafe_sdk import Choice, Noul, Score, TypeSafeClient
 
+oracledb.defaults.program = "devrel-developerhub-using-jev-and-oracle-ai-database-to-govern-agent-memory"
+
 ROOT = Path(__file__).resolve().parent
 oracledb.defaults.fetch_lobs = False
 PROGRAM_IDENTIFIER = 'devrel-developerhub-using-jev-and-oracle-ai-database-to-govern-agent-memory'

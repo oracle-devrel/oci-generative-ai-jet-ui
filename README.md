@@ -128,6 +128,10 @@ Notebooks and apps contributed by partners in the AI ecosystem. AI Developers ca
 
 This project is open source. Please submit your contributions by forking this repository and submitting a pull request! Oracle appreciates any contributions that are made by the open-source community.
 
+### Oracle Database program identifiers
+
+Every notebook, sample application, and tutorial that connects to Oracle Database must set its database-visible program identifier to `devrel-developerhub-<content-name>`, where `<content-name>` is the asset title in kebab-case. Set it before opening the first connection. For Python assets using python-oracledb 2.5 or later in Thin mode, set `oracledb.defaults.program` immediately after imports; other drivers should use their equivalent connection property. For example, a notebook titled “Agent Memory Quickstart” uses `devrel-developerhub-agent-memory-quickstart`.
+
 ### Development Setup
 
 Before contributing, please set up pre-commit hooks to ensure code is automatically formatted:

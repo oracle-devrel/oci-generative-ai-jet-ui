@@ -2,6 +2,7 @@ from typing import Dict, Optional
 import yaml
 from pathlib import Path
 import oracledb
+oracledb.defaults.program = "devrel-developerhub-agentic-rag"
 
 def load_config() -> Dict[str, str]:
     """Load configuration from config.yaml"""

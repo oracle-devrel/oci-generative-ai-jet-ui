@@ -174,6 +174,7 @@ cd app/frontend && npm run dev             # frontend → :3000
 # Should print 2 — one row policy on VOYAGES, one column mask on CARGO_ITEMS
 python -c "
 import os, oracledb
+oracledb.defaults.program = 'devrel-developerhub-enterprise-data-agent-harness-workshop'
 c = oracledb.connect(user='sys', password=os.environ.get('ORACLE_SYS_PASS','OraclePwd_2025'),
                      dsn=os.environ.get('ORACLE_DSN','localhost:1521/FREEPDB1'),
                      mode=oracledb.SYSDBA)

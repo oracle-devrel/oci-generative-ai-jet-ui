@@ -6,12 +6,12 @@ from pathlib import Path
 from datetime import datetime
 import oracledb
 from dotenv import load_dotenv
-oracledb.defaults.program = "devrel-developerhub-context-assembly-for-agent-memory"
 oracledb.defaults.fetch_lobs = False
 from config import SCOPE,TABLES,AS_OF,QUESTION,dumps,digest,row,TOOLS,BUDGET
 from baseline_seed import seed_schema,seed_two_layer,seed_infrastructure
 from research_corpus import DOCUMENTS,CHUNKS
 from retrieval import understand_query,build_lexical_query
+oracledb.defaults.program = "devrel-developerhub-context-assembly-for-agent-memory"
 
 ROOT=Path(__file__).parent
 BASE_TABLES=list(dict.fromkeys([*TABLES.values(),"KNOWLEDGE_BASE_DOCUMENT","DELETION_EVENTS"]))

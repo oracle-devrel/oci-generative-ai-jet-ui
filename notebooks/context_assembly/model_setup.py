@@ -2,8 +2,8 @@
 import json,os,urllib.request
 from pathlib import Path
 import oracledb
-oracledb.defaults.program='devrel-developerhub-context-assembly-for-agent-memory'
 from store import load_config
+oracledb.defaults.program='devrel-developerhub-context-assembly-for-agent-memory'
 
 def ensure_models():
     cfg=load_config()

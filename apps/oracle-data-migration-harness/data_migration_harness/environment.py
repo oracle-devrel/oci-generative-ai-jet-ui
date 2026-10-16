@@ -6,6 +6,7 @@ from functools import lru_cache
 import oracledb
 from dotenv import load_dotenv
 from pymongo import MongoClient
+oracledb.defaults.program = "devrel-developerhub-oracle-data-migration-harness"
 
 load_dotenv()
 

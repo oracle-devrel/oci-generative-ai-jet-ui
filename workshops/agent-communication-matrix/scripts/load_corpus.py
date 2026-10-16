@@ -19,6 +19,7 @@ from pathlib import Path
 import httpx
 import oracledb
 from dotenv import load_dotenv
+oracledb.defaults.program = "devrel-developerhub-agent-communication-matrix"
 
 load_dotenv()  # reads .env from the current working directory
 

@@ -22,6 +22,7 @@ ROOT = HERE.parent
 sys.path.insert(0, str(ROOT / "oracle" / "agent"))
 import db          # noqa: E402  (cloud target, from oracle/.env)
 import oracledb    # noqa: E402
+oracledb.defaults.program = "devrel-developerhub-second-brain"
 
 # FK-safe order: parents before children.
 TABLES = ["platforms", "posts", "media", "content_chunks",

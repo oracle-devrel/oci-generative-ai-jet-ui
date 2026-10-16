@@ -5,6 +5,7 @@ from typing import Any
 from limitless.settings import Settings
 
 try:
+    oracledb.defaults.program = "devrel-developerhub-limitless-workflow"
     import oracledb
 except ImportError:  # pragma: no cover - import guard for fresh environments
     oracledb = None  # type: ignore[assignment]

@@ -9,6 +9,7 @@ from typing import Any
 import oracledb
 
 from fittrack.core.config import get_settings
+oracledb.defaults.program = "devrel-developerhub-fittracker"
 
 logger = logging.getLogger(__name__)
 

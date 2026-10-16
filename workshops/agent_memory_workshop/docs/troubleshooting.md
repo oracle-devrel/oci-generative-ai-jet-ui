@@ -21,6 +21,7 @@ RuntimeError: Failed due to a DB error: ORA-51962: The vector memory area is out
 ```python
 import oracledb
 
+oracledb.defaults.program = "devrel-developerhub-troubleshooting-guide"
 conn = oracledb.connect(
     user="sys",
     password="OraclePwd_2025",
@@ -290,6 +291,7 @@ If something is not working and you are not sure where the problem is, run this 
 
 ```python
 import oracledb, os
+oracledb.defaults.program = "devrel-developerhub-troubleshooting-guide"
 
 print("=== Environment ===")
 print("OPENAI_API_KEY:", "SET" if os.environ.get("OPENAI_API_KEY") else "NOT SET")

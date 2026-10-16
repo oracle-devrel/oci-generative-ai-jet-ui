@@ -47,6 +47,7 @@ def _bounce_and_wait(container_name: str, dsn: str, sys_user: str, sys_pass: str
     subprocess.run([cli, "restart", container_name], check=True)
 
     print(f"Waiting up to {max_wait_s}s for FREEPDB1 to come back online...")
+    oracledb.defaults.program = "devrel-developerhub-enterprise-data-agent-harness-workshop"
     import oracledb
     start = time.time()
     while time.time() - start < max_wait_s:

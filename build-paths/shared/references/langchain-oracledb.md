@@ -10,6 +10,7 @@ Every beginner project collapses to this shape. The skill teaches it before anyt
 
 ```python
 import oracledb
+oracledb.defaults.program = "devrel-developerhub-langchain-oracledb-the-load-bearing-library-for-beginner-intermediate-paths"
 from langchain_oracledb import OracleVS
 from langchain_oracledb.utils.distance_strategy import DistanceStrategy
 from langchain_ollama import OllamaEmbeddings
@@ -130,6 +131,7 @@ For users who want raw-SQL hybrid search (more control, less LangChain), the ski
 ```python
 import json
 import oracledb
+oracledb.defaults.program = "devrel-developerhub-langchain-oracledb-the-load-bearing-library-for-beginner-intermediate-paths"
 from langchain_core.chat_history import BaseChatMessageHistory
 from langchain_core.messages import BaseMessage, messages_from_dict, messages_to_dict
 

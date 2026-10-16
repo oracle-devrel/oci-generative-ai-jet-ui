@@ -32,6 +32,7 @@ from oracleagentmemory.core import (
     OracleAgentMemory, SchemaPolicy, SearchStrategy)
 from oracleagentmemory.core.embedders import OracleDBEmbedder
 from oracleagentmemory.core.llms import Llm
+oracledb.defaults.program = "devrel-developerhub-second-brain"
 
 load_dotenv(pathlib.Path(__file__).resolve().parent.parent / "oracle" / ".env")
 

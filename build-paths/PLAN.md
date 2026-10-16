@@ -132,6 +132,7 @@ The skill **does not** proceed past Q1 without an answer. No defaults-on-everyth
 Every path's Step 4 invokes a verify routine. Spec:
 
 - **Connect.** `oracledb.connect(...)` against the user's DSN — fails fast with a clear error (`ORACLE_PWD too short` is the #1 trap).
+- Set the session program to `devrel-developerhub-<content-name>` before connecting; derive the kebab-case content name from the asset title.
 - **Round-trip.** Insert one known row, read it back, assert match.
 - **Vector op (if topic uses vectors).** Embed one known string, run `VECTOR_DISTANCE` against itself, assert distance < 0.01.
 - **Inference (if topic uses inference).** One model call with deterministic prompt; assert non-empty response.

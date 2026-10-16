@@ -8,6 +8,7 @@ Install: `pip install oracledb` (pure-Python "thin" mode by default — no Oracl
 
 ```python
 import oracledb
+oracledb.defaults.program = "devrel-developerhub-oracledb-python-driver-the-layer-underneath-langchain"
 conn = oracledb.connect(
     user="SYSTEM",
     password=os.environ["ORACLE_PWD"],
@@ -22,6 +23,9 @@ That's it for beginner / intermediate. `conn` gets handed to `OracleVS(client=co
 For anything that's not a one-shot script — Gradio app, FastAPI server, agent loop:
 
 ```python
+import oracledb
+oracledb.defaults.program = "devrel-developerhub-oracledb-python-driver-the-layer-underneath-langchain"
+
 pool = oracledb.create_pool(
     user="SYSTEM",
     password=os.environ["ORACLE_PWD"],

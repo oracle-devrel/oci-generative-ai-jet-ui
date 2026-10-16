@@ -30,6 +30,7 @@ from datasets import load_dataset
 from langchain_community.vectorstores.utils import DistanceStrategy
 from langchain_oracledb import OracleEmbeddings, OracleVS
 from langgraph_oracledb.store.oracle import AsyncOracleStore
+oracledb.defaults.program = "devrel-developerhub-supplychain-demand-agent-workshop"
 
 # ─── Tunables ────────────────────────────────────────────────────────────
 SAMPLE_ROWS = int(os.environ.get("SEED_SAMPLE_ROWS", "20000"))

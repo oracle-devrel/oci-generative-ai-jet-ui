@@ -37,6 +37,7 @@ from pathlib import Path
 
 import oracledb
 from langchain_oracledb import OracleEmbeddings
+oracledb.defaults.program = "devrel-developerhub-supplychain-demand-agent-workshop"
 
 # Public, pre-converted ONNX model from Oracle's OML samples bucket.
 # Same URL used by enterprise_data_agent_harness_workshop_lightweight.

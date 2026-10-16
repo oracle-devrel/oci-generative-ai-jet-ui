@@ -23,6 +23,7 @@ import oracledb
 from langgraph.checkpoint.base import BaseCheckpointSaver
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph_oracledb.checkpoint.oracle import AsyncOracleSaver
+oracledb.defaults.program = "devrel-developerhub-copilotkit-demo"
 
 # ---------------------------------------------------------------------------
 # Module-level globals – populated by init_checkpointer()

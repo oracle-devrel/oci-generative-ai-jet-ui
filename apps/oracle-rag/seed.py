@@ -20,6 +20,7 @@ import requests
 from dotenv import load_dotenv
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+oracledb.defaults.program = "devrel-developerhub-oracle-rag"
 
 load_dotenv()
 

@@ -130,6 +130,7 @@ async function getPool() {
       user: process.env.ORACLE_USER || "DATA_CHAT",
       password: process.env.ORACLE_PASSWORD || "DataChatPwd_2026",
       connectionString: process.env.ORACLE_CONNECTION_STRING || "127.0.0.1:1522/FREEPDB1",
+      program: "devrel-developerhub-generative-ui-data-chat",
       poolMin: 0,
       poolMax: 4,
       poolIncrement: 1

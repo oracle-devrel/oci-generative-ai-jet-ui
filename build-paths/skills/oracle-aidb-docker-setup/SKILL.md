@@ -125,6 +125,8 @@ If `--wait` exits non-zero:
 import oracledb, os
 from dotenv import load_dotenv
 
+oracledb.defaults.program = "devrel-developerhub-oracle-aidb-docker-setup"
+
 load_dotenv(f"{target_dir}/.env")
 conn = oracledb.connect(
     user=os.environ["SYS_USER"],
@@ -146,6 +148,9 @@ If `oracledb` isn't installed in the current env, install it: `pip install oracl
 Connect as `SYSTEM` and create an app user named after `app_user` with `DEFAULT TABLESPACE USERS` plus the grants needed by the rest of the build-paths skill set:
 
 ```python
+import oracledb
+oracledb.defaults.program = "devrel-developerhub-oracle-aidb-docker-setup"
+
 APP_USER = os.environ["DB_USER"]            # e.g. PDF_CHAT
 APP_PWD  = os.environ["DB_PASSWORD"]
 SYS_PWD  = os.environ["SYS_PASSWORD"]
@@ -188,6 +193,9 @@ print(f"oracle-aidb-docker-setup: created app user {APP_USER}")
 Now smoke the app-user connection (this is the one every other skill uses):
 
 ```python
+import oracledb
+oracledb.defaults.program = "devrel-developerhub-oracle-aidb-docker-setup"
+
 app_conn = oracledb.connect(
     user=APP_USER, password=APP_PWD, dsn=os.environ["DB_DSN"]
 )
@@ -213,6 +221,9 @@ print("oracle-aidb-docker-setup: app user connect OK")
 ## Final report
 
 ```
+import oracledb
+oracledb.defaults.program = "devrel-developerhub-oracle-aidb-docker-setup"
+
 oracle-aidb-docker-setup: OK
   compose:  target_dir/docker-compose.yml
   env:      target_dir/.env  (ORACLE_PWD generated)

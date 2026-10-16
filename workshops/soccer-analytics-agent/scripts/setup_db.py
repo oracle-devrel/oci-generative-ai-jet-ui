@@ -11,6 +11,7 @@ from pathlib import Path
 
 import oracledb
 from dotenv import load_dotenv
+oracledb.defaults.program = "devrel-developerhub-soccer-analytics-agent"
 
 REPO = Path(__file__).resolve().parent.parent
 load_dotenv(REPO / ".env")

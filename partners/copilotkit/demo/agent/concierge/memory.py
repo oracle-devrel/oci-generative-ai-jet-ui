@@ -9,6 +9,7 @@ import oracledb
 from oracleagentmemory.core import OracleAgentMemory
 from oracleagentmemory.core.embedders.embedder import Embedder
 from oracleagentmemory.core.llms.llm import Llm
+oracledb.defaults.program = "devrel-developerhub-copilotkit-demo"
 
 
 def _require(name: str) -> str:

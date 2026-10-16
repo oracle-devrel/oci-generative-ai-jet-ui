@@ -19,6 +19,7 @@ from langchain_core.runnables import RunnableLambda, RunnableParallel
 from langchain_ollama import OllamaLLM
 from langchain_oracledb.embeddings import OracleEmbeddings
 from langchain_oracledb.vectorstores.oraclevs import OracleVS
+oracledb.defaults.program = "devrel-developerhub-oracle-rag"
 
 load_dotenv()
 

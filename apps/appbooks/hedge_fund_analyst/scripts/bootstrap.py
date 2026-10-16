@@ -13,6 +13,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import oracledb  # noqa: E402
 from backend.config import DSN, PERSONAS, RERANK, ROOT, env  # noqa: E402
 from backend.metrics import METRICS, VOCABULARY  # noqa: E402
+oracledb.defaults.program = "devrel-developerhub-hedge-fund-analyst"
 
 oracledb.defaults.fetch_lobs = False
 CONTAINER = env("HF_DB_CONTAINER", "hf-oracle")

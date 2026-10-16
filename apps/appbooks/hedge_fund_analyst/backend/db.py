@@ -17,6 +17,7 @@ from decimal import Decimal
 import oracledb
 
 from .config import DSN, EMBED, PERSONAS, RERANK, env
+oracledb.defaults.program = "devrel-developerhub-hedge-fund-analyst"
 
 oracledb.defaults.fetch_lobs = False
 POOLS = {}

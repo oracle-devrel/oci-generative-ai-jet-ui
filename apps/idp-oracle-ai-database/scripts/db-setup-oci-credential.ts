@@ -3,9 +3,11 @@ import { readFile } from "node:fs/promises";
 import oracledb from "oracledb";
 
 const CREDENTIAL_NAME = "OCI_CRED";
+const PROGRAM_NAME = "devrel-developerhub-idp-oracle-ai-database";
 
 function connection(user: string, password: string): oracledb.ConnectionAttributes {
   return {
+    program: PROGRAM_NAME,
     user,
     password,
     connectString: process.env.ORACLE_CONNECT_STRING!,

@@ -73,6 +73,9 @@ In this Codespace, all of the following are pre-built so you can focus on the ag
 The notebook defines a thin retry wrapper around `oracledb.connect`:
 
 ```python
+import oracledb
+oracledb.defaults.program = "devrel-developerhub-part-1-setup-connectivity"
+
 def connect(user, password, dsn, mode=None, retries=5):
     for attempt in range(1, retries + 1):
         try:

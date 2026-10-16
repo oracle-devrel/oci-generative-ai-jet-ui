@@ -106,6 +106,7 @@ class DocumentDB:
     # --- connection ---------------------------------------------------------
     def _get_conn(self) -> Any:
         if self._conn is None:
+            oracledb.defaults.program = "devrel-developerhub-team-brain"
             import oracledb
 
             oracledb.defaults.fetch_lobs = False

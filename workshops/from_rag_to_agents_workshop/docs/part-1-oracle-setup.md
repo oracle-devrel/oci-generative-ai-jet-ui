@@ -36,6 +36,9 @@ This section is pre-built in the notebook — just run the cells. The code below
 **What `oracledb.connect()` needs:**
 
 ```python
+import oracledb
+oracledb.defaults.program = "devrel-developerhub-part-1-oracle-ai-database-setup-connection-database-core"
+
 oracledb.connect(
     user="VECTOR",
     password="VectorPwd_2025",
@@ -49,6 +52,7 @@ The `dsn` format is `host:port/service_name`.
 
 ```python
 import oracledb
+oracledb.defaults.program = "devrel-developerhub-part-1-oracle-ai-database-setup-connection-database-core"
 import time
 
 def connect_to_oracle(max_retries=3, retry_delay=5):

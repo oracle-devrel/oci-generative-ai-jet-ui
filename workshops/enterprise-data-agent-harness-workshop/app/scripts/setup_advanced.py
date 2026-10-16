@@ -38,6 +38,8 @@ def ensure_text_index(agent_conn):
             print(f"  [text index] {TEXT_INDEX_NAME} already exists — skipping")
             return
 
+
+        oracledb.defaults.program = "devrel-developerhub-enterprise-data-agent-harness-workshop"
         import oracledb
         try:
             cur.execute(

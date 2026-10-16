@@ -4,6 +4,7 @@ import time
 
 import oracledb
 from config import DB_CONFIG
+oracledb.defaults.program = "devrel-developerhub-finance-ai-agent-demo"
 
 # Return CLOBs/BLOBs as Python strings/bytes instead of LOB objects
 oracledb.defaults.fetch_lobs = False

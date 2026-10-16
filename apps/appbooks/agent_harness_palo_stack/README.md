@@ -88,6 +88,7 @@ Point the app at your Oracle AI Database (defaults to `localhost:1521/FREEPDB1`)
 ```bash
 python - <<'PY'
 import oracledb
+oracledb.defaults.program = "devrel-developerhub-total-recall-appbook"
 c = oracledb.connect(user="AGENT", password="AgentPw_2026", dsn="localhost:1521/FREEPDB1")
 cur = c.cursor()
 cur.execute("SELECT model_name FROM user_mining_models")

@@ -94,6 +94,7 @@ import os
 from typing import Any, List
 
 import oracledb
+oracledb.defaults.program = "devrel-developerhub-oracle-mcp-server-helper"
 from langchain_core.tools import BaseTool
 from pydantic import Field
 
@@ -261,6 +262,9 @@ def _render_cell(value) -> str:
 Add two lines to `langchain-oracledb-helper`'s `get_connection()` so DBAs can spot agent-issued sessions in real time (`SELECT module, action FROM v$session`). Adapted from SQLcl's MCP server, which sets these natively:
 
 ```python
+import oracledb
+oracledb.defaults.program = "devrel-developerhub-oracle-mcp-server-helper"
+
 import os
 # inside get_connection(), after oracledb.connect(...):
 with conn.cursor() as cur:

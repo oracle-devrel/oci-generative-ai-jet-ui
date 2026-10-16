@@ -12,6 +12,8 @@ spring:
     oracleucp:
       sql-for-validate-connection: SELECT * FROM dual
       connection-pool-name: connectionPoolName1
+      connection-properties:
+        "[v$session.program]": devrel-developerhub-oci-generative-ai-jet-ui
       initial-pool-size: 5
       min-pool-size: 5
       max-pool-size: 10

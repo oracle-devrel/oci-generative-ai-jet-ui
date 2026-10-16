@@ -6,9 +6,11 @@ const ONNX_URL =
   process.env.ONNX_MODEL_URL ??
   "https://adwc4pm.objectstorage.us-ashburn-1.oci.customer-oci.com/p/iPX9W0MZeRkwJKWdFmdJCemmN-iKAl_bFvNGYLW7YqIrw4kKsukL24J2q93Beb9S/n/adwc4pm/b/OML-ai-models/o/all_MiniLM_L12_v2.onnx";
 const FILE_NAME = process.env.ONNX_MODEL_FILE ?? "all_MiniLM_L12_v2.onnx";
+const PROGRAM_NAME = "devrel-developerhub-idp-oracle-ai-database";
 
 function adminConnection(): oracledb.ConnectionAttributes {
   return {
+    program: PROGRAM_NAME,
     user: "ADMIN",
     password: process.env.ORACLE_ADMIN_PASSWORD ?? process.env.ORACLE_PASSWORD!,
     connectString: process.env.ORACLE_CONNECT_STRING!,
@@ -19,6 +21,7 @@ function adminConnection(): oracledb.ConnectionAttributes {
 
 function idpConnection(): oracledb.ConnectionAttributes {
   return {
+    program: PROGRAM_NAME,
     user: process.env.ORACLE_USER!,
     password: process.env.ORACLE_PASSWORD!,
     connectString: process.env.ORACLE_CONNECT_STRING!,

@@ -14,6 +14,7 @@ const MIGRATIONS_DIR = join(
 
 const BOOTSTRAP_PREFIX = "000_";
 const IDP_PASSWORD_PLACEHOLDER = "<YOUR_IDP_PASSWORD>";
+const PROGRAM_NAME = "devrel-developerhub-idp-oracle-ai-database";
 
 function splitStatements(sql: string): string[] {
   const lines = sql.split("\n");
@@ -78,6 +79,7 @@ async function runFile(
 
 function connectionParams(user: string, password: string): oracledb.ConnectionAttributes {
   const params: oracledb.ConnectionAttributes = {
+    program: PROGRAM_NAME,
     user,
     password,
     connectString: process.env.ORACLE_CONNECT_STRING!,

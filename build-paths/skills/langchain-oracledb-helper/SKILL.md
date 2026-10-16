@@ -80,6 +80,7 @@ from . import _monkeypatch  # noqa: F401  -- must be first
 
 import os
 import oracledb
+oracledb.defaults.program = "devrel-developerhub-distancestrategy-lives-in-langchain-community-langchain-oracledb-does"
 from langchain_oracledb.vectorstores.oraclevs import OracleVS
 
 # DistanceStrategy lives in langchain_community — `langchain-oracledb` does

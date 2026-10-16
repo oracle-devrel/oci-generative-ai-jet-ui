@@ -176,6 +176,7 @@ Sometimes the only thing for it is to start fresh:
 # Drop every Oracle table the workshop touched
 python <<'PY'
 import oracledb, os
+oracledb.defaults.program = "devrel-developerhub-supplychain-demand-agent-workshop-troubleshooting"
 c = oracledb.connect(user=os.environ["ORACLE_USER"], password=os.environ["ORACLE_PASSWORD"], dsn=os.environ["ORACLE_DSN"])
 cur = c.cursor()
 cur.execute("SELECT table_name FROM user_tables")

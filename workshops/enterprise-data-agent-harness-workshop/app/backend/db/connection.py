@@ -6,6 +6,7 @@ from config import (
     DEMO_USER, DEMO_PASS,
     SYS_USER, SYS_PASS, SYS_DSN,
 )
+oracledb.defaults.program = "devrel-developerhub-enterprise-data-agent-harness-workshop"
 
 
 def connect(user: str, password: str, dsn: str = SYS_DSN, mode: int | None = None):

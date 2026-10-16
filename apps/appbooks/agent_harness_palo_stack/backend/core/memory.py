@@ -15,6 +15,7 @@ import oracledb
 
 from backend.config import settings
 from backend.core import db
+oracledb.defaults.program = "devrel-developerhub-agent-harness-palo-stack"
 
 _lock = threading.Lock()
 _oamp = None

@@ -10,6 +10,7 @@ export async function getPool(): Promise<oracledb.Pool> {
       user: process.env.ORACLE_USER,
       password: process.env.ORACLE_PASSWORD,
       connectionString: process.env.ORACLE_CONNECTION_STRING,
+      program: 'devrel-developerhub-tanstack-shoe-store',
       poolMin: 1,
       poolMax: 4,
       poolIncrement: 1,

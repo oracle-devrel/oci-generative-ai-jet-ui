@@ -26,6 +26,7 @@ from pathlib import Path
 
 import oracledb
 from dotenv import load_dotenv
+oracledb.defaults.program = "devrel-developerhub-team-brain"
 
 load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 

@@ -22,6 +22,7 @@ export async function createPool(config: PoolConfig): Promise<oracledb.Pool> {
     user: config.user,
     password: config.password,
     connectString: config.connectString,
+    program: "devrel-developerhub-idp-oracle-ai-database",
     ...(config.walletLocation ? { walletLocation: config.walletLocation } : {}),
     ...(config.walletPassword ? { walletPassword: config.walletPassword } : {}),
     poolMin: config.poolMin ?? 0,

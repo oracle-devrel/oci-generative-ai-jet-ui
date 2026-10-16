@@ -122,6 +122,7 @@ def test_sql_tool_rejects_writes():
 
 def test_graph_isolation_survives_revalidation():
     # Replacing a desk view invalidates the graph; on 23.26.2 a stale pre-REPLACE definition once came back on revalidation.
+    oracledb.defaults.program = "devrel-developerhub-hedge-fund-analyst"
     import oracledb
     from backend.config import DSN, ROOT, env
 

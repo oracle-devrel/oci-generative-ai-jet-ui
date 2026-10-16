@@ -34,6 +34,9 @@ This function is pre-built in the student notebook — just run the cell. The ex
 **What `oracledb.connect()` needs:**
 
 ```python
+import oracledb
+oracledb.defaults.program = "devrel-developerhub-part-1-oracle-ai-database-setup-memory-core"
+
 oracledb.connect(
     user="VECTOR",
     password="VectorPwd_2025",
@@ -47,10 +50,11 @@ The `dsn` format is `host:port/service_name`. In Codespaces, `oracle` resolves t
 
 ```python
 import oracledb
+oracledb.defaults.program = "devrel-developerhub-part-1-oracle-ai-database-setup-memory-core"
 import time
 
 def connect_to_oracle(max_retries=3, retry_delay=5, user="sys", password="OraclePwd_2025",
-                      dsn="localhost:1521/FREEPDB1", program="workshop"):
+                      dsn="localhost:1521/FREEPDB1", program="devrel-developerhub-part-1-oracle-ai-database-setup-memory-core"):
     for attempt in range(1, max_retries + 1):
         try:
             print(f"Connection attempt {attempt}/{max_retries}...")
@@ -83,7 +87,7 @@ vector_conn = connect_to_oracle(
     user="VECTOR",
     password="VectorPwd_2025",
     dsn="localhost:1521/FREEPDB1",
-    program="devrel.hub.memory_engineering",
+    program="devrel-developerhub-part-1-oracle-ai-database-setup-memory-core",
 )
 ```
 

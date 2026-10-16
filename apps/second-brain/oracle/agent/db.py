@@ -20,6 +20,7 @@ from dotenv import load_dotenv
 # config would only load when running from oracle/agent/. This works from any cwd.
 load_dotenv(pathlib.Path(__file__).resolve().parent.parent / ".env")
 import keychain_secrets  # noqa: E402
+oracledb.defaults.program = "devrel-developerhub-second-brain"
 keychain_secrets.resolve_env()   # any keychain:<item> values become real secrets
 
 # CLOB columns come back as str instead of LOB objects.

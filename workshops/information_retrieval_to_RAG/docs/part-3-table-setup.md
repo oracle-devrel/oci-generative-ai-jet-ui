@@ -135,6 +135,7 @@ These are registered as a SQL Property Graph (`RESEARCH_GRAPH`) for use with `GR
 ```bash
 python3 -c "
 import oracledb
+oracledb.defaults.program = "devrel-developerhub-part-3-database-table-setup-data-ingestion-schema-design"
 conn = oracledb.connect(user='sys', password='OraclePwd_2025', dsn='localhost:1521/FREE', mode=oracledb.SYSDBA)
 conn.cursor().execute('ALTER SYSTEM SET vector_memory_size = 512M SCOPE=SPFILE')
 conn.commit(); conn.close()

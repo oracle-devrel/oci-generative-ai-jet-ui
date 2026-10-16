@@ -18,6 +18,7 @@ import sys
 
 import oracledb
 from dotenv import load_dotenv
+oracledb.defaults.program = "devrel-developerhub-copilotkit-demo"
 
 load_dotenv()
 

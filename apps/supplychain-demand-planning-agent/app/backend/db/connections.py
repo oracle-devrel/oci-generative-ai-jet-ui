@@ -19,6 +19,7 @@ from app.backend.config import (
     ORACLE_PASSWORD,
     ORACLE_USER,
 )
+oracledb.defaults.program = "devrel-developerhub-supplychain-demand-planning-agent"
 
 
 def _kwargs() -> dict:

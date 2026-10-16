@@ -15,6 +15,7 @@ import threading
 import oracledb
 
 from backend.config import settings
+oracledb.defaults.program = "devrel-developerhub-agent-harness-palo-stack"
 
 oracledb.defaults.fetch_lobs = False  # CLOB -> str, BLOB -> bytes
 

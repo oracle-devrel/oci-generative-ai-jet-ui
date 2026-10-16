@@ -33,6 +33,7 @@ USER = sys.argv[1] if len(sys.argv) > 1 else "demo-user"
 TABLES = ("RECORD_CHUNKS", "MEMORY", "MESSAGE", "THREAD")
 
 try:
+    oracledb.defaults.program = "devrel-developerhub-copilotkit-demo"
     import oracledb
 
     conn = oracledb.connect(

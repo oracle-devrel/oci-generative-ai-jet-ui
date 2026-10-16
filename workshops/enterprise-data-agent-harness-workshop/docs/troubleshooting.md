@@ -16,6 +16,7 @@ This guide covers the most common issues encountered during the Enterprise Data 
 
 ```python
 import oracledb
+oracledb.defaults.program = "devrel-developerhub-troubleshooting-guide"
 conn = oracledb.connect(user="sys", password="OraclePwd_2025",
                         dsn="localhost:1521/FREEPDB1",
                         mode=oracledb.AUTH_MODE_SYSDBA)
@@ -284,6 +285,7 @@ If something isn'''t working and you'''re not sure where, run this diagnostic ce
 
 ```python
 import oracledb, os
+oracledb.defaults.program = "devrel-developerhub-troubleshooting-guide"
 
 print("=== Environment ===")
 for k in ("OPENAI_API_KEY", "OCI_GENAI_API_KEY", "LLM_PROVIDER", "LLM_MODEL"):

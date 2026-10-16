@@ -7,6 +7,7 @@ This file is the spec.
 ## What `verify.py` does
 
 1. **Connect.** `oracledb.connect(...)` against `ORACLE_DSN`. Fails fast on the common ORA codes (see `oracledb-python.md`) with a translated message.
+   Set `oracledb.defaults.program` to `devrel-developerhub-<content-name>` before creating the connection, using the current asset's title in kebab-case.
 2. **Round-trip via `OracleVS`.** Insert one known string, search for it, assert it comes back. This is the canonical "the whole vector stack works" test — it exercises connection, table creation, embedding, vector insert, vector search, and metadata read-back in one call.
 3. **Inference smoke (skip if the project doesn't use a chat LLM).** One deterministic call (e.g. "Reply with the single word OK"), assert non-empty response.
 4. **Print one line.** Either:

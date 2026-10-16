@@ -14,6 +14,7 @@ from oracleagentmemory.core.deepsec import OracleMemoryEndUserSecurityContext
 from oracleagentmemory.core.embedders import Embedder
 
 from deepsec_webapp.config import RuntimeConfig
+oracledb.defaults.program = "devrel-developerhub-oracle-agent-memory"
 
 
 def connection_kwargs(config: RuntimeConfig, user: str, password: str) -> dict[str, Any]:

@@ -20,6 +20,7 @@ from __future__ import annotations
 import os
 
 import oracledb
+oracledb.defaults.program = "devrel-developerhub-supplychain-demand-agent-workshop"
 
 SYSTEM_USER = os.environ.get("ORACLE_SYSTEM_USER", "system")
 SYSTEM_PASSWORD = os.environ.get("ORACLE_SYSTEM_PASSWORD") or os.environ.get("ORACLE_PWD", "mypw")

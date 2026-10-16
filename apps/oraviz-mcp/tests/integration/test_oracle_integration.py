@@ -19,6 +19,7 @@ import oracledb
 import pytest
 
 from oraviz_mcp import server
+oracledb.defaults.program = "devrel-developerhub-oraviz-mcp"
 
 pytestmark = pytest.mark.skipif(
     not os.environ.get("ORAVIZ_TEST_DSN"),

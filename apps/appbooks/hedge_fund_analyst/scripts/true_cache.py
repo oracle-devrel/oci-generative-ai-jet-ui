@@ -13,6 +13,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import oracledb  # noqa: E402
 from backend.config import PERSONAS, ROOT, env  # noqa: E402
+oracledb.defaults.program = "devrel-developerhub-hedge-fund-analyst"
 
 PRIMARY = env("HF_DB_CONTAINER", "hf-oracle")
 NAME = "hf-true-cache"

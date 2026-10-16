@@ -6,6 +6,7 @@ import pytest
 from dotenv import load_dotenv
 import oracledb
 from memory.db import env_dsn
+oracledb.defaults.program = "devrel-developerhub-rag-to-memory-systems-demo"
 
 load_dotenv()
 

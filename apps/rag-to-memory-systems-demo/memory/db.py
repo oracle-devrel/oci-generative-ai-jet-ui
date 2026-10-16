@@ -4,6 +4,7 @@ import os
 from pathlib import Path
 import oracledb
 from dotenv import load_dotenv
+oracledb.defaults.program = "devrel-developerhub-rag-to-memory-systems-demo"
 
 # Demo settings (tenant, user, OpenAI) live in this app's .env. Database credentials come
 # from the repository-root .env that the Developer Hub notebooks share. load_dotenv never

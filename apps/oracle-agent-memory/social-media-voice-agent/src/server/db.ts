@@ -9,6 +9,7 @@ export async function initDb(): Promise<void> {
     user: process.env.ORACLE_USER!,
     password: process.env.ORACLE_PASSWORD!,
     connectString: process.env.ORACLE_CONNECT_STRING!,
+    program: 'devrel-developerhub-social-media-voice-agent',
     poolMin: 2,
     poolMax: 10,
   });

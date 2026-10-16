@@ -408,6 +408,7 @@ Python 3
 import oracledb
 
 
+oracledb.defaults.program = "devrel-developerhub-hack-the-world-cup-2026-complete-hackathon-guide"
 # Configure connection
 username = "worldcup"
 password = "YourPassword123#"

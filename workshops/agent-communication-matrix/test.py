@@ -5,6 +5,7 @@ import os
 import httpx
 import oracledb
 from dotenv import load_dotenv
+oracledb.defaults.program = "devrel-developerhub-agent-communication-matrix"
 
 load_dotenv()
 

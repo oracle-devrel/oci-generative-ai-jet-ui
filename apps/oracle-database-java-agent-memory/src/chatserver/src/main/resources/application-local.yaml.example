@@ -8,6 +8,8 @@ spring:
     username: PDBADMIN
     password: Oracle123
     oracleucp:
+      connection-properties:
+        "[v$session.program]": devrel-developerhub-oracle-database-java-agent-memory
       initial-pool-size: 2
       min-pool-size: 2
       max-pool-size: 5

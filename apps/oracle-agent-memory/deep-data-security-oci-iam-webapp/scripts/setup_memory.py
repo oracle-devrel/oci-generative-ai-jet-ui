@@ -17,6 +17,7 @@ from oracleagentmemory.core.deepsec import (
 
 from deepsec_webapp.config import SetupConfig
 from deepsec_webapp.database import connection_kwargs, create_embedder
+oracledb.defaults.program = "devrel-developerhub-oracle-agent-memory"
 
 
 def main() -> None:

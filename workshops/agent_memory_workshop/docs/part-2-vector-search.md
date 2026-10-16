@@ -190,6 +190,7 @@ This is one of Oracle's key advantages: metadata filtering runs as SQL predicate
 ```bash
 python3 -c "
 import oracledb
+oracledb.defaults.program = "devrel-developerhub-part-2-vector-search-with-langchain-and-oracle-ai-database"
 conn = oracledb.connect(user='sys', password='OraclePwd_2025', dsn='localhost:1521/FREE', mode=oracledb.SYSDBA)
 conn.cursor().execute('ALTER SYSTEM SET vector_memory_size = 1G SCOPE=BOTH')
 conn.commit(); conn.close()

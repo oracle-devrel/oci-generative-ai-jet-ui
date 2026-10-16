@@ -164,6 +164,7 @@ def insert_returning_id(
             {"customer_id": 86, "total": 199.99, "status": "OPEN"},
         )
     """
+    oracledb.defaults.program = "devrel-developerhub-sql-runner"
     import oracledb
 
     cols = list(columns.keys())

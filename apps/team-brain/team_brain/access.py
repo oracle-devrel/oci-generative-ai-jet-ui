@@ -104,6 +104,7 @@ def apply_identity(conn: Any, identity: Identity) -> None:
 
     Raises AccessError when the database rejects the token/principal.
     """
+    oracledb.defaults.program = "devrel-developerhub-team-brain"
     import oracledb
 
     cur = conn.cursor()
