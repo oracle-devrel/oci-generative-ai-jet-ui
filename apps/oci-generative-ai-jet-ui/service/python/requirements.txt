@@ -14,4 +14,4 @@ pytz==2023.3.post1
 six==1.16.0
 throttler==1.2.2
 websockets==12.0
-pypdf==6.15.0
+pypdf==6.16.1
