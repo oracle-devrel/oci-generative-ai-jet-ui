@@ -57,7 +57,7 @@ func (p *HTTPProvider) Chat(ctx context.Context, messages []Message, tools []Too
 	// Strip provider prefix from model name (e.g., moonshot/kimi-k2.5 -> kimi-k2.5, groq/openai/gpt-oss-120b -> openai/gpt-oss-120b, ollama/qwen2.5:14b -> qwen2.5:14b)
 	if idx := strings.Index(model, "/"); idx != -1 {
 		prefix := model[:idx]
-		if prefix == "moonshot" || prefix == "nvidia" || prefix == "groq" || prefix == "ollama" {
+		if prefix == "moonshot" || prefix == "nvidia" || prefix == "groq" || prefix == "ollama" || prefix == "minimax" {
 			model = model[idx+1:]
 		}
 	}
@@ -86,6 +86,15 @@ func (p *HTTPProvider) Chat(ctx context.Context, messages []Message, tools []Too
 		// Kimi k2 models only support temperature=1
 		if strings.Contains(lowerModel, "kimi") && strings.Contains(lowerModel, "k2") {
 			requestBody["temperature"] = 1.0
+		} else if strings.Contains(lowerModel, "MiniMax") || strings.Contains(lowerModel, "minimax") {
+			// MiniMax models require temperature in (0.0, 1.0]; 0 is not allowed
+			if temperature <= 0 {
+				requestBody["temperature"] = 1.0
+			} else if temperature > 1.0 {
+				requestBody["temperature"] = 1.0
+			} else {
+				requestBody["temperature"] = temperature
+			}
 		} else {
 			requestBody["temperature"] = temperature
 		}
@@ -467,6 +476,15 @@ func CreateProvider(cfg *config.Config) (LLMProvider, error) {
 					model = "deepseek-chat"
 				}
 			}
+		case "minimax", "MiniMax":
+			if cfg.Providers.MiniMax.APIKey != "" {
+				apiKey = cfg.Providers.MiniMax.APIKey
+				apiBase = cfg.Providers.MiniMax.APIBase
+				if apiBase == "" {
+					apiBase = "https://api.minimax.io/v1"
+				}
+				proxy = cfg.Providers.MiniMax.Proxy
+			}
 		case "github_copilot", "copilot":
 			if cfg.Providers.GitHubCopilot.APIBase != "" {
 				apiBase = cfg.Providers.GitHubCopilot.APIBase
@@ -543,6 +561,13 @@ func CreateProvider(cfg *config.Config) (LLMProvider, error) {
 			proxy = cfg.Providers.Nvidia.Proxy
 			if apiBase == "" {
 				apiBase = "https://integrate.api.nvidia.com/v1"
+			}
+		case (strings.Contains(lowerModel, "minimax") || strings.Contains(lowerModel, "MiniMax") || strings.HasPrefix(model, "minimax/")) && cfg.Providers.MiniMax.APIKey != "":
+			apiKey = cfg.Providers.MiniMax.APIKey
+			apiBase = cfg.Providers.MiniMax.APIBase
+			proxy = cfg.Providers.MiniMax.Proxy
+			if apiBase == "" {
+				apiBase = "https://api.minimax.io/v1"
 			}
 		case (strings.Contains(lowerModel, "ollama") || strings.HasPrefix(model, "ollama/")) && cfg.Providers.Ollama.APIBase != "":
 			apiKey = cfg.Providers.Ollama.APIKey
