@@ -1,0 +1,4 @@
+oracleagentmemory>=26.6.0
+rich>=13.0
+matplotlib>=3.8
+requests>=2.31
