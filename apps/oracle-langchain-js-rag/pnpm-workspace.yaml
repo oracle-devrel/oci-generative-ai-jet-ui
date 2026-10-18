@@ -1,0 +1,8 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+  - "services/*"
+  - "scripts"
+allowBuilds:
+  esbuild: true
+  oracledb: true

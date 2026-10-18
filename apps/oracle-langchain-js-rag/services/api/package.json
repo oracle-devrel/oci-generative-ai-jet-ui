@@ -1,0 +1,27 @@
+{
+  "name": "@oracle-langchain-js-rag/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "esbuild src/index.ts --bundle --platform=node --format=esm --outfile=dist/index.js --external:oracledb --external:@oracle/langchain-oracledb --external:@langchain/* --external:@hono/node-server --external:hono --external:dotenv",
+    "start": "node dist/index.js",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.13.8",
+    "@oracle-langchain-js-rag/core": "workspace:*",
+    "@oracle-langchain-js-rag/db": "workspace:*",
+    "@oracle-langchain-js-rag/shared": "workspace:*",
+    "dotenv": "^17.2.3",
+    "hono": "^4.6.14"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "esbuild": "^0.25.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}
