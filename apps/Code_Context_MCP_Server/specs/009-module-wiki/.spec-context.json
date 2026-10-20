@@ -1,0 +1,802 @@
+{
+  "workflow": "companion",
+  "specName": "Module Wiki",
+  "branch": "009-module-wiki",
+  "currentStep": "implement",
+  "status": "completed",
+  "history": [
+    {
+      "step": "specify",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-11T20:38:29.633Z"
+    },
+    {
+      "step": "plan",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-11T20:42:43.715Z"
+    },
+    {
+      "step": "plan",
+      "substep": "research",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T20:47:58.914Z"
+    },
+    {
+      "step": "plan",
+      "substep": "design",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T20:52:43.130Z"
+    },
+    {
+      "step": "plan",
+      "substep": null,
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T20:52:45.065Z"
+    },
+    {
+      "step": "tasks",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-11T20:55:26.845Z"
+    },
+    {
+      "step": "tasks",
+      "substep": "generate",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T20:57:56.570Z"
+    },
+    {
+      "step": "tasks",
+      "substep": null,
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T20:57:59.973Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-11T20:59:50.698Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T001",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T21:00:02.438Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T002",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T21:02:37.730Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T003",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T21:02:57.929Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T004",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T21:03:00.990Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T005",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T21:03:21.650Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T006",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T21:14:58.662Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T009",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T21:14:59.119Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T007",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T21:20:13.620Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T010",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T21:20:14.019Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T012",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T21:20:14.426Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T008",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T21:22:37.089Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T011",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T21:22:37.475Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T013",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T21:22:37.844Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T014",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T21:32:08.577Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T015",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T21:32:15.144Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T016",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T21:39:03.791Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T017",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T21:39:04.297Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T018",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T21:45:23.304Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T019",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T21:45:23.864Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T020",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T21:55:41.617Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T021",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T22:08:39.560Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T022",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T22:10:14.841Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T023",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-12T06:04:10.934Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-12T06:04:11.064Z"
+    }
+  ],
+  "telemetryInstanceId": "6192f4fc-03d1-4505-8d70-50ba42cbe9a6",
+  "decisions": [
+    {
+      "decision": "A page is a directory whose own files hold >= 10 named definitions, named by its path minus a leading src/ (root = repo name)",
+      "why": "matches the user's flask/json example without per-language import paths",
+      "rejected": "a page per file; <repo>/<last component>; Python dotted module names"
+    },
+    {
+      "decision": "Store docs at ingestion: Chunk.doc and a file doc from the same parse, EXTRACT_VERSION 2 backfill",
+      "why": "module docstrings and Go doc comments are outside the stored chunks, and the existing re-read keeps unchanged symbols so nothing is re-embedded",
+      "rejected": "reading the working tree at compile time; widening Go chunks to include comments"
+    },
+    {
+      "decision": "Deterministic Markdown pages: structural sentence, quoted docs, key symbols ranked by external callers with types first, imports grouped by directory",
+      "why": "no model and no outside service (constitution I, user confirmed); every statement comes from the index",
+      "rejected": "language model prose; per-language prose templates"
+    },
+    {
+      "decision": "Citations are rows with FKs to ccctx_symbols and ccctx_files ON DELETE SET NULL, recording commit and content hash",
+      "why": "cascade would silently drop the citation of an edited symbol, which ingestion deletes and reinserts; set-null keeps the evidence of staleness",
+      "rejected": "on delete cascade; stored name and path re-resolved at read time"
+    },
+    {
+      "decision": "Mark stale inside the ingest transaction; recompile after commit in a separate transaction",
+      "why": "readers never see new code beside a page called fresh, and a wiki failure cannot roll back an ingestion",
+      "rejected": "recompile inside the ingest transaction; recompile on the next ingestion; read-time staleness only"
+    },
+    {
+      "decision": "Pages get their own table and second hybrid index; page hits placed above the first non-definition hit with lower semantic similarity",
+      "why": "fused RRF scores of two indexes are not comparable, cosine similarity from the same model is; the definitions block stays first",
+      "rejected": "pages as rows of ccctx_symbols; one shared search table (re-embeds everything); re-fusing both lists ourselves"
+    },
+    {
+      "decision": "read_wiki(page?, repo?) lists or reads; search hits gain state and nullable line range; version 1.1.0",
+      "why": "additive contract changes are MINOR; one tool keeps the tool list short",
+      "rejected": "a separate list_wiki tool; a fake 1..n line range for pages"
+    },
+    {
+      "decision": "A question naming '<name> module|package|directory' puts that page first",
+      "why": "SC-005: a docs chunk outranked the flask/json page on similarity alone",
+      "rejected": "boosting all page hits, which would bury exact-identifier answers"
+    },
+    {
+      "decision": "Key symbols rank code before tests, then outside callers, exported, documented, total callers, name; names de-duplicated",
+      "why": "gin binding led with test types and listed Binding twice",
+      "rejected": "total callers only"
+    },
+    {
+      "decision": "A cited symbol deleted and re-inserted reports 'changed' or 'was re-indexed', not 'is gone'",
+      "why": "ingest rewrites an edited symbol's row, so the FK goes null even though the symbol exists",
+      "rejected": "always 'is gone'"
+    },
+    {
+      "decision": "Stale reasons use an ASCII '->' and the CLI writes with errors=replace",
+      "why": "the Unicode arrow crashed ingest on a cp1252 Windows console",
+      "rejected": "keeping the arrow and only reconfiguring output"
+    },
+    {
+      "decision": "EXTRACT_VERSION 3 re-reads files to store docs without re-embedding",
+      "why": "existing indexes had no doc columns filled, and RST headings were taken as the purpose",
+      "rejected": "requiring a full re-ingest"
+    }
+  ],
+  "step_summaries": {
+    "plan": {
+      "summary": "Plan, research R1-R11, data model (migration 7: doc columns, wiki pages and citations, repos.wiki_at) and CLI and tool contracts for the module wiki",
+      "key_finding": "The index stores no module docstrings or Go doc comments, so the chunker must start storing docs; and two hybrid indexes' fused scores are not comparable, so pages are placed by semantic similarity"
+    },
+    "tasks": {
+      "summary": "23 tasks in 7 phases: setup, foundational wave of 4 (migration, external imports), wiki core MVP (US1-US3, 6 files), search, CLI and MCP surfaces, polish with live and staleness checks"
+    },
+    "implement": {
+      "summary": "Module wiki: rule-built pages per directory with >=10 definitions, FK citations, staleness and recompile on ingest, read_wiki tool, pages in hybrid search"
+    }
+  },
+  "approach": "A new wiki module compiles one deterministic Markdown page per qualifying directory from the index: stored docs, key symbols by callers, import edges. Citations are FK rows set to null when the record goes; ingestion marks pages stale in its transaction and recompiles them after commit. Pages have their own hybrid index and are merged into search by semantic similarity; read_wiki and ccctx wiki commands read them.",
+  "coverage": {
+    "FR-001": {
+      "title": "ccctx wiki build compiles a page per directory with at least 10 named definitions",
+      "tasks": [
+        "T002",
+        "T003",
+        "T007",
+        "T010",
+        "T016",
+        "T017",
+        "T020"
+      ],
+      "tests": [
+        "tests/test_wiki.py",
+        "tests/test_cli.py"
+      ]
+    },
+    "FR-002": {
+      "title": "A page has a purpose, up to 10 key symbols, depends on and used by",
+      "tasks": [
+        "T004",
+        "T005",
+        "T007",
+        "T010"
+      ],
+      "tests": [
+        "tests/test_wiki.py"
+      ]
+    },
+    "FR-003": {
+      "title": "Page text is compiled from the index alone, no outside service",
+      "tasks": [
+        "T006",
+        "T008",
+        "T009",
+        "T011",
+        "T007",
+        "T010"
+      ],
+      "tests": [
+        "tests/test_wiki.py"
+      ]
+    },
+    "FR-004": {
+      "title": "Key symbols by usage from the rest of the code, types first",
+      "tasks": [
+        "T007",
+        "T010"
+      ],
+      "tests": [
+        "tests/test_wiki.py"
+      ]
+    },
+    "FR-005": {
+      "title": "Citations are references to symbol and file records; no paths or line numbers in text",
+      "tasks": [
+        "T002",
+        "T003",
+        "T007",
+        "T010",
+        "T020"
+      ],
+      "tests": [
+        "tests/test_schema.py",
+        "tests/test_wiki.py"
+      ]
+    },
+    "FR-006": {
+      "title": "Citations record commit and content hash; pages record compiler and time",
+      "tasks": [
+        "T002",
+        "T003",
+        "T007",
+        "T010"
+      ],
+      "tests": [
+        "tests/test_wiki.py"
+      ]
+    },
+    "FR-007": {
+      "title": "ccctx wiki list shows name, repo, state, symbols, compile time, last stale reason",
+      "tasks": [
+        "T007",
+        "T010",
+        "T016",
+        "T017"
+      ],
+      "tests": [
+        "tests/test_cli.py"
+      ]
+    },
+    "FR-008": {
+      "title": "ccctx wiki show prints the page with current locations from citations",
+      "tasks": [
+        "T010",
+        "T016",
+        "T017"
+      ],
+      "tests": [
+        "tests/test_cli.py"
+      ]
+    },
+    "FR-009": {
+      "title": "ccctx wiki citations prints one line per citation with recorded and current commit",
+      "tasks": [
+        "T010",
+        "T016",
+        "T017"
+      ],
+      "tests": [
+        "tests/test_cli.py"
+      ]
+    },
+    "FR-010": {
+      "title": "Ingestion marks pages stale on cited commit change or removal and recompiles them",
+      "tasks": [
+        "T008",
+        "T012",
+        "T013",
+        "T021"
+      ],
+      "tests": [
+        "tests/test_wiki.py",
+        "tests/test_ingest.py"
+      ]
+    },
+    "FR-011": {
+      "title": "Ingest summary names each stale page, its cause, and whether it was recompiled",
+      "tasks": [
+        "T008",
+        "T013",
+        "T016",
+        "T017",
+        "T021"
+      ],
+      "tests": [
+        "tests/test_ingest.py",
+        "tests/test_cli.py"
+      ]
+    },
+    "FR-012": {
+      "title": "A page that could not be recompiled stays stale and is shown stale everywhere",
+      "tasks": [
+        "T008",
+        "T012",
+        "T013",
+        "T014",
+        "T015",
+        "T018",
+        "T019"
+      ],
+      "tests": [
+        "tests/test_wiki.py::test_failed_refresh_leaves_pages_stale",
+        "tests/test_ingest.py::test_failed_recompile_keeps_the_ingestion",
+        "tests/test_cli.py::test_ingest_warns_when_the_wiki_was_not_recompiled"
+      ]
+    },
+    "FR-013": {
+      "title": "Hybrid search returns pages above their directory's symbols for module questions; identifiers first",
+      "tasks": [
+        "T014",
+        "T015",
+        "T020"
+      ],
+      "tests": [
+        "tests/test_semantic.py"
+      ]
+    },
+    "FR-014": {
+      "title": "Repo and language filters apply to pages",
+      "tasks": [
+        "T014",
+        "T015"
+      ],
+      "tests": [
+        "tests/test_semantic.py::test_repo_and_language_filters_apply_to_pages"
+      ]
+    },
+    "FR-015": {
+      "title": "search_code returns page hits marked as pages and mentions read_wiki",
+      "tasks": [
+        "T018",
+        "T019"
+      ],
+      "tests": [
+        "tests/test_server.py"
+      ]
+    },
+    "FR-016": {
+      "title": "read_wiki MCP tool reads or lists pages with citations; refusals are results",
+      "tasks": [
+        "T018",
+        "T019",
+        "T020"
+      ],
+      "tests": [
+        "tests/test_server.py"
+      ]
+    },
+    "FR-017": {
+      "title": "Version 1.1.0 and README for wiki commands, tool and staleness",
+      "tasks": [
+        "T001",
+        "T022"
+      ],
+      "tests": [
+        "tests/test_server.py"
+      ]
+    },
+    "FR-018": {
+      "title": "Wiki builds and recompiles are logged to stderr without page text",
+      "tasks": [
+        "T007",
+        "T012",
+        "T016",
+        "T017"
+      ],
+      "tests": [
+        "tests/test_wiki.py::test_build_logs_one_record_per_repository"
+      ]
+    }
+  },
+  "currentTask": "T023",
+  "task_summaries": {
+    "T001": {
+      "status": "DONE",
+      "did": "Version 1.1.0 in pyproject, __version__ and uv.lock",
+      "files": [
+        "pyproject.toml",
+        "src/golestan_code_mcp/__init__.py",
+        "uv.lock"
+      ]
+    },
+    "T002": {
+      "status": "DONE",
+      "did": "Migration 7 tests: doc/wiki_at columns, wiki tables, named constraints, set-null and cascade deletes, re-run no-op",
+      "files": [
+        "tests/test_schema.py"
+      ]
+    },
+    "T003": {
+      "status": "DONE",
+      "did": "Migration 7 'module wiki': doc columns on files/symbols, repos.wiki_at, ccctx_wiki_pages and ccctx_wiki_citations with named constraints, indexes on page_id/symbol_id/file_id; page index left to model load (R8)",
+      "files": [
+        "src/golestan_code_mcp/schema.py"
+      ]
+    },
+    "T004": {
+      "status": "DONE",
+      "did": "graph.external_imports tests: Python first-component externals (json, werkzeug, typing), relative and indexed imports excluded; Go net/http and fmt external, own module path not; existing fixture repos checked too",
+      "files": [
+        "tests/test_graph.py"
+      ]
+    },
+    "T005": {
+      "status": "DONE",
+      "did": "graph.external_imports: _imports now also returns unresolved Python top-level/Go path refs; rebuild and external_imports share _files/_import_refs loaders and one resolution loop",
+      "files": [
+        "src/golestan_code_mcp/graph.py"
+      ]
+    },
+    "T006": {
+      "status": "DONE",
+      "did": "Chunker doc tests: Python, Go, JS symbol and file docs, cleaning, no-doc, unchanged chunks",
+      "files": [
+        "tests/test_chunker.py"
+      ]
+    },
+    "T009": {
+      "status": "DONE",
+      "did": "Chunk.doc and parse's 4th element (file doc) for Python, Go and JavaScript, first paragraph cleaned to 1000 chars",
+      "files": [
+        "src/golestan_code_mcp/chunker.py"
+      ]
+    },
+    "T007": {
+      "status": "DONE",
+      "did": "Wiki tests: threshold, naming, text sections, citations, idempotent build, refusals, page index, staleness, refresh, reading, logging",
+      "files": [
+        "tests/test_wiki.py"
+      ]
+    },
+    "T010": {
+      "status": "DONE",
+      "did": "wiki.py build and read: page-name rule, deterministic compile from the index, citations by foreign key, ensure_index, pages/read with contract refusals",
+      "files": [
+        "src/golestan_code_mcp/wiki.py"
+      ]
+    },
+    "T012": {
+      "status": "DONE",
+      "did": "wiki.mark_stale names the first offending citation; wiki.refresh recompiles stale pages, adds and removes, rolls back and returns error on failure",
+      "files": [
+        "src/golestan_code_mcp/wiki.py"
+      ]
+    },
+    "T008": {
+      "status": "DONE",
+      "did": "Ingest tests: docs stored on insert and update, kept Go symbol follows its doc, EXTRACT_VERSION 1 re-read, Summary.wiki stale/recompile, uncited and no-op changes, full re-ingest, no wiki, failed recompile",
+      "files": [
+        "tests/test_ingest.py"
+      ]
+    },
+    "T011": {
+      "status": "DONE",
+      "did": "Ingest stores file and symbol docs on insert/update and in _keep_unchanged; parse's 4th element unpacked; EXTRACT_VERSION 2",
+      "files": [
+        "src/golestan_code_mcp/ingest.py"
+      ]
+    },
+    "T013": {
+      "status": "DONE",
+      "did": "Ingest runs wiki.mark_stale inside the transaction after _write and wiki.refresh after commit; Summary.wiki is the Refresh with mark_stale's stale list, None without a wiki or in current mode",
+      "files": [
+        "src/golestan_code_mcp/ingest.py"
+      ]
+    },
+    "T014": {
+      "status": "DONE",
+      "did": "Page search tests: pure placement rule, page hit shape, definitions first, filters, floor, stale state, missing index, load_model keeps page index",
+      "files": [
+        "tests/test_semantic.py"
+      ]
+    },
+    "T015": {
+      "status": "DONE",
+      "did": "semantic.search places wiki page hits by similarity after the definitions block; Result gains state and nullable lines; load_model ensures the page index",
+      "files": [
+        "src/golestan_code_mcp/semantic.py"
+      ]
+    },
+    "T016": {
+      "status": "DONE",
+      "did": "CLI wiki tests: build lines and no-model note, list, show with Sources, citations table, refusals, ambiguity, DB down, ingest wiki lines and warning, search page rows",
+      "files": [
+        "tests/test_cli.py"
+      ]
+    },
+    "T017": {
+      "status": "DONE",
+      "did": "ccctx wiki build|list|show|citations, Wiki lines in the ingest summary with the recompile warning, page rows in search, wiki log to stderr",
+      "files": [
+        "src/golestan_code_mcp/cli.py"
+      ]
+    },
+    "T018": {
+      "status": "DONE",
+      "did": "Server contract tests: seven tools, read_wiki description and parameters from the 009 contract, nullable search hit lines and state, read_wiki parity, list cap, refusals, empty page before connecting, outage and logging",
+      "files": [
+        "tests/test_server.py"
+      ]
+    },
+    "T019": {
+      "status": "DONE",
+      "did": "read_wiki tool returning WikiResults, SearchHit with nullable lines and state, new search_code description verbatim from the contract",
+      "files": [
+        "src/golestan_code_mcp/server.py"
+      ]
+    },
+    "T020": {
+      "status": "DONE",
+      "did": "Live checks: 7+7 pages built in 2.3s/2.5s, 654 citations resolve and no page leaks a path, the 4 module questions put the page first after the R8 named-module fallback, read_wiki 62-78 ms and equal to wiki show; fixed RST-heading docs (EXTRACT_VERSION 3) and key-symbol ranking found in the check",
+      "files": [
+        "src/golestan_code_mcp/semantic.py",
+        "tests/test_semantic.py",
+        "src/golestan_code_mcp/chunker.py",
+        "tests/test_chunker.py",
+        "src/golestan_code_mcp/ingest.py",
+        "tests/test_ingest.py",
+        "src/golestan_code_mcp/wiki.py",
+        "specs/009-module-wiki/research.md"
+      ]
+    },
+    "T021": {
+      "status": "DONE",
+      "did": "Staleness on a scratch clone of flask: editing and committing dumps made one ingest report flask/json and tests stale (dumps changed) and recompile them, other pages untouched; fixed the gone-vs-changed reason and a cp1252 crash on the arrow; clone and repo removed",
+      "files": [
+        "src/golestan_code_mcp/wiki.py",
+        "src/golestan_code_mcp/cli.py",
+        "tests/test_wiki.py",
+        "tests/test_ingest.py",
+        "tests/test_cli.py",
+        "specs/009-module-wiki/contracts/cli.md",
+        "specs/009-module-wiki/contracts/tools.md",
+        "specs/009-module-wiki/data-model.md",
+        "specs/009-module-wiki/research.md"
+      ]
+    },
+    "T022": {
+      "status": "DONE",
+      "did": "README: Module wiki section (commands, page rules, citations as references, staleness with the live summary, pages in search with SC-005 results, upgrade re-read), read_wiki and page hits in the tools table, 1.1.0 change note, layout",
+      "files": [
+        "README.md"
+      ]
+    },
+    "T023": {
+      "status": "DONE",
+      "did": "full suite 393 passed with the DB, 164 passed/229 skipped without; ruff 35 = baseline; eval 10/10; fixed stale six-tool list in test_cli",
+      "files": [
+        "tests/test_cli.py"
+      ]
+    }
+  },
+  "verified": [
+    {
+      "what": "full suite with the database",
+      "command": "uv run --no-sync pytest -q",
+      "source": "derived",
+      "exitCode": 1,
+      "durationSeconds": 305.4,
+      "result": "=========================== short test summary info =========================== · FAILED tests/test_cli.py::test_mcp_child_process_serves_the_tools_from_any_directory · 1 failed, 392 passed in 303.32s (0:05:03)",
+      "warnings": [
+        "exited 1"
+      ]
+    },
+    {
+      "what": "full suite with the database, after fixing the stale six-tool list",
+      "command": "uv run --no-sync pytest -q",
+      "source": "derived",
+      "exitCode": 0,
+      "durationSeconds": 294.4,
+      "result": "........................................................................ [ 91%] · .................................                                        [100%] · 393 passed in 293.19s (0:04:53)"
+    },
+    {
+      "what": "full suite without a database (DB_PORT=1)",
+      "command": "env DB_PORT=1 uv run --no-sync pytest -q",
+      "source": "derived",
+      "exitCode": 0,
+      "durationSeconds": 224.8,
+      "result": "sssssssssss.ssssss..sssssssss.......s.....sssss....s.ssssssssss....ss... [ 91%] · ....s.ssssss.ssssssssssssssssssss                                        [100%] · 164 passed, 229 skipped in 223.40s (0:03:43)"
+    },
+    {
+      "what": "ruff (baseline 35 on master)",
+      "command": "uvx ruff check src tests --statistics --exit-zero",
+      "source": "derived",
+      "exitCode": 0,
+      "durationSeconds": 1.2,
+      "result": " 1\tI001   \t[*] unsorted-imports · Found 35 errors. · [*] 5 fixable with `--fix` (5 unsafe fixes available with `--fix --unsafe-fixes`)."
+    },
+    {
+      "what": "retrieval eval",
+      "command": "uv run --no-sync pytest -q tests/test_eval.py -s",
+      "source": "derived",
+      "exitCode": 0,
+      "durationSeconds": 3.0,
+      "result": ".eval v1: top-1 10/10, top-5 10/10 · .... · 5 passed in 2.05s"
+    }
+  ],
+  "concerns": [
+    {
+      "note": "A doc re-read at the same commit (EXTRACT_VERSION bump) does not mark pages stale; run ccctx wiki build after upgrading (documented in README)",
+      "step": "implement"
+    },
+    {
+      "note": "JS file docs are simplified to the leading block comment",
+      "step": "implement"
+    },
+    {
+      "note": "The first full-suite run was killed by the harness for low memory; rerun in the foreground passed",
+      "step": "implement"
+    }
+  ],
+  "last_action": "all 23 tasks done; 393 tests pass with the DB, ruff at baseline, eval 10/10"
+}

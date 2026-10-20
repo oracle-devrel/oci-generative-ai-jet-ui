@@ -1,0 +1,358 @@
+{
+  "workflow": "speckit",
+  "specName": "Agent Memory",
+  "branch": "main",
+  "currentStep": "implement",
+  "status": "completed",
+  "history": [
+    {
+      "step": "specify",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-12T07:34:13.842Z"
+    },
+    {
+      "step": "plan",
+      "substep": null,
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T08:04:02.959Z"
+    },
+    {
+      "step": "tasks",
+      "substep": null,
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T08:25:09.760Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T001",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T08:54:05.266Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T002",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T08:54:05.266Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T003",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T08:54:05.266Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T004",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T08:54:05.266Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T005",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T08:54:05.266Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T006",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T08:54:05.266Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T007",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T08:54:05.266Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T008",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T09:04:48.869Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T009",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T09:04:48.871Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T010",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T09:04:48.871Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T011",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T09:04:48.871Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T012",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T09:04:48.871Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T013",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T09:04:48.871Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T014",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T10:04:10.779Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T015",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T10:04:10.779Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T016",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T10:04:10.779Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T017",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T10:04:10.779Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T018",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T10:04:10.779Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T019",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T10:04:10.779Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T020",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T10:04:10.779Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T021",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T10:04:10.779Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T022",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T10:04:10.779Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T023",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T10:04:10.779Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T024",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T10:04:10.779Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T025",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T10:04:10.779Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T026",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T10:04:10.779Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T027",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T10:04:10.779Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T028",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T10:04:10.780Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T029",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T10:04:10.780Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T030",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T10:04:10.780Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T031",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T10:04:10.780Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T032",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T10:04:10.780Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T033",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T10:04:10.780Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T034",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T10:04:10.780Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T035",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T10:04:10.780Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T036",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T10:04:10.780Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T037",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T10:04:10.780Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T038",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T10:35:07.092Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T039",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T10:35:07.093Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-12T10:35:07.093Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-13T08:59:13.706Z"
+    }
+  ],
+  "telemetryInstanceId": "89135940-7adb-4e28-843e-77bc703737ef",
+  "currentTask": "T037"
+}

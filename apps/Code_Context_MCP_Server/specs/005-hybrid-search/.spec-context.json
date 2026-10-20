@@ -1,0 +1,742 @@
+{
+  "workflow": "companion",
+  "specName": "Hybrid Code Search",
+  "branch": "005-hybrid-search",
+  "currentStep": "implement",
+  "status": "completed",
+  "history": [
+    {
+      "step": "specify",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-10T22:50:36.454Z"
+    },
+    {
+      "step": "specify",
+      "substep": null,
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-10T22:51:59.696Z"
+    },
+    {
+      "step": "plan",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-10T22:53:21.186Z"
+    },
+    {
+      "step": "plan",
+      "substep": "research",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T23:00:19.709Z"
+    },
+    {
+      "step": "plan",
+      "substep": "design",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T23:03:22.418Z"
+    },
+    {
+      "step": "plan",
+      "substep": null,
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T23:03:25.563Z"
+    },
+    {
+      "step": "tasks",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-10T23:04:10.465Z"
+    },
+    {
+      "step": "tasks",
+      "substep": "generate",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T23:05:06.184Z"
+    },
+    {
+      "step": "tasks",
+      "substep": null,
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T23:05:06.978Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-10T23:06:03.340Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T001",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T23:06:25.277Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T002",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T23:07:15.724Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T003",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T23:08:15.169Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T004",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T23:09:00.160Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T005",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T23:10:28.105Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T006",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T23:21:48.872Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T007",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T23:22:25.161Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T008",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T23:23:33.190Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T009",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T23:23:33.842Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T010",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T23:25:03.277Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T011",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T23:27:01.236Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T012",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T23:27:01.804Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T013",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T23:27:52.081Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T014",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T23:29:08.619Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T015",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T23:29:09.112Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T016",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T23:43:30.763Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T017",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T23:48:04.963Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T018",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T23:49:35.166Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T23:49:35.282Z"
+    }
+  ],
+  "telemetryInstanceId": "47bda71f-8921-45bc-beee-8babd4d8a8a3",
+  "last_action": "18/18 tasks done; 183 tests pass; all 8 success criteria met",
+  "coverage": {
+    "FR-001": {
+      "title": "One hybrid vector index over symbol text (kind, name, path, source) serves keyword and semantic matching",
+      "tasks": [
+        "T002",
+        "T004",
+        "T005",
+        "T006"
+      ],
+      "tests": [
+        "tests/test_schema.py::test_tables_exist_and_version_recorded",
+        "tests/test_semantic.py::test_hybrid_index_is_set_up"
+      ]
+    },
+    "FR-002": {
+      "title": "Searches run through DBMS_HYBRID_VECTOR.SEARCH",
+      "tasks": [
+        "T003",
+        "T005"
+      ],
+      "tests": [
+        "tests/test_semantic.py::test_definitions_rank_above_call_sites"
+      ]
+    },
+    "FR-003": {
+      "title": "Hybrid mode fuses with search_scorer RRF and search_fusion UNION",
+      "tasks": [
+        "T003",
+        "T005"
+      ],
+      "tests": [
+        "tests/test_semantic.py::test_hybrid_results_explain_their_rank"
+      ]
+    },
+    "FR-004": {
+      "title": "ccctx search --mode vector|text|hybrid, default hybrid, other values refused",
+      "tasks": [
+        "T003",
+        "T005",
+        "T010",
+        "T011"
+      ],
+      "tests": [
+        "tests/test_semantic.py::test_unknown_mode_refused_before_searching",
+        "tests/test_cli.py::test_search_modes",
+        "test_search_unknown_mode_refused_before_connecting"
+      ]
+    },
+    "FR-005": {
+      "title": "Vector mode keeps the 0.3 floor; text mode returns only symbols containing every query word",
+      "tasks": [
+        "T003",
+        "T005",
+        "T018"
+      ],
+      "tests": [
+        "tests/test_semantic.py::test_text_mode_needs_every_word",
+        "test_vector_mode_ranks_by_meaning_above_the_floor"
+      ]
+    },
+    "FR-006": {
+      "title": "Symbols whose name (or last dotted part) equals the identifier rank above all other results in hybrid and text",
+      "tasks": [
+        "T003",
+        "T005",
+        "T018"
+      ],
+      "tests": [
+        "tests/test_semantic.py::test_definitions_rank_above_call_sites",
+        "test_qualified_name_ranks_that_method_first",
+        "test_case_does_not_matter",
+        "test_no_boost_without_a_definition"
+      ]
+    },
+    "FR-007": {
+      "title": "Results show rank, fused score, keyword rank, semantic rank, repo, kind, name, path, lines; dash when absent",
+      "tasks": [
+        "T003",
+        "T005",
+        "T010",
+        "T011",
+        "T014"
+      ],
+      "tests": [
+        "tests/test_cli.py::test_search_prints_ranked_table",
+        "tests/test_semantic.py::test_hybrid_results_explain_their_rank"
+      ]
+    },
+    "FR-008": {
+      "title": "Fusion tunables are settings with documented defaults",
+      "tasks": [
+        "T001",
+        "T005",
+        "T016"
+      ],
+      "tests": [
+        "tests/test_config.py::test_search_settings_defaults_and_overrides",
+        "test_bad_search_settings_named"
+      ]
+    },
+    "FR-009": {
+      "title": "All repositories by default; --repo accepts one or more names (repeated or comma-separated)",
+      "tasks": [
+        "T003",
+        "T005",
+        "T010",
+        "T011"
+      ],
+      "tests": [
+        "tests/test_semantic.py::test_repository_scoping",
+        "tests/test_cli.py::test_search_repo_flags_narrow"
+      ]
+    },
+    "FR-010": {
+      "title": "--repo with an unregistered name refused before searching, naming it",
+      "tasks": [
+        "T003",
+        "T005",
+        "T010",
+        "T011"
+      ],
+      "tests": [
+        "tests/test_semantic.py::test_unknown_repo_refused",
+        "tests/test_cli.py::test_search_unknown_repo"
+      ]
+    },
+    "FR-011": {
+      "title": "Query text is literal; keyword operator characters never change the query or error",
+      "tasks": [
+        "T003",
+        "T005"
+      ],
+      "tests": [
+        "tests/test_semantic.py::test_special_characters_are_literal",
+        "test_text_query_escapes_every_word",
+        "test_operator_words_stay_literal"
+      ]
+    },
+    "FR-012": {
+      "title": "At most 10 results",
+      "tasks": [
+        "T003",
+        "T005"
+      ],
+      "tests": [
+        "tests/test_semantic.py::test_definitions_rank_above_call_sites"
+      ]
+    },
+    "FR-013": {
+      "title": "Symbols stored before this step are searchable without re-ingesting",
+      "tasks": [
+        "T002",
+        "T004",
+        "T006"
+      ],
+      "tests": [
+        "tests/test_schema.py::test_backfill_fills_search_text"
+      ]
+    },
+    "FR-014": {
+      "title": "Ingest keeps the hybrid index consistent; a completed ingest is fully searchable",
+      "tasks": [
+        "T003",
+        "T005",
+        "T007",
+        "T008"
+      ],
+      "tests": [
+        "tests/test_semantic.py::test_fresh_commit_is_searchable_at_once",
+        "tests/test_ingest.py::test_ingested_symbols_are_searchable_at_once"
+      ]
+    },
+    "FR-015": {
+      "title": "MCP search accepts mode and repos, still accepts repo, same results as CLI via same core",
+      "tasks": [
+        "T013",
+        "T014",
+        "T018"
+      ],
+      "tests": [
+        "tests/test_server.py::test_search_matches_core",
+        "test_search_refusals_are_results"
+      ]
+    }
+  },
+  "size": "normal",
+  "classification": {
+    "projectedFiles": 10,
+    "projectedTasks": 17,
+    "scopeSignal": "none",
+    "verdict": "normal"
+  },
+  "expectations": [
+    "incremental re-ingestion by commit or hash",
+    "graph or feedback ranking signals",
+    "result counts other than 10",
+    "search across symbol relationships (callers/callees)"
+  ],
+  "context": [
+    "area: src/golestan_code_mcp/semantic.py (search query, model setup, index build)",
+    "area: src/golestan_code_mcp/cli.py (search --mode, --repo multi)",
+    "area: src/golestan_code_mcp/server.py (search tool: mode, repos)",
+    "area: src/golestan_code_mcp/ingest.py (insert path; hybrid index sync)",
+    "area: src/golestan_code_mcp/schema.py (migration for searchable text)",
+    "data: flask defines url_for twice (helpers.py:200 function, app.py:1102 method); 85 mentions in .py",
+    "constraint: constitution IV fused default, explainable component scores, configurable documented weights",
+    "constraint: constitution III CLI and MCP share core; tool inputs additive only",
+    "carry-over: step 4 SC-003 routing question must include flask routing code"
+  ],
+  "intent": "Hybrid search via one hybrid vector index and DBMS_HYBRID_VECTOR.SEARCH (RRF, UNION), definitions above call sites, --mode vector|text|hybrid, --repo one or more, same in MCP",
+  "decisions": [
+    {
+      "decision": "One hybrid vector index (MODEL ALL_MINILM_L12_V2, VECTOR_IDXTYPE HNSW, SYNC ON COMMIT) on a new search_text CLOB replaces the step 4 embedding column and HNSW index",
+      "why": "request asks for one index for lexical and semantic; the index vectorizes itself, so keeping VECTOR_EMBEDDING would embed twice",
+      "rejected": "keeping both vector stores; a user datastore joining the path"
+    },
+    {
+      "decision": "Migration 4 backfills search_text from symbols joined to files",
+      "why": "FR-013: existing symbols searchable without re-ingest",
+      "rejected": "requiring re-ingest"
+    },
+    {
+      "decision": "SYNC (ON COMMIT)",
+      "why": "probe: default index missed a committed row until sync; sync on commit found it immediately and keeps visibility transactional",
+      "rejected": "ctx_ddl.sync_index after commit (window between commit and sync)"
+    },
+    {
+      "decision": "Text side = each word wrapped in braces, joined with AND",
+      "why": "probe: _ is a wildcard and url_for matched nothing unescaped; braces match literally; AND gives every-word semantics",
+      "rejected": "raw question; ctx_query escape round trip"
+    },
+    {
+      "decision": "Fetch CCCTX_SEARCH_CANDIDATES (100) rows, filter repos by rowid join, dedupe, definition boost via direct name lookup, cap 10",
+      "why": "probe: filter_by unsupported; name lookup makes definitions-first deterministic",
+      "rejected": "relying on fusion order for definitions"
+    },
+    {
+      "decision": "Vector floor on vector_score/100; MCP keeps similarity and adds score, keyword_rank, semantic_rank",
+      "why": "vector_score is the index's own 0-100 similarity (72.7 vs 0.62 raw cosine); additive output keeps clients working",
+      "rejected": "recomputing cosine per candidate"
+    },
+    {
+      "decision": "CCCTX_TEXT_WEIGHT / CCCTX_VECTOR_WEIGHT as score_weight, default 1",
+      "why": "probe: score_weight changes fused order; constitution IV configurable weights",
+      "rejected": "fixed weights"
+    },
+    {
+      "decision": "CCCTX_CODE_LEXER (BASIC_LEXER, PRINTJOINS '_') on the hybrid index",
+      "why": "default lexer split url_for into url + stopword for, so keyword search matched every url line in uv.lock",
+      "rejected": "relying on brace escaping alone"
+    },
+    {
+      "decision": "similarity = vector_score / 50 - 1, floor applied to semantic-only hits in hybrid and vector",
+      "why": "measured: vector_score = (1+cos)/2*100; without a hybrid floor sourdough returned 10 weak matches",
+      "rejected": "vector_score/100 (plan); floor in vector mode only"
+    },
+    {
+      "decision": "Hybrid keyword side is ACCUM with $stem for plain words; text mode stays strict AND",
+      "why": "AND with stopwords killed the keyword side for natural questions; stemming finds route for routed",
+      "rejected": "AND everywhere"
+    },
+    {
+      "decision": "Keep only a file's best fallback window",
+      "why": "near-duplicate uv.lock windows filled the results",
+      "rejected": "excluding lockfiles at ingest (would need re-ingest and a new skip rule)"
+    },
+    {
+      "decision": "Widen candidates x4 up to 4000 under a repo filter; renumber ranks within scope",
+      "why": "flask crowded small repositories out of 100 candidates; global ranks confused scoped results",
+      "rejected": "fixed topN"
+    },
+    {
+      "decision": "Per-statement tolerated error codes in migrations",
+      "why": "migration 4 must tolerate ORA-00904 on its drop column without hiding typos elsewhere",
+      "rejected": "adding ORA-00904 to the global tolerated set"
+    },
+    {
+      "decision": "Dropped the dev database's first hybrid index by hand instead of a migration 5",
+      "why": "it was built before the lexer existed and migration 4 never shipped beyond this database",
+      "rejected": "a migration that only this machine needs"
+    }
+  ],
+  "step_summaries": {
+    "plan": {
+      "summary": "Plan: migration 4 search_text + drop step-4 vectors, hybrid index from model load with sync on commit, DBMS_HYBRID_VECTOR.SEARCH RRF/UNION with brace-escaped AND text, repo filter + definition boost post-search, --mode/--repo CLI and MCP",
+      "key_finding": "Hybrid index works for the app user; unescaped _ silently kills keyword matches, default sync misses fresh commits, filter_by is unsupported"
+    },
+    "tasks": {
+      "summary": "18 tasks in 6 phases: setup (1), schema+hybrid core (5), ingest (3), CLI --mode/--repo (3), MCP (3), polish (3)"
+    },
+    "implement": {
+      "summary": "Hybrid search: one hybrid vector index (code lexer, sync on commit), DBMS_HYBRID_VECTOR.SEARCH RRF/UNION, definitions first, --mode and multi --repo, same in MCP"
+    }
+  },
+  "approach": "Migration 4 adds and backfills ccctx_symbols.search_text and drops the step 4 vectors; ccctx model load builds one hybrid vector index with SYNC (ON COMMIT). semantic.search calls DBMS_HYBRID_VECTOR.SEARCH (RRF, UNION, or one side for vector/text mode), filters candidates to the chosen repos, puts name-matched definitions first and caps at 10; CLI --mode/--repo and the MCP tool share it.",
+  "currentTask": "T018",
+  "task_summaries": {
+    "T001": {
+      "status": "DONE",
+      "did": "config: search_candidates (default 100), text_weight and vector_weight (default 1.0), ConfigError on bad values; tests",
+      "files": [
+        "src/golestan_code_mcp/config.py",
+        "tests/test_config.py"
+      ]
+    },
+    "T002": {
+      "status": "DONE",
+      "did": "schema tests: version 4 'hybrid search text', SEARCH_TEXT CLOB, EMBEDDING column and HNSW index gone, BACKFILL_SEARCH_TEXT fills kind name in path + source; fail first",
+      "files": [
+        "tests/test_schema.py"
+      ]
+    },
+    "T003": {
+      "status": "DONE",
+      "did": "semantic tests: escaping, unknown mode/empty question, hybrid index set up, definitions above call sites, qualified name, case, no boost, text every-word, vector floor, explainable ranks, repo scoping, unknown repo, literals in all modes, fresh commit searchable; fail first",
+      "files": [
+        "tests/test_semantic.py"
+      ]
+    },
+    "T004": {
+      "status": "DONE",
+      "did": "migration 4 hybrid search text: drop HNSW index and embedding column (per-statement tolerated codes), add search_text CLOB, BACKFILL_SEARCH_TEXT from files join",
+      "files": [
+        "src/golestan_code_mcp/schema.py"
+      ]
+    },
+    "T005": {
+      "status": "DONE",
+      "did": "semantic: hybrid INDEX in _state/require_model/load_model (SYNC ON COMMIT); text_query brace+AND; search(conn, question, repos, mode, env) via DBMS_HYBRID_VECTOR.SEARCH, rowid mapping, dedupe, vector floor, definitions first, repo scoping, cap 10",
+      "files": [
+        "src/golestan_code_mcp/semantic.py"
+      ]
+    },
+    "T006": {
+      "status": "DONE",
+      "did": "dev DB: migration 4 in 1.8s (2987 symbols backfilled); hybrid index built in 510s; widened candidates for repo filters and per-scope ranks; test_schema+test_semantic 51 passed",
+      "files": [
+        "src/golestan_code_mcp/semantic.py"
+      ]
+    },
+    "T007": {
+      "status": "DONE",
+      "did": "ingest tests: every symbol's search_text is kind name in path + source; ingested symbols searchable immediately (text and hybrid); embedding assertions replaced; fail first",
+      "files": [
+        "tests/test_ingest.py"
+      ]
+    },
+    "T008": {
+      "status": "DONE",
+      "did": "ingest: _insert_symbols stores search_text (kind name in path + source, full) with both CLOB binds last; no VECTOR_EMBEDDING; EMBED_CHARS removed",
+      "files": [
+        "src/golestan_code_mcp/ingest.py"
+      ]
+    },
+    "T009": {
+      "status": "DONE",
+      "did": "test_ingest 12 passed (search_text, searchable at once)",
+      "files": [
+        "src/golestan_code_mcp/ingest.py"
+      ]
+    },
+    "T010": {
+      "status": "DONE",
+      "did": "cli tests: new header with dashes, definition first, modes, unknown mode before connecting, repeated/comma --repo deduped, empty-result messages per mode, missing hybrid index hint; fail first",
+      "files": [
+        "tests/test_cli.py"
+      ]
+    },
+    "T011": {
+      "status": "DONE",
+      "did": "cli search: --mode validated before connecting (exit 1), --repo append+comma deduped, new RANK SCORE KEYWORD SEMANTIC ... table with dashes, per-mode empty messages",
+      "files": [
+        "src/golestan_code_mcp/cli.py"
+      ]
+    },
+    "T012": {
+      "status": "DONE",
+      "did": "test_cli 36 passed",
+      "files": [
+        "src/golestan_code_mcp/cli.py"
+      ]
+    },
+    "T013": {
+      "status": "DONE",
+      "did": "server tests: search schema question+repo+repos+mode; matches semantic.search across modes, repos and legacy repo (SC-008); unknown mode/repo(s), empty question, unreachable are unavailable results; fail first",
+      "files": [
+        "tests/test_server.py"
+      ]
+    },
+    "T014": {
+      "status": "DONE",
+      "did": "server: search(question, repo, repos, mode) merges repo into repos; SearchHit adds score, keyword_rank, semantic_rank and keeps similarity; description updated; refusals via semantic.search",
+      "files": [
+        "src/golestan_code_mcp/server.py"
+      ]
+    },
+    "T015": {
+      "status": "DONE",
+      "did": "test_server 16 passed",
+      "files": [
+        "src/golestan_code_mcp/server.py"
+      ]
+    },
+    "T016": {
+      "status": "DONE",
+      "did": "README: Searching code section (model load re-run, modes, definitions first, floor, one window per file, rank columns, three settings with defaults), MCP search inputs/outputs, layout",
+      "files": [
+        "README.md"
+      ]
+    },
+    "T017": {
+      "status": "DONE",
+      "did": "full suite: 183 passed with DB up; 94 passed, 89 skipped with DB stopped",
+      "files": [
+        "tests/"
+      ]
+    },
+    "T018": {
+      "status": "DONE",
+      "did": "walkthrough: url_for definitions rank 1-2 (SC-001); 10/10 identifiers definition first (SC-002); routing has flask Flask/Scaffold/MethodView + gin Engine (SC-003); middleware chain --repo gin all gin (SC-004); sourdough none (SC-005); text mode all contain url_for (SC-006); searches 1.1-1.9 s cold CLI, ~40 ms in-process (SC-007); MCP stdio identical in 4 cases (SC-008); secrets clean",
+      "files": [
+        "README.md"
+      ]
+    }
+  },
+  "verified": [
+    {
+      "what": "full suite with DB up",
+      "command": "uv run pytest -q",
+      "source": "derived",
+      "exitCode": 0,
+      "durationSeconds": 116,
+      "result": "........................................................................ [ 78%] · .......................................                                  [100%] · 183 passed in 114.85s (0:01:54)"
+    },
+    {
+      "what": "url_for definition first",
+      "command": "uv run ccctx search url_for",
+      "source": "derived",
+      "exitCode": 0,
+      "durationSeconds": 1.4,
+      "result": "   8  20.39        7         6  flask  chunk     views.rst:251-305       docs/tutorial/views.rst  251-305 ·    9  18.33       10         5  flask  chunk     blog.rst:51-110         docs/tutorial/blog.rst   51-110 ·   10  16.23       22         2  flask  chunk     CHANGES.rst:1251-1310   CHANGES.rst              1251-1310"
+    },
+    {
+      "what": "repo scoping to gin",
+      "command": "uv run ccctx search \"middleware chain\" --repo gin",
+      "source": "derived",
+      "exitCode": 0,
+      "durationSeconds": 1.4,
+      "result": "   8  17.53        5         8  gin   method    RouterGroup.Use                                     routergroup.go      89-92 ·    9  17.04        -         7  gin   function  TestNoMethodWithGlobalHandlers                      gin_test.go         573-602 ·   10  13.96        6         9  gin   function  TestRebuild404Handlers                              gin_test.go         547-571"
+    },
+    {
+      "what": "full suite with DB stopped",
+      "command": "docker compose stop; uv run pytest -q",
+      "result": "94 passed, 89 skipped"
+    },
+    {
+      "what": "SC-002 ten defined identifiers",
+      "command": "semantic.search for url_for, render_template, jsonify, make_response, send_from_directory, dispatch_request, BasicAuth, LoadHTMLGlob, ShouldBindJSON, Recovery",
+      "result": "10/10 definition at rank 1, ~40 ms each in-process"
+    },
+    {
+      "what": "SC-003 routing question",
+      "command": "ccctx search \"how are incoming requests routed to handlers\"",
+      "result": "flask Flask, Scaffold, MethodView and gin Engine, checkRequests in top 10"
+    },
+    {
+      "what": "SC-005 sourdough",
+      "command": "ccctx search \"recipe for sourdough bread\"",
+      "result": "no matching symbols"
+    },
+    {
+      "what": "mode comparison",
+      "command": "ccctx search url_for --mode vector|text|hybrid",
+      "result": "text: all contain url_for, definitions 1-2; vector: URL-related code and docs; hybrid: definitions then mixed keyword+semantic"
+    },
+    {
+      "what": "SC-008 MCP over stdio",
+      "command": "stdio client search x4 vs semantic.search",
+      "result": "identical in hybrid, text, repos=[gin], vector"
+    },
+    {
+      "what": "hybrid index build",
+      "command": "ccctx model load after migration 4",
+      "result": "2987 symbols backfilled in 1.8 s; index built in ~8 min"
+    },
+    {
+      "what": "secrets sweep",
+      "command": "scan 208 files and ccctx output",
+      "result": "0 hits"
+    }
+  ],
+  "concerns": [
+    {
+      "note": "Building the hybrid index takes ~8 minutes for 2987 symbols; each ingest commit embeds that repo's symbols too",
+      "step": "implement"
+    },
+    {
+      "note": "simplified: candidate widening stops at 4000; a tiny repository beside very large ones may still return fewer than 10",
+      "step": "implement"
+    },
+    {
+      "note": "dispatch_request's top definition is a test file's AsyncView.dispatch_request rather than Flask.dispatch_request; definitions are not ranked by source vs test",
+      "step": "implement"
+    },
+    {
+      "note": "uv.lock still takes one hybrid slot for url_for (semantic similarity 0.37); excluding lockfiles at ingest would remove it",
+      "step": "implement"
+    }
+  ],
+  "assistant": "claude"
+}

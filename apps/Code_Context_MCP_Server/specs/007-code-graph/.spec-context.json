@@ -1,0 +1,669 @@
+{
+  "workflow": "companion",
+  "specName": "Code Relationship Graph",
+  "branch": "007-code-graph",
+  "currentStep": "implement",
+  "status": "completed",
+  "history": [
+    {
+      "step": "specify",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-11T09:13:36.849Z"
+    },
+    {
+      "step": "specify",
+      "substep": null,
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-11T09:15:16.697Z"
+    },
+    {
+      "step": "plan",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-11T09:21:20.994Z"
+    },
+    {
+      "step": "plan",
+      "substep": "research",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T09:27:47.500Z"
+    },
+    {
+      "step": "plan",
+      "substep": "design",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T09:34:56.247Z"
+    },
+    {
+      "step": "plan",
+      "substep": null,
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T09:35:00.575Z"
+    },
+    {
+      "step": "tasks",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-11T10:30:49.406Z"
+    },
+    {
+      "step": "tasks",
+      "substep": "generate",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T10:32:45.640Z"
+    },
+    {
+      "step": "tasks",
+      "substep": null,
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T10:32:49.183Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-11T10:33:51.648Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T001",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T10:39:06.490Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T002",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T10:39:41.183Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T004",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T10:40:05.508Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T003",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T10:40:41.967Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T007",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T10:49:07.842Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T008",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T10:49:08.248Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T005",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T10:50:08.840Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T009",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T10:50:09.289Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T006",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T10:52:17.775Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T010",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T10:52:18.202Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T011",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T11:00:16.164Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T012",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T11:04:09.907Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T013",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T11:04:11.320Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T014",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T11:12:33.699Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T015",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T11:13:31.604Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T016",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T11:33:53.223Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T11:33:53.398Z"
+    }
+  ],
+  "telemetryInstanceId": "082d2abc-49e3-44be-8154-1003f4b32bb8",
+  "last_action": "16/16 tasks done; 265 tests pass; SC-001 100%, SC-002 0; SC-003 not met for url_for on flask",
+  "coverage": {
+    "FR-001": {
+      "title": "Ingest records, for each parsed file, the files it imports within the same repository",
+      "tasks": [
+        "T001",
+        "T002",
+        "T005",
+        "T007",
+        "T008"
+      ],
+      "tests": [
+        "tests/test_chunker.py::test_python_imports",
+        "tests/test_graph.py"
+      ]
+    },
+    "FR-002": {
+      "title": "Ingest records each call's calling symbol (or file), called symbol and line",
+      "tasks": [
+        "T001",
+        "T002",
+        "T005",
+        "T007",
+        "T008"
+      ],
+      "tests": [
+        "tests/test_chunker.py::test_python_calls",
+        "tests/test_graph.py"
+      ]
+    },
+    "FR-003": {
+      "title": "Calls come from the parse tree, never from comments, docstrings or strings",
+      "tasks": [
+        "T001",
+        "T002",
+        "T014"
+      ],
+      "tests": [
+        "tests/test_chunker.py::test_python_calls"
+      ]
+    },
+    "FR-004": {
+      "title": "Relationships exposed as a property graph over the stored tables, no copy",
+      "tasks": [
+        "T003",
+        "T004"
+      ],
+      "tests": [
+        "tests/test_schema.py::test_graph_one_hop_calls"
+      ]
+    },
+    "FR-005": {
+      "title": "ccctx callers lists callers with repository, kind, path, line and definition called",
+      "tasks": [
+        "T005",
+        "T006",
+        "T009",
+        "T010"
+      ],
+      "tests": [
+        "tests/test_graph.py::test_callers_of_a_bare_name_cover_every_definition",
+        "tests/test_cli.py"
+      ]
+    },
+    "FR-006": {
+      "title": "ccctx calls lists the symbols a definition calls with repository, kind, path and line",
+      "tasks": [
+        "T005",
+        "T006",
+        "T009",
+        "T010"
+      ],
+      "tests": [
+        "tests/test_graph.py::test_calls",
+        "tests/test_cli.py"
+      ]
+    },
+    "FR-007": {
+      "title": "ccctx impact lists every symbol within n hops once, shortest hop count, nearest first",
+      "tasks": [
+        "T005",
+        "T006",
+        "T009",
+        "T010"
+      ],
+      "tests": [
+        "tests/test_graph.py::test_impact_hops",
+        "tests/test_cli.py"
+      ]
+    },
+    "FR-008": {
+      "title": "Callers, calls and impact are answered by graph pattern queries",
+      "tasks": [
+        "T009"
+      ],
+      "tests": [
+        "tests/test_graph.py"
+      ]
+    },
+    "FR-009": {
+      "title": "A qualified name matches only that definition; a bare name matches every definition",
+      "tasks": [
+        "T005",
+        "T009"
+      ],
+      "tests": [
+        "tests/test_graph.py::test_qualified_name_narrows_to_the_method"
+      ]
+    },
+    "FR-010": {
+      "title": "Each command accepts --repo repeatedly and searches all repositories by default",
+      "tasks": [
+        "T005",
+        "T006",
+        "T009",
+        "T010"
+      ],
+      "tests": [
+        "tests/test_graph.py::test_repos_limit_every_question"
+      ]
+    },
+    "FR-011": {
+      "title": "Unknown names and out-of-range depths are refused with a message",
+      "tasks": [
+        "T005",
+        "T006",
+        "T009",
+        "T010"
+      ],
+      "tests": [
+        "tests/test_graph.py::test_depth_out_of_range",
+        "tests/test_cli.py",
+        "tests/test_server.py::test_graph_input_refused_before_connecting"
+      ]
+    },
+    "FR-012": {
+      "title": "Incremental relationships equal a full rebuild; stale relationships are removed",
+      "tasks": [
+        "T007",
+        "T008",
+        "T011"
+      ],
+      "tests": [
+        "tests/test_ingest.py::test_graph_follows_edits_and_deletions",
+        "tests/test_ingest.py::assert_matches_full"
+      ]
+    },
+    "FR-013": {
+      "title": "First ingest of a pre-existing repository extracts relationships for every file",
+      "tasks": [
+        "T004",
+        "T008",
+        "T011"
+      ],
+      "tests": [
+        "tests/test_ingest.py::test_repository_indexed_before_the_graph_is_reread_without_reembedding"
+      ]
+    },
+    "FR-014": {
+      "title": "Callers, calls and impact are MCP tools with the CLI's results",
+      "tasks": [
+        "T012",
+        "T013",
+        "T014"
+      ],
+      "tests": [
+        "tests/test_server.py::test_graph_tools_match_core"
+      ]
+    }
+  },
+  "size": "oversized",
+  "classification": {
+    "projectedFiles": 13,
+    "projectedTasks": 22,
+    "scopeSignal": "larger",
+    "verdict": "oversized"
+  },
+  "expectations": [
+    "type inference or dynamic-call resolution",
+    "cross-repository call edges",
+    "relationships from templates, docs or fallback-window files",
+    "a separate graph database copy of the data"
+  ],
+  "context": [
+    "area: src/golestan_code_mcp/chunker.py (tree-sitter Python/Go/JavaScript symbol extraction; calls and imports come from the same parse)",
+    "area: src/golestan_code_mcp/ingest.py (incremental write path, per-symbol reuse in changed files)",
+    "area: src/golestan_code_mcp/schema.py (migrations; edge tables and CREATE PROPERTY GRAPH)",
+    "area: src/golestan_code_mcp/cli.py and server.py (new callers, calls, impact commands and MCP tools)",
+    "data: flask has 187 url_for lines for grep, 85 in Python, 56 call-shaped; the rest are rst docs, html templates, comments, docstrings",
+    "constraint: constitution III requires every capability as an MCP tool; VII read-only indexing"
+  ],
+  "intent": "Record imports, calls and defines at ingest, expose them as a SQL property graph over the existing tables, and answer callers, calls and depth-limited impact with GRAPH_TABLE MATCH queries",
+  "decisions": [
+    {
+      "decision": "Property graph ccctx_graph over ccctx_files and ccctx_symbols, with defines as ccctx_symbols.file_id aliased as an edge table; create or replace",
+      "why": "probed: one table can be vertex and edge, so nothing is copied; or replace lets a later migration redefine the graph instead of silently keeping it under the tolerated ORA-00955",
+      "rejected": "a separate defines table; plain create"
+    },
+    {
+      "decision": "Store call and import refs per file; rebuild ccctx_calls, ccctx_file_calls and ccctx_imports for the whole repository after every ingest write",
+      "why": "edited callees get new symbol ids, so edges kept across ingests would lose calls from unchanged callers; derived edges make incremental equal full by construction",
+      "rejected": "resolving once at write time; re-reading dependent files"
+    },
+    {
+      "decision": "Resolve calls by name with call form: bare -> functions and classes; attr on an imported module -> as bare; attr on self/cls/this -> methods; other attr -> methods; prefer same file, then imported file, then repository",
+      "why": "42 of flask's 56 url_for( lines are flask.url_for(...); without the module rule they resolve to the Flask.url_for method",
+      "rejected": "attribute calls always meaning methods (the spec's first rule)"
+    },
+    {
+      "decision": "Module-level calls are a second calls edge table from code_file (ccctx_file_calls)",
+      "why": "an edge table has one source vertex table; keeps patterns labeled and avoids synthetic module symbols that would change counts and search",
+      "rejected": "nullable caller in one table; a module symbol per file"
+    },
+    {
+      "decision": "extract_version on ccctx_repos triggers a re-parse of every file as changed, keeping unchanged symbols",
+      "why": "repositories indexed before this step get refs without the 11-minute re-embed a full rebuild costs",
+      "rejected": "nulling indexed_commit to force --full"
+    },
+    {
+      "decision": "Impact = transitive callers via MATCH ->{1,N}, min hops per symbol, N a validated literal 1..5",
+      "why": "changing a function breaks its callers; a quantifier cannot be a bind variable; bounded quantifiers terminate on cycles (probed)",
+      "rejected": "recursive SQL outside the graph"
+    },
+    {
+      "decision": "Calls attributed to the innermost function or method by byte range of the definition node, not the decorated wrapper",
+      "why": "decorator calls run at definition time and belong to the enclosing scope",
+      "rejected": "line-range containment"
+    },
+    {
+      "decision": "A Python from-import stores the member as part of the module (from a.b import c is a.b.c); resolution falls back to the parent package",
+      "why": "the member may be a submodule, and an empty module for 'from . import x' would be NULL in a not-null column",
+      "rejected": "module = from-module only, which cannot express 'from . import x'"
+    },
+    {
+      "decision": "Rule 2 treats r.x() as bare only when r is bound to an import that resolves to a module file of the repository",
+      "why": "a stdlib 'import json' then json.dumps() must not reach the repo's own dumps; 'from app import Flask' then Flask.url_for() must reach the method",
+      "rejected": "any imported name as receiver"
+    },
+    {
+      "decision": "Python import paths match by suffix only from a source root (a directory that is not a package)",
+      "why": "import json must not reach src/flask/json/__init__.py",
+      "rejected": "plain path-suffix matching"
+    },
+    {
+      "decision": "graph.check_name is shared by the CLI and the MCP tools",
+      "why": "both must refuse an empty name before connecting; one copy instead of three",
+      "rejected": "inline checks per caller"
+    }
+  ],
+  "step_summaries": {
+    "plan": {
+      "summary": "Plan, research (probed PGQ), data model and three contracts for a SQL property graph of imports, calls and defines with callers, calls and impact",
+      "key_finding": "Most flask url_for calls are module-qualified (flask.url_for), so call resolution must treat an attribute on an imported module as a function call"
+    },
+    "tasks": {
+      "summary": "16 tasks: Foundational (1 wave of 4), US1-US3 combined (tests + 3 waves), US4 tests, US5 (1 wave of 2), Polish (3 sequential)"
+    },
+    "implement": {
+      "summary": "Code graph shipped: refs per file, edges rebuilt per ingest, ccctx_graph property graph, callers/calls/impact via GRAPH_TABLE in CLI and MCP"
+    }
+  },
+  "approach": "Extract calls and imports from the existing tree-sitter parse and store them as refs per file; after every ingest write, rebuild the repository's call and import edges from the refs by name resolution. Migration 6 adds the ref and edge tables and a create or replace property graph over files and symbols; graph.py answers callers, calls and depth-limited impact with GRAPH_TABLE MATCH queries for the CLI and MCP.",
+  "currentTask": "T016",
+  "task_summaries": {
+    "T001": {
+      "status": "DONE",
+      "did": "Tests for chunker.parse calls/imports across Python, Go, JS and the syntax-error gate",
+      "files": [
+        "tests/test_chunker.py"
+      ]
+    },
+    "T002": {
+      "status": "DONE",
+      "did": "chunker.parse returns chunks, calls (caller, name, form, receiver, line) and imports (module, rel_level, bound) from one tree; chunk() wraps it",
+      "files": [
+        "src/golestan_code_mcp/chunker.py"
+      ]
+    },
+    "T004": {
+      "status": "DONE",
+      "did": "Migration 6: ref and edge tables, extract_version, create or replace property graph ccctx_graph; applied live and re-run as a no-op",
+      "files": [
+        "src/golestan_code_mcp/schema.py"
+      ]
+    },
+    "T003": {
+      "status": "DONE",
+      "did": "Migration 6 schema tests: tables + extract_version, form check, import pair uk, file-delete cascade of refs/edges, one-hop graph_table over calls",
+      "files": [
+        "tests/test_schema.py"
+      ]
+    },
+    "T007": {
+      "status": "DONE",
+      "did": "graph.rebuild resolves imports (Python source-root suffix and relative, Go module-path package dirs, JS relative) and calls by the four rules plus same-file/imported/repo tie-break; rebuilds the repo's edge tables",
+      "files": [
+        "src/golestan_code_mcp/graph.py"
+      ]
+    },
+    "T008": {
+      "status": "DONE",
+      "did": "ingest switches to chunker.parse, replaces refs per re-read file with callers mapped to kept or inserted symbols, EXTRACT_VERSION=1 re-reads every listed file on mismatch, sets extract_version and calls graph.rebuild in the same transaction",
+      "files": [
+        "src/golestan_code_mcp/ingest.py"
+      ]
+    },
+    "T005": {
+      "status": "DONE",
+      "did": "graph tests on two tiny repos (Python; Go+JS): resolution rules and tie-break, imports per language, callers/calls/impact hops, diamond, cycle, recursion, refusals, repos filter",
+      "files": [
+        "tests/test_graph.py"
+      ]
+    },
+    "T009": {
+      "status": "DONE",
+      "did": "graph.callers (symbol and code_file queries), graph.calls and graph.impact ({1,N} quantifier, min hops) as GRAPH_TABLE MATCH queries returning Caller/Callee/Impact; case-sensitive name matching, depth 1-5 checked, repos filter on targets and results",
+      "files": [
+        "src/golestan_code_mcp/graph.py"
+      ]
+    },
+    "T006": {
+      "status": "DONE",
+      "did": "CLI tests: the three headers and empty messages, --repo repeated, --depth default 3, bad depth and empty name exit 1 before connecting, unknown name exits 1",
+      "files": [
+        "tests/test_cli.py"
+      ]
+    },
+    "T010": {
+      "status": "DONE",
+      "did": "ccctx callers, calls and impact [--depth N] with --repo, formatted per contracts/cli.md; name and depth checked before connecting",
+      "files": [
+        "src/golestan_code_mcp/cli.py"
+      ]
+    },
+    "T011": {
+      "status": "DONE",
+      "did": "assert_matches_full also compares refs and edges by names and paths; tests for edited callee, deleted caller, pre-graph re-read without re-embed, failed re-read keeps version",
+      "files": [
+        "tests/test_ingest.py"
+      ]
+    },
+    "T012": {
+      "status": "DONE",
+      "did": "Server tests: tool list and schemas, each graph tool equals its core, 200 cap with truncated, refusals before connecting and as results, logging",
+      "files": [
+        "tests/test_server.py"
+      ]
+    },
+    "T013": {
+      "status": "DONE",
+      "did": "MCP tools callers, calls, impact on the graph core with the status/reason/results/truncated envelope; graph.check_name shared with the CLI",
+      "files": [
+        "src/golestan_code_mcp/server.py",
+        "src/golestan_code_mcp/graph.py",
+        "src/golestan_code_mcp/cli.py"
+      ]
+    },
+    "T014": {
+      "status": "DONE",
+      "did": "Live: flask upgrade 1.7s/0 re-embedded; SC-001 51/51; SC-002 0 non-code; SC-003 not met for url_for (37=37 lines, no 2-hop callers exist), holds for Flask.url_for (2->37); SC-004 queries 9-627 ms; SC-006 tools equal core",
+      "files": [
+        "scratchpad/sc_check.py"
+      ]
+    },
+    "T015": {
+      "status": "DONE",
+      "did": "README: Code relationships section with the three commands, matching rules, flask numbers and limits; MCP tool list and layout updated",
+      "files": [
+        "README.md"
+      ]
+    },
+    "T016": {
+      "status": "DONE",
+      "did": "265 passed with the database, 115 passed/150 skipped without; ruff 25 = 22 accepted + 3 BLE001 db-skip in new tests; fixed test_graph queries that leaked into flask's graph",
+      "files": [
+        "tests/test_graph.py"
+      ]
+    }
+  },
+  "verified": [
+    {
+      "what": "full suite with database",
+      "command": "uv run pytest -q",
+      "source": "derived",
+      "exitCode": 0,
+      "durationSeconds": 205.3,
+      "result": "........................................................................ [ 81%] · .................................................                        [100%] · 265 passed in 203.36s (0:03:23)"
+    },
+    {
+      "what": "full suite without database (DB_PORT=1)",
+      "command": "env DB_PORT=1 uv run pytest -q",
+      "source": "derived",
+      "exitCode": 0,
+      "durationSeconds": 190.9,
+      "result": "s...........ssssss......ssssssssssssssssssssssssssssssss............ssss [ 81%] · sssssssssssssssssss..s..s.sssssssss..ssssss...ss.                        [100%] · 115 passed, 150 skipped in 189.24s (0:03:09)"
+    },
+    {
+      "what": "ruff on src and tests (22 accepted + 3 BLE001 db-skip)",
+      "command": "uvx ruff check src tests --statistics",
+      "source": "derived",
+      "exitCode": 1,
+      "durationSeconds": 0.9,
+      "result": " 1\tI001   \t[*] unsorted-imports · Found 25 errors. · [*] 1 fixable with `--fix` (4 unsafe fixes available with `--fix --unsafe-fixes`).",
+      "warnings": [
+        "exited 1"
+      ]
+    },
+    {
+      "what": "SC-001 recall of real url_for calls inside functions and methods (ast ground truth vs graph.callers)",
+      "command": "uv run python -I scratchpad/sc_check.py ../ccctx-repos/flask",
+      "result": "51/51 = 100%"
+    },
+    {
+      "what": "SC-002 no callers row from a comment, docstring, string, docs or template",
+      "command": "uv run python -I scratchpad/sc_check.py ../ccctx-repos/flask",
+      "result": "0 of 51 rows; 136 of 187 grep lines were non-call"
+    },
+    {
+      "what": "SC-003 impact depth 1 vs 3 line counts",
+      "command": "ccctx impact url_for --depth 1|3 | wc -l",
+      "result": "37 and 37 for url_for (no 2-hop callers exist in flask); Flask.url_for 2 -> 37",
+      "warnings": [
+        "SC-003 as written is not met for url_for on flask"
+      ]
+    },
+    {
+      "what": "SC-004 query time in-process",
+      "command": "graph.callers/calls/impact on url_for",
+      "result": "27 / 9 / 10-627 ms; CLI wall about 1.5-2.4 s, the same as ccctx repo list (2.1 s) startup"
+    },
+    {
+      "what": "FR-013 upgrade of a pre-graph index",
+      "command": "ccctx ingest flask",
+      "result": "231 files re-read, 0 symbols re-embedded, 1.7 s"
+    }
+  ],
+  "concerns": [
+    {
+      "note": "SC-003 (depth 3 returns more than depth 1) does not hold for the user's own example: every caller of url_for in flask is a test or a view, which pytest and the router call, so no code calls them and depth 1 = depth 3 = 36 symbols. It holds for Flask.url_for (1 -> 36) and gin New (154 -> 354).",
+      "step": "implement"
+    },
+    {
+      "note": "simplified: impact's {1,N} pattern enumerates every path, so a heavily called name costs seconds at depth 3 (gin New: 2.4 s, SC-004 is 2 s). Walk one hop per level from the frontier if that binds.",
+      "step": "implement"
+    },
+    {
+      "note": "simplified: edges are rebuilt for the whole repository on every ingest. Rebuild only the affected names when it shows up in timings.",
+      "step": "implement"
+    },
+    {
+      "note": "Two of the four Foundational workers (T002, T004) were blocked by the auto-mode classifier and built inline.",
+      "step": "implement"
+    }
+  ]
+}

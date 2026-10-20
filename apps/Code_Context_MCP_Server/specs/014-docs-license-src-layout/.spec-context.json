@@ -1,0 +1,321 @@
+{
+  "workflow": "speckit",
+  "specName": "Docs, License and Source Layout",
+  "branch": "014-docs-license-src-layout",
+  "currentStep": "implement",
+  "status": "completed",
+  "history": [
+    {
+      "step": "specify",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-16T09:58:35.000Z"
+    },
+    {
+      "step": "specify",
+      "substep": null,
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:01:51.064Z"
+    },
+    {
+      "step": "plan",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-16T10:02:55.060Z"
+    },
+    {
+      "step": "plan",
+      "substep": null,
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:07:21.728Z"
+    },
+    {
+      "step": "tasks",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-16T10:08:55.773Z"
+    },
+    {
+      "step": "tasks",
+      "substep": null,
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:10:51.584Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-16T10:12:38.582Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T001",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:47:45.340Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T002",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:47:45.340Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T003",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:47:45.340Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T004",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:47:45.340Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T005",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:47:45.340Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T006",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:47:45.340Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T007",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:47:45.340Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T008",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:47:45.341Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T009",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:47:45.341Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T010",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:47:45.341Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T011",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:47:45.341Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T012",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:47:45.341Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T013",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:47:45.341Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T014",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:47:45.341Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T015",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:47:45.341Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T016",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:47:45.341Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T017",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:47:45.341Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T018",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:47:45.341Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T019",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:47:45.341Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T020",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:47:45.341Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T021",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:47:45.341Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T022",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:47:45.341Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T023",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:47:45.341Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T024",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:47:45.341Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T025",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:47:45.341Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T026",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:47:45.341Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T027",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:47:45.341Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T028",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:47:45.341Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T029",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:47:45.341Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T030",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:47:45.341Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-16T10:47:45.341Z"
+    }
+  ],
+  "telemetryInstanceId": "d2e20756-30de-4388-8e50-48eb217753d4",
+  "currentTask": null,
+  "concerns": [
+    {
+      "note": "finished, unverified",
+      "step": "implement"
+    }
+  ],
+  "verified": [
+    {
+      "what": "Full suite: 1009 passed, 1 known feedback-dependent failure (test_search_code_matches_core, fails on master too)"
+    },
+    {
+      "what": "test_layout.py and test_docs.py pass; docscheck.py: 0 lines missing; renames-only diff of src; golestan-check-db, ccctx --help, ccctx repo list work after reinstall"
+    }
+  ]
+}

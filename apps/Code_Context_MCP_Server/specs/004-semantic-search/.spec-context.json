@@ -1,0 +1,752 @@
+{
+  "workflow": "companion",
+  "specName": "Semantic Code Search",
+  "branch": "004-semantic-search",
+  "currentStep": "implement",
+  "status": "completed",
+  "history": [
+    {
+      "step": "specify",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-10T21:54:29.181Z"
+    },
+    {
+      "step": "specify",
+      "substep": null,
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-10T21:55:42.348Z"
+    },
+    {
+      "step": "plan",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-10T21:58:53.825Z"
+    },
+    {
+      "step": "plan",
+      "substep": "research",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T22:03:27.688Z"
+    },
+    {
+      "step": "plan",
+      "substep": "design",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T22:06:43.418Z"
+    },
+    {
+      "step": "plan",
+      "substep": null,
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T22:06:48.102Z"
+    },
+    {
+      "step": "tasks",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-10T22:07:53.500Z"
+    },
+    {
+      "step": "tasks",
+      "substep": "generate",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T22:08:55.671Z"
+    },
+    {
+      "step": "tasks",
+      "substep": null,
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T22:08:56.687Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-10T22:09:34.715Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T001",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T22:10:20.041Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T002",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T22:10:20.630Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T003",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T22:10:21.284Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T004",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T22:11:11.378Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T005",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T22:12:43.114Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T006",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T22:12:43.659Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T007",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T22:13:48.111Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T008",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T22:13:49.269Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T009",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T22:14:51.141Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T010",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T22:15:39.954Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T011",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T22:17:18.350Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T012",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T22:17:19.365Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T013",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T22:18:35.487Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T014",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T22:20:21.142Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T015",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T22:20:22.808Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T016",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T22:21:01.049Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T017",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T22:21:50.233Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T018",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T22:21:51.207Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T019",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T22:40:52.365Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T020",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T22:44:17.024Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T021",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T22:48:47.150Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T22:48:47.347Z"
+    }
+  ],
+  "telemetryInstanceId": "efe81639-4ae5-43c7-8ab5-606feb799361",
+  "last_action": "20/21 tasks done; 137 tests pass; T021 held: flask routing code not in overall top 10 for the routing question",
+  "coverage": {
+    "FR-001": {
+      "title": "Setup loads all_MiniLM_L12_v2 ONNX via DBMS_VECTOR.LOAD_ONNX_MODEL as ALL_MINILM_L12_V2; no-op when present",
+      "tasks": [
+        "T006",
+        "T008",
+        "T009",
+        "T013",
+        "T014"
+      ],
+      "tests": [
+        "tests/test_semantic.py::test_model_is_loaded_and_recorded",
+        "test_load_model_again_changes_nothing",
+        "tests/test_cli.py::test_model_load_when_present"
+      ]
+    },
+    "FR-002": {
+      "title": "Model file fetched once from Oracle's published location; no code or symbol text leaves the database",
+      "tasks": [
+        "T001",
+        "T002",
+        "T008"
+      ],
+      "tests": [
+        "tests/test_semantic.py::test_failed_download_names_the_url_and_leaves_nothing",
+        "tests/test_config.py::test_model_settings_defaults_and_overrides"
+      ]
+    },
+    "FR-003": {
+      "title": "Each symbol has an embedding in a VECTOR(384, FLOAT32) column",
+      "tasks": [
+        "T005",
+        "T007",
+        "T010"
+      ],
+      "tests": [
+        "tests/test_schema.py::test_tables_exist_and_version_recorded",
+        "tests/test_semantic.py::test_embeddings_are_384_float32"
+      ]
+    },
+    "FR-004": {
+      "title": "Database computes embeddings with VECTOR_EMBEDDING on insert, not the application",
+      "tasks": [
+        "T010",
+        "T011"
+      ],
+      "tests": [
+        "tests/test_ingest.py::test_every_symbol_gets_an_embedding"
+      ]
+    },
+    "FR-005": {
+      "title": "Embedded text includes symbol name, kind, file path and source",
+      "tasks": [
+        "T011"
+      ],
+      "tests": [
+        "tests/test_ingest.py::test_every_symbol_gets_an_embedding"
+      ]
+    },
+    "FR-006": {
+      "title": "HNSW index ORGANIZATION INMEMORY NEIGHBOR GRAPH DISTANCE COSINE WITH TARGET ACCURACY 95 on the embedding",
+      "tasks": [
+        "T003",
+        "T004",
+        "T006",
+        "T008"
+      ],
+      "tests": [
+        "tests/test_semantic.py::test_model_is_loaded_and_recorded"
+      ]
+    },
+    "FR-007": {
+      "title": "Model name and dimension recorded alongside the index",
+      "tasks": [
+        "T006",
+        "T007",
+        "T008"
+      ],
+      "tests": [
+        "tests/test_semantic.py::test_model_is_loaded_and_recorded"
+      ]
+    },
+    "FR-008": {
+      "title": "Ingest refuses, changing nothing, when the model is not loaded, naming the setup command",
+      "tasks": [
+        "T010",
+        "T011"
+      ],
+      "tests": [
+        "tests/test_ingest.py::test_missing_model_changes_nothing"
+      ]
+    },
+    "FR-009": {
+      "title": "ccctx search embeds the question in-database and returns the 10 closest symbols by cosine distance",
+      "tasks": [
+        "T006",
+        "T008",
+        "T013",
+        "T014",
+        "T021"
+      ],
+      "tests": [
+        "tests/test_semantic.py::test_search_ranks_by_meaning"
+      ]
+    },
+    "FR-010": {
+      "title": "Drop results with cosine similarity below 0.3 (similarity = 1 - distance)",
+      "tasks": [
+        "T006",
+        "T008",
+        "T013"
+      ],
+      "tests": [
+        "tests/test_semantic.py::test_search_ranks_by_meaning",
+        "test_floor_drops_weak_matches"
+      ]
+    },
+    "FR-011": {
+      "title": "Results show rank, similarity, repo, kind, name, path, line range, most similar first",
+      "tasks": [
+        "T013",
+        "T014"
+      ],
+      "tests": [
+        "tests/test_cli.py::test_search_prints_ranked_table"
+      ]
+    },
+    "FR-012": {
+      "title": "No result above the floor: say so and exit 0",
+      "tasks": [
+        "T013",
+        "T014"
+      ],
+      "tests": [
+        "tests/test_cli.py::test_search_nothing_similar_enough"
+      ]
+    },
+    "FR-013": {
+      "title": "ccctx search --repo <name> filters to one repository; unknown name refused",
+      "tasks": [
+        "T006",
+        "T008",
+        "T013",
+        "T014"
+      ],
+      "tests": [
+        "tests/test_semantic.py::test_unknown_repo_refused",
+        "tests/test_cli.py::test_search_unknown_repo"
+      ]
+    },
+    "FR-014": {
+      "title": "Refuse empty question, unreachable DB, missing model: non-zero, clear message, no secret",
+      "tasks": [
+        "T006",
+        "T013",
+        "T014"
+      ],
+      "tests": [
+        "tests/test_cli.py::test_search_empty_question_refused_before_connecting",
+        "test_search_missing_model_hint",
+        "test_search_unreachable_exits_2"
+      ]
+    },
+    "FR-015": {
+      "title": "MCP search tool returns the same results as ccctx search via the same core code",
+      "tasks": [
+        "T016",
+        "T017",
+        "T021"
+      ],
+      "tests": [
+        "tests/test_server.py::test_search_matches_core",
+        "test_search_refusals_are_results",
+        "test_search_unreachable_is_a_result"
+      ]
+    }
+  },
+  "size": "normal",
+  "classification": {
+    "projectedFiles": 11,
+    "projectedTasks": 18,
+    "scopeSignal": "none",
+    "verdict": "normal"
+  },
+  "expectations": [
+    "keyword search and fused (hybrid) ranking",
+    "incremental re-embedding by hash or commit (step 5)",
+    "choosing or switching embedding models",
+    "graph or feedback ranking signals"
+  ],
+  "context": [
+    "area: src/golestan_code_mcp/schema.py (migration 3: embedding column, HNSW index, model record)",
+    "area: src/golestan_code_mcp/ingest.py (_insert_symbols to use VECTOR_EMBEDDING; model check)",
+    "area: src/golestan_code_mcp/cli.py (search, model load)",
+    "area: src/golestan_code_mcp/server.py (search MCP tool)",
+    "area: compose.yaml / db/startup (vector memory pool, model file directory)",
+    "constraint: constitution I in-database ONNX embeddings, no external API",
+    "constraint: constitution: model name and dimension recorded per index; no mixed models",
+    "constraint: constitution III search exposed as MCP tool with source locations",
+    "conflict: constitution IV default search must fuse keyword+semantic; this step is semantic-only, fusion deferred"
+  ],
+  "intent": "Load ALL_MINILM_L12_V2 into Oracle, embed every symbol in-database on insert into VECTOR(384, FLOAT32) with an HNSW cosine index, and add ccctx search (top 10, similarity >= 0.3) plus an MCP search tool",
+  "decisions": [
+    {
+      "decision": "Download Oracle's current OML-ai-models/all_MiniLM_L12_v2.onnx (133 MB) once into .cache/models; URL overridable via CCCTX_MODEL_URL",
+      "why": "older OML-Resources augmented zip link now 404s; direct .onnx needs no unzip; weights carry no code",
+      "rejected": "committing the file; downloading inside the container"
+    },
+    {
+      "decision": "Load via DBMS_VECTOR.LOAD_ONNX_MODEL BLOB overload as the app user",
+      "why": "no DBA-created directory object, no extra mount; app user already has CREATE MINING MODEL",
+      "rejected": "directory overload; LOAD_ONNX_MODEL_CLOUD"
+    },
+    {
+      "decision": "Startup script sets vector_memory_size=256M in spfile and restarts once when it was 0",
+      "why": "probe: ORA-51950, the pool cannot be raised on a running instance; keeps one-command startup",
+      "rejected": "asking the developer to restart manually"
+    },
+    {
+      "decision": "HNSW index created by ccctx model load, not by a migration; migration 3 adds a nullable embedding column and ccctx_embedding_model",
+      "why": "migrate() runs before every command, so a missing vector pool must not break repo list; existing symbols survive until re-ingest",
+      "rejected": "index in migration; NOT NULL column with delete"
+    },
+    {
+      "decision": "Embed in the insert: VECTOR_EMBEDDING(model USING kind||name||path||chr(10)||source AS data) with named binds",
+      "why": "database computes vectors (FR-004); identity fields first so truncation never drops them",
+      "rejected": "second update pass"
+    },
+    {
+      "decision": "One semantic module owns MODEL, require_model, load_model and search; CLI and MCP tool both call semantic.search",
+      "why": "model name and query live in one place; FR-015 same results",
+      "rejected": "SQL in cli.py like symbols/stats"
+    },
+    {
+      "decision": "Semantic-only default search recorded as a justified constitution IV violation",
+      "why": "request scopes this step to semantic; each result exposes its similarity so fusion can add components later",
+      "rejected": "a quick untuned keyword half"
+    },
+    {
+      "decision": "Embed text built in Python (kind name in path + source) capped at 4000 chars and bound as VARCHAR2; source stays the last bind as a CLOB",
+      "why": "binding the CLOB inside VECTOR_EMBEDDING failed with ORA-24816/ORA-01461 on long flask sources; the model reads only its first few hundred tokens; the database still computes the vector",
+      "rejected": "concatenating the CLOB in SQL"
+    },
+    {
+      "decision": "CLI says 'database error' for failures after connecting, 'database unreachable' only when connecting fails",
+      "why": "an ORA error during ingest was reported as an outage",
+      "rejected": "one message for every oracledb.Error"
+    },
+    {
+      "decision": "registry.repo_id replaces cli._repo_id and is used by semantic.search",
+      "why": "one name lookup that does not require the directory to still exist",
+      "rejected": "a third copy in semantic.py"
+    },
+    {
+      "decision": "Defer SC-003 (flask routing code in the overall top 10) to the hybrid keyword+semantic search step",
+      "why": "developer chose option 3: keyword fusion, required by constitution IV, is the principled fix",
+      "rejected": "tuning the embedded text or down-ranking tests now"
+    }
+  ],
+  "step_summaries": {
+    "plan": {
+      "summary": "Plan: model download+BLOB load, vector pool via startup restart, migration 3 (embedding column + model record), VECTOR_EMBEDDING on insert, HNSW from model load, semantic.search shared by ccctx search and MCP search",
+      "key_finding": "vector_memory_size is 0 and cannot be raised live (ORA-51950); the published augmented zip URL is dead, the current direct .onnx URL works"
+    },
+    "tasks": {
+      "summary": "21 tasks in 6 phases: setup (4), schema+semantic core (5), ingest (3), CLI model load+search (3), MCP search (3), polish (3)"
+    },
+    "implement": {
+      "summary": "In-database ALL_MINILM_L12_V2, VECTOR(384, FLOAT32) embeddings on insert, HNSW cosine index, ccctx model load/search and MCP search; SC-003 open"
+    }
+  },
+  "approach": "ccctx model load downloads the prebuilt ONNX once, loads it as a BLOB with DBMS_VECTOR.LOAD_ONNX_MODEL, records it and builds the HNSW cosine index; a startup script enables the vector memory pool. Ingest stores VECTOR_EMBEDDING in a new VECTOR(384, FLOAT32) column on insert, and semantic.search (shared by ccctx search and an MCP tool) returns the approximate top 10 with similarity >= 0.3.",
+  "currentTask": "T021",
+  "task_summaries": {
+    "T001": {
+      "status": "DONE",
+      "did": "ignore .cache/ (model download cache)",
+      "files": [
+        ".gitignore"
+      ]
+    },
+    "T002": {
+      "status": "DONE",
+      "did": "config.model_url (CCCTX_MODEL_URL, default OML-ai-models onnx) and model_cache (CCCTX_MODEL_CACHE, default .cache/models); tests",
+      "files": [
+        "src/golestan_code_mcp/config.py",
+        "tests/test_config.py"
+      ]
+    },
+    "T003": {
+      "status": "DONE",
+      "did": "02_vector_memory.sh sets vector_memory_size=256M in spfile and restarts once when 0; compose comment",
+      "files": [
+        "db/startup/02_vector_memory.sh",
+        "compose.yaml"
+      ]
+    },
+    "T004": {
+      "status": "DONE",
+      "did": "restart: script set 256M and restarted instance once, FREEPDB1 reopened, check-db ok; second restart: already set, no-op",
+      "files": [
+        "db/startup/02_vector_memory.sh"
+      ]
+    },
+    "T005": {
+      "status": "DONE",
+      "did": "schema tests: version 3 'symbol embedding', nullable VECTOR embedding column, ccctx_embedding_model table; fail first",
+      "files": [
+        "tests/test_schema.py"
+      ]
+    },
+    "T006": {
+      "status": "DONE",
+      "did": "semantic tests: empty question, failed download names URL and leaves nothing, model loaded+recorded+index (SC-001), load again no-op, require_model hint, 384 FLOAT32, ranking/floor/order, repo filter, unknown repo; fail first",
+      "files": [
+        "tests/test_semantic.py"
+      ]
+    },
+    "T007": {
+      "status": "DONE",
+      "did": "migration 3 symbol embedding: nullable embedding vector(384, float32) + ccctx_embedding_model",
+      "files": [
+        "src/golestan_code_mcp/schema.py"
+      ]
+    },
+    "T008": {
+      "status": "DONE",
+      "did": "semantic.py: MODEL/limits, ModelError, Result, require_model, fetch_model (.part then rename), load_model (BLOB LOAD_ONNX_MODEL, dimension check, record, HNSW index), search (approx top 10, floor 0.3); registry.repo_id",
+      "files": [
+        "src/golestan_code_mcp/semantic.py",
+        "src/golestan_code_mcp/registry.py"
+      ]
+    },
+    "T009": {
+      "status": "DONE",
+      "did": "model downloaded+loaded+indexed in 24s; SQL checks: ALL_MINILM_L12_V2 listed, 384-element vector; test_schema+test_semantic 28 passed",
+      "files": [
+        "src/golestan_code_mcp/semantic.py"
+      ]
+    },
+    "T010": {
+      "status": "DONE",
+      "did": "ingest tests: skip without model; every symbol has a 384 embedding; embedded text finds Service.run; missing model fails before discovery with rows unchanged; fail first",
+      "files": [
+        "tests/test_ingest.py"
+      ]
+    },
+    "T011": {
+      "status": "DONE",
+      "did": "ingest: semantic.require_model first; _insert_symbols uses named binds and VECTOR_EMBEDDING(kind||name||path||source) in the insert, source as CLOB",
+      "files": [
+        "src/golestan_code_mcp/ingest.py"
+      ]
+    },
+    "T012": {
+      "status": "DONE",
+      "did": "test_ingest 11 passed with embeddings",
+      "files": [
+        "src/golestan_code_mcp/ingest.py"
+      ]
+    },
+    "T013": {
+      "status": "DONE",
+      "did": "cli tests: model load present, search table/order/floor/3 decimals, nothing similar enough, empty question before connect, unknown repo, missing-model hint, unreachable exit 2; ingest fixtures skip without model; fail first",
+      "files": [
+        "tests/test_cli.py"
+      ]
+    },
+    "T014": {
+      "status": "DONE",
+      "did": "cli: model load and search <question> [--repo]; empty question refused before connecting; ValueError family (incl. ModelError) exits 1; cli._repo_id replaced by registry.repo_id",
+      "files": [
+        "src/golestan_code_mcp/cli.py"
+      ]
+    },
+    "T015": {
+      "status": "DONE",
+      "did": "test_cli 30 passed",
+      "files": [
+        "src/golestan_code_mcp/cli.py"
+      ]
+    },
+    "T016": {
+      "status": "DONE",
+      "did": "server tests: three tools with search(question, repo?) schema; search matches semantic.search (SC-008); empty question, unknown repo, unreachable are unavailable results; fail first",
+      "files": [
+        "tests/test_server.py"
+      ]
+    },
+    "T017": {
+      "status": "DONE",
+      "did": "server: SearchHit/SearchResults models and search(question, repo=None) tool over semantic.search; ValueError family and oracledb.Error become status unavailable",
+      "files": [
+        "src/golestan_code_mcp/server.py"
+      ]
+    },
+    "T018": {
+      "status": "DONE",
+      "did": "test_server 10 passed",
+      "files": [
+        "src/golestan_code_mcp/server.py"
+      ]
+    },
+    "T019": {
+      "status": "DONE",
+      "did": "README: Searching by meaning (model load, SQL checks, settings, vector pool restart, re-ingest, search, floor), search MCP tool, ingest timing, layout",
+      "files": [
+        "README.md"
+      ]
+    },
+    "T020": {
+      "status": "DONE",
+      "did": "full suite: 137 passed with DB up; 77 passed, 60 skipped with DB stopped",
+      "files": [
+        "tests/"
+      ]
+    },
+    "T021": {
+      "status": "DONE",
+      "did": "walkthrough: SC-001/002/004/006/007/008 met; SC-003 partial (gin routing in top 10, flask dispatch only with --repo flask); developer chose to defer SC-003 to the hybrid keyword+semantic step",
+      "files": [
+        "README.md"
+      ]
+    }
+  },
+  "verified": [
+    {
+      "what": "full suite with DB up",
+      "command": "uv run pytest -q",
+      "source": "derived",
+      "exitCode": 0,
+      "durationSeconds": 74.7,
+      "result": "........................................................................ [ 52%] · .................................................................        [100%] · 137 passed in 73.54s (0:01:13)"
+    },
+    {
+      "what": "sourdough search returns nothing",
+      "command": "uv run ccctx search \"recipe for sourdough bread\"",
+      "source": "derived",
+      "exitCode": 0,
+      "durationSeconds": 1.5,
+      "result": "no symbols similar enough (similarity >= 0.30)"
+    },
+    {
+      "what": "SC-001 model checks",
+      "command": "SELECT model_name FROM user_mining_models; SELECT VECTOR_EMBEDDING(ALL_MINILM_L12_V2 USING 'hello world' as data)",
+      "result": "ALL_MINILM_L12_V2 listed; 384-element vector"
+    },
+    {
+      "what": "SC-002/SC-007 re-ingest with embeddings",
+      "command": "ccctx ingest flask; ccctx ingest gin; count null embeddings",
+      "result": "flask 1353 and gin 1634 symbols, 0 null; ~126 s each"
+    },
+    {
+      "what": "SC-004/SC-006 searches",
+      "command": "ccctx search routing question; ccctx search sourdough",
+      "result": "routing: 10 results 0.404-0.449 in 1.7 s; sourdough: none above 0.30"
+    },
+    {
+      "what": "SC-008 MCP vs core",
+      "command": "stdio client call search vs semantic.search",
+      "result": "identical 10 results"
+    },
+    {
+      "what": "vector pool startup script",
+      "command": "docker compose restart x2; docker logs",
+      "result": "first: set 256M and restarted; second: already set (268435456)"
+    },
+    {
+      "what": "full suite with DB stopped",
+      "command": "docker compose stop; uv run pytest -q",
+      "result": "77 passed, 60 skipped"
+    },
+    {
+      "what": "secrets sweep",
+      "command": "scan 197 files and ccctx output",
+      "result": "0 hits; .cache not tracked"
+    }
+  ],
+  "concerns": [
+    {
+      "note": "SC-003 not met: for the routing question flask's overall top-10 entries are request-signal tests and docs; Flask.dispatch_request is 7th within --repo flask (0.382) but outranked by gin routing code overall; Scaffold.route scores 0.299, below the floor",
+      "step": "implement"
+    },
+    {
+      "note": "One flask ingest exited 2 after 50 s right after the ORA-01461 fix; the error was not captured and 3 later runs succeeded",
+      "step": "implement"
+    },
+    {
+      "note": "Ingest now takes ~126 s per repo, dominated by in-database embedding; incremental re-ingest (step 5) will matter",
+      "step": "implement"
+    },
+    {
+      "note": "Constitution IV: search is semantic only (justified in plan Complexity Tracking); keyword fusion still owed",
+      "step": "implement"
+    }
+  ]
+}

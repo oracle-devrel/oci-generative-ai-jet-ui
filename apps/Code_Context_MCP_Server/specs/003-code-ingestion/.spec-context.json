@@ -1,0 +1,763 @@
+{
+  "workflow": "companion",
+  "specName": "Code Ingestion and Chunking",
+  "branch": "003-code-ingestion",
+  "currentStep": "implement",
+  "status": "completed",
+  "history": [
+    {
+      "step": "specify",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-10T21:09:06.580Z"
+    },
+    {
+      "step": "specify",
+      "substep": null,
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-10T21:10:38.226Z"
+    },
+    {
+      "step": "plan",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-10T21:13:26.331Z"
+    },
+    {
+      "step": "plan",
+      "substep": "research",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T21:19:01.563Z"
+    },
+    {
+      "step": "plan",
+      "substep": "design",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T21:22:01.118Z"
+    },
+    {
+      "step": "plan",
+      "substep": null,
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T21:22:05.347Z"
+    },
+    {
+      "step": "tasks",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-10T21:24:07.430Z"
+    },
+    {
+      "step": "tasks",
+      "substep": "generate",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T21:25:18.139Z"
+    },
+    {
+      "step": "tasks",
+      "substep": null,
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T21:25:19.658Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-10T21:28:24.439Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T001",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T21:28:48.955Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T002",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T21:28:49.929Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T003",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T21:29:29.359Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T004",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T21:29:30.668Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T005",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T21:29:49.744Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T006",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T21:29:50.780Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T007",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T21:30:07.540Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T008",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T21:31:25.638Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T012",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T21:31:56.052Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T009",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T21:32:11.967Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T010",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T21:32:55.500Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T011",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T21:32:56.020Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T013",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T21:33:11.889Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T014",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T21:33:54.864Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T015",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T21:35:37.354Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T016",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T21:38:45.715Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T017",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T21:38:46.362Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T018",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T21:44:16.648Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T019",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T21:46:54.811Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T020",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T21:47:27.325Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T21:47:27.471Z"
+    }
+  ],
+  "telemetryInstanceId": "e3445e29-d2b7-4e64-8afe-6c6b240a051e",
+  "last_action": "20/20 tasks done; 112 tests pass with DB up; flask and gin ingested",
+  "coverage": {
+    "FR-001": {
+      "title": "ccctx ingest <name> indexes the registered repository's working tree",
+      "tasks": [
+        "T013",
+        "T016",
+        "T020"
+      ],
+      "tests": [
+        "tests/test_ingest.py::test_ingest_summary_and_rows",
+        "tests/test_cli.py::test_ingest_prints_summary"
+      ]
+    },
+    "FR-002": {
+      "title": "Skip gitignored, vendored, binary, >1 MB files and symlinks, counted per reason",
+      "tasks": [
+        "T002",
+        "T012",
+        "T013"
+      ],
+      "tests": [
+        "tests/test_ingest.py::test_discover_assigns_skip_reasons"
+      ]
+    },
+    "FR-003": {
+      "title": "Vendored directory list is configurable with defaults vendor, node_modules, third_party",
+      "tasks": [
+        "T002",
+        "T012"
+      ],
+      "tests": [
+        "tests/test_ingest.py::test_discover_honours_vendor_setting",
+        "tests/test_config.py::test_ingest_limits_defaults_and_overrides"
+      ]
+    },
+    "FR-004": {
+      "title": "Python, Go, JavaScript cut into one chunk per function, method, class/type",
+      "tasks": [
+        "T001",
+        "T008",
+        "T009",
+        "T010"
+      ],
+      "tests": [
+        "tests/test_chunker.py"
+      ]
+    },
+    "FR-005": {
+      "title": "Chunk line range covers the whole definition including decorators",
+      "tasks": [
+        "T009",
+        "T010",
+        "T020"
+      ],
+      "tests": [
+        "tests/test_chunker.py",
+        "tests/test_ingest.py::test_ingest_summary_and_rows"
+      ]
+    },
+    "FR-006": {
+      "title": "Methods named <Type>.<method> after class or receiver",
+      "tasks": [
+        "T009",
+        "T010"
+      ],
+      "tests": [
+        "tests/test_chunker.py"
+      ]
+    },
+    "FR-007": {
+      "title": "Unparseable or no-grammar files cut into 60-line windows every 50 lines (10 overlap)",
+      "tasks": [
+        "T009",
+        "T010"
+      ],
+      "tests": [
+        "tests/test_chunker.py",
+        "tests/test_ingest.py::test_ingest_summary_and_rows"
+      ]
+    },
+    "FR-008": {
+      "title": "Fallback chunks are marked as fallback",
+      "tasks": [
+        "T009",
+        "T010",
+        "T015"
+      ],
+      "tests": [
+        "tests/test_chunker.py",
+        "tests/test_cli.py::test_symbols_lists_parsed_first"
+      ]
+    },
+    "FR-009": {
+      "title": "Every symbol records the commit at ingest time",
+      "tasks": [
+        "T003",
+        "T005",
+        "T012",
+        "T013"
+      ],
+      "tests": [
+        "tests/test_schema.py::test_commit_sha_rejects_bad_values",
+        "tests/test_ingest.py::test_ingest_summary_and_rows"
+      ]
+    },
+    "FR-010": {
+      "title": "Files store relative path, language, content hash; symbols store source hash",
+      "tasks": [
+        "T012",
+        "T013"
+      ],
+      "tests": [
+        "tests/test_ingest.py::test_ingest_summary_and_rows"
+      ]
+    },
+    "FR-011": {
+      "title": "Re-ingest replaces previous files and symbols (one copy)",
+      "tasks": [
+        "T012",
+        "T013",
+        "T020"
+      ],
+      "tests": [
+        "tests/test_ingest.py::test_reingest_replaces"
+      ]
+    },
+    "FR-012": {
+      "title": "A failed ingest leaves the previous index unchanged",
+      "tasks": [
+        "T012",
+        "T013"
+      ],
+      "tests": [
+        "tests/test_ingest.py::test_failed_ingest_keeps_previous_index"
+      ]
+    },
+    "FR-013": {
+      "title": "Ingest prints Scanned, Skipped (per reason), Indexed (symbols, elapsed) plus fallback counts",
+      "tasks": [
+        "T015",
+        "T016",
+        "T020"
+      ],
+      "tests": [
+        "tests/test_cli.py::test_format_summary_matches_request",
+        "test_format_summary_fallback_and_reason_order"
+      ]
+    },
+    "FR-014": {
+      "title": "Each ingest writes one structured log record with counts, commit, duration",
+      "tasks": [
+        "T013",
+        "T016"
+      ],
+      "tests": [
+        "tests/test_ingest.py::test_ingest_summary_and_rows"
+      ]
+    },
+    "FR-015": {
+      "title": "ccctx symbols --repo --limit lists name, kind, file, lines; parsed before fallback",
+      "tasks": [
+        "T015",
+        "T016",
+        "T020"
+      ],
+      "tests": [
+        "tests/test_cli.py::test_symbols_lists_parsed_first"
+      ]
+    },
+    "FR-016": {
+      "title": "ccctx stats --by-language shows files, parsed symbols, fallback chunks per repo and language",
+      "tasks": [
+        "T015",
+        "T016",
+        "T020"
+      ],
+      "tests": [
+        "tests/test_cli.py::test_stats_by_language"
+      ]
+    },
+    "FR-017": {
+      "title": "Ingestion only reads files; never runs, imports or modifies repository content",
+      "tasks": [
+        "T013"
+      ],
+      "tests": [
+        "tests/test_ingest.py::test_git_helper_is_read_only"
+      ]
+    },
+    "FR-018": {
+      "title": "Refuse unregistered name, missing or non-git directory, unreachable DB; non-zero, no change",
+      "tasks": [
+        "T004",
+        "T006",
+        "T012",
+        "T013",
+        "T015"
+      ],
+      "tests": [
+        "tests/test_ingest.py::test_refuses_non_git_and_empty_repos",
+        "test_concurrent_ingest_refused",
+        "tests/test_cli.py::test_ingest_refusals_exit_1"
+      ]
+    }
+  },
+  "size": "normal",
+  "classification": {
+    "projectedFiles": 12,
+    "projectedTasks": 20,
+    "scopeSignal": "none",
+    "verdict": "normal"
+  },
+  "expectations": [
+    "incremental re-ingestion by commit or hash (step 5)",
+    "embeddings and search",
+    "MCP tools for ingest or symbol lookup",
+    "indexing top-level statements outside definitions"
+  ],
+  "context": [
+    "area: src/golestan_code_mcp/cli.py (add ingest, symbols, stats)",
+    "area: src/golestan_code_mcp/schema.py (migration 2: commit on symbols)",
+    "area: src/golestan_code_mcp/registry.py (lookup repo by name)",
+    "area: tests/test_parser.py and tests/fixtures (existing tree-sitter outline walker)",
+    "area: ../ccctx-repos/flask (236 tracked: 83 py, 79 rst) and gin (130 tracked: 99 go); no JavaScript in either",
+    "constraint: constitution II syntactic chunking, fallback windows flagged, content hash per chunk",
+    "constraint: constitution VII read-only indexing, honor .gitignore plus configurable denylist, skip binaries",
+    "constraint: constitution structured logging of ingestion runs",
+    "constraint: constitution III CLI allowed for ingestion/admin, same core library"
+  ],
+  "intent": "ccctx ingest walks a registered repo, chunks Python/Go/JavaScript by definition with 60/10 line-window fallback, records commit per symbol, and reports a summary; plus ccctx symbols and ccctx stats --by-language",
+  "decisions": [
+    {
+      "decision": "List files with git ls-files (--cached --others --exclude-standard), count ignored with --others --ignored",
+      "why": "git applies root, nested, info/exclude and global ignore rules exactly",
+      "rejected": "pathspec gitignore matcher (new dependency, imperfect nested semantics)"
+    },
+    {
+      "decision": "Run git with core.fsmonitor=false, hooksPath disabled, --no-optional-locks, no shell",
+      "why": "keeps ingestion read-only and stops repo config from running programs (constitution VII, FR-017)",
+      "rejected": "parsing .git directly"
+    },
+    {
+      "decision": "Skip order vendored, symlink(ignored), too large, binary (NUL or invalid UTF-8); limits via CCCTX_MAX_FILE_BYTES and CCCTX_VENDOR_DIRS",
+      "why": "cheap path checks first; file read only when needed",
+      "rejected": "extension-based binary detection"
+    },
+    {
+      "decision": "chunker returns None on no grammar or root has_error; caller windows 60 lines every 50",
+      "why": "spec chose whole-file fallback on any syntax error; keeps chunker pure",
+      "rejected": "partial results from trees with ERROR nodes"
+    },
+    {
+      "decision": "Chunk ranges are whole lines and source is exactly those lines",
+      "why": "stored source matches what an editor shows for the range",
+      "rejected": "node byte slices (drop leading indentation)"
+    },
+    {
+      "decision": "Fallback chunks use kind chunk, named <file>:<start>-<end>",
+      "why": "schema already allows chunk; no new column",
+      "rejected": "is_fallback flag column"
+    },
+    {
+      "decision": "One transaction per ingest: lock repo row nowait, delete files (cascade), insert files returning id, executemany symbols with CLOB source, commit",
+      "why": "FR-011/FR-012 via Oracle transaction; ORA-00054 reports concurrent ingest",
+      "rejected": "staging tables or swap"
+    },
+    {
+      "decision": "Migration 2 clears ccctx_symbols then adds commit_sha varchar2(64) not null with hex check; tolerate ORA-01430/ORA-02264",
+      "why": "commit is reserved; NOT NULL needs an empty table; only test rows can exist before this step",
+      "rejected": "nullable column with app-only enforcement"
+    },
+    {
+      "decision": "JavaScript is the third language (fixture-tested)",
+      "why": "common, maintained 0.25 grammar; neither sample repo has JS",
+      "rejected": "shell (flask has one .sh file)"
+    },
+    {
+      "decision": "Pin tree-sitter>=0.25,<0.26",
+      "why": "0.26.0 segfaults (access violation) on Windows walking class bodies after child_by_field_name/.text over many files; 0.25.2 runs the same walk cleanly",
+      "rejected": "slicing source bytes instead of Node.text (did not fix it)"
+    },
+    {
+      "decision": "Chunker built by one worker (7-file phase); schema, ingest and CLI built inline",
+      "why": "only the chunker phase met the five-file dispatch threshold",
+      "rejected": "per-task workers"
+    },
+    {
+      "decision": "Summary numbers right-aligned to the widest of scanned/skipped/symbols with one space after the label",
+      "why": "matches two of the three sample lines exactly; the sample is internally inconsistent",
+      "rejected": "fixed column widths"
+    }
+  ],
+  "step_summaries": {
+    "plan": {
+      "summary": "Plan: git-listed walk with skip rules, pure tree-sitter chunker for Python/Go/JS with 60/50 windows, one-transaction store with commit_sha (migration 2), ccctx ingest/symbols/stats",
+      "key_finding": "commit is reserved in Oracle (commit_sha), migration 2 needs ORA-01430/02264 tolerated, and git must run with fsmonitor disabled to stay read-only"
+    },
+    "tasks": {
+      "summary": "20 tasks in 6 phases: setup (2), schema+lookup (5), chunker (4, 7 files), ingest (3), commands (3), polish (3)"
+    },
+    "implement": {
+      "summary": "ccctx ingest/symbols/stats: read-only git walk with skip rules, tree-sitter chunks for Python/Go/JavaScript, 60/10 window fallback, commit_sha per symbol, one-transaction replace"
+    }
+  },
+  "approach": "ingest.py lists files via read-only git, applies vendored/symlink/size/binary skips, and chunks each file with chunker.py (tree-sitter Python/Go/JavaScript by definition, else 60-line windows every 50). It replaces the repo's files and symbols in one transaction with commit_sha from HEAD (migration 2) and returns a summary the CLI prints and logs; ccctx symbols and stats read it back.",
+  "currentTask": "T020",
+  "task_summaries": {
+    "T001": {
+      "status": "DONE",
+      "did": "added tree-sitter-javascript>=0.25; uv sync; grammar imports",
+      "files": [
+        "pyproject.toml",
+        "uv.lock"
+      ]
+    },
+    "T002": {
+      "status": "DONE",
+      "did": "config.max_file_bytes and vendor_dirs with defaults, overrides, ConfigError on bad value; tests",
+      "files": [
+        "src/golestan_code_mcp/config.py",
+        "tests/test_config.py"
+      ]
+    },
+    "T003": {
+      "status": "DONE",
+      "did": "schema tests: version 2 + commit_sha column, accepts SHA-1/SHA-256, rejects bad/null; add_symbol passes commit_sha; fail first",
+      "files": [
+        "tests/test_schema.py"
+      ]
+    },
+    "T004": {
+      "status": "DONE",
+      "did": "registry tests: get_repo found, unknown name, deleted directory; symbol insert passes commit_sha; fail first",
+      "files": [
+        "tests/test_registry.py"
+      ]
+    },
+    "T005": {
+      "status": "DONE",
+      "did": "migration 2 symbol commit: clear symbols, add commit_sha varchar2(64) not null, hex check; tolerate ORA-01430/02264",
+      "files": [
+        "src/golestan_code_mcp/schema.py"
+      ]
+    },
+    "T006": {
+      "status": "DONE",
+      "did": "registry.get_repo(conn, name) -> (id, resolved Path); unknown name and deleted dir raise RegistryError",
+      "files": [
+        "src/golestan_code_mcp/registry.py"
+      ]
+    },
+    "T007": {
+      "status": "DONE",
+      "did": "test_schema + test_registry + test_config: 47 passed against live DB (migration 2 applied)",
+      "files": [
+        "src/golestan_code_mcp/schema.py"
+      ]
+    },
+    "T008": {
+      "status": "DONE",
+      "did": "Extended sample.py/sample.go, added sample.js and broken.py fixtures for chunker tests",
+      "files": [
+        "tests/fixtures/sample.py",
+        "tests/fixtures/sample.go",
+        "tests/fixtures/sample.js",
+        "tests/fixtures/broken.py"
+      ]
+    },
+    "T012": {
+      "status": "DONE",
+      "did": "ingest tests: discover skip reasons (ignored/vendored/binary/too large/symlink), vendor setting, git read-only; DB: summary vs rows, commit, hashes, sources, log record, re-ingest, rollback, dirty, non-git/no commits, concurrent lock; fail first",
+      "files": [
+        "tests/test_ingest.py"
+      ]
+    },
+    "T009": {
+      "status": "DONE",
+      "did": "Wrote test_chunker.py (outlines, sources, None cases, windows, detect_language), deleted test_parser.py; fails on missing module",
+      "files": [
+        "tests/test_chunker.py",
+        "tests/test_parser.py"
+      ]
+    },
+    "T010": {
+      "status": "DONE",
+      "did": "Added chunker.py: Chunk, detect_language, chunk (python/go/js via cached tree-sitter parsers), windows",
+      "files": [
+        "src/golestan_code_mcp/chunker.py"
+      ]
+    },
+    "T011": {
+      "status": "DONE",
+      "did": "uv run pytest tests/test_chunker.py green: 18 passed",
+      "files": [
+        "src/golestan_code_mcp/chunker.py"
+      ]
+    },
+    "T013": {
+      "status": "DONE",
+      "did": "ingest.py: read-only git helper, discover with skip reasons, one-transaction store (lock nowait, delete, insert files, executemany CLOB symbols), Summary, JSON log record, IngestError refusals",
+      "files": [
+        "src/golestan_code_mcp/ingest.py"
+      ]
+    },
+    "T014": {
+      "status": "DONE",
+      "did": "test_chunker + test_ingest: 27 passed against live DB",
+      "files": [
+        "src/golestan_code_mcp/ingest.py"
+      ]
+    },
+    "T015": {
+      "status": "DONE",
+      "did": "cli tests: format_summary (request example, fallback line, reason order, nothing skipped), ingest output and refusals, symbols ordering/columns/--kind, stats columns, unreachable for new commands; fail first",
+      "files": [
+        "tests/test_cli.py"
+      ]
+    },
+    "T016": {
+      "status": "DONE",
+      "did": "cli: generalised format_table, format_summary, ingest/symbols/stats subcommands, IngestError exit 1, ingest log handler to stderr",
+      "files": [
+        "src/golestan_code_mcp/cli.py"
+      ]
+    },
+    "T017": {
+      "status": "DONE",
+      "did": "test_cli 22 passed against live DB",
+      "files": [
+        "src/golestan_code_mcp/cli.py"
+      ]
+    },
+    "T018": {
+      "status": "DONE",
+      "did": "README: Ingesting a codebase section (summary, skip rules, settings, chunking, fallback, read-only git, symbols/stats), layout",
+      "files": [
+        "README.md"
+      ]
+    },
+    "T019": {
+      "status": "DONE",
+      "did": "full suite: 112 passed with DB up; 69 passed, 43 skipped with DB stopped",
+      "files": [
+        "tests/"
+      ]
+    },
+    "T020": {
+      "status": "DONE",
+      "did": "flask: 236 scanned, 5 binary, 1,353 symbols in 1.5s; gin: 130, 1,634 in 0.8s; symbols/stats sensible; 10/10 random ranges match disk; re-ingest same counts; secrets sweep clean",
+      "files": [
+        "README.md"
+      ]
+    }
+  },
+  "verified": [
+    {
+      "what": "full suite with DB up",
+      "command": "uv run pytest -q",
+      "source": "derived",
+      "exitCode": 0,
+      "durationSeconds": 59.0,
+      "result": "........................................................................ [ 64%] · ........................................                                 [100%] · 112 passed in 57.30s"
+    },
+    {
+      "what": "ingest flask",
+      "command": "uv run ccctx ingest flask",
+      "source": "derived",
+      "exitCode": 0,
+      "durationSeconds": 2.4,
+      "result": "Indexed 1,353 symbols in 1.3s · Fallback  148 files as line windows (148 no grammar, 0 parse errors) · {\"event\": \"ingest\", \"repo\": \"flask\", \"commit\": \"d086db856be187255b8ec61ef409357393020f32\", \"dirty\": false, \"scanned\": 236, \"skipped\": {\"binary\": 5}, \"files\": 231, \"no_grammar\": 148, \"parse_errors\": 0, \"symbols\": 1353, \"seconds\": 1.3}"
+    },
+    {
+      "what": "stats by language",
+      "command": "uv run ccctx stats --by-language",
+      "source": "derived",
+      "exitCode": 0,
+      "durationSeconds": 1.1,
+      "result": "gin    proto         1        0       1 · gin    text         10        0      12 · gin    yaml         11        0      13"
+    },
+    {
+      "what": "full suite with DB stopped",
+      "command": "docker compose stop; uv run pytest -q -rs",
+      "result": "69 passed, 43 skipped"
+    },
+    {
+      "what": "request walkthrough",
+      "command": "ccctx ingest flask; symbols --repo flask --limit 5; ingest gin; stats --by-language",
+      "result": "flask 236 scanned/5 binary/1,353 symbols 1.5s; gin 130/0/1,634 0.8s; python for flask, go for gin, fallback chunks for docs/config"
+    },
+    {
+      "what": "SC-002 boundaries",
+      "command": "10 random parsed symbols compared to files on disk",
+      "result": "10/10 match, decorators included"
+    },
+    {
+      "what": "SC-005 re-ingest",
+      "command": "ccctx ingest flask twice; repo list",
+      "result": "231 files, 1353 symbols both times"
+    },
+    {
+      "what": "secrets sweep",
+      "command": "scan 184 files and ccctx output for .env passwords",
+      "result": "0 hits"
+    }
+  ],
+  "concerns": [
+    {
+      "note": "tree-sitter is pinned below 0.26 because 0.26.0 crashes on Windows; revisit when 0.26.x is fixed",
+      "step": "implement"
+    },
+    {
+      "note": "Docs (.rst, .md, .html) become fallback windows: flask has 148 fallback files, more than 'a handful'; skipping docs is a one-line skip rule if wanted",
+      "step": "implement"
+    }
+  ]
+}

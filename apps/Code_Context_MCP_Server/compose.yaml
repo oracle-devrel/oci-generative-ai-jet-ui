@@ -1,0 +1,27 @@
+# Oracle AI Database 26ai Free for local development.
+# Start: docker compose up -d   (first start takes a minute or two)
+# The first start after enabling vector search restarts the instance once (db/startup/02_vector_memory.sh).
+# Do not add a top-level `name:`: the volume is named after the project directory
+# (code_context_mcp_server_oradata), so renaming the project would start an empty database.
+services:
+  db:
+    image: container-registry.oracle.com/database/free:latest
+    container_name: oracle26ai
+    environment:
+      ORACLE_PWD: ${ORACLE_PWD:?set ORACLE_PWD in .env}
+      DB_USER: ${DB_USER:?set DB_USER in .env}
+      DB_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD in .env}
+    ports:
+      - "${DB_PORT:-1521}:1521"
+    volumes:
+      - oradata:/opt/oracle/oradata
+      - ./db/startup:/opt/oracle/scripts/startup:ro
+    healthcheck:
+      test: ["CMD", "/opt/oracle/checkDBStatus.sh"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 5m
+
+volumes:
+  oradata:
