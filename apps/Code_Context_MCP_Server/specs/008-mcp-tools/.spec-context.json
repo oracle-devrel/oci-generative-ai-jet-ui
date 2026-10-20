@@ -1,0 +1,615 @@
+{
+  "workflow": "companion",
+  "specName": "Code Context Tools for AI Clients",
+  "branch": "008-mcp-tools",
+  "currentStep": "implement",
+  "status": "completed",
+  "history": [
+    {
+      "step": "specify",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-11T15:56:52.504Z"
+    },
+    {
+      "step": "plan",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-11T15:57:49.858Z"
+    },
+    {
+      "step": "plan",
+      "substep": "research",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T16:00:05.965Z"
+    },
+    {
+      "step": "plan",
+      "substep": "design",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T16:06:06.180Z"
+    },
+    {
+      "step": "plan",
+      "substep": null,
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T16:06:28.180Z"
+    },
+    {
+      "step": "tasks",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-11T16:11:05.244Z"
+    },
+    {
+      "step": "tasks",
+      "substep": "generate",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T16:12:36.956Z"
+    },
+    {
+      "step": "tasks",
+      "substep": null,
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T16:12:44.758Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-11T16:16:29.771Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T001",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T16:16:45.699Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T005",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T16:29:57.837Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T002",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T16:33:04.722Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T004",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T16:34:51.615Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T003",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T16:45:07.864Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T006",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T16:50:52.899Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T007",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T16:50:54.038Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T008",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T16:54:03.139Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T009",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T16:54:04.846Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T010",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T16:56:46.932Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T011",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T17:00:45.903Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T012",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T17:01:42.933Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T013",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T17:12:25.856Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T17:12:26.146Z"
+    }
+  ],
+  "telemetryInstanceId": "38dfc504-f570-4963-bfe8-15c25c742ee3",
+  "decisions": [
+    {
+      "decision": "ccctx mcp is a subcommand dispatched before the CLI connects; golestan-code-mcp stays as an alias",
+      "why": "the server must start with the database down and report outages per call; old registrations keep working",
+      "rejected": "a separate ccctx-mcp script, or connecting at startup"
+    },
+    {
+      "decision": "editable install (uv tool install --editable .) so PROJECT_ROOT/.env is found from any directory",
+      "why": "no code change; environment already overrides .env for non-editable installs",
+      "rejected": "a CCCTX_ENV_FILE setting"
+    },
+    {
+      "decision": "ranges stated in parameter descriptions and checked in the core, not schema ge/le; extra arguments forbidden",
+      "why": "keeps refusals as structured unavailable results shared with the CLI; a stale repos argument must not silently widen a search",
+      "rejected": "schema minimum/maximum, which pydantic turns into isError traces"
+    },
+    {
+      "decision": "each description: question answered, when to prefer it over its neighbor, what returns, next-step hint",
+      "why": "tool choice is decided by comparing descriptions; naming the neighbor prevents search-vs-get_symbol and callers-vs-impact confusion",
+      "rejected": "one-line step 7 style descriptions"
+    },
+    {
+      "decision": "snippet = first 10 lines / 800 chars of stored source, read in the existing hit query",
+      "why": "a definition's opening lines identify it; no extra round trip",
+      "rejected": "lines around keyword matches, which natural-language queries often lack"
+    },
+    {
+      "decision": "language and limit filtered inside semantic.search with the repository scope and pool widening",
+      "why": "CLI and tool stay identical and a narrow filter still fills limit",
+      "rejected": "post-filtering the fixed 10"
+    },
+    {
+      "decision": "get_symbol serves stored source via graph.definitions with the _targets name rules, 5 matches, 400 lines",
+      "why": "matches what was indexed, never touches the repository, names behave the same as in find_callers",
+      "rejected": "reading files from disk; unbounded match lists"
+    },
+    {
+      "decision": "tool choice measured with claude -p, --tools \"\" and stream-json over five questions",
+      "why": "removes file access and records the exact tool order",
+      "rejected": "watching an interactive session only"
+    },
+    {
+      "decision": "extra arguments refused by subclassing each tool's FastMCP arg model with extra=forbid after registration",
+      "why": "FastMCP silently drops undeclared arguments, so a stale repos would widen a search; the schema also advertises additionalProperties false",
+      "rejected": "leaving FastMCP's default"
+    },
+    {
+      "decision": "one _answer helper for check-before-connect, connect, migrate and the unavailable envelope for every tool but list_repositories",
+      "why": "the same refusal shape for all tools without repeating the try blocks",
+      "rejected": "per-tool try/except copies"
+    },
+    {
+      "decision": "ccctx mcp imports the server lazily inside its branch",
+      "why": "only that command needs the MCP library, other commands keep their startup",
+      "rejected": "a top-level import in cli.py"
+    },
+    {
+      "decision": "outage reason stays the driver's message (db.describe), contract wording corrected",
+      "why": "matches the step 7 tools and carries no password",
+      "rejected": "prefixing database unreachable:"
+    }
+  ],
+  "step_summaries": {
+    "plan": {
+      "summary": "plan, research (R1-R8), data-model and contracts (tools.md, cli.md) for six MCP tools, ccctx mcp, search language/limit/snippet and get_symbol; no schema change",
+      "key_finding": "FastMCP ignores unknown arguments and turns schema bounds into isError traces, so ranges and extra-key rejection must be handled deliberately"
+    },
+    "tasks": {
+      "summary": "13 tasks: setup (version), foundational wave of 4 (search core, graph.definitions), tools phase US1-US3 (server.py), client phase US4 (cli.py), polish (live checks, tool-choice eval, README, suites)"
+    },
+    "implement": {
+      "summary": "six read-only MCP tools (search_code, get_symbol, find_callers, find_callees, impact_of, list_repositories) started by ccctx mcp; search gains language, limit and snippets; version 1.0.0"
+    }
+  },
+  "approach": "Reshape the stdio server into six read-only tools with model-oriented descriptions, started by ccctx mcp. Extend semantic.search with language, limit and snippets (and ccctx search with matching flags), add graph.definitions for get_symbol over stored source, and rename the step 7 graph tools. No schema change; version 1.0.0.",
+  "coverage": {
+    "FR-001": {
+      "title": "ccctx mcp starts the server over stdio, no port, no authentication",
+      "tasks": [
+        "T008",
+        "T009",
+        "T010"
+      ],
+      "tests": [
+        "tests/test_cli.py::test_mcp_starts_the_server_without_connecting",
+        "tests/test_cli.py::test_mcp_child_process_serves_the_tools_from_any_directory"
+      ]
+    },
+    "FR-002": {
+      "title": "nothing but protocol messages on standard output",
+      "tasks": [
+        "T008",
+        "T010"
+      ],
+      "tests": [
+        "tests/test_cli.py::test_mcp_child_process_serves_the_tools_from_any_directory"
+      ]
+    },
+    "FR-003": {
+      "title": "database settings found when started from any directory",
+      "tasks": [
+        "T008",
+        "T011",
+        "T012"
+      ],
+      "tests": [
+        "tests/test_cli.py::test_mcp_child_process_serves_the_tools_from_any_directory"
+      ]
+    },
+    "FR-004": {
+      "title": "exactly six tools: the four named plus list_repositories and find_callees; old tools removed",
+      "tasks": [
+        "T001",
+        "T006",
+        "T007"
+      ],
+      "tests": [
+        "tests/test_server.py::test_lists_the_six_tools_as_the_contract_describes_them"
+      ]
+    },
+    "FR-004a": {
+      "title": "find_callees returns the same rows as ccctx calls, capped at 200",
+      "tasks": [
+        "T006",
+        "T007"
+      ],
+      "tests": [
+        "tests/test_server.py::test_graph_tools_match_core"
+      ]
+    },
+    "FR-005": {
+      "title": "search_code takes query, repo, language, limit and returns location, snippet and scores",
+      "tasks": [
+        "T002",
+        "T003",
+        "T006",
+        "T007"
+      ],
+      "tests": [
+        "tests/test_server.py::test_search_code_matches_core",
+        "tests/test_semantic.py"
+      ]
+    },
+    "FR-006": {
+      "title": "search_code matches ccctx search; CLI gains language and count options",
+      "tasks": [
+        "T008",
+        "T009",
+        "T010"
+      ],
+      "tests": [
+        "tests/test_cli.py::test_search_language_and_limit_match_core",
+        "tests/test_server.py::test_search_code_matches_core"
+      ]
+    },
+    "FR-007": {
+      "title": "snippet is the opening of the stored source, at most 10 lines and 800 characters",
+      "tasks": [
+        "T002",
+        "T003"
+      ],
+      "tests": [
+        "tests/test_semantic.py"
+      ]
+    },
+    "FR-008": {
+      "title": "get_symbol returns up to 5 matching definitions with full source, total and truncated flag",
+      "tasks": [
+        "T004",
+        "T005",
+        "T006",
+        "T007"
+      ],
+      "tests": [
+        "tests/test_graph.py",
+        "tests/test_server.py::test_get_symbol_matches_core"
+      ]
+    },
+    "FR-009": {
+      "title": "get_symbol cuts a source over 400 lines and marks it",
+      "tasks": [
+        "T004",
+        "T005"
+      ],
+      "tests": [
+        "tests/test_graph.py"
+      ]
+    },
+    "FR-010": {
+      "title": "find_callers returns the same rows as ccctx callers, capped at 200",
+      "tasks": [
+        "T006",
+        "T007"
+      ],
+      "tests": [
+        "tests/test_server.py::test_graph_tools_match_core",
+        "tests/test_server.py::test_graph_results_are_capped"
+      ]
+    },
+    "FR-011": {
+      "title": "impact_of returns the same rows as ccctx impact, depth 1 to 5 default 3, capped at 200",
+      "tasks": [
+        "T006",
+        "T007"
+      ],
+      "tests": [
+        "tests/test_server.py::test_graph_tools_match_core",
+        "tests/test_server.py::test_graph_input_refused_before_connecting"
+      ]
+    },
+    "FR-012": {
+      "title": "every tool and parameter carries a model-oriented description",
+      "tasks": [
+        "T006",
+        "T007",
+        "T011"
+      ],
+      "tests": [
+        "tests/test_server.py::test_lists_the_six_tools_as_the_contract_describes_them"
+      ]
+    },
+    "FR-013": {
+      "title": "bad input, unknown repo or language, missing model or outage return a structured reason",
+      "tasks": [
+        "T002",
+        "T004",
+        "T006",
+        "T007",
+        "T010"
+      ],
+      "tests": [
+        "tests/test_server.py::test_unreachable_is_a_result",
+        "tests/test_server.py::test_search_code_input_refused_before_connecting",
+        "tests/test_server.py::test_get_symbol_refusals_are_results",
+        "tests/test_server.py::test_unknown_arguments_are_refused"
+      ]
+    },
+    "FR-014": {
+      "title": "every returned item has repository, path and line range",
+      "tasks": [
+        "T006"
+      ],
+      "tests": [
+        "tests/test_server.py::test_search_code_matches_core",
+        "tests/test_server.py::test_graph_tools_match_core"
+      ]
+    },
+    "FR-015": {
+      "title": "each tool call logged to stderr without arguments or source",
+      "tasks": [
+        "T006",
+        "T007"
+      ],
+      "tests": [
+        "tests/test_server.py::test_each_tool_call_is_logged"
+      ]
+    },
+    "FR-016": {
+      "title": "README covers install, Claude Code registration, the Inspector and the rename",
+      "tasks": [
+        "T012"
+      ],
+      "tests": [
+        "README.md (manual)"
+      ]
+    }
+  },
+  "currentTask": "T013",
+  "task_summaries": {
+    "T001": {
+      "status": "DONE",
+      "did": "version 1.0.0 for the tool rename",
+      "files": [
+        "pyproject.toml",
+        "src/golestan_code_mcp/__init__.py"
+      ]
+    },
+    "T005": {
+      "status": "DONE",
+      "did": "graph.definitions: _targets name rules, first 5 by repo/path/start line, source cut at 400 lines with cut flag, plus total; frozen Definition dataclass",
+      "files": [
+        "src/golestan_code_mcp/graph.py"
+      ]
+    },
+    "T002": {
+      "status": "DONE",
+      "did": "search_code tests: language filter, limit 1-50, language check before connecting, language and snippet on every hit, defaults unchanged; teardown scoped to this run",
+      "files": [
+        "tests/test_semantic.py"
+      ]
+    },
+    "T004": {
+      "status": "DONE",
+      "did": "graph.definitions tests: qualified, bare, repo scope and unknown-repo-first, 5-cap order and total, 400-line cut, line windows and empty/unknown name refused",
+      "files": [
+        "tests/test_graph.py"
+      ]
+    },
+    "T003": {
+      "status": "DONE",
+      "did": "semantic.search takes language and limit (in-scope pool widening), adds LANGUAGES, check_limit, check_language, and Result.language/snippet",
+      "files": [
+        "src/golestan_code_mcp/semantic.py"
+      ]
+    },
+    "T006": {
+      "status": "DONE",
+      "did": "contract tests: six tools with contract descriptions, parity, refusals, extra args, outage and recovery, logging; 38 pass",
+      "files": [
+        "tests/test_server.py"
+      ]
+    },
+    "T007": {
+      "status": "DONE",
+      "did": "six read-only tools with model-oriented descriptions, per-parameter Field descriptions, extra arguments forbidden",
+      "files": [
+        "src/golestan_code_mcp/server.py"
+      ]
+    },
+    "T008": {
+      "status": "DONE",
+      "did": "CLI tests: mcp starts without connecting, stdio child process from a temp dir lists six tools and reaches the DB, search --language/--limit match core, refusals exit 1; 64 pass",
+      "files": [
+        "tests/test_cli.py"
+      ]
+    },
+    "T009": {
+      "status": "DONE",
+      "did": "ccctx mcp dispatched before connecting; ccctx search --language and --limit checked before connecting",
+      "files": [
+        "src/golestan_code_mcp/cli.py"
+      ]
+    },
+    "T010": {
+      "status": "DONE",
+      "did": "Inspector lists six described read-only tools; search_code = ccctx search for the routing query (10/10 same order); calls 0.08-1.5s, start 2.2s; outage reasons in ~4.1s",
+      "files": [
+        "specs/008-mcp-tools/contracts/tools.md"
+      ]
+    },
+    "T011": {
+      "status": "DONE",
+      "did": "claude -p with --tools \"\" from an empty dir: expected first tool 5/5 (search_code, get_symbol, find_callers, impact_of, find_callees); routing answered from tools only; no description change needed",
+      "files": [
+        "scratchpad only"
+      ]
+    },
+    "T012": {
+      "status": "DONE",
+      "did": "README: install, ccctx mcp, tool table, 1.0.0 rename, Inspector and claude mcp add, tool-choice results, search --language/--limit",
+      "files": [
+        "README.md"
+      ]
+    },
+    "T013": {
+      "status": "DONE",
+      "did": "pytest 305 passed (DB up), 141 passed + 164 skipped (DB_PORT=1), test_eval included; ruff 28 = 25 baseline + 3 BLE001 db-skip",
+      "files": [
+        "tests/test_server.py"
+      ]
+    }
+  },
+  "verified": [
+    {
+      "what": "full suite with the database",
+      "command": "uv run pytest -q",
+      "source": "derived",
+      "exitCode": 0,
+      "durationSeconds": 329.5,
+      "result": "........................................................................ [ 94%] · .................                                                        [100%] · 305 passed in 325.21s (0:05:25)"
+    },
+    {
+      "what": "suite without the database skips cleanly",
+      "command": "env DB_PORT=1 uv run pytest -q",
+      "source": "derived",
+      "exitCode": 0,
+      "durationSeconds": 283.5,
+      "result": ".....................sssssssssssssssssssssss.ssssss...sssss....s.sssssss [ 94%] · sss....ss......s.                                                        [100%] · 141 passed, 164 skipped in 272.07s (0:04:32)"
+    },
+    {
+      "what": "server contract and CLI tests",
+      "command": "uv run pytest -q tests/test_server.py tests/test_cli.py",
+      "source": "derived",
+      "exitCode": 0,
+      "durationSeconds": 271.9,
+      "result": "........................................................................ [ 70%] · ..............................                                           [100%] · 102 passed in 266.03s (0:04:26)"
+    },
+    {
+      "what": "SC-001 Inspector lists six tools, each parameter described, all read-only",
+      "command": "npx @modelcontextprotocol/inspector --cli uv run ccctx mcp --method tools/list",
+      "result": "6 tools, every parameter has a description, readOnlyHint true"
+    },
+    {
+      "what": "SC-002 search_code equals ccctx search for the routing query on flask",
+      "command": "inspector tools/call search_code vs uv run ccctx search \"how are requests routed\" --repo flask",
+      "result": "same 10 symbols in the same order"
+    },
+    {
+      "what": "SC-003/SC-004 tool choice in Claude Code with no built-in tools, from an empty directory",
+      "command": "claude -p <question> --strict-mcp-config --mcp-config ccctx.json --tools \"\" --allowedTools mcp__ccctx --output-format stream-json --verbose",
+      "result": "expected first tool 5/5; routing answer traced add_url_rule, match_request, dispatch_request from tools only"
+    },
+    {
+      "what": "SC-005/SC-006 timings over a real stdio child",
+      "command": "scratchpad timing8.py",
+      "result": "start to tool list 2.2 s; calls 0.08-1.5 s; with DB_PORT=1 every tool returns a reason in about 4.1 s"
+    },
+    {
+      "what": "lint",
+      "command": "uvx ruff check src tests",
+      "result": "28 = 25 accepted baseline + 3 BLE001 database-skip excepts in new tests",
+      "warnings": [
+        "BLE001 except Exception used to skip when the database is down, same pattern as existing tests"
+      ]
+    }
+  ],
+  "concerns": [
+    {
+      "note": "server.py reaches into FastMCP's private _tool_manager to forbid extra arguments; an SDK upgrade could change it, and test_unknown_arguments_are_refused would catch that",
+      "step": "implement"
+    },
+    {
+      "note": "test files that hit the database delete every t-% repository on teardown, so running two test files concurrently (as parallel workers did) makes them fail at random; sequential runs are clean",
+      "step": "implement"
+    },
+    {
+      "note": "the tool-choice evaluation is a manual claude -p run, not a repeatable test; results recorded in the README",
+      "step": "implement"
+    }
+  ],
+  "last_action": "13/13 tasks; 305 tests pass with the database; tool choice 5/5 in Claude Code"
+}

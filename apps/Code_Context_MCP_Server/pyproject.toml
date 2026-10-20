@@ -1,0 +1,65 @@
+[project]
+name = "golestan-code-mcp"
+version = "1.4.2"
+description = "Code context MCP server backed by Oracle AI Database 26ai"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.11"
+dependencies = [
+    "mcp[cli]>=1.12,<2",
+    "oracledb>=3",
+    "python-dotenv>=1",
+    "tree-sitter>=0.25,<0.26",  # 0.26.0 crashes walking class bodies on Windows
+    "tree-sitter-python>=0.25",
+    "tree-sitter-go>=0.25",
+    "tree-sitter-javascript>=0.25",
+    "tree-sitter-typescript>=0.23,<0.24",
+    "tree-sitter-c-sharp>=0.23,<0.24",
+    "tree-sitter-c>=0.24,<0.25",
+    "tree-sitter-cpp>=0.23,<0.24",
+    "tree-sitter-java>=0.23,<0.24",
+    "tree-sitter-kotlin>=1.1,<2",
+    "tree-sitter-rust>=0.24,<0.25",
+    "tree-sitter-php>=0.25,<0.26",
+    "tree-sitter-ruby>=0.23,<0.24",
+    "tree-sitter-swift>=0.7,<0.8",
+    "oracleagentmemory>=26.8,<27",
+]
+
+[project.scripts]
+golestan-code-mcp = "golestan_code_mcp.server:main"
+golestan-check-db = "golestan_code_mcp.db:main"
+golestan-clone-samples = "golestan_code_mcp.samples:main"
+ccctx = "golestan_code_mcp.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+# src/ itself is the package golestan_code_mcp. setuptools, unlike hatchling, can install that mapping editable.
+# tests/test_layout.py checks that every package folder is listed here.
+[tool.setuptools]
+package-dir = {"golestan_code_mcp" = "src"}
+packages = [
+    "golestan_code_mcp",
+    "golestan_code_mcp.cli",
+    "golestan_code_mcp.graph",
+    "golestan_code_mcp.indexing",
+    "golestan_code_mcp.memory",
+    "golestan_code_mcp.parsing",
+    "golestan_code_mcp.parsing.languages",
+    "golestan_code_mcp.search",
+    "golestan_code_mcp.server",
+    "golestan_code_mcp.wiki",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# importlib: test files in different folders may share a name; pythonpath: every test file can `import support`
+addopts = "--import-mode=importlib"
+pythonpath = ["tests"]
+markers = ["needs_model: the file's tests need the embedding model; the shared `conn` fixture skips without it"]

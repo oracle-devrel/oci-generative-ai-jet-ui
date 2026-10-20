@@ -1,0 +1,575 @@
+{
+  "workflow": "companion",
+  "specName": "Incremental Re-indexing",
+  "branch": "006-incremental-ingest",
+  "currentStep": "implement",
+  "status": "completed",
+  "history": [
+    {
+      "step": "specify",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-11T07:17:30.780Z"
+    },
+    {
+      "step": "specify",
+      "substep": null,
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-11T07:19:08.762Z"
+    },
+    {
+      "step": "plan",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-11T07:21:26.507Z"
+    },
+    {
+      "step": "plan",
+      "substep": "research",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T07:24:47.814Z"
+    },
+    {
+      "step": "plan",
+      "substep": "design",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T07:27:54.201Z"
+    },
+    {
+      "step": "plan",
+      "substep": null,
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T07:27:56.519Z"
+    },
+    {
+      "step": "tasks",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-11T07:33:16.041Z"
+    },
+    {
+      "step": "tasks",
+      "substep": "generate",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T07:33:56.614Z"
+    },
+    {
+      "step": "tasks",
+      "substep": null,
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T07:34:00.452Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-11T07:37:37.279Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T001",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T07:38:00.969Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T002",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T07:40:47.080Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T003",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T07:42:07.874Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T004",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T07:43:01.419Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T005",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T07:45:15.469Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T006",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T07:47:36.690Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T007",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T07:49:28.483Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T008",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T08:01:54.639Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T012",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T08:02:55.414Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T013",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T08:03:25.983Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T009",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T08:44:48.215Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T010",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T08:44:49.568Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T011",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T08:56:21.242Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T014",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T09:04:28.615Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-11T09:04:28.866Z"
+    }
+  ],
+  "telemetryInstanceId": "04ec7b03-009b-4df8-9f07-49b333bb3b38",
+  "last_action": "living specs evaluated — skipped (not configured)",
+  "coverage": {
+    "FR-001": {
+      "title": "Record each repository's last successfully indexed revision, only after the ingest commits",
+      "tasks": [
+        "T001",
+        "T002",
+        "T004",
+        "T005"
+      ],
+      "tests": [
+        "tests/test_ingest.py::test_unchanged_reingest_is_current",
+        "tests/test_schema.py::test_repo_indexed_revision_columns"
+      ]
+    },
+    "FR-002": {
+      "title": "At the recorded revision with no differing working tree, report already up to date and change nothing",
+      "tasks": [
+        "T002",
+        "T003",
+        "T005",
+        "T006",
+        "T008"
+      ],
+      "tests": [
+        "tests/test_ingest.py::test_unchanged_reingest_is_current",
+        "tests/test_cli.py::test_ingest_again_then_full"
+      ]
+    },
+    "FR-003": {
+      "title": "Determine added, changed, renamed and removed files by comparing the working tree against the last indexed revision",
+      "tasks": [
+        "T002",
+        "T005",
+        "T009"
+      ],
+      "tests": [
+        "tests/test_ingest.py::test_only_changed_files_are_reprocessed",
+        "tests/test_ingest.py::test_uncommitted_edit_at_same_head_is_indexed"
+      ]
+    },
+    "FR-004": {
+      "title": "Re-parse and re-embed only added, changed and renamed files; never rewrite unchanged files' symbols",
+      "tasks": [
+        "T002",
+        "T005",
+        "T009"
+      ],
+      "tests": [
+        "tests/test_ingest.py::test_only_changed_files_are_reprocessed",
+        "tests/test_ingest.py::test_edited_file_keeps_its_unchanged_symbols"
+      ]
+    },
+    "FR-005": {
+      "title": "Remove every stored file, symbol and chunk of removed, renamed-away or newly skipped paths",
+      "tasks": [
+        "T002",
+        "T005",
+        "T010"
+      ],
+      "tests": [
+        "tests/test_ingest.py::test_deleted_and_newly_skipped_files_leave_the_index"
+      ]
+    },
+    "FR-006": {
+      "title": "Incremental index equals what a full ingest of the same tree would produce",
+      "tasks": [
+        "T002",
+        "T009"
+      ],
+      "tests": [
+        "tests/test_ingest.py::assert_matches_full (used by 5 tests)"
+      ]
+    },
+    "FR-007": {
+      "title": "Apply an incremental ingest in one transaction; failure keeps previous index and revision",
+      "tasks": [
+        "T002",
+        "T005"
+      ],
+      "tests": [
+        "tests/test_ingest.py::test_failed_ingest_keeps_previous_index"
+      ]
+    },
+    "FR-008": {
+      "title": "Summary reports added, changed, removed and unchanged file counts",
+      "tasks": [
+        "T003",
+        "T005",
+        "T006",
+        "T009"
+      ],
+      "tests": [
+        "tests/test_ingest.py::test_only_changed_files_are_reprocessed",
+        "tests/test_cli.py::test_format_incremental_summary"
+      ]
+    },
+    "FR-009": {
+      "title": "ccctx ingest <name> --full discards and rebuilds the repository's index",
+      "tasks": [
+        "T002",
+        "T003",
+        "T005",
+        "T006",
+        "T011"
+      ],
+      "tests": [
+        "tests/test_ingest.py::test_full_rebuild_on_up_to_date_repository",
+        "tests/test_cli.py::test_ingest_again_then_full"
+      ]
+    },
+    "FR-010": {
+      "title": "Unknown or missing last indexed revision: say so and rebuild in full",
+      "tasks": [
+        "T002",
+        "T003",
+        "T005",
+        "T006",
+        "T008"
+      ]
+    },
+    "FR-011": {
+      "title": "Up-to-date message tells the developer --full re-indexes anyway",
+      "tasks": [
+        "T003",
+        "T006",
+        "T008"
+      ]
+    },
+    "FR-012": {
+      "title": "Keep read-only git, no code execution, concurrent-ingest refusal and the structured log record",
+      "tasks": [
+        "T002",
+        "T005",
+        "T014"
+      ]
+    }
+  },
+  "size": "normal",
+  "classification": {
+    "projectedFiles": 8,
+    "projectedTasks": 14,
+    "scopeSignal": "none",
+    "verdict": "normal"
+  },
+  "expectations": [
+    "detecting chunking-rule or skip-setting changes automatically (use --full)",
+    "a separate --force flag",
+    "watching repositories or re-indexing on a schedule",
+    "exposing ingest through the MCP server"
+  ],
+  "context": [
+    "area: src/golestan_code_mcp/ingest.py (discover, _store one-transaction replace, Summary)",
+    "area: src/golestan_code_mcp/cli.py (ingest subcommand, format_summary)",
+    "area: src/golestan_code_mcp/schema.py (migrations; ccctx_repos gains last indexed revision)",
+    "constraint: git read-only with fsmonitor and hooks disabled; indexed code never executed",
+    "constraint: hybrid index syncs on commit, so re-embedding happens only for inserted rows"
+  ],
+  "intent": "Make re-ingest do only the work the changes since the last indexed revision require, purge deleted code, and offer --full",
+  "decisions": [
+    {
+      "decision": "Record indexed_commit, indexed_dirty, indexed_at on ccctx_repos (migration 5), written inside the index transaction",
+      "why": "the locked repo row moves only if the index commits; NULL means rebuild in full",
+      "rejected": "max(commit_sha) over symbols, a separate runs table"
+    },
+    {
+      "decision": "git names candidates (diff --no-renames vs indexed commit, untracked, vanished stored paths, everything after a dirty ingest); content sha256 decides added/changed/removed/unchanged",
+      "why": "reads only what changed yet stays exact for reverted edits, already-indexed dirty edits and new skip-rule hits",
+      "rejected": "hashing every file each run; git diff alone"
+    },
+    {
+      "decision": "Up to date = HEAD equals indexed_commit and empty change set; no separate fast path",
+      "why": "one rule; a clean tree costs a few git calls and two queries",
+      "rejected": "a git-status-only shortcut that cannot see untracked or reverted files"
+    },
+    {
+      "decision": "Changed files are deleted and re-inserted; deletes cascade to symbols and the hybrid index syncs on commit",
+      "why": "unique (repo_id, path) plus cascade make it the shortest correct path; only new rows are embedded",
+      "rejected": "updating file rows in place"
+    },
+    {
+      "decision": "Unchanged symbols keep their commit_sha",
+      "why": "the request says leave correct rows alone; equality with --full is checked excluding commit_sha",
+      "rejected": "restamping every symbol with the new revision"
+    },
+    {
+      "decision": "--full is the only override, also how a user insists on an up-to-date repo",
+      "why": "a second flag would do the same thing",
+      "rejected": "a --force flag"
+    },
+    {
+      "decision": "Changed files are updated in place and keep every symbol whose (name, kind, content hash) still occurs, updating only its lines and commit_sha",
+      "why": "measured: the 40 files changed over flask's last 20 commits hold 658 symbols but only 140 changed; re-inserting whole files took 78% of a full rebuild. Updates and deletes cost nothing at commit, only inserts are embedded",
+      "rejected": "delete and re-insert each changed file (the plan's first design)"
+    },
+    {
+      "decision": "Lock the repository row first and read the revision and stored hashes under it; an up-to-date run rolls back",
+      "why": "a concurrent ingest cannot make the change set stale, and the existing nowait refusal covers every mode",
+      "rejected": "locking only at write time"
+    },
+    {
+      "decision": "Kept the skip rules and chunking unchanged",
+      "why": "the requested --full check compares counts with the original ingest; changing what is indexed would break that and needs its own step",
+      "rejected": "skipping lockfiles now"
+    }
+  ],
+  "step_summaries": {
+    "plan": {
+      "summary": "Plan, research, data model and CLI/schema contracts for incremental re-indexing in ingest.py, schema.py and cli.py",
+      "key_finding": "git diff against the last commit alone is wrong after a dirty ingest; an indexed_dirty flag plus content hashes keeps the change set exact"
+    },
+    "tasks": {
+      "summary": "14 tasks: Foundational (3 fail-first test tasks, then schema, ingest, cli, green run), 4 sequential live-verification story phases on flask, Polish (README, contracts, full suite)"
+    }
+  },
+  "approach": "Migration 5 records the last indexed revision on each repository. Git diff against it, plus untracked and vanished paths, names candidates; content hashes classify them; only added and changed files are parsed and inserted, removed and changed rows are deleted with cascade, all in one locked transaction. --full, a NULL revision or a missing commit run today's full replace.",
+  "currentTask": "T014",
+  "task_summaries": {
+    "T001": {
+      "status": "DONE",
+      "did": "migration 5 tests: version, nullable columns, indexed_commit check (4 fail before migration)",
+      "files": [
+        "tests/test_schema.py"
+      ]
+    },
+    "T002": {
+      "status": "DONE",
+      "did": "ingest tests for current/incremental/full modes, change kinds vs full rebuild, deletions, fallbacks, failure keeps revision (9 fail first)",
+      "files": [
+        "tests/test_ingest.py"
+      ]
+    },
+    "T003": {
+      "status": "DONE",
+      "did": "CLI tests: incremental summary lines, up-to-date line, ingest again then --full, note on stderr (4 fail first)",
+      "files": [
+        "tests/test_cli.py"
+      ]
+    },
+    "T004": {
+      "status": "DONE",
+      "did": "migration 5: indexed_commit/indexed_dirty/indexed_at on ccctx_repos with ccctx_repos_indexed_ck",
+      "files": [
+        "src/golestan_code_mcp/schema.py"
+      ]
+    },
+    "T005": {
+      "status": "DONE",
+      "did": "incremental ingest: lock-first, revision columns, git diff+untracked candidates hashed into added/changed/removed, full fallback notes, current mode, log counts; 19 ingest tests pass",
+      "files": [
+        "src/golestan_code_mcp/ingest.py"
+      ]
+    },
+    "T006": {
+      "status": "DONE",
+      "did": "--full flag, incremental summary lines, up-to-date line, notes on stderr, no dirty warning on current runs",
+      "files": [
+        "src/golestan_code_mcp/cli.py"
+      ]
+    },
+    "T007": {
+      "status": "DONE",
+      "did": "test_cli, test_schema, test_ingest: 86 passed against the database",
+      "files": [
+        "tests/test_cli.py",
+        "tests/test_schema.py",
+        "tests/test_ingest.py"
+      ]
+    },
+    "T008": {
+      "status": "DONE",
+      "did": "flask: first run full with no-recorded-revision note (1353 symbols, 681s); second run up to date in 2.5s, counts unchanged"
+    },
+    "T012": {
+      "status": "DONE",
+      "did": "README: incremental runs, up-to-date line, deletions, --full and when to use it, fallbacks, log fields",
+      "files": [
+        "README.md"
+      ]
+    },
+    "T013": {
+      "status": "DONE",
+      "did": "contracts reconciled: current-run counts, no dirty warning on up-to-date runs; schema contract matches migration 5",
+      "files": [
+        "specs/006-incremental-ingest/contracts/cli.md",
+        "specs/006-incremental-ingest/contracts/schema.md"
+      ]
+    },
+    "T009": {
+      "status": "DONE",
+      "did": "flask HEAD~20: 40/231 files changed, 140 symbols re-embedded in 353s vs 550s full on same tree (first ingest 681s); main->HEAD~20 incremental index identical row for row to full rebuild; back on main 231/1353",
+      "files": [
+        "src/golestan_code_mcp/ingest.py",
+        "tests/test_ingest.py"
+      ]
+    },
+    "T010": {
+      "status": "DONE",
+      "did": "rm tag.py: 1 removed in 3.3s, 0 rows and no search hits for the path; restored: 44 symbols back in 7.6s"
+    },
+    "T011": {
+      "status": "DONE",
+      "did": "flask --full: 236 scanned, 231 files, 1353 symbols in 653s, equal to the T008 baseline"
+    },
+    "T014": {
+      "status": "DONE",
+      "did": "209 passed with DB, 97 passed/112 skipped with DB unreachable, no new lint findings, secrets sweep clean",
+      "files": [
+        "src/golestan_code_mcp/schema.py"
+      ]
+    }
+  },
+  "verified": [
+    {
+      "what": "foundational tests",
+      "command": "uv run pytest tests/test_cli.py tests/test_schema.py tests/test_ingest.py -q",
+      "source": "derived",
+      "exitCode": 0,
+      "durationSeconds": 109.9,
+      "result": "........................................................................ [ 83%] · ..............                                                           [100%] · 86 passed in 107.93s (0:01:47)"
+    },
+    {
+      "what": "full suite with database",
+      "command": "uv run pytest -q",
+      "source": "derived",
+      "exitCode": 0,
+      "durationSeconds": 190.4,
+      "result": "........................................................................ [ 68%] · .................................................................        [100%] · 209 passed in 188.00s (0:03:08)"
+    },
+    {
+      "what": "suite with database unreachable",
+      "command": "bash -c 'DB_PORT=1 uv run pytest -q'",
+      "source": "derived",
+      "exitCode": 0,
+      "durationSeconds": 148.1,
+      "result": "......ssssssss...sssssssssssssssss...........ssssss......sssssssssssssss [ 68%] · ssssssssssss............sssssssssssssssssssssss..s..s.sssssssss..        [100%] · 97 passed, 112 skipped in 145.73s (0:02:25)"
+    },
+    {
+      "what": "lint changed modules",
+      "command": "uvx ruff check src/golestan_code_mcp/schema.py src/golestan_code_mcp/cli.py",
+      "source": "derived",
+      "exitCode": 0,
+      "durationSeconds": 0.9,
+      "result": "All checks passed!"
+    },
+    {
+      "what": "SC-001 live: second ccctx ingest flask prints already up to date",
+      "result": "2.5s from the venv entry point (3.5s via uv run, whose startup is ~1s); repo list unchanged"
+    },
+    {
+      "what": "SC-002/SC-005 live: flask main to HEAD~20 incremental vs --full on the same tree",
+      "result": "40 of 231 files (17%), 140 symbols re-embedded, 353s vs 550s full (64%) and vs 681s first ingest (52%); index identical row for row to the full rebuild"
+    },
+    {
+      "what": "SC-003 live: rm src/flask/json/tag.py, ingest, search json tag serialisation --repo flask",
+      "result": "1 removed in 3.3s, zero file and symbol rows for the path, no result points at it; git checkout restore re-added 44 symbols in 7.6s"
+    },
+    {
+      "what": "SC-004 live: ccctx ingest flask --full",
+      "result": "236 scanned, 231 files, 1353 symbols, equal to the baseline"
+    }
+  ],
+  "concerns": [
+    {
+      "note": "SC-002 as written is not met: 17% of flask's files changed over HEAD~20 (target under 10%), and the incremental run takes 64% of a full rebuild on the same tree (52% of the first ingest), not under half. The user's own bar, a handful of files and noticeably faster, holds. 53% of the re-embedded text is uv.lock windows and 14% CHANGES.rst: a line inserted near the top shifts every 60-line window after it. Skipping lockfiles or content-defined windows would fix it, both need --full and change counts.",
+      "step": "implement"
+    },
+    {
+      "note": "A full flask ingest now takes 650-680s, not the 125s step 4 measured: the hybrid index embeds on commit under the Free edition's CPU resource manager (resmgr:cpu quantum). README's 125.4s sample is stale.",
+      "step": "implement"
+    },
+    {
+      "note": "A class symbol contains its methods, so editing one method re-embeds the whole class (Flask is 61k characters).",
+      "step": "implement"
+    }
+  ]
+}

@@ -1,0 +1,736 @@
+{
+  "workflow": "companion",
+  "specName": "Dev Environment Setup",
+  "branch": "master",
+  "currentStep": "implement",
+  "status": "completed",
+  "history": [
+    {
+      "step": "specify",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-10T10:09:34.202Z"
+    },
+    {
+      "step": "specify",
+      "substep": null,
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-10T10:13:01.620Z"
+    },
+    {
+      "step": "plan",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-10T10:16:56.320Z"
+    },
+    {
+      "step": "plan",
+      "substep": "research",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T10:18:52.753Z"
+    },
+    {
+      "step": "plan",
+      "substep": "design",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T10:21:50.776Z"
+    },
+    {
+      "step": "plan",
+      "substep": null,
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T10:21:54.986Z"
+    },
+    {
+      "step": "tasks",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-10T10:26:17.767Z"
+    },
+    {
+      "step": "tasks",
+      "substep": "generate",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T10:27:17.427Z"
+    },
+    {
+      "step": "tasks",
+      "substep": null,
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T10:27:18.572Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-10T11:41:24.887Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T001",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T11:41:37.570Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T002",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T11:41:38.100Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T003",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T11:41:38.628Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T004",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T11:41:39.128Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T005",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T11:42:12.567Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T006",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T11:42:13.167Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T007",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T11:42:58.543Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T008",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T11:42:59.122Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T009",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T11:44:23.345Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T010",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T11:44:24.230Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T011",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T11:44:25.134Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T012",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T11:44:26.423Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T014",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T11:45:14.076Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T015",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T11:45:14.941Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T016",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T11:45:15.802Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T017",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T11:46:35.940Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T018",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T11:46:36.832Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T019",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T11:47:52.403Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T020",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T11:47:53.288Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T021",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T11:48:20.576Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T013",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T20:05:40.758Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T022",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T20:05:42.128Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T023",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T20:07:21.838Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T025",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T20:09:38.206Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T024",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T20:17:28.231Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T20:17:28.587Z"
+    }
+  ],
+  "telemetryInstanceId": "71e2753d-caf6-45a8-93f9-792d45103f8b",
+  "selectedAt": "2026-10-10T10:09:34.202Z",
+  "last_action": "24/25 tasks done; 25/25 tests pass with DB up; T024 awaits developer's Inspector and Claude Code check",
+  "size": "oversized",
+  "classification": {
+    "projectedFiles": 12,
+    "projectedTasks": 15,
+    "scopeSignal": "none",
+    "verdict": "oversized"
+  },
+  "coverage": {
+    "FR-001": {
+      "title": "Container definition starts Oracle AI Database 26ai locally with persistent storage via one command",
+      "tasks": [
+        "T010",
+        "T011",
+        "T013",
+        "T023"
+      ]
+    },
+    "FR-002": {
+      "title": "DB settings come from env vars; example env file committed, real one ignored",
+      "tasks": [
+        "T001",
+        "T003",
+        "T007",
+        "T008",
+        "T010"
+      ],
+      "tests": [
+        "tests/test_config.py"
+      ]
+    },
+    "FR-003": {
+      "title": "Connectivity check confirms login, version, and VECTOR type without printing secrets",
+      "tasks": [
+        "T009",
+        "T012",
+        "T013"
+      ],
+      "tests": [
+        "tests/test_db.py"
+      ]
+    },
+    "FR-004": {
+      "title": "Python project with pinned deps, one-command install",
+      "tasks": [
+        "T002",
+        "T005",
+        "T006"
+      ]
+    },
+    "FR-005": {
+      "title": "Parser smoke test extracts function and class/type boundaries from Python and Go files",
+      "tasks": [
+        "T014",
+        "T015",
+        "T016"
+      ],
+      "tests": [
+        "tests/test_parser.py"
+      ]
+    },
+    "FR-006": {
+      "title": "Test command always runs parser tests and skips DB tests with a reason when DB is unreachable",
+      "tasks": [
+        "T009",
+        "T016",
+        "T022"
+      ],
+      "tests": [
+        "tests/test_db.py",
+        "tests/test_parser.py"
+      ]
+    },
+    "FR-007": {
+      "title": "Idempotent script clones Flask and Gin into a configurable folder outside the project",
+      "tasks": [
+        "T017",
+        "T018"
+      ],
+      "tests": [
+        "tests/test_samples.py"
+      ]
+    },
+    "FR-008": {
+      "title": "Stub MCP server golestan_code_mcp exposes a health tool",
+      "tasks": [
+        "T019",
+        "T020",
+        "T024"
+      ],
+      "tests": [
+        "tests/test_server.py"
+      ]
+    },
+    "FR-009": {
+      "title": "Health tool returns a result, not an error, when the DB is unreachable",
+      "tasks": [
+        "T019",
+        "T020"
+      ],
+      "tests": [
+        "tests/test_server.py::test_unreachable_is_a_result_not_an_error"
+      ]
+    },
+    "FR-010": {
+      "title": "README documents setup, Inspector, and Claude Code config for PowerShell and POSIX",
+      "tasks": [
+        "T021"
+      ]
+    }
+  },
+  "expectations": [
+    "No ingestion, chunking, or embedding",
+    "No search or retrieval tools beyond the health tool",
+    "No cloud or production deployment"
+  ],
+  "context": [
+    "constitution: v1.0.0 (Oracle AI Database 26ai reference DB, credentials from env, tests first)",
+    "area: greenfield repo, no source yet"
+  ],
+  "intent": "Reproducible local dev environment for golestan_code_mcp: Oracle 26ai container, Python project with parser and MCP SDK, sample repos, stub MCP server",
+  "decisions": [
+    {
+      "decision": "Official container-registry.oracle.com/database/free image via Compose with named volume",
+      "why": "Constitution names 26ai; image has setup-script hook and healthcheck script",
+      "rejected": "gvenzl/oracle-free (community, tags may trail 26ai), adb-free (needs SYS_ADMIN/FUSE)"
+    },
+    {
+      "decision": "First-run script creates app user with DB_DEVELOPER_ROLE from env",
+      "why": "Least privilege, no password in committed SQL",
+      "rejected": "Connecting as SYSTEM"
+    },
+    {
+      "decision": "oracledb thin mode with 3 s connect timeout",
+      "why": "No Instant Client on Windows, VECTOR support, fast health when DB down",
+      "rejected": "Thick mode, SQLAlchemy"
+    },
+    {
+      "decision": "uv with pyproject, uv.lock, .python-version 3.11",
+      "why": "One-command install with exact pins; avoids Python 3.14 first on PATH",
+      "rejected": "pip + requirements.txt"
+    },
+    {
+      "decision": "mcp[cli] 1.x FastMCP over stdio, tool named health",
+      "why": "Stable widely deployed API, works with mcp dev Inspector",
+      "rejected": "mcp 2.0 MCPServer (newer API)"
+    },
+    {
+      "decision": "tree-sitter + per-language grammar wheels; no parser module yet",
+      "why": "Prebuilt Windows wheels; extraction module waits for ingestion",
+      "rejected": "tree-sitter-languages (unmaintained)"
+    },
+    {
+      "decision": "All scripts as Python console entry points run via uv run",
+      "why": "Same command in PowerShell and POSIX",
+      "rejected": "Paired .ps1 and .sh scripts"
+    },
+    {
+      "decision": "Split environment() and repos_dir() out of config.load",
+      "why": "Cloner must work without database credentials",
+      "rejected": "Make DB_USER/DB_PASSWORD optional in load"
+    },
+    {
+      "decision": "Added .gitattributes forcing LF on *.sh",
+      "why": "Windows checkouts would break the first-run script inside the Linux container",
+      "rejected": "Relying on each developer's core.autocrlf"
+    },
+    {
+      "decision": "Parser smoke test keeps its own outline() walker",
+      "why": "No extraction module until ingestion needs one",
+      "rejected": "Adding src parsing module now"
+    },
+    {
+      "decision": "Create the app user from /opt/oracle/scripts/startup, idempotently, on every start",
+      "why": "The Free image ships a prebuilt database copied into a new volume, so scripts/setup never runs; observed ORA-01017 on first start",
+      "rejected": "scripts/setup (never executed) or creating the user from Python (needs SYS credentials in the app)"
+    }
+  ],
+  "step_summaries": {
+    "plan": {
+      "summary": "Plan: Compose Oracle 26ai Free + uv Python 3.11 package with check-db, clone-samples and stdio MCP server exposing health",
+      "key_finding": "Docker daemon (Rancher Desktop) is not running yet; python3 shim on PATH mangles quoted args, use py -3 or uv run"
+    },
+    "tasks": {
+      "summary": "25 tasks: Setup, Foundational (config), US1 DB, US2 parser, US3 samples, US4 MCP health (after US1), Polish"
+    },
+    "implement": {
+      "summary": "20/25 tasks done; all code and README shipped; DB-dependent validation blocked by Docker VM failure"
+    }
+  },
+  "approach": "Compose runs Oracle AI Database 26ai Free with a named volume and a first-run app-user script. A uv-managed Python 3.11 package pins oracledb, tree-sitter grammars and mcp, and exposes three console commands: golestan-check-db, golestan-clone-samples and the golestan-code-mcp stdio server with a health tool.",
+  "currentTask": "T024",
+  "task_summaries": {
+    "T001": {
+      "status": "DONE",
+      "did": "Ignore .env, venv, caches",
+      "files": [
+        ".gitignore"
+      ]
+    },
+    "T002": {
+      "status": "DONE",
+      "did": "Pin Python 3.11",
+      "files": [
+        ".python-version"
+      ]
+    },
+    "T003": {
+      "status": "DONE",
+      "did": "Every setting with placeholders and comments",
+      "files": [
+        ".env.example"
+      ]
+    },
+    "T004": {
+      "status": "DONE",
+      "did": "Package with __version__ 0.1.0",
+      "files": [
+        "src/golestan_code_mcp/__init__.py"
+      ]
+    },
+    "T005": {
+      "status": "DONE",
+      "did": "Deps, dev group, three console scripts, src layout",
+      "files": [
+        "pyproject.toml"
+      ]
+    },
+    "T006": {
+      "status": "DONE",
+      "did": "uv sync on Python 3.11, lockfile written",
+      "files": [
+        "uv.lock"
+      ]
+    },
+    "T007": {
+      "status": "DONE",
+      "did": "Config tests: missing names, bad port, no secret leak, env wins",
+      "files": [
+        "tests/test_config.py"
+      ]
+    },
+    "T008": {
+      "status": "DONE",
+      "did": "Frozen Config with hidden password, ConfigError, .env fallback",
+      "files": [
+        "src/golestan_code_mcp/config.py"
+      ]
+    },
+    "T009": {
+      "status": "DONE",
+      "did": "DB tests: unreachable reason, check ok, smoke rows grow, no secret in output; skip when down",
+      "files": [
+        "tests/test_db.py"
+      ]
+    },
+    "T010": {
+      "status": "DONE",
+      "did": "Compose service on database/free with named volume, setup mount, healthcheck, port from .env",
+      "files": [
+        "compose.yaml"
+      ]
+    },
+    "T011": {
+      "status": "DONE",
+      "did": "First-run script creates app user with DB_DEVELOPER_ROLE; LF enforced by .gitattributes",
+      "files": [
+        "db/setup/01_app_user.sh",
+        ".gitattributes"
+      ]
+    },
+    "T012": {
+      "status": "DONE",
+      "did": "connect() thin mode 3s timeout, check() with bounded retry, main() exit codes 0/1/2/3",
+      "files": [
+        "src/golestan_code_mcp/db.py"
+      ]
+    },
+    "T014": {
+      "status": "DONE",
+      "did": "Python fixture: 2 functions, class with methods, decorated function",
+      "files": [
+        "tests/fixtures/sample.py"
+      ]
+    },
+    "T015": {
+      "status": "DONE",
+      "did": "Go fixture: function, struct type, method",
+      "files": [
+        "tests/fixtures/sample.go"
+      ]
+    },
+    "T016": {
+      "status": "DONE",
+      "did": "Parser smoke test asserts exact names and line ranges; missing grammar named",
+      "files": [
+        "tests/test_parser.py"
+      ]
+    },
+    "T017": {
+      "status": "DONE",
+      "did": "Cloner tests on local repos: cloned/present, inside-project refused, non-git folder, failed clone, exit codes",
+      "files": [
+        "tests/test_samples.py"
+      ]
+    },
+    "T018": {
+      "status": "DONE",
+      "did": "Idempotent cloner with pinned URLs, refuses in-project target, exit codes 0/1/2",
+      "files": [
+        "src/golestan_code_mcp/samples.py",
+        "src/golestan_code_mcp/config.py"
+      ]
+    },
+    "T019": {
+      "status": "DONE",
+      "did": "In-memory MCP client tests: one health tool, reachable, unreachable under 5s, missing password named",
+      "files": [
+        "tests/test_server.py"
+      ]
+    },
+    "T020": {
+      "status": "DONE",
+      "did": "FastMCP golestan_code_mcp with health tool returning structured Health; errors become unreachable",
+      "files": [
+        "src/golestan_code_mcp/server.py"
+      ]
+    },
+    "T021": {
+      "status": "DONE",
+      "did": "README: prerequisites, ordered setup, persistence step, Inspector, Claude Code config for PowerShell and POSIX",
+      "files": [
+        "README.md"
+      ]
+    },
+    "T013": {
+      "status": "DONE",
+      "did": "DB up; check-db exit 0 (23.26.3, VECTOR ok); test_db green. Moved user script to scripts/startup (prebuilt image skips setup)",
+      "files": [
+        "compose.yaml",
+        "db/startup/01_app_user.sh",
+        "README.md"
+      ]
+    },
+    "T022": {
+      "status": "DONE",
+      "did": "pytest 25 passed with DB up; 21 passed 4 skipped with DB down (earlier run)",
+      "files": [
+        "tests/"
+      ]
+    },
+    "T023": {
+      "status": "DONE",
+      "did": "3/3 cold starts (down, up -d, check-db) exit 0 in 9-15 s; ccctx_smoke rows 1 -> 1 across stop/start and down/up",
+      "files": [
+        "compose.yaml"
+      ]
+    },
+    "T025": {
+      "status": "DONE",
+      "did": "Secrets: 0 hits in 152 files and script output, .env ignored. Clean copy: uv sync, check-db, clone, pytest 25 passed in 36 s of commands (image and caches warm)",
+      "files": [
+        "README.md"
+      ]
+    },
+    "T024": {
+      "status": "DONE",
+      "did": "Developer confirmed: Inspector and Claude Code list and call health, reachable with DB up and unreachable with it down",
+      "files": [
+        "README.md"
+      ]
+    }
+  },
+  "verified": [
+    {
+      "what": "full suite with database down",
+      "command": "uv run pytest -q",
+      "source": "derived",
+      "exitCode": 0,
+      "durationSeconds": 21.1,
+      "result": ".........sss..........s..                                                [100%] · 21 passed, 4 skipped in 19.98s"
+    },
+    {
+      "what": "stdio entry point: initialize, list tools, call health (DB down)",
+      "command": "uv run python scratchpad/stdio_smoke.py",
+      "result": "server golestan_code_mcp, tools [health], database unreachable with reason"
+    },
+    {
+      "what": "sample cloner run twice for real",
+      "command": "uv run golestan-clone-samples (x2)",
+      "result": "cloned flask d086db8 and gin 0f09c3a, then present for both, exit 0"
+    },
+    {
+      "what": "secrets sweep",
+      "command": "grep tracked and untracked-unignored files for .env password values",
+      "result": "no match; .env ignored"
+    },
+    {
+      "what": "full suite with DB up",
+      "command": "uv run pytest -q",
+      "source": "derived",
+      "exitCode": 0,
+      "durationSeconds": 16.5,
+      "result": ".........................                                                [100%] · 25 passed in 14.65s"
+    },
+    {
+      "what": "database check (version, VECTOR)",
+      "command": "uv run golestan-check-db --wait 60",
+      "source": "derived",
+      "exitCode": 0,
+      "durationSeconds": 1.4,
+      "result": "version: 23.26.3.0.0 · vector: ok (VECTOR) · ccctx_smoke rows: 3"
+    },
+    {
+      "what": "3/3 cold starts",
+      "command": "docker compose down; up -d; golestan-check-db (x3)",
+      "result": "exit 0 each, 9-15 s"
+    },
+    {
+      "what": "ccctx_smoke persists across stop/start and down/up",
+      "command": "golestan-check-db before and after docker compose stop/start",
+      "result": "rows 1 -> 1"
+    },
+    {
+      "what": "stdio health with DB up",
+      "command": "stdio client: list_tools + call health",
+      "result": "tools ['health'], database reachable"
+    },
+    {
+      "what": "clean-copy README walkthrough",
+      "command": "uv sync; check-db; clone-samples; pytest in a fresh copy",
+      "result": "25 passed, 36 s of commands with warm image and caches"
+    }
+  ],
+  "concerns": [
+    {
+      "note": "docker compose up failed: 'read-only file system' writing the oradata volume, then the Docker daemon stopped responding. Likely Rancher Desktop VM disk full after the 9.5 GB image pull. T013, T022 (DB-up half), T023, T024 and T025 (clean-clone timing) left open.",
+      "step": "implement"
+    },
+    {
+      "note": "python3 on PATH is a pyenv-win shim that mangles quoted arguments; companion scripts were run with py -3.",
+      "step": "implement"
+    },
+    {
+      "note": "T024 open: MCP Inspector and Claude Code connection are interactive and must be run by the developer",
+      "step": "implement"
+    }
+  ]
+}

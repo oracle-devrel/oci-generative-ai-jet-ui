@@ -1,0 +1,658 @@
+{
+  "workflow": "companion",
+  "specName": "Database Schema and Repository Registry",
+  "branch": "002-repo-registry",
+  "currentStep": "implement",
+  "status": "completed",
+  "history": [
+    {
+      "step": "specify",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-10T20:27:44.485Z"
+    },
+    {
+      "step": "specify",
+      "substep": null,
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-10T20:29:36.553Z"
+    },
+    {
+      "step": "plan",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-10T20:33:22.489Z"
+    },
+    {
+      "step": "plan",
+      "substep": "research",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T20:37:45.665Z"
+    },
+    {
+      "step": "plan",
+      "substep": "design",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T20:40:08.673Z"
+    },
+    {
+      "step": "plan",
+      "substep": null,
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T20:40:13.182Z"
+    },
+    {
+      "step": "tasks",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-10T20:45:06.747Z"
+    },
+    {
+      "step": "tasks",
+      "substep": "generate",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T20:46:00.615Z"
+    },
+    {
+      "step": "tasks",
+      "substep": null,
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T20:46:01.272Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-10T20:47:37.228Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T001",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T20:47:50.979Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T002",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T20:47:51.545Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T003",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T20:48:32.171Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T004",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T20:48:56.747Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T005",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T20:49:33.527Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T006",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T20:50:28.196Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T007",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T20:50:28.805Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T008",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T20:50:57.528Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T009",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T20:51:48.283Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T010",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T20:51:48.825Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T011",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T20:52:21.773Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T012",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T20:52:48.979Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T013",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T20:52:49.598Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T014",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T20:53:21.328Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T015",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T20:55:04.086Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T016",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T20:57:18.905Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T017",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T21:02:47.334Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-10T21:02:47.453Z"
+    }
+  ],
+  "telemetryInstanceId": "92c70ef4-b7fe-427d-bde7-df82846ac69f",
+  "last_action": "16/17 tasks done; 64 tests pass with DB up; T017 awaits developer's MCP Inspector check",
+  "coverage": {
+    "FR-001": {
+      "title": "Container oracle26ai from database/free:latest on port 1521 with a named data volume",
+      "tasks": [
+        "T001",
+        "T005",
+        "T016"
+      ],
+      "tests": [
+        "T016 walkthrough (docker ps",
+        "docker logs oracle26ai)"
+      ]
+    },
+    "FR-002": {
+      "title": "Data survives stop, start, remove and recreate while the volume is kept",
+      "tasks": [
+        "T001",
+        "T005",
+        "T016"
+      ],
+      "tests": [
+        "T016 restart and down/up"
+      ]
+    },
+    "FR-003": {
+      "title": "Schema setup creates repository, file and symbol tables and is safe to re-run",
+      "tasks": [
+        "T003",
+        "T004",
+        "T005"
+      ],
+      "tests": [
+        "tests/test_schema.py::test_tables_exist_and_version_recorded",
+        "test_migrate_three_times_changes_nothing"
+      ]
+    },
+    "FR-004": {
+      "title": "Schema changes are ordered migrations, each applied once, applied set visible",
+      "tasks": [
+        "T003",
+        "T004"
+      ],
+      "tests": [
+        "tests/test_schema.py::test_tables_exist_and_version_recorded",
+        "tests/test_cli.py::test_migrate"
+      ]
+    },
+    "FR-005": {
+      "title": "Repository has unique name, unique absolute path, registration time",
+      "tasks": [
+        "T004",
+        "T006",
+        "T008"
+      ],
+      "tests": [
+        "tests/test_schema.py::test_bad_repo_name_rejected",
+        "tests/test_registry.py::test_add_stores_absolute_path"
+      ]
+    },
+    "FR-006": {
+      "title": "File belongs to one repository with relative path, language, content hash; path unique per repo",
+      "tasks": [
+        "T003",
+        "T004"
+      ],
+      "tests": [
+        "tests/test_schema.py::test_file_path_unique_per_repo"
+      ]
+    },
+    "FR-007": {
+      "title": "Symbol belongs to one file with name, kind, start/end lines, source, content hash",
+      "tasks": [
+        "T003",
+        "T004"
+      ],
+      "tests": [
+        "tests/test_schema.py::test_bad_symbol_rejected"
+      ]
+    },
+    "FR-008": {
+      "title": "Symbol kind is from a fixed set including function, method, class",
+      "tasks": [
+        "T003",
+        "T004"
+      ],
+      "tests": [
+        "tests/test_schema.py::test_bad_symbol_rejected"
+      ]
+    },
+    "FR-009": {
+      "title": "Removing a repository or file removes what belongs to it",
+      "tasks": [
+        "T003",
+        "T004"
+      ],
+      "tests": [
+        "tests/test_schema.py::test_delete_cascades"
+      ]
+    },
+    "FR-010": {
+      "title": "ccctx repo add <path> --name <name> registers an existing directory by resolved absolute path",
+      "tasks": [
+        "T002",
+        "T006",
+        "T007",
+        "T008",
+        "T009"
+      ],
+      "tests": [
+        "tests/test_registry.py::test_add_stores_absolute_path",
+        "tests/test_cli.py::test_add_then_list"
+      ]
+    },
+    "FR-011": {
+      "title": "repo add refuses missing path, non-directory, bad name, taken name, duplicate directory; non-zero, nothing recorded",
+      "tasks": [
+        "T006",
+        "T007",
+        "T008",
+        "T009"
+      ],
+      "tests": [
+        "tests/test_registry.py::test_refusals_record_nothing",
+        "tests/test_cli.py::test_refusals_without_database",
+        "test_duplicate_name_exits_1"
+      ]
+    },
+    "FR-012": {
+      "title": "ccctx repo list prints NAME PATH FILES SYMBOLS, one row per repo sorted by name, DB counts",
+      "tasks": [
+        "T006",
+        "T007",
+        "T008",
+        "T009",
+        "T016"
+      ],
+      "tests": [
+        "tests/test_registry.py::test_list_sorted_with_counts",
+        "tests/test_cli.py::test_format_table",
+        "test_empty_registry"
+      ]
+    },
+    "FR-013": {
+      "title": "Registering or listing never reads, runs or modifies the registered directory's contents",
+      "tasks": [
+        "T008"
+      ],
+      "tests": [
+        "tests/test_registry.py::test_resolve_dir_refuses_missing_and_files"
+      ]
+    },
+    "FR-014": {
+      "title": "CLI reports unreachable DB within 5 s, non-zero exit, no secret in output",
+      "tasks": [
+        "T007",
+        "T009",
+        "T016"
+      ],
+      "tests": [
+        "tests/test_cli.py::test_unreachable_exits_2_fast_without_secret",
+        "test_missing_setting_exits_1"
+      ]
+    },
+    "FR-015": {
+      "title": "MCP tool lists repositories with the same core code as ccctx repo list",
+      "tasks": [
+        "T011",
+        "T012",
+        "T017"
+      ],
+      "tests": [
+        "tests/test_server.py::test_list_repositories_matches_registry",
+        "test_list_repositories_unreachable_is_a_result"
+      ]
+    }
+  },
+  "size": "normal",
+  "classification": {
+    "projectedFiles": 10,
+    "projectedTasks": 18,
+    "scopeSignal": "none",
+    "verdict": "normal"
+  },
+  "expectations": [
+    "indexing or parsing files into the schema (next step)",
+    "removing or renaming a registered repository from the CLI",
+    "embeddings and vector columns"
+  ],
+  "context": [
+    "area: compose.yaml (rename container ccctx-db to oracle26ai, keep volume)",
+    "area: src/golestan_code_mcp/db.py and config.py (connection reused)",
+    "area: src/golestan_code_mcp/server.py (add repo listing tool)",
+    "constraint: constitution II chunk carries repo, path, language, name, kind, line range, content hash",
+    "constraint: constitution III CLI calls same core library as MCP server",
+    "constraint: constitution: schema changes as ordered re-runnable migrations",
+    "constraint: constitution VII indexing read-only on target codebases; creds from env"
+  ],
+  "intent": "Persistent Oracle schema for repositories, files and symbols, plus ccctx repo add/list to register and list codebases",
+  "decisions": [
+    {
+      "decision": "Migrations as an ordered SQL list in schema.py, tracked in ccctx_migrations, version row written after its statements succeed, ORA-00955 ignored",
+      "why": "Oracle DDL auto-commits; this makes a half-applied migration re-runnable with no new dependency or package data",
+      "rejected": "Alembic/Liquibase, .sql files under db/migrations, container startup scripts"
+    },
+    {
+      "decision": "repo add, repo list and list_repositories call migrate first; ccctx db migrate also exists",
+      "why": "fresh database works without an extra step; check is one select once applied",
+      "rejected": "explicit migrate only (first repo add fails with ORA-00942)"
+    },
+    {
+      "decision": "registry.py is the shared core; cli.py and server.py are thin wrappers",
+      "why": "constitution III: CLI and MCP must call the same core library",
+      "rejected": "logic in cli.py with the tool shelling out"
+    },
+    {
+      "decision": "Symbols reach repository, path and language through ccctx_files; cascade deletes via FKs",
+      "why": "one place for each fact; FR-009 enforced by the database",
+      "rejected": "denormalized repo_id/path/language on symbols (add when search needs it)"
+    },
+    {
+      "decision": "Exit codes 0 ok, 1 refused input or config, 2 unreachable or still starting; no waiting",
+      "why": "matches golestan-check-db and keeps the 5 s failure bound",
+      "rejected": "per-refusal codes; retrying while the DB starts"
+    },
+    {
+      "decision": "Store Path.expanduser().resolve() string; unique on it",
+      "why": "removes .., symlinks and, on Windows, normalizes casing to the real path",
+      "rejected": "lowercasing paths (breaks case-sensitive file systems)"
+    },
+    {
+      "decision": "One RegistryError carrying the user-facing message instead of a subclass per refusal",
+      "why": "callers only print it; tests match on message",
+      "rejected": "five exception subclasses"
+    },
+    {
+      "decision": "CLI validates name and path before connecting",
+      "why": "bad input is reported without a database, and fast",
+      "rejected": "letting add_repo do it after connect"
+    },
+    {
+      "decision": "db migrate skips the automatic pre-migrate",
+      "why": "otherwise it always reported 'up to date'",
+      "rejected": "migrating twice"
+    }
+  ],
+  "step_summaries": {
+    "plan": {
+      "summary": "Plan: schema.py migrations (4 ccctx_ tables), registry.py core, ccctx CLI and list_repositories tool; container renamed oracle26ai",
+      "key_finding": "Oracle DDL auto-commits, so migrations must be idempotent and recorded only after success; and test_lists_one_health_tool must change when the second tool is added"
+    },
+    "tasks": {
+      "summary": "17 tasks in 5 phases: setup (2), schema foundational (3), register+list CLI (5), MCP tool (3), polish (4)"
+    },
+    "implement": {
+      "summary": "Schema migrations, registry core, ccctx repo add/list and db migrate, list_repositories MCP tool; container renamed oracle26ai"
+    }
+  },
+  "approach": "Migration 1 in schema.py creates ccctx_repos, ccctx_files, ccctx_symbols and ccctx_migrations under the app user. registry.py validates and registers directories and lists them with counts; ccctx (repo add, repo list, db migrate) and the list_repositories MCP tool are thin wrappers. compose.yaml renames the container to oracle26ai and keeps the volume.",
+  "currentTask": "T017",
+  "task_summaries": {
+    "T001": {
+      "status": "DONE",
+      "did": "container_name oracle26ai; comment warns that a top-level name: changes the volume",
+      "files": [
+        "compose.yaml"
+      ]
+    },
+    "T002": {
+      "status": "DONE",
+      "did": "added ccctx console script -> golestan_code_mcp.cli:main",
+      "files": [
+        "pyproject.toml"
+      ]
+    },
+    "T003": {
+      "status": "DONE",
+      "did": "schema tests: tables, version 1, 3x idempotent, name/kind/line checks, per-repo path unique, cascade; fail first (no schema module)",
+      "files": [
+        "tests/test_schema.py"
+      ]
+    },
+    "T004": {
+      "status": "DONE",
+      "did": "MIGRATIONS v1 core tables; migrate() tolerant of already-exists, version row after success",
+      "files": [
+        "src/golestan_code_mcp/schema.py"
+      ]
+    },
+    "T005": {
+      "status": "DONE",
+      "did": "container recreated as oracle26ai on 1521, same volume (smoke rows kept); READY in logs; test_schema 11 passed",
+      "files": [
+        "src/golestan_code_mcp/schema.py"
+      ]
+    },
+    "T006": {
+      "status": "DONE",
+      "did": "registry tests: name rules, ~/relative/.. resolution, 5 refusals with count unchanged, sorted list with counts; fail first",
+      "files": [
+        "tests/test_registry.py"
+      ]
+    },
+    "T007": {
+      "status": "DONE",
+      "did": "cli tests: add/list output, refusals exit 1 without DB, duplicate, empty registry, table format, migrate, unreachable exit 2 <5 s no secret, missing setting exit 1; fail first",
+      "files": [
+        "tests/test_cli.py"
+      ]
+    },
+    "T008": {
+      "status": "DONE",
+      "did": "registry: validate_name, resolve_dir (exists/is_dir only), add_repo with conflict check and race mapping, list_repos one grouped query; 14 tests pass",
+      "files": [
+        "src/golestan_code_mcp/registry.py"
+      ]
+    },
+    "T009": {
+      "status": "DONE",
+      "did": "ccctx: repo add/list, db migrate; input refused before connecting; exit 1 refused/config, 2 unreachable or still starting",
+      "files": [
+        "src/golestan_code_mcp/cli.py"
+      ]
+    },
+    "T010": {
+      "status": "DONE",
+      "did": "test_registry + test_cli: 26 passed against live DB",
+      "files": [
+        "src/golestan_code_mcp/cli.py"
+      ]
+    },
+    "T011": {
+      "status": "DONE",
+      "did": "server tests: tool list is health + list_repositories; matches registry; unreachable is a result <5 s without secret; 3 fail first",
+      "files": [
+        "tests/test_server.py"
+      ]
+    },
+    "T012": {
+      "status": "DONE",
+      "did": "list_repositories tool with RepoInfo/RepoList; migrate then registry.list_repos; errors returned as data",
+      "files": [
+        "src/golestan_code_mcp/server.py"
+      ]
+    },
+    "T013": {
+      "status": "DONE",
+      "did": "test_server 6 passed",
+      "files": [
+        "src/golestan_code_mcp/server.py"
+      ]
+    },
+    "T014": {
+      "status": "DONE",
+      "did": "README: oracle26ai with docker ps/logs, Registering codebases section, exit codes, list_repositories, layout",
+      "files": [
+        "README.md"
+      ]
+    },
+    "T015": {
+      "status": "DONE",
+      "did": "full suite: 64 passed with DB up; 41 passed, 23 skipped with DB stopped",
+      "files": [
+        "tests/"
+      ]
+    },
+    "T016": {
+      "status": "DONE",
+      "did": "docker ps/logs ok; flask+gin registered and listed 0/0 in ~1 s each; same after restart (10 s) and down/up (14 s); fresh volume ready 36 s; secrets sweep clean",
+      "files": [
+        "README.md"
+      ]
+    },
+    "T017": {
+      "status": "DONE",
+      "did": "stdio: list_repositories matches ccctx repo list; developer confirmed MCP Inspector run",
+      "files": [
+        "src/golestan_code_mcp/server.py"
+      ]
+    }
+  },
+  "verified": [
+    {
+      "what": "full suite with DB up",
+      "command": "uv run pytest -q",
+      "source": "derived",
+      "exitCode": 0,
+      "durationSeconds": 31.6,
+      "result": "................................................................         [100%] · 64 passed in 29.82s"
+    },
+    {
+      "what": "ccctx repo list against live DB",
+      "command": "uv run ccctx repo list",
+      "source": "derived",
+      "exitCode": 0,
+      "durationSeconds": 0.8,
+      "result": "NAME   PATH                                                       FILES  SYMBOLS · flask  C:\\Users\\user\\test\\coding_challenge\\ccctx-repos\\flask      0        0 · gin    C:\\Users\\user\\test\\coding_challenge\\ccctx-repos\\gin        0        0"
+    },
+    {
+      "what": "full suite with DB stopped",
+      "command": "docker compose stop; uv run pytest -q -rs",
+      "result": "41 passed, 23 skipped (database unreachable)"
+    },
+    {
+      "what": "request walkthrough",
+      "command": "docker ps; docker logs oracle26ai; ccctx repo add flask/gin; ccctx repo list",
+      "result": "READY in logs; 2 rows, 0 files 0 symbols; ~1 s per command"
+    },
+    {
+      "what": "registry persists",
+      "command": "docker compose restart; down/up; ccctx repo list",
+      "result": "identical output; ready in 10 s and 14 s"
+    },
+    {
+      "what": "fresh volume first start",
+      "command": "docker run scratch volume until DATABASE IS READY TO USE!",
+      "result": "36 s"
+    },
+    {
+      "what": "stdio list_repositories matches CLI",
+      "command": "stdio client list_tools + call list_repositories",
+      "result": "tools [health, list_repositories]; same 2 repos and counts"
+    },
+    {
+      "what": "secrets sweep",
+      "command": "scan 168 tracked/trackable files and ccctx output for .env passwords",
+      "result": "0 hits"
+    }
+  ],
+  "concerns": [
+    {
+      "note": "T017 Inspector half is interactive: developer must call list_repositories from the MCP Inspector",
+      "step": "implement"
+    }
+  ]
+}
