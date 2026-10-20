@@ -1,0 +1,8 @@
+# Agent Memory Checklist appbook. Install into a virtual environment: pip install -r requirements.txt
+fastapi>=0.110
+uvicorn>=0.27
+python-dotenv>=1.0
+oracledb>=3.0
+anthropic>=1.15
+numpy>=1.26
+huggingface_hub>=1.0      # optional: the network side of the §2 latency race
