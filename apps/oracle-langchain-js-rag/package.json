@@ -1,0 +1,33 @@
+{
+  "name": "oracle-langchain-js-rag",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.19.0",
+  "scripts": {
+    "dev": "pnpm --filter @oracle-langchain-js-rag/web dev",
+    "dev:api": "pnpm --filter @oracle-langchain-js-rag/api dev",
+    "build": "pnpm -r --if-present build",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "test": "pnpm -r --if-present test",
+    "check": "pnpm typecheck && pnpm test && pnpm build",
+    "clean": "node scripts/clean.mjs",
+    "clean:deps": "node scripts/clean.mjs --deps",
+    "db:check": "tsx scripts/check.ts",
+    "seed": "tsx scripts/seed.ts",
+    "reset": "tsx scripts/reset.ts",
+    "start": "pnpm --filter @oracle-langchain-js-rag/api start"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "dotenv": "^17.2.3",
+    "esbuild": "^0.25.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.6"
+  },
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=10.0.0"
+  }
+}
