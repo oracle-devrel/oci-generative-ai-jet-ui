@@ -1,0 +1,188 @@
+% jnb shared TikZ preamble.
+% jnb/tikz.py substitutes the two marker lines below at compile time: the colour
+% definitions are generated from assets/tokens.json, the font setup from tokens.json["fonts"]
+% plus assets/fonts. The figure source is appended after \begin{document}.
+% Compiled with lualatex --output-format=dvi, converted by dvisvgm --no-fonts.
+\def\pgfsysdriver{pgfsys-dvisvgm.def}% pgf natively emits dvisvgm specials (no Ghostscript needed)
+\documentclass[tikz,12pt,border=2pt]{standalone}
+\makeatletter
+\usepackage{amsmath}
+\usepackage{fontspec}
+\usepackage{unicode-math}
+@@FONTS@@
+\usepackage{xcolor}
+@@COLORS@@
+\usetikzlibrary{arrows.meta,calc,positioning,3d,perspective,fit}
+\AtBeginDocument{\color{jnb-text-body}}
+
+% ---- role macros (text and math): \inp{W_{t-1}}  \out{y}  \hl{0.16}
+\newcommand{\inp}[1]{{\color{jnb-input}#1}}
+\newcommand{\out}[1]{{\color{jnb-output}#1}}
+\newcommand{\hl}[1]{{\color{jnb-highlight}#1}}
+\newcommand{\third}[1]{{\color{jnb-third}#1}}
+\newcommand{\fourth}[1]{{\color{jnb-fourth}#1}}
+\newcommand{\negc}[1]{{\color{jnb-negative}#1}}
+
+% ---- TikZ role styles
+\tikzset{
+  every picture/.append style={line cap=round, line join=round, >={Stealth[length=7pt,width=5pt]}},
+  inp/.style={color=jnb-input},
+  % `out` is also TikZ's "out=<angle>" key (to paths): keep that meaning when a value is given.
+  out/.code={\if\relax\detokenize{#1}\relax\pgfkeysalso{color=jnb-output}\else\def\tikz@to@out{#1}\tikz@to@switch@on\fi},
+  out/.default={},
+  hl/.style={color=jnb-highlight},
+  third/.style={color=jnb-third},
+  fourth/.style={color=jnb-fourth},
+  muted/.style={color=jnb-text-muted},
+  inp arrow/.style={inp, line width=1pt, ->},
+  out arrow/.style={out, line width=1pt, ->},
+  leader/.style={hl, line width=1pt},
+  jnb cell/.style={draw=jnb-grey-cell-edge, fill=jnb-grey-cell-fill, line width=0.8pt,
+                   inner sep=0pt, outer sep=0pt, text=jnb-text-body, font=\small},
+  jnb cell hl/.style={draw=jnb-highlight, fill=jnb-highlight!30!jnb-grey-cell-fill, line width=2pt},
+  jnb cell inp/.style={draw=jnb-input, fill=jnb-input!22!jnb-surface-bg, line width=1.4pt, text=jnb-input},
+  jnb cell out/.style={draw=jnb-output, fill=jnb-output!22!jnb-surface-bg, line width=1.4pt, text=jnb-output},
+}
+
+% =====================================================================
+% \jnbcuboid{x}{y}{height}[options]
+%   Isometric-style cuboid on the cell [x,x+1]x[y,y+1], drawn in the CURRENT 3D
+%   coordinate system (set x={(..)}, y={(..)}, z={(..)} on a scope). Visible faces for a
+%   viewer at large x, large y, large z: top, the x-facing face (left, greys.cuboid_left)
+%   and the y-facing face (right, greys.cuboid_right).
+%   options: gap (cell inset, 0.1)  base (z of the bottom, 0)  hl (flag: highlighted)
+%            edge (colour name)  edge width  top/left/right (override face colours)
+%   Highlight variant: highlight-coloured edges and translucent-looking highlight faces
+%   (opacity .57 / .81 / .30 for top / left / right, pre-mixed with surface.bg so that
+%   nothing shows through).
+% =====================================================================
+\newif\ifjnb@cuboidhl
+\pgfkeys{
+  /jnb/cuboid/.cd,
+  gap/.initial=0.1, base/.initial=0, hl/.is if=jnb@cuboidhl,
+  edge/.initial=jnb-grey-cell-edge, edge width/.initial=0.4pt,
+  top/.initial=jnb-grey-cuboid-top, left/.initial=jnb-grey-cuboid-left, right/.initial=jnb-grey-cuboid-right,
+}
+\def\jnb@cuboidkey#1{\pgfkeysvalueof{/jnb/cuboid/#1}}
+\def\jnb@cuboid#1#2#3#4{%
+  \begingroup
+  \jnb@cuboidhlfalse
+  \pgfkeys{/jnb/cuboid/.cd,#4}%
+  \pgfmathsetmacro\jnb@xa{#1+\jnb@cuboidkey{gap}}%
+  \pgfmathsetmacro\jnb@xb{#1+1-\jnb@cuboidkey{gap}}%
+  \pgfmathsetmacro\jnb@ya{#2+\jnb@cuboidkey{gap}}%
+  \pgfmathsetmacro\jnb@yb{#2+1-\jnb@cuboidkey{gap}}%
+  \pgfmathsetmacro\jnb@zz{\jnb@cuboidkey{base}}%
+  \pgfmathsetmacro\jnb@zt{\jnb@cuboidkey{base}+#3}%
+  \ifjnb@cuboidhl
+    \def\jnb@ftop{jnb-highlight!57!jnb-surface-bg}%
+    \def\jnb@fleft{jnb-highlight!81!jnb-surface-bg}%
+    \def\jnb@fright{jnb-highlight!30!jnb-surface-bg}%
+    \def\jnb@edge{jnb-highlight}\def\jnb@ew{1.4pt}%
+  \else
+    \edef\jnb@ftop{\jnb@cuboidkey{top}}\edef\jnb@fleft{\jnb@cuboidkey{left}}%
+    \edef\jnb@fright{\jnb@cuboidkey{right}}%
+    \edef\jnb@edge{\jnb@cuboidkey{edge}}\edef\jnb@ew{\jnb@cuboidkey{edge width}}%
+  \fi
+  % right face (y = yb), left face (x = xb), then top face
+  \path[fill=\jnb@fright,draw=\jnb@edge,line width=\jnb@ew]
+    (\jnb@xa,\jnb@yb,\jnb@zz)--(\jnb@xb,\jnb@yb,\jnb@zz)--(\jnb@xb,\jnb@yb,\jnb@zt)--(\jnb@xa,\jnb@yb,\jnb@zt)--cycle;
+  \path[fill=\jnb@fleft,draw=\jnb@edge,line width=\jnb@ew]
+    (\jnb@xb,\jnb@ya,\jnb@zz)--(\jnb@xb,\jnb@yb,\jnb@zz)--(\jnb@xb,\jnb@yb,\jnb@zt)--(\jnb@xb,\jnb@ya,\jnb@zt)--cycle;
+  \path[fill=\jnb@ftop,draw=\jnb@edge,line width=\jnb@ew]
+    (\jnb@xa,\jnb@ya,\jnb@zt)--(\jnb@xb,\jnb@ya,\jnb@zt)--(\jnb@xb,\jnb@yb,\jnb@zt)--(\jnb@xa,\jnb@yb,\jnb@zt)--cycle;
+  \endgroup
+}
+\NewDocumentCommand{\jnbcuboid}{m m m O{}}{\jnb@cuboid{#1}{#2}{#3}{#4}}
+
+% =====================================================================
+% \jnbbars[options]{{row0 values},{row1 values},...}
+%   Depth-sorted grid of cuboids (row index i -> x axis, column index j -> y axis).
+%   Painter's order: increasing i+j, so nearer bars cover farther ones.
+%   Height of a bar = min + scale * value.
+%   options: scale (z units per unit value, 8)  min (flat-plate thickness, 0.2)
+%            hl (list "i/j,i/j" of highlighted cells)  cuboid ({\jnbcuboid options})
+%   Leaves \jnbbarsrows / \jnbbarscols defined; per-cell value is \jnbbarval{i}{j}.
+% =====================================================================
+\pgfkeys{
+  /jnb/bars/.cd,
+  scale/.initial=8, min/.initial=0.2, hl/.initial={}, cuboid/.initial={},
+}
+\def\jnbbarval#1#2{\csname jnb@v@#1@#2\endcsname}
+\NewDocumentCommand{\jnbbars}{O{} m}{%
+  \begingroup
+  \pgfkeys{/jnb/bars/.cd,#1}%
+  \edef\jnb@barscuboid{\pgfkeysvalueof{/jnb/bars/cuboid}}%
+  \edef\jnb@hllist{\pgfkeysvalueof{/jnb/bars/hl}}%
+  \def\jnb@nrows{0}\def\jnb@ncols{0}%
+  \foreach \jnb@row [count=\jnb@ri from 0] in {#2}{%
+    \global\let\jnb@nrows\jnb@ri
+    \foreach \jnb@val [count=\jnb@ci from 0] in \jnb@row{%
+      \expandafter\xdef\csname jnb@v@\jnb@ri @\jnb@ci\endcsname{\jnb@val}%
+      \xdef\jnb@ncols{\jnb@ci}%
+    }%
+  }%
+  \pgfmathtruncatemacro\jnb@nr{\jnb@nrows+1}%
+  \pgfmathtruncatemacro\jnb@nc{\jnb@ncols+1}%
+  \global\let\jnbbarsrows\jnb@nr \global\let\jnbbarscols\jnb@nc
+  \ifx\jnb@hllist\@empty\else
+    \foreach \jnb@h in \jnb@hllist{\expandafter\gdef\csname jnb@hl@\jnb@h\endcsname{1}}%
+  \fi
+  \pgfmathtruncatemacro\jnb@maxd{\jnb@nr+\jnb@nc-2}%
+  \foreach \jnb@d in {0,...,\jnb@maxd}{%
+    \foreach \jnb@i in {0,...,\jnb@nrows}{%
+      \pgfmathtruncatemacro\jnb@j{\jnb@d-\jnb@i}%
+      \ifnum\jnb@j>-1\relax\ifnum\jnb@j<\jnb@nc\relax
+        \pgfmathsetmacro\jnb@hgt{\pgfkeysvalueof{/jnb/bars/min}+\pgfkeysvalueof{/jnb/bars/scale}*\jnbbarval{\jnb@i}{\jnb@j}}%
+        \ifcsname jnb@hl@\jnb@i/\jnb@j\endcsname
+          \edef\jnb@call{\noexpand\jnb@cuboid{\jnb@i}{\jnb@j}{\jnb@hgt}{hl,\jnb@barscuboid}}%
+        \else
+          \edef\jnb@call{\noexpand\jnb@cuboid{\jnb@i}{\jnb@j}{\jnb@hgt}{\jnb@barscuboid}}%
+        \fi
+        \jnb@call
+      \fi\fi
+    }%
+  }%
+  \endgroup
+}
+
+% =====================================================================
+% \jnbmatrix[options]{{row0 cells},{row1 cells},...}
+%   Grid of cells with the cell text; top-left corner of the matrix at the origin of the
+%   current coordinate system, x to the right, rows going DOWN. Cell (i,j) is a rectangle
+%   node named <name>-<i>-<j> (default name "M"), e.g. (M-3-4.east) for annotations.
+%   options: name (M)  cw/ch (cell width/height, 1.7cm / 0.95cm)  hl (list "i/j,...",
+%            highlighted cells, drawn last with the thick highlight border)
+%   Leaves \jnbmatrixrows / \jnbmatrixcols defined.
+% =====================================================================
+\pgfkeys{
+  /jnb/matrix/.cd,
+  name/.initial=M, cw/.initial=1.7cm, ch/.initial=0.95cm, hl/.initial={},
+}
+\NewDocumentCommand{\jnbmatrix}{O{} m}{%
+  \begingroup
+  \pgfkeys{/jnb/matrix/.cd,#1}%
+  \edef\jnb@mname{\pgfkeysvalueof{/jnb/matrix/name}}%
+  \edef\jnb@mcw{\pgfkeysvalueof{/jnb/matrix/cw}}\edef\jnb@mch{\pgfkeysvalueof{/jnb/matrix/ch}}%
+  \edef\jnb@hllist{\pgfkeysvalueof{/jnb/matrix/hl}}%
+  \def\jnb@nrows{0}\def\jnb@ncols{0}%
+  \foreach \jnb@row [count=\jnb@ri from 0] in {#2}{%
+    \global\let\jnb@nrows\jnb@ri
+    \foreach \jnb@val [count=\jnb@ci from 0] in \jnb@row{%
+      \xdef\jnb@ncols{\jnb@ci}%
+      \expandafter\xdef\csname jnb@mv@\jnb@ri @\jnb@ci\endcsname{\jnb@val}%
+      \node[jnb cell,minimum width=\jnb@mcw,minimum height=\jnb@mch]
+        (\jnb@mname-\jnb@ri-\jnb@ci) at ({(\jnb@ci+.5)*\jnb@mcw},{-(\jnb@ri+.5)*\jnb@mch}) {\jnb@val};
+    }%
+  }%
+  \pgfmathtruncatemacro\jnb@nr{\jnb@nrows+1}\pgfmathtruncatemacro\jnb@nc{\jnb@ncols+1}%
+  \global\let\jnbmatrixrows\jnb@nr \global\let\jnbmatrixcols\jnb@nc
+  \ifx\jnb@hllist\@empty\else
+    \foreach \jnb@h in \jnb@hllist{\expandafter\jnb@mhl\jnb@h\relax}%
+  \fi
+  \endgroup
+}
+\def\jnb@mhl#1/#2\relax{%
+  \node[jnb cell hl,minimum width=\jnb@mcw,minimum height=\jnb@mch]
+    at (\jnb@mname-#1-#2.center) {\csname jnb@mv@#1@#2\endcsname};%
+}

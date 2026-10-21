@@ -1,0 +1,17 @@
+[
+  {
+    "number": "0.1",
+    "svg": "fig-0.1-harness-anatomy.svg",
+    "caption": "A question comes in, the model (amber) uses tools in a loop until it can answer, and only long-term memory (green) is kept between questions. Each box names the Part that builds it."
+  },
+  {
+    "number": "2.1",
+    "svg": "fig-2.1-embedding-geometry.svg",
+    "caption": "Left: the question and each memory as arrows; the smaller the angle to the question, the closer the meaning. Right: the same memories ranked by distance (schematic)."
+  },
+  {
+    "number": "2.2",
+    "svg": "fig-2.2-scan-pipeline.svg",
+    "caption": "Scanners produce facts; only new or changed facts are embedded (amber, inside the database) and then stored (green)."
+  }
+]

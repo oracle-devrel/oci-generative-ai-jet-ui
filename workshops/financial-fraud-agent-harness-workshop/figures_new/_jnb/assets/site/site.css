@@ -1,0 +1,343 @@
+/* sitp.ai-style notebook pages. All colors/fonts come from tokens.css (--jnb-*),
+   which render_site.py generates from assets/tokens.json. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  background: var(--jnb-surface-bg);
+  color-scheme: dark;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--jnb-text-body);
+  font-family: var(--jnb-font-serif);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  font-kerning: normal;
+  font-variant-ligatures: common-ligatures;
+}
+
+/* ---- column ------------------------------------------------------------ */
+
+.jnb-article {
+  width: min(42rem, calc(100% - 2.5rem));
+  margin: 0 auto;
+  padding: 3.5rem 0 4rem;
+}
+
+.jnb-article > .jnb-cell:first-child > :first-child { margin-top: 0; }
+
+/* ---- typography -------------------------------------------------------- */
+
+p { margin: 0 0 1.1rem; }
+
+strong, b { color: var(--jnb-text-strong); font-weight: 700; }
+em, i { font-style: italic; }
+
+a { color: var(--jnb-role-input); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 0.18em; }
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--jnb-text-strong);
+  font-family: var(--jnb-font-serif);
+  line-height: 1.25;
+  margin: 2.2rem 0 0.9rem;
+  font-weight: 700;
+}
+h1 { font-size: 2.3rem; font-weight: 400; margin: 0 0 1.6rem; letter-spacing: -0.005em; }
+h2 { font-size: 1.6rem; }
+h3 { font-size: 1.3rem; }
+h4 { font-size: 1.1rem; font-style: italic; }
+h5, h6 { font-size: 1rem; color: var(--jnb-text-body); }
+
+.anchor-link {
+  margin-left: 0.4em;
+  color: var(--jnb-text-faint);
+  opacity: 0;
+  font-weight: 400;
+  transition: opacity 0.15s;
+}
+:is(h1, h2, h3, h4, h5, h6):hover .anchor-link { opacity: 1; }
+
+ul, ol { margin: 0 0 1.1rem; padding-left: 1.6rem; }
+li { margin: 0.25rem 0; }
+li::marker { color: var(--jnb-text-muted); }
+
+hr { border: 0; border-top: 1px solid var(--jnb-surface-border); margin: 2.4rem 0; }
+
+blockquote {
+  margin: 1.4rem 0;
+  padding: 0 0 0 1.2rem;
+  border-left: 2px solid var(--jnb-surface-border);
+  color: var(--jnb-text-muted);
+}
+blockquote > :last-child { margin-bottom: 0; }
+
+code, kbd, samp {
+  font-family: var(--jnb-font-mono);
+  font-size: 0.86em;
+  color: var(--jnb-text-strong);
+  background: var(--jnb-surface-panel);
+  padding: 0.12em 0.36em;
+  border-radius: 4px;
+}
+pre code { background: none; padding: 0; font-size: inherit; color: inherit; }
+
+img { max-width: 100%; height: auto; }
+
+table {
+  border-collapse: collapse;
+  margin: 1.4rem 0;
+  font-size: 0.95em;
+  max-width: 100%;
+}
+th, td {
+  border: 1px solid var(--jnb-surface-border);
+  padding: 0.3rem 0.8rem;
+  text-align: left;
+}
+th { color: var(--jnb-text-strong); background: var(--jnb-surface-panel); }
+
+/* ---- math -------------------------------------------------------------- */
+
+.katex-display { margin: 1.3em 0; overflow-x: auto; overflow-y: hidden; padding: 0.2em 0; }
+.katex { color: inherit; }
+
+.jnb-role-input     { color: var(--jnb-role-input); }
+.jnb-role-output    { color: var(--jnb-role-output); }
+.jnb-role-highlight { color: var(--jnb-role-highlight); }
+
+/* ---- figures ----------------------------------------------------------- */
+
+figure.jnb-figure {
+  /* breaks out of the 42rem text column, centered, up to 60rem */
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(60rem, calc(100vw - 2.5rem));
+  margin: 2.2rem 0 2rem;
+  padding: 0;
+}
+figure.jnb-figure > :is(svg, img) {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+}
+figure.jnb-figure figcaption {
+  max-width: 42rem;
+  margin: 0.9rem auto 0;
+  color: var(--jnb-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+.jnb-fignum { color: var(--jnb-text-muted); margin-right: 0.45em; }
+
+/* ---- callouts ---------------------------------------------------------- */
+
+.jnb-callout {
+  --jnb-callout-color: var(--jnb-role-input);
+  margin: 2rem 0;
+  padding: 0.15rem 0 0.15rem 1.5rem;
+  border-left: 4px solid var(--jnb-callout-color);
+  color: var(--jnb-text-body);
+}
+.jnb-callout--note    { --jnb-callout-color: var(--jnb-role-input); }
+.jnb-callout--tip     { --jnb-callout-color: var(--jnb-role-third); }
+.jnb-callout--warning { --jnb-callout-color: var(--jnb-role-output); }
+
+.jnb-callout-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.2rem 0 0.7rem;
+  color: var(--jnb-callout-color);
+  font-weight: 700;
+  font-size: 1.2rem;
+  line-height: 1.2;
+}
+.jnb-callout-title svg {
+  width: 1.35rem;
+  height: 1.35rem;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.jnb-callout > :last-child { margin-bottom: 0.5rem; }
+
+/* ---- code cells -------------------------------------------------------- */
+
+.jnb-cell { margin: 0; }
+.jnb-code-cell { margin: 1.6rem 0; }
+
+.jnb-file {
+  margin: 0 0 0.3rem;
+  font-family: var(--jnb-font-mono);
+  font-size: 0.78rem;
+  line-height: 1.2;
+  color: var(--jnb-text-faint);
+}
+
+.jnb-input-body { position: relative; }
+
+.jnb-prompt {
+  position: absolute;
+  top: 0.82rem;
+  right: calc(100% + 0.9rem);
+  white-space: nowrap;
+  font-family: var(--jnb-font-mono);
+  font-size: 0.82rem;
+  line-height: 1.2;
+  color: color-mix(in srgb, var(--jnb-role-input) 62%, var(--jnb-surface-bg));
+  user-select: none;
+}
+
+.jnb-code .highlight {
+  margin: 0;
+  background: var(--jnb-surface-code-bg);
+  border: 1px solid var(--jnb-surface-border);
+  border-radius: 6px;
+}
+.jnb-code pre {
+  margin: 0;
+  padding: 0.85rem 1.1rem;
+  overflow-x: auto;
+  font-family: var(--jnb-font-mono);
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: var(--jnb-text-body);
+  tab-size: 4;
+  background: none;
+}
+
+.jnb-outputs { margin: 0.7rem 0 0; }
+.jnb-outputs:not(:has(.jnb-output)) { display: none; }
+.jnb-output { margin: 0.4rem 0; }
+.jnb-output--text pre {
+  margin: 0;
+  padding: 0.1rem 0 0.1rem 1.1rem;
+  border-left: 2px solid var(--jnb-surface-border);
+  overflow-x: auto;
+  font-family: var(--jnb-font-mono);
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--jnb-text-muted);
+  background: none;
+  white-space: pre;
+}
+.jnb-output--stderr pre {
+  color: color-mix(in srgb, var(--jnb-role-negative) 80%, var(--jnb-text-muted));
+  border-left-color: color-mix(in srgb, var(--jnb-role-negative) 55%, var(--jnb-surface-border));
+}
+.jnb-output--image img { display: block; margin: 0.4rem auto; }
+.jnb-output--html:not(:has(figure.jnb-figure)), .jnb-output--markdown { overflow-x: auto; }  /* a scroll container would clip the figure breakout */
+.jnb-output--latex { text-align: center; color: var(--jnb-text-body); }
+
+/* hidden inputs/outputs leave no gap */
+.jnb-code-cell:not(:has(.jnb-input)):not(:has(.jnb-output)) { display: none; }
+.jnb-code-cell:not(:has(.jnb-input)) { margin-top: 1.1rem; }
+
+/* ANSI colors in outputs / tracebacks */
+.ansi-black-fg   { color: var(--jnb-text-faint); }
+.ansi-red-fg     { color: var(--jnb-role-negative); }
+.ansi-green-fg   { color: var(--jnb-role-third); }
+.ansi-yellow-fg  { color: var(--jnb-role-output); }
+.ansi-blue-fg    { color: var(--jnb-role-input); }
+.ansi-magenta-fg { color: var(--jnb-role-fourth); }
+.ansi-cyan-fg    { color: var(--jnb-role-input); }
+.ansi-white-fg   { color: var(--jnb-text-body); }
+.ansi-bold       { font-weight: 700; }
+
+/* pandas-style tables inside outputs */
+.jnb-output table { font-family: var(--jnb-font-mono); font-size: 0.8rem; margin: 0.4rem 0; }
+.jnb-output table th, .jnb-output table td { padding: 0.2rem 0.6rem; text-align: right; }
+
+/* ---- navigation -------------------------------------------------------- */
+
+.jnb-top {
+  width: min(42rem, calc(100% - 2.5rem));
+  margin: 1.4rem auto 0;
+  font-family: var(--jnb-font-sans);
+  font-size: 0.85rem;
+  color: var(--jnb-text-faint);
+}
+.jnb-top a { color: var(--jnb-text-muted); }
+.jnb-top + .jnb-article { padding-top: 2rem; }
+
+.jnb-pager {
+  width: min(42rem, calc(100% - 2.5rem));
+  margin: 0 auto 4rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--jnb-surface-grid);
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  font-size: 0.95rem;
+}
+.jnb-pager a { color: var(--jnb-text-muted); max-width: 48%; }
+.jnb-pager a:hover { color: var(--jnb-role-input); text-decoration: none; }
+.jnb-pager .jnb-next { margin-left: auto; text-align: right; }
+
+.jnb-sidenav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  display: none;
+  padding: 1rem 0.6rem;
+  color: var(--jnb-text-faint);
+}
+.jnb-sidenav:hover { color: var(--jnb-text-strong); }
+.jnb-sidenav svg { width: 1.6rem; height: 3rem; stroke: currentColor; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; display: block; }
+.jnb-sidenav--prev { left: 1.2rem; }
+.jnb-sidenav--next { right: 1.2rem; }
+@media (min-width: 80rem) { .jnb-sidenav { display: block; } }
+
+/* ---- index / TOC ------------------------------------------------------- */
+
+.jnb-toc { list-style: none; margin: 1.5rem 0; padding: 0; counter-reset: jnb-toc; }
+.jnb-toc li {
+  margin: 0;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--jnb-surface-grid);
+  counter-increment: jnb-toc;
+  display: flex;
+  gap: 1rem;
+}
+.jnb-toc li::before {
+  content: counter(jnb-toc) ".";
+  min-width: 1.8rem;
+  text-align: right;
+  color: var(--jnb-text-faint);
+}
+.jnb-toc a { font-size: 1.15rem; }
+
+/* ---- responsive -------------------------------------------------------- */
+
+/* not enough left margin for the prompt: stack it above the block */
+@media (max-width: 58rem) {
+  .jnb-prompt {
+    position: static;
+    margin: 0 0 0.25rem;
+    font-size: 0.78rem;
+  }
+}
+@media (max-width: 40rem) {
+  body { font-size: 1.02rem; }
+  h1 { font-size: 1.9rem; }
+  .jnb-callout { padding-left: 1rem; }
+  .jnb-code pre { padding: 0.7rem 0.8rem; font-size: 0.8rem; }
+}
+
+@media print {
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .jnb-sidenav, .jnb-pager, .jnb-top { display: none; }
+  figure.jnb-figure { left: 0; transform: none; width: 100%; break-inside: avoid; }
+  .jnb-code-cell, .jnb-callout { break-inside: avoid; }
+}

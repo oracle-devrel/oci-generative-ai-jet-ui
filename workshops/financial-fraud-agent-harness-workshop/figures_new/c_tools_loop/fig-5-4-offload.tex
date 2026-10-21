@@ -1,0 +1,30 @@
+\begin{tikzpicture}[font=\small]
+% schematic: block widths are not to scale
+\def\x{3.9}\def\bh{0.85}
+\tikzset{seg/.style={draw=jnb-surface-bg, line width=0.9pt, minimum height=\bh cm, inner sep=0pt, anchor=south west, font=\footnotesize},
+         tool/.style={seg, fill=jnb-input!38!jnb-surface-bg},
+         mrk/.style={seg, fill=jnb-text-muted!60!jnb-surface-bg},
+         held/.style={seg, fill=jnb-third!30!jnb-surface-bg, draw=jnb-third, line width=1pt}}
+% row A: the output inline
+\def\ya{3.3}
+\node[anchor=east, align=right] at (\x-0.2,\ya+0.42) {\emph{without} offload\\[-1pt]\footnotesize\muted{whole result in the prompt}};
+\node[tool, minimum width=9.0cm] at (\x,\ya) {tool result};
+% row B: preview + pointer
+\def\yb{1.5}
+\node[anchor=east, align=right] at (\x-0.2,\yb+0.42) {\emph{with} offload\\[-1pt]\footnotesize\muted{what the prompt keeps}};
+\node[tool, minimum width=3.0cm] at (\x,\yb) {preview};
+\node[mrk, minimum width=1.2cm]  at (\x+3.0,\yb) {};
+\node[muted, font=\scriptsize, anchor=west, align=left] at (\x+4.4,\yb+0.42) {first part of the output (up to the size limit), then a pointer\\(``...[+N chars. full output: fetch\_tool\_output(...)]'')};
+% row C: what stayed in OAMP
+\def\yc{-0.55}
+\node[anchor=east, align=right] at (\x-0.2,\yc+0.42) {kept in OAMP\\[-1pt]\footnotesize\third{saved as tool output}};
+\node[held, minimum width=9.0cm] at (\x,\yc) {\third{full output}};
+\node[third, font=\footnotesize, anchor=west] at (\x+9.15,\yc+0.42) {expires after 7 days};
+\draw[third, line width=0.8pt, dashed, ->] (\x+3.0,\yb-0.05) -- (\x+3.0,\yc+\bh+0.05);
+% the saving
+\draw[hl, line width=1.2pt, <->] (\x+4.2,\ya+\bh+0.25) -- (\x+9.0,\ya+\bh+0.25);
+\node[hl, anchor=south] at (\x+6.6,\ya+\bh+0.3) {never enters the prompt};
+% equation
+\node[anchor=north west, font=\normalsize] at (0.2,-1.6)
+  {$\mathrm{inline}(\inp{o})=\begin{cases}\inp{o} & |\inp{o}|\le \mathrm{size\ limit}\\[2pt] \inp{o}_{[:\mathrm{size\ limit}]}\mathbin{\Vert}\text{pointer}\bigl(\third{\mathrm{fetch\ full\ output}}\bigr) & \text{otherwise}\end{cases}$};
+\end{tikzpicture}

@@ -1,0 +1,10 @@
+# Enterprise Data Agent Workshop — Python dependencies
+oracledb>=2.4
+openai>=1.50
+oracleagentmemory>=26.8
+langchain-oracledb>=1.5
+numpy>=1.26
+gdown>=5.2
+jupyter
+ipykernel
+ipywidgets

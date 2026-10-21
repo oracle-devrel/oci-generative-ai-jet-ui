@@ -1,0 +1,26 @@
+\usetikzlibrary{shapes.geometric}
+% shared by every figure in this slice (prepended by build.py)
+\tikzset{
+  box/.style={draw=jnb-grey-cell-edge, fill=jnb-grey-cell-fill, rounded corners=2pt,
+              line width=0.8pt, inner sep=5pt, text=jnb-text-body, align=left},
+  boxinp/.style={box, draw=jnb-input, fill=jnb-input!14!jnb-surface-bg, line width=1.2pt},
+  boxout/.style={box, draw=jnb-output, fill=jnb-output!14!jnb-surface-bg, line width=1.2pt},
+  boxthird/.style={box, draw=jnb-third, fill=jnb-third!14!jnb-surface-bg, line width=1.2pt},
+  boxfourth/.style={box, draw=jnb-fourth, fill=jnb-fourth!14!jnb-surface-bg, line width=1.2pt},
+  boxneg/.style={box, draw=jnb-negative, fill=jnb-negative!14!jnb-surface-bg, line width=1.2pt},
+  boxhl/.style={box, draw=jnb-highlight, fill=jnb-highlight!22!jnb-surface-bg, line width=1.8pt},
+  flow/.style={line width=1pt, ->, color=jnb-text-muted},
+  flowin/.style={inp, line width=1pt, ->},
+  flowout/.style={out, line width=1pt, ->},
+  flowthird/.style={third, line width=1pt, ->},
+  note/.style={color=jnb-text-muted, font=\footnotesize, align=left},
+  faint/.style={color=jnb-text-faint},
+  strong/.style={color=jnb-text-strong},
+  neg/.style={color=jnb-negative},
+}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\muted}[1]{{\color{jnb-text-muted}#1}}
+\newcommand{\faintc}[1]{{\color{jnb-text-faint}#1}}
+\newcommand{\strongc}[1]{{\bfseries\color{jnb-text-strong}#1}}
+% NCM's hyphen-minus glyph is dropped by dvisvgm; a boxed hyphen survives.
+\newcommand{\hy}{\mbox{-}}
