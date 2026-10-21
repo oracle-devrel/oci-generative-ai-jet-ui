@@ -1,0 +1,31 @@
+% RRF contribution 1/(k+r) with k = 60 (hybrid_search_knowledge: rrf_k=60, 30 rows per leg).  Exact -- computed from the formula.
+%   fourth (purple) : the scores (curve, band)
+%   highlight       : the gap between the best one-leg score (1/61) and the worst both-legs score (2/90)
+% x: 1 rank = 0.4 cm ; y: 1 unit of score = <<YS>> cm
+\tikzset{ax/.style={draw=jnb-text-muted, line width=0.8pt}, tick/.style={font=\footnotesize, text=jnb-text-muted}}
+% both-legs band: two legs, each at rank 1..per_list  ->  [2/(k+30), 2/(k+1)]
+\fill[jnb-fourth!13!jnb-surface-bg] (0.4,<<BLO>>) rectangle (12,<<BHI>>);
+\node[fourth, font=\small, anchor=north west, align=left] at (0.55,<<BHI>>-0.08) {in both searches:\enspace
+  $\dfrac{1}{60+r_1}+\dfrac{1}{60+r_2}\ \in\ [\,<<LO2>>,\ <<HI2>>\,]$\\[2pt]
+  {\footnotesize $r_1$: rank by meaning,\enspace $r_2$: rank by keyword}};
+% axes
+\draw[ax] (0,0) -- (12.4,0);
+\draw[ax] (0,0) -- (0,<<TOP>>);
+\foreach \r in {1,10,20,30}{ \draw[ax] (0.4*\r,0) -- (0.4*\r,-0.1); \node[tick, anchor=north] at (0.4*\r,-0.15) {$\r$}; }
+\foreach \v/\t in {<<YTICKS>>}{ \draw[ax] (0,\v*<<YS>>) -- (-0.1,\v*<<YS>>); \node[tick, anchor=east] at (-0.15,\v*<<YS>>) {\t}; }
+\node[font=\small, anchor=north] at (6.4,-0.75) {rank $r$ within one search \ \ (top 30 results fetched per search)};
+\node[font=\small, rotate=90, anchor=south] at (-1.25,<<MID>>) {points from one search};
+% single-leg curve
+\draw[fourth, line width=1.4pt] plot[mark=*, mark size=1.5pt] coordinates {<<CURVE>>};
+\node[fourth, font=\small, anchor=north west, align=left] at (2.0,<<CLBL>>) {in one search only:\enspace $\dfrac{1}{60+r}$};
+\node[fourth, font=\footnotesize, anchor=south west] at (0.5,<<P1>>+0.12) {$r=1$: <<V1>>};
+\node[fourth, font=\footnotesize, anchor=north east] at (12.0,<<P30>>-0.12) {$r=30$: <<V30>>};
+% the focal gap
+\draw[hl, dashed, line width=0.8pt] (0,<<P1>>) -- (12,<<P1>>);
+\draw[hl, dashed, line width=0.8pt] (0,<<BLO>>) -- (12,<<BLO>>);
+\draw[hl, line width=1.4pt, <->] (4.2,<<P1>>+0.03) -- (4.2,<<BLO>>-0.03);
+\node[hl, font=\small, anchor=west] at (4.45,<<GAPMID>>) {a result in both searches outranks one in only one};
+% sentinel
+\node[muted, font=\footnotesize, anchor=south east, align=right] at (12.3,0.12) {search that misses it: adds 0};
+% equation
+\node at (6.2,-2.0) {$\fourth{\mathrm{rrf}}(d)=\displaystyle\sum_{\text{searches}}\dfrac{1}{\fourth{k}+r_{\text{search}}(d)},\qquad \fourth{k}=60,\quad \text{searches}=\{\text{by meaning},\ \text{keyword}\}$};

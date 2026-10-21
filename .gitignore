@@ -103,6 +103,7 @@ lib64/
 !apps/generative-ui-data-chat/src/lib/
 !apps/generative-ui-data-chat/src/lib/**
 parts/
+!workshops/financial-fraud-agent-harness-workshop/.nbwork/parts/
 sdist/
 var/
 wheels/

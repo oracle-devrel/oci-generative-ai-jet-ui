@@ -1,0 +1,50 @@
+% Figure 0.1 -- anatomy of the agent harness, mapped to the Parts that build each piece.
+%   blue   = what goes in (question / alert)       orange = what comes out (answer / decision)
+%   amber  = the ONE focal element: the model       green  = persistent state (OAMP memory)
+%   purple = scores (retrieval)                     grey   = the rest of the harness
+\newcommand{\partlab}[1]{\textcolor{jnb-text-muted}{\footnotesize Part #1}}
+\newcommand{\subl}[1]{{\footnotesize\textcolor{jnb-text-body}{#1}}}
+\begin{tikzpicture}[
+  every node/.append style={},
+  box/.style={draw=jnb-grey-cell-edge, fill=jnb-grey-cell-fill, line width=0.8pt, rounded corners=4pt,
+              align=center, minimum width=4.2cm, minimum height=1.9cm, inner sep=4pt, font=\normalsize},
+  flow/.style={draw=jnb-text-muted, line width=1pt, ->},
+  lab/.style={font=\footnotesize, text=jnb-text-muted, inner sep=2pt},
+]
+\path[use as bounding box] (-2.8,-8.2) rectangle (21.2,7.2);
+% ---------------------------------------------------------------- nodes
+\node[inp, font=\normalsize, align=center] (Q) at (0,0) {\textbf{question}\\[1pt]\subl{or an AML alert}\\[-1pt]\subl{\partlab{6}}};
+\node[box] (CE) at (5.8,0)
+  {\textbf{Context engine}\\[1pt]\subl{gathers schema, card, memories}\\[-1pt]\partlab{5}};
+\node[box, jnb cell hl, minimum width=4.0cm, minimum height=2.7cm, font=\normalsize] (LLM) at (12.2,0)
+  {\textbf{\LARGE LLM}\\[2pt]\subl{the model call}\\[-1pt]\partlab{1}};
+\node[out, font=\normalsize, align=center] (A) at (18.4,0) {\textbf{answer}\\[1pt]\subl{or a decision}};
+\node[box] (TB) at (12.2,-4.4)
+  {\textbf{Toolbox + skillbox}\\[1pt]\subl{register tools}\\[-1pt]\subl{pick the top 6 tools}\\[-1pt]\partlab{4}};
+\node[box] (RET) at (5.8,3.9)
+  {\textbf{Retrieval}\\[1pt]\subl{vector}\ \textcolor{jnb-text-body}{$\cdot$}\ \subl{rerank}\ \textcolor{jnb-text-body}{$\cdot$}\ \subl{merge}\\[-1pt]\fourth{\footnotesize scored by distance / rank}\\[-1pt]\partlab{3}};
+\node[box, draw=jnb-third, fill=jnb-third!22!jnb-surface-bg, line width=1.4pt] (MEM) at (0,3.9)
+  {\textbf{\third{Long‑term memory}}\\[1pt]\texttt{\footnotesize\third{OAMP}}\ \subl{in Oracle}\\[-1pt]\subl{memories $\cdot$ threads}\\[-1pt]\partlab{2}};
+
+% agent-loop contour around model + tools
+\node[draw=jnb-text-muted, dashed, rounded corners=8pt, line width=0.8pt, fit=(LLM)(TB), inner xsep=10pt, inner ysep=10pt] (LOOP) {};
+\node[lab, anchor=south west, align=left] at ([xshift=4pt]LOOP.south east)
+  {\textbf{agent loop}\\\partlab{5}};
+
+% ---------------------------------------------------------------- flows
+\draw[inp arrow] (Q.east) -- (CE.west);
+\draw[flow] (CE.east) -- node[lab, above, pos=0.4] {messages} (LLM.west);
+\draw[out arrow] (LLM.east) -- (A.west);
+\draw[flow] ([xshift=-0.3cm]LLM.south) -- node[lab, left, xshift=-2pt] {tool request} ([xshift=-0.3cm]TB.north);
+\draw[flow] ([xshift=0.9cm]TB.north) -- node[lab, right, xshift=2pt] {results} ([xshift=0.9cm]LLM.south);
+\draw[flow] (MEM.east) -- node[lab, above] {search} (RET.west);
+\draw[flow] (RET.south) -- node[lab, right] {top‑$k$ facts} (CE.north);
+\draw[third, line width=1pt, ->, dashed, rounded corners=6pt]
+  (LLM.north) -- (12.2,6.6) -- node[lab, above, text=jnb-third] {save messages, remember (write back)} (0,6.6) -- (MEM.north);
+
+% ---------------------------------------------------------------- foundation: Part 1
+\node[draw=jnb-grey-cell-edge, fill=jnb-grey-cell-fill, rounded corners=4pt, line width=0.8pt,
+      minimum width=22cm, minimum height=0.95cm, font=\normalsize, inner sep=3pt] (BASE) at (9.2,-7.2)
+  {\textcolor{jnb-text-muted}{\footnotesize storage}\hspace{0.5em}\subl{all state is stored in Oracle AI Database 26ai}};
+
+\end{tikzpicture}

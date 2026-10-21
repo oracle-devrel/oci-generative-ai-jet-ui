@@ -1,0 +1,25 @@
+\begin{tikzpicture}[font=\small]
+% schematic: no measured data, only the shape of the two curves
+\def\w{11.0}\def\h{5.2}
+\draw[jnb-text-muted, line width=0.8pt] (0,0) -- (\w+0.2,0);
+\draw[jnb-text-muted, line width=0.8pt] (0,0) -- (0,\h+0.2);
+\node[muted, anchor=north] at (\w/2,-0.2) {messages in the thread};
+\node[muted, anchor=south, rotate=90] at (-0.4,\h/2) {characters sent to the model per turn};
+% the context window: a hard limit
+\draw[fourth, dashed, line width=1.1pt] (0,\h-0.3) -- (\w,\h-0.3);
+\node[fourth, anchor=south west, font=\footnotesize] at (0.1,\h-0.25) {context window};
+% raw transcript replay: starts at zero, grows with every message
+\draw[jnb-text-body, line width=1.6pt] (0,0) -- (\w,\h-0.3);
+\node[anchor=west, font=\small] at (\w+0.15,\h-0.3) {raw transcript};
+% rolling context card: starts higher, refreshed periodically, then roughly level
+\draw[third, line width=1.6pt] (0,1.6) -- (\w,2.0);
+\foreach \x in {2.2,4.4,6.6,8.8}{ \draw[third, line width=1pt] (\x,1.6+\x*0.036-0.12) -- (\x,1.6+\x*0.036+0.12); }
+\node[third, anchor=west, font=\small] at (\w+0.15,2.0) {context card};
+% crossover
+\def\cx{4.6}
+\fill[hl] (\cx,1.6+\cx*0.0364) circle (3.2pt);
+\draw[hl, dashed, line width=0.8pt] (\cx,0) -- (\cx,1.6+\cx*0.0364);
+\node[hl, anchor=north, font=\footnotesize, align=center] at (\cx,-0.75) {break\hy even};
+\node[note, anchor=south west, align=left] at (0.2,2.55) {short thread: the card costs more\\than replaying the messages};
+\node[note, anchor=south east, align=right] at (\w-0.1,2.55) {long thread: the transcript\\outgrows the card};
+\end{tikzpicture}
