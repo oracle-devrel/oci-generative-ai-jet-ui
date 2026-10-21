@@ -1,0 +1,79 @@
+% Figure 2.2 -- catalog -> Fact -> write_facts (hash gate) -> in-DB embedding -> OAMP tables.
+%   blue = rows/text that go in (catalog views, Fact.body)   amber = the ONE focal step: embedding INSIDE the DB
+%   green = persistent state (what gets written)             grey = everything else
+%   Schematic: no run-specific counts.
+\newcommand{\subl}[1]{{\footnotesize\textcolor{jnb-text-muted}{#1}}}
+\begin{tikzpicture}[
+  src/.style={draw=jnb-input!70!jnb-surface-bg, fill=jnb-input!14!jnb-surface-bg, line width=0.8pt, rounded corners=3pt,
+              align=left, text width=4.0cm, inner xsep=7pt, inner ysep=4pt, minimum height=1.9cm, anchor=center, font=\footnotesize},
+  card/.style={draw=jnb-grey-cell-edge, fill=jnb-grey-cell-fill, line width=0.8pt, rounded corners=3pt,
+               inner xsep=7pt, inner ysep=5pt},
+  lab/.style={font=\footnotesize, text=jnb-text-muted, inner sep=2pt},
+  fld/.style={font=\footnotesize, anchor=north west, text=jnb-text-muted, inner sep=0pt},
+  val/.style={font=\footnotesize, anchor=north west, inner sep=0pt, text=jnb-text-body},
+]
+\path[use as bounding box] (-2.6,-10.6) rectangle (20.6,8.0);
+
+% ------------------------------------------------------------ column A: the four scanners
+\node[font=\normalsize] at (0,7.3) {\textbf{catalog views}};
+\foreach \v/\w/\s/\k [count=\i from 0] in {%
+  {ALL\_TABLES}/{ALL\_TAB\_COMMENTS}/{table scan}/{table},
+  {ALL\_TAB\_COLUMNS}/{ALL\_COL\_COMMENTS}/{column scan}/{column},
+  {ALL\_CONSTRAINTS}/{ALL\_CONS\_COLUMNS}/{relationship scan}/{relationship},
+  {V\$SQL}/{(workload)}/{workload scan}/{query\_pattern}}{
+  \node[src] (S\i) at (0,5.5-\i*2.75)
+    {\texttt{\textcolor{jnb-input}{\v}}\\\texttt{\textcolor{jnb-input}{\w}}\\[2pt]\textcolor{jnb-text-muted}{\s}\\[-1pt]\subl{kind}\ \texttt{\textcolor{jnb-text-body}{\k}}};
+}
+
+% ------------------------------------------------------------ column B: the Fact card
+\node[font=\normalsize] at (6.9,7.3) {\textbf{schema scan}\ \subl{$\to$ facts}};
+\node[card, minimum width=6.5cm, minimum height=7.4cm, anchor=north] (F) at (6.9,6.6) {};
+\node[font=\small, anchor=north west] at ([xshift=0.25cm,yshift=-0.2cm]F.north west) {\textbf{one fact}};
+\node[fld] at ([xshift=0.25cm,yshift=-1.2cm]F.north west) {\texttt{kind}};
+\node[val] at ([xshift=0.25cm,yshift=-1.6cm]F.north west) {\texttt{"table"}};
+\node[fld] at ([xshift=0.25cm,yshift=-2.4cm]F.north west) {\texttt{subject}};
+\node[val] at ([xshift=0.25cm,yshift=-2.8cm]F.north west) {\texttt{"FINANCE.TRANSACTIONS"}};
+\node[fld] at ([xshift=0.25cm,yshift=-3.6cm]F.north west) {\texttt{body}};
+\node[val, text width=6.0cm, text=jnb-input] at ([xshift=0.25cm,yshift=-4.0cm]F.north west)
+  {\texttt{"Table FINANCE.TRANSACTIONS. Documented purpose: Card/account transactions; statu\dots"}};
+\node[fld] at ([xshift=0.25cm,yshift=-6.15cm]F.north west) {\texttt{metadata}};
+\node[val, text width=6.0cm] at ([xshift=0.25cm,yshift=-6.55cm]F.north west) {\texttt{\{owner, table, num\_rows, has\_comment\}}};
+
+\foreach \i in {0,1,2,3}{
+  \draw[inp arrow] (S\i.east) to[out=0, in=180] ([yshift={2.3cm-\i*1.5cm}]F.west);
+}
+
+% ------------------------------------------------------------ column C: write_facts -> embed -> store
+\node[card, minimum width=6.9cm, minimum height=4.1cm, anchor=north] (G) at (16.5,6.6) {};
+\node[font=\normalsize, anchor=north west] at ([xshift=0.25cm,yshift=-0.2cm]G.north west) {\textbf{store facts}};
+\node[lab, anchor=north west, align=left] at ([xshift=0.25cm,yshift=-0.85cm]G.north west)
+  {one current row per \texttt{(kind, subject)}\\[1pt]changed? $=$ fingerprint of body};
+% outcome bar: schematic proportions (most facts unchanged on a re-scan)
+\fill[jnb-grey-cuboid-left] ([xshift=0.25cm,yshift=1.2cm]G.south west) rectangle ++(4.8,0.32);
+\fill[jnb-third] ([xshift=5.05cm,yshift=1.2cm]G.south west) rectangle ++(0.9,0.32);
+\fill[jnb-input] ([xshift=5.95cm,yshift=1.2cm]G.south west) rectangle ++(0.6,0.32);
+\node[lab, anchor=north west, text=jnb-text-body] at ([xshift=0.2cm,yshift=1.15cm]G.south west)
+  {skipped\hspace{0.9em}\third{updated}\hspace{0.9em}\inp{new}};
+\node[lab, anchor=south west] at ([xshift=0.25cm,yshift=0.12cm]G.south west) {unchanged $\Rightarrow$ no embedding};
+
+\node[card, jnb cell hl, minimum width=6.9cm, minimum height=2.6cm, anchor=center, align=center, inner sep=6pt] (E) at (16.5,-0.4)
+  {\textbf{\texttt{\footnotesize VECTOR\_EMBEDDING}}\\[2pt]{\footnotesize\texttt{(ALL\_MINILM\_L12\_V2}}\\[-1pt]{\footnotesize\texttt{USING :t AS DATA)}}\\[2pt]\textcolor{jnb-text-body}{\footnotesize runs \textbf{inside} Oracle $\cdot$ 384 floats}};
+
+\node[card, draw=jnb-third, fill=jnb-third!14!jnb-surface-bg, line width=1.4pt, minimum width=6.9cm, minimum height=3.5cm, anchor=north] (M) at (16.5,-3.3) {};
+\node[font=\normalsize, anchor=north west, text=jnb-third] at ([xshift=0.25cm,yshift=-0.2cm]M.north west) {\textbf{persistent state}};
+\node[font=\footnotesize, anchor=north west, align=left, text=jnb-third] at ([xshift=0.25cm,yshift=-1.0cm]M.north west)
+  {\texttt{EDA\_ONNX\_MEMORY}\\[-1pt]{\textcolor{jnb-text-body}{memory text $+$ metadata}}\\[4pt]
+   \texttt{EDA\_ONNX\_RECORD\_CHUNKS}\\[-1pt]{\textcolor{jnb-text-body}{\texttt{embedding}: 384 dim, vector index}}};
+\node[lab, anchor=north west, align=left, text=jnb-third] at ([xshift=0.1cm,yshift=-0.2cm]M.south west)
+  {links: column and relationship\\memories point to their table memory};
+
+\draw[draw=jnb-text-muted, line width=1pt, ->] (F.east |- G.west) -- node[lab, above] {facts} (G.west);
+\draw[draw=jnb-third, line width=1pt, ->] (G.south) -- node[lab, right, text=jnb-third] {changed facts only} (E.north);
+\draw[draw=jnb-third, line width=1pt, ->] (E.south) -- node[lab, right, text=jnb-third] {vector $+$ text} (M.north);
+
+% ------------------------------------------------------------ defining equation
+\node[font=\large] at (9.0,-9.1) {%
+  $\third{\mathbf{e}}\;=\;\mathrm{VECTOR\_EMBEDDING}\bigl(\inp{\mathtt{body}}\bigr)\in\mathbb{R}^{384}$};
+\node[font=\large] at (9.0,-10.0) {%
+  $\text{embed only if}\quad \mathrm{fingerprint}(\inp{\mathtt{body}})\;\neq\;\mathtt{stored\ fingerprint}$};
+\end{tikzpicture}

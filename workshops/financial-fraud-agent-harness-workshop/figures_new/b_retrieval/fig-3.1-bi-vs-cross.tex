@@ -1,0 +1,52 @@
+% Bi-encoder (cosine, stage 1) vs cross-encoder (rerank, stage 2).  Illustrative.
+%   input  (blue)   : the query q and a document d
+%   third  (green)  : document embedding -- persistent, DB-resident (HNSW index)
+%   fourth (purple) : the score
+%   highlight       : the joint reading of (q, d) -- the one thing the cross-encoder adds
+\tikzset{
+  box/.style={jnb cell, rounded corners=2pt, minimum height=0.9cm, font=\normalsize},
+  qd/.style={box, draw=jnb-input, fill=jnb-input!18!jnb-surface-bg, text=jnb-input, minimum width=2.6cm},
+  vcell/.style={draw, line width=0.7pt, minimum size=0.3cm, inner sep=0pt},
+  vq/.style={vcell, draw=jnb-input, fill=jnb-input!30!jnb-surface-bg},
+  vd/.style={vcell, draw=jnb-third, fill=jnb-third!30!jnb-surface-bg},
+  panel title/.style={font=\large, text=jnb-text-strong},
+  note/.style={font=\small, text=jnb-text-muted, align=center},
+}
+% ------------------------------------------------------------------ left: bi-encoder
+\node[panel title] at (3.7,5.55) {First pass \enspace\textmd{search by meaning}};
+\node[qd] (q1) at (0.3,3.9) {query $q$};
+\node[qd] (d1) at (0.3,1.5) {document $d$};
+\node[box, minimum width=0.9cm] (f1) at (2.8,3.9) {$f$};
+\node[box, minimum width=0.9cm] (f2) at (2.8,1.5) {$f$};
+\foreach \k in {0,1,2,3}{
+  \node[vq] (uq\k) at (4.4+0.3*\k,3.9) {};
+  \node[vd] (ud\k) at (4.4+0.3*\k,1.5) {};
+}
+\node[draw=jnb-fourth, circle, inner sep=1pt, minimum size=1cm, text=jnb-fourth, line width=1pt] (cos) at (7.0,2.7) {$\cos$};
+\node[fourth, font=\large] (s1) at (8.2,2.7) {$s$};
+\draw[inp arrow] (q1) -- (f1);
+\draw[inp arrow] (d1) -- (f2);
+\draw[inp arrow] (f1) -- (uq0);
+\draw[third, line width=1pt, ->] (f2) -- (ud0);
+\draw[inp arrow] (uq3.east) -- (cos.north west);
+\draw[third, line width=1pt, ->] (ud3.east) -- (cos.south west);
+\draw[fourth, line width=1pt, ->] (cos) -- (s1);
+\node[inp, font=\small] at (5.0,4.55) {$f(q)$};
+\node[third, font=\small] at (5.0,0.85) {$f(d)$};
+\node[note, text width=6.4cm] at (3.7,-0.2) {$d$ is embedded once by the in\mbox{-}database model\\and stored in the vector index};
+% ------------------------------------------------------------------ right: cross-encoder
+\node[panel title] at (13.4,5.55) {Second pass \enspace\textmd{reranker}};
+\node[qd] (q2) at (10.3,3.9) {query $q$};
+\node[qd] (d2) at (10.3,1.5) {document $d$};
+\node[draw=jnb-highlight, fill=jnb-highlight!22!jnb-surface-bg, line width=1.8pt, rounded corners=3pt,
+      minimum width=2.7cm, minimum height=2.7cm, text=jnb-highlight, font=\Large] (g) at (13.6,2.7) {$g$};
+\node[hl, font=\small, align=center] at (13.6,2.7-0.62) {reads $q$ and $d$\\together};
+\node[fourth, font=\large] (s2) at (16.3,2.7) {$s$};
+\draw[inp arrow] (q2.east) -- ([yshift=0.0cm]g.north west |- q2.east);
+\draw[inp arrow] (d2.east) -- ([yshift=0.0cm]g.south west |- d2.east);
+\draw[fourth, line width=1pt, ->] (g) -- (s2);
+\node[note, text width=6cm] at (13.4,-0.2) {one model run per pair \,$(q,d)$;\\only the top candidates are scored};
+% ------------------------------------------------------------------ divider + equations
+\draw[draw=jnb-grey-cell-edge, line width=0.6pt] (9.0,-0.8) -- (9.0,5.2);
+\node at (4.0,-1.7) {$\fourth{s_{\cos}}=\cos\!\big(f(\inp{q}),\,f(\inp{d})\big)=\dfrac{f(\inp q)\cdot f(\inp d)}{\lVert f(\inp q)\rVert\,\lVert f(\inp d)\rVert}$};
+\node at (13.4,-1.7) {$\fourth{s_{\mathrm{ce}}}=\hl{g}(\inp{q},\inp{d})$};
