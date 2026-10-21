@@ -1,0 +1,8 @@
+fastapi>=0.115,<1
+uvicorn>=0.30,<1
+oracledb>=3.4,<5
+oracleagentmemory==26.8.0
+python-dotenv>=1,<2
+httpx>=0.28,<1
+oci>=2.160,<3
+anthropic>=1,<2

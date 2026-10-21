@@ -1,0 +1,149 @@
+{
+  "active_tool_rechecked": true,
+  "comparison_includes_both_sources": true,
+  "controlled_ablation_omits_current": true,
+  "corrected_fact_required": true,
+  "database_version": "23.26.3.0.0",
+  "derived_write_nondefault_tenant": true,
+  "embedding_distance_current_vs_old": [
+    0.0,
+    0.016072721954478175
+  ],
+  "fastmcp": [
+    {
+      "connection": "legacy",
+      "elicitation": "accept",
+      "guessed_handle_rejected": true,
+      "lookup_version": 2,
+      "tenant_override_rejected": true,
+      "tools": [
+        "clarify",
+        "expand",
+        "lookup_entity",
+        "search_memory"
+      ]
+    },
+    {
+      "connection": "legacy",
+      "elicitation": "decline",
+      "guessed_handle_rejected": true,
+      "lookup_version": 2,
+      "tenant_override_rejected": true,
+      "tools": [
+        "clarify",
+        "expand",
+        "lookup_entity",
+        "search_memory"
+      ]
+    },
+    {
+      "connection": "legacy",
+      "elicitation": "cancel",
+      "guessed_handle_rejected": true,
+      "lookup_version": 2,
+      "tenant_override_rejected": true,
+      "tools": [
+        "clarify",
+        "expand",
+        "lookup_entity",
+        "search_memory"
+      ]
+    },
+    {
+      "connection": "legacy",
+      "elicitation": "needs_user",
+      "guessed_handle_rejected": true,
+      "lookup_version": 2,
+      "tenant_override_rejected": true,
+      "tools": [
+        "clarify",
+        "expand",
+        "lookup_entity",
+        "search_memory"
+      ]
+    },
+    {
+      "connection": "2026-07-28",
+      "elicitation": "accept",
+      "guessed_handle_rejected": true,
+      "lookup_version": 2,
+      "tenant_override_rejected": true,
+      "tools": [
+        "clarify",
+        "expand",
+        "lookup_entity",
+        "search_memory"
+      ]
+    },
+    {
+      "connection": "2026-07-28",
+      "elicitation": "decline",
+      "guessed_handle_rejected": true,
+      "lookup_version": 2,
+      "tenant_override_rejected": true,
+      "tools": [
+        "clarify",
+        "expand",
+        "lookup_entity",
+        "search_memory"
+      ]
+    },
+    {
+      "connection": "2026-07-28",
+      "elicitation": "cancel",
+      "guessed_handle_rejected": true,
+      "lookup_version": 2,
+      "tenant_override_rejected": true,
+      "tools": [
+        "clarify",
+        "expand",
+        "lookup_entity",
+        "search_memory"
+      ]
+    },
+    {
+      "connection": "2026-07-28",
+      "elicitation": "needs_user",
+      "guessed_handle_rejected": true,
+      "lookup_version": 2,
+      "tenant_override_rejected": true,
+      "tools": [
+        "clarify",
+        "expand",
+        "lookup_entity",
+        "search_memory"
+      ]
+    },
+    {
+      "genuinely_missing_detail": "AgentCore retention fetched from a Helios-only window",
+      "items": 2
+    },
+    {
+      "memory_id_expands": true,
+      "old_parameter_rejected": true
+    }
+  ],
+  "fixed_and_loop_budget_failures": true,
+  "flashback_recovers_pre_deletion_bytes": true,
+  "full_research_corpus_preserved": true,
+  "guideline_version_update": true,
+  "historical_dependency_deletion_blocks_replay": true,
+  "isolation": {
+    "acme": 9,
+    "globex": 1,
+    "no_context": 0,
+    "tenant_acme": 0
+  },
+  "local_text_tokens": 1636,
+  "replay": {
+    "authorization": "current",
+    "hash_matches": true,
+    "request_hash": "d6ff84a7f5d2f2e60a9829422bdbcc8ae97114f5033d7603ef92d9c54c5a0f4d",
+    "scn": 4366784,
+    "scores": "recorded"
+  },
+  "request_hash": "d6ff84a7f5d2f2e60a9829422bdbcc8ae97114f5033d7603ef92d9c54c5a0f4d",
+  "required_fact_budget_failure": true,
+  "tool_authorization_uses_present_time": true,
+  "valid_pointer_expands": true
+}

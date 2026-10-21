@@ -1,0 +1,92 @@
+{
+  "mode": "live",
+  "purpose": "compression",
+  "request_hash": "8ceb9342f6e69246d20a682b87e63aaa30027c3ee8eeb86a508aed33a1293548",
+  "source_refs": [
+    [
+      "kb",
+      "corpus_310a87b39b828c8547e2a0ad",
+      null
+    ]
+  ],
+  "model": "gpt-4.1-mini-2025-04-14",
+  "response": {
+    "id": "resp_0cc560d45ceef791016abd3545975487d299a7c7f071da3413",
+    "created_at": 1790784837.0,
+    "metadata": {},
+    "model": "gpt-4.1-mini-2025-04-14",
+    "object": "response",
+    "output": [
+      {
+        "id": "msg_0cc560d45ceef791016abd3546338087d287ce0e194e437c80",
+        "content": [
+          {
+            "annotations": [],
+            "text": "Eviction in Letta is managed by compressing and removing the oldest message spans from the working context when pressured, allowing for graceful degradation through successive summarizations during long sessions.",
+            "type": "output_text",
+            "logprobs": []
+          }
+        ],
+        "role": "assistant",
+        "status": "completed",
+        "type": "message"
+      }
+    ],
+    "parallel_tool_calls": true,
+    "temperature": 1.0,
+    "tool_choice": "auto",
+    "tools": [],
+    "top_p": 1.0,
+    "background": false,
+    "completed_at": 1790784838.0,
+    "max_output_tokens": 150,
+    "prompt_cache_retention": "in_memory",
+    "reasoning": {},
+    "service_tier": "default",
+    "status": "completed",
+    "text": {
+      "format": {
+        "type": "text"
+      },
+      "verbosity": "medium"
+    },
+    "top_logprobs": 0,
+    "truncation": "disabled",
+    "usage": {
+      "input_tokens": 94,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 36,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 130
+    },
+    "billing": {
+      "payer": "developer"
+    },
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "store": false,
+    "tool_usage": {
+      "image_gen": {
+        "input_tokens": 0,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "output_tokens": 0,
+        "output_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "total_tokens": 0
+      },
+      "web_search": {
+        "num_requests": 0
+      }
+    }
+  }
+}

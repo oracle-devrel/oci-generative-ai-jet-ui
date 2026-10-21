@@ -1,0 +1,636 @@
+{
+  "mode": "oracle",
+  "model_calls_enabled": true,
+  "dependencies": {
+    "oracledb": "26.0.1",
+    "mcp": "1.30.0",
+    "tiktoken": "0.14.0",
+    "openai": "3.20.0"
+  },
+  "first_window": {
+    "mode": "oracle",
+    "renderer_version": "ca6-renderer-1",
+    "selection_version": "ca6-selection-1",
+    "evaluation_time": "2026-09-28T12:00:00",
+    "scn": 3735690,
+    "model": "fixture-model",
+    "encoding": "o200k_base",
+    "scope": {
+      "tenant_id": "acme",
+      "user_id": "jane",
+      "agent_id": "research",
+      "thread_id": "t2"
+    },
+    "budget_ref": [
+      "guideline",
+      "budget-narrow",
+      2
+    ],
+    "policy_hash": "c71de19f3e25f62282cf121c618267bab667992490e1edf42211d8c234801485",
+    "intent": "fact_check",
+    "round": 0,
+    "request_hash": "02925962a7509500fe3ebaf0c5301535d68e32622a9b440733d3e3165cebfb0e",
+    "fixed_refs": [
+      [
+        "guideline",
+        "budget-narrow",
+        2
+      ],
+      [
+        "guideline",
+        "rules",
+        1
+      ],
+      [
+        "persona",
+        "research-persona",
+        1
+      ],
+      [
+        "tool",
+        "clarify",
+        1
+      ],
+      [
+        "tool",
+        "expand",
+        1
+      ],
+      [
+        "tool",
+        "lookup_entity",
+        1
+      ],
+      [
+        "tool",
+        "search_memory",
+        1
+      ],
+      [
+        "conversation",
+        "question",
+        1
+      ]
+    ],
+    "local_text_tokens": 799,
+    "allocation": {
+      "evidence": {
+        "base": 75,
+        "carry_in": 0,
+        "used": 59
+      },
+      "durable_facts": {
+        "base": 121,
+        "carry_in": 16,
+        "used": 126
+      },
+      "volatile_tail": {
+        "base": 75,
+        "carry_in": 11,
+        "used": 48
+      },
+      "recalled_history": {
+        "base": 30,
+        "carry_in": 38,
+        "used": 63
+      }
+    },
+    "excluded": [
+      {
+        "ref": [
+          "guideline",
+          "budget",
+          1
+        ],
+        "rule": "lifecycle"
+      },
+      {
+        "ref": [
+          "entity",
+          "deleted-fact",
+          1
+        ],
+        "rule": "lifecycle"
+      },
+      {
+        "ref": [
+          "entity",
+          "future-fact",
+          1
+        ],
+        "rule": "lifecycle"
+      },
+      {
+        "ref": [
+          "entity",
+          "helios-v1",
+          1
+        ],
+        "rule": "lifecycle"
+      },
+      {
+        "ref": [
+          "conversation",
+          "duplicate-current",
+          1
+        ],
+        "rule": "exact_text_duplicate"
+      },
+      {
+        "ref": [
+          "kb",
+          "eviction-note-b",
+          1
+        ],
+        "rule": "slice_budget",
+        "priority": 0.7387496020935935
+      },
+      {
+        "ref": [
+          "kb",
+          "research-note",
+          1
+        ],
+        "rule": "slice_budget",
+        "priority": 0.7387496020935935
+      },
+      {
+        "ref": [
+          "entity",
+          "helios-v2",
+          2
+        ],
+        "rule": "slice_budget",
+        "priority": 0.5448696431513115
+      },
+      {
+        "ref": [
+          "assessment",
+          "old-claim-signal",
+          1
+        ],
+        "rule": "slice_budget",
+        "priority": 0.7387496020935935
+      }
+    ],
+    "blocks": [
+      {
+        "id": "B9dbc1b5835",
+        "ref": [
+          "summary",
+          "evaluation-july",
+          1
+        ],
+        "tier": "full",
+        "slice": "durable_facts",
+        "tokens": 76,
+        "annotation_refs": [
+          {
+            "source": [
+              "entity",
+              "helios-v1",
+              1
+            ],
+            "current": [
+              "entity",
+              "helios-v2",
+              2
+            ]
+          }
+        ],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 0
+      },
+      {
+        "id": "Bf9c4e8756f",
+        "ref": [
+          "workflow",
+          "verification",
+          1
+        ],
+        "tier": "full",
+        "slice": "durable_facts",
+        "tokens": 50,
+        "annotation_refs": [],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 1
+      },
+      {
+        "id": "B9075743feb",
+        "ref": [
+          "kb",
+          "eviction-note-a",
+          1
+        ],
+        "tier": "full",
+        "slice": "evidence",
+        "tokens": 59,
+        "annotation_refs": [],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 2
+      },
+      {
+        "id": "B2babb49c01",
+        "ref": [
+          "conversation",
+          "old-answer",
+          1
+        ],
+        "tier": "pointer",
+        "slice": "recalled_history",
+        "tokens": 63,
+        "annotation_refs": [
+          {
+            "source": [
+              "entity",
+              "helios-v1",
+              1
+            ],
+            "current": [
+              "entity",
+              "helios-v2",
+              2
+            ]
+          }
+        ],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 3
+      },
+      {
+        "id": "B2a2b4d163e",
+        "ref": [
+          "conversation",
+          "recent-turn",
+          1
+        ],
+        "tier": "full",
+        "slice": "volatile_tail",
+        "tokens": 48,
+        "annotation_refs": [],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 4
+      }
+    ]
+  },
+  "second_window": {
+    "mode": "oracle",
+    "renderer_version": "ca6-renderer-1",
+    "selection_version": "ca6-selection-1",
+    "evaluation_time": "2026-09-28T12:00:00",
+    "scn": 3735690,
+    "model": "fixture-model",
+    "encoding": "o200k_base",
+    "scope": {
+      "tenant_id": "acme",
+      "user_id": "jane",
+      "agent_id": "research",
+      "thread_id": "t2"
+    },
+    "budget_ref": [
+      "guideline",
+      "budget-narrow",
+      2
+    ],
+    "policy_hash": "c71de19f3e25f62282cf121c618267bab667992490e1edf42211d8c234801485",
+    "intent": "fact_check",
+    "round": 1,
+    "request_hash": "000fb6946e5a8ca416b55076133911a845e64ac13ef2ec46484677a67aa58ed4",
+    "fixed_refs": [
+      [
+        "guideline",
+        "budget-narrow",
+        2
+      ],
+      [
+        "guideline",
+        "rules",
+        1
+      ],
+      [
+        "persona",
+        "research-persona",
+        1
+      ],
+      [
+        "tool",
+        "clarify",
+        1
+      ],
+      [
+        "tool",
+        "expand",
+        1
+      ],
+      [
+        "tool",
+        "lookup_entity",
+        1
+      ],
+      [
+        "tool",
+        "search_memory",
+        1
+      ],
+      [
+        "conversation",
+        "question",
+        1
+      ]
+    ],
+    "local_text_tokens": 863,
+    "allocation": {
+      "evidence": {
+        "base": 75,
+        "carry_in": 0,
+        "used": 59
+      },
+      "durable_facts": {
+        "base": 121,
+        "carry_in": 16,
+        "used": 126
+      },
+      "volatile_tail": {
+        "base": 75,
+        "carry_in": 11,
+        "used": 48
+      },
+      "recalled_history": {
+        "base": 30,
+        "carry_in": 38,
+        "used": 63
+      }
+    },
+    "excluded": [
+      {
+        "ref": [
+          "guideline",
+          "budget",
+          1
+        ],
+        "rule": "lifecycle"
+      },
+      {
+        "ref": [
+          "entity",
+          "deleted-fact",
+          1
+        ],
+        "rule": "lifecycle"
+      },
+      {
+        "ref": [
+          "entity",
+          "future-fact",
+          1
+        ],
+        "rule": "lifecycle"
+      },
+      {
+        "ref": [
+          "entity",
+          "helios-v1",
+          1
+        ],
+        "rule": "lifecycle"
+      },
+      {
+        "ref": [
+          "conversation",
+          "duplicate-current",
+          1
+        ],
+        "rule": "exact_text_duplicate"
+      },
+      {
+        "ref": [
+          "kb",
+          "eviction-note-b",
+          1
+        ],
+        "rule": "slice_budget",
+        "priority": 0.7387496020935935
+      },
+      {
+        "ref": [
+          "kb",
+          "research-note",
+          1
+        ],
+        "rule": "slice_budget",
+        "priority": 0.7387496020935935
+      },
+      {
+        "ref": [
+          "entity",
+          "helios-v2",
+          2
+        ],
+        "rule": "slice_budget",
+        "priority": 0.5448696431513115
+      },
+      {
+        "ref": [
+          "assessment",
+          "old-claim-signal",
+          1
+        ],
+        "rule": "slice_budget",
+        "priority": 0.7387496020935935
+      }
+    ],
+    "blocks": [
+      {
+        "id": "B9dbc1b5835",
+        "ref": [
+          "summary",
+          "evaluation-july",
+          1
+        ],
+        "tier": "full",
+        "slice": "durable_facts",
+        "tokens": 76,
+        "annotation_refs": [
+          {
+            "source": [
+              "entity",
+              "helios-v1",
+              1
+            ],
+            "current": [
+              "entity",
+              "helios-v2",
+              2
+            ]
+          }
+        ],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 0
+      },
+      {
+        "id": "Bf9c4e8756f",
+        "ref": [
+          "workflow",
+          "verification",
+          1
+        ],
+        "tier": "full",
+        "slice": "durable_facts",
+        "tokens": 50,
+        "annotation_refs": [],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 1
+      },
+      {
+        "id": "B9075743feb",
+        "ref": [
+          "kb",
+          "eviction-note-a",
+          1
+        ],
+        "tier": "full",
+        "slice": "evidence",
+        "tokens": 59,
+        "annotation_refs": [],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 2
+      },
+      {
+        "id": "B2babb49c01",
+        "ref": [
+          "conversation",
+          "old-answer",
+          1
+        ],
+        "tier": "pointer",
+        "slice": "recalled_history",
+        "tokens": 63,
+        "annotation_refs": [
+          {
+            "source": [
+              "entity",
+              "helios-v1",
+              1
+            ],
+            "current": [
+              "entity",
+              "helios-v2",
+              2
+            ]
+          }
+        ],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 3
+      },
+      {
+        "id": "B2a2b4d163e",
+        "ref": [
+          "conversation",
+          "recent-turn",
+          1
+        ],
+        "tier": "full",
+        "slice": "volatile_tail",
+        "tokens": 48,
+        "annotation_refs": [],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 4
+      },
+      {
+        "id": "B52a6dcb933",
+        "ref": [
+          "entity",
+          "helios-v2",
+          2
+        ],
+        "tier": "full",
+        "slice": "tool_results",
+        "tokens": 64,
+        "annotation_refs": [],
+        "compression_ref": null,
+        "origin": "query",
+        "position": 5
+      }
+    ]
+  },
+  "mcp_checks": [
+    {
+      "tools": [
+        "clarify",
+        "expand",
+        "lookup_entity",
+        "search_memory"
+      ],
+      "lookup_version": 2,
+      "cross_tenant_argument_rejected": true,
+      "guessed_handle_rejected": true,
+      "elicitation": "accept"
+    },
+    {
+      "tools": [
+        "clarify",
+        "expand",
+        "lookup_entity",
+        "search_memory"
+      ],
+      "lookup_version": 2,
+      "cross_tenant_argument_rejected": true,
+      "guessed_handle_rejected": true,
+      "elicitation": "decline"
+    },
+    {
+      "tools": [
+        "clarify",
+        "expand",
+        "lookup_entity",
+        "search_memory"
+      ],
+      "lookup_version": 2,
+      "cross_tenant_argument_rejected": true,
+      "guessed_handle_rejected": true,
+      "elicitation": "cancel"
+    },
+    {
+      "tools": [
+        "clarify",
+        "expand",
+        "lookup_entity",
+        "search_memory"
+      ],
+      "lookup_version": 2,
+      "cross_tenant_argument_rejected": true,
+      "guessed_handle_rejected": true,
+      "elicitation": "needs_user"
+    }
+  ],
+  "live_result": {
+    "mode": "live",
+    "answer": "Helios-RAG's previously reported 0.92 BEIR score is outdated. After a data-contamination correction on August 17, its accurate score is 0.78 nDCG@10 on BEIR. This means Helios-RAG is still competitive but not as dominant as initially thought. Let me know if you want a comparison with other retrieval systems.",
+    "calls": [
+      {
+        "request_hash": "4e72e3f347699efc467870b4e2d1e33bf1ab90eff5a01ecc4ac97779d5ae1faf",
+        "input_tokens": 929,
+        "output_tokens": 23
+      },
+      {
+        "request_hash": "36c3bfb95a877ff32def04fc7f9a19d9b448fa463e3a2c8753bf7abd7353fd73",
+        "input_tokens": 1127,
+        "output_tokens": 77
+      }
+    ]
+  },
+  "oracle": {
+    "database_version": "23.26.3.0.0",
+    "observed_undo_retention_seconds": "900",
+    "undo_note": "Observed setting only; does not guarantee retention and is not an Autonomous default."
+  }
+}
