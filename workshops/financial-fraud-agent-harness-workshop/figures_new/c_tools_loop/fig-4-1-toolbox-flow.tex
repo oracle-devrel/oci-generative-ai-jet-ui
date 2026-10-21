@@ -1,0 +1,34 @@
+\begin{tikzpicture}[font=\small]
+\hyphenpenalty=10000 \exhyphenpenalty=10000
+\tikzset{st/.style={text width=3.75cm, minimum height=2.4cm, align=left, font=\footnotesize, anchor=center}}
+\def\ya{4.6}\def\yb{-4.6}
+% ---------------------------------------------------------------- lane A
+\node[anchor=west, font=\normalsize] at (0.1,\ya+1.9) {\strongc{A}\ \ register time \muted{--- once per tool, when it is registered}};
+\node[boxinp, st] (a1) at (2.1,\ya)  {\strongc{tool function}\\[2pt]\muted{marked ``register''}\\\code{def tool\_run\_sql(}\\\code{\ \ sql, max\_rows=50)}};
+\node[box, st]    (a2) at (6.5,\ya)  {\strongc{read the function}\\[2pt]\muted{name, inputs, types,}\\\muted{defaults, description}};
+\node[box, st]    (a3) at (10.9,\ya)  {\strongc{tool description (JSON)}\\[2pt]\muted{what the model reads}\\[2pt]\code{search text =}\\\code{"name: description}\\\code{\ args: sql max\_rows"}};
+\node[box, st]    (a4) at (15.3,\ya) {\strongc{embed in the database}\\[2pt]\code{VECTOR\_EMBEDDING(}\\\code{ ALL\_MINILM\_L12\_V2}\\\code{ USING :etext}\\\code{ AS DATA)}};
+\node[box, st]    (a5) at (19.7,\ya) {\strongc{store the tool}\\[2pt]\muted{update or insert one}\\\muted{row in the toolbox}};
+\foreach \f/\t in {a1/a2,a2/a3,a3/a4,a4/a5}{\draw[flow] (\f.east) -- (\t.west);}
+% ---------------------------------------------------------------- toolbox (shared)
+\node[boxhl, anchor=center, text width=11.6cm, align=left] (tb) at (15.5,0)
+  {\strongc{\code{toolbox}}\hfill\footnotesize\muted{one row per tool, shared by both lanes}\\[3pt]
+   \footnotesize\code{name} \muted{VARCHAR2 (PK)} \quad\code{description} \muted{CLOB} \quad\code{parameters} \muted{JSON}\\[-1pt]
+   \footnotesize\code{embedding} \muted{VECTOR(384, FLOAT32), vector index, cosine} \quad\code{updated\_at}};
+\draw[flowthird] (a5.south) -- (a5.south |- tb.north);
+% ---------------------------------------------------------------- lane B
+\node[anchor=west, font=\normalsize] at (0.1,\yb+1.9) {\strongc{B}\ \ every turn \muted{--- find the best \fourth{6} tools for the question}};
+\node[boxinp, st] (b1) at (2.1,\yb)  {\strongc{user query}\\[2pt]\muted{the question for this turn}};
+\node[box, st]    (b2) at (6.5,\yb)  {\strongc{embed in the database}\\[2pt]\code{VECTOR\_EMBEDDING(}\\\code{ ALL\_MINILM\_L12\_V2}\\\code{ USING :q AS DATA)}};
+\node[boxfourth, st] (b3) at (10.9,\yb)  {\strongc{nearest rows}\\[2pt]\code{VECTOR\_DISTANCE(}\\\code{ embedding, ..., COSINE)}\\\code{FETCH FIRST} \fourth{24}\\\muted{$=k\cdot 4$ candidates}};
+\node[boxfourth, st] (b4) at (15.3,\yb) {\strongc{rerank}\\[2pt]\code{RERANKER\_ONNX}\\\muted{keep the best} \fourth{6}\\\muted{$=k$}};
+\node[box, st]    (b5) at (19.7,\yb) {\strongc{add the always\hy on tools}\\[2pt]\code{search\_knowledge}\\\code{run\_sql, remember,}\\\code{load\_skill}};
+\node[boxout, st] (b6) at (24.1,\yb) {\strongc{to the model}\\[2pt]\muted{tool descriptions,}\\\muted{sent with the chat}\\\muted{request}};
+\foreach \f/\t in {b1/b2,b2/b3,b3/b4,b4/b5}{\draw[flow] (\f.east) -- (\t.west);}
+\draw[flowout] (b5.east) -- (b6.west);
+\draw[flowthird] (b3.north |- tb.south) -- (b3.north);
+\node[note, anchor=west] at (11.0,\yb+2.0) {reads the \third{embedding} column};
+% ---------------------------------------------------------------- equation
+\node[anchor=north west, font=\normalsize] at (0.3,\yb-2.0)
+  {$\out{\mathcal S}(\inp q)\;=\;\mathrm{top}_{\fourth{6}}\bigl(\mathrm{rerank}\bigl(\mathrm{top}_{\fourth{24}}\cos(\mathrm{emb}(\inp q),\,\third{\mathtt{toolbox.embedding}})\bigr)\bigr)\;\cup\;\mathrm{always\ on}$};
+\end{tikzpicture}

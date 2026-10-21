@@ -1,0 +1,58 @@
+\begin{tikzpicture}[font=\small]
+\newcommand{\cl}[4]{\node[anchor=west, font=\scriptsize, #4] at (#1,#2) {\code{#3}};}
+% ------------------------------------------------------------------ source (input)
+\draw[inp, fill=jnb-input!12!jnb-surface-bg, rounded corners=2pt, line width=1.2pt] (0,0.35) rectangle (7.0,-5.25);
+\node[inp, anchor=south west, font=\footnotesize] at (0.1,0.45) {your function};
+\cl{0.2}{-0.15}{register}{}
+\cl{0.2}{-0.62}{def tool\_run\_sql(}{}
+\cl{0.9}{-1.04}{sql: str,}{}
+% the highlighted parameter line
+\fill[jnb-highlight!24!jnb-surface-bg] (0.75,-1.28) rectangle (6.85,-1.72);
+\draw[hl, line width=1pt] (0.75,-1.28) rectangle (6.85,-1.72);
+\cl{0.9}{-1.50}{max\_rows: int = 50}{}
+\cl{0.9}{-1.98}{) \hy> str:}{}
+\cl{0.9}{-2.52}{"""Execute a READ\hy ONLY SQL statement}{}
+\cl{0.9}{-2.92}{(SELECT/WITH only) against the target}{}
+\cl{0.9}{-3.32}{Oracle AI Database and return up to}{}
+\cl{0.9}{-3.72}{`max\_rows` rows as JSON. Reject any}{}
+\cl{0.9}{-4.12}{statement that isn't read\hy only."""}{}
+\cl{0.9}{-4.72}{...}{faint}
+% build_schema
+\node[box, text width=3.1cm, align=center, anchor=center] (bs) at (9.2,-2.45)
+  {\strong{\mbox{build description}}\\[3pt]\footnotesize name\\[-1pt]\footnotesize docstring\\[-1pt]\footnotesize type hints\\[-1pt]\footnotesize defaults};
+\draw[flowin] (7.0,-2.45) -- (bs.west);
+
+% ------------------------------------------------------------------ sink 1 : TOOLS (in\hy process)
+\node[box, anchor=north west, text width=9.1cm] (tl) at (11.8,0.35)
+  {\strong{tool list in memory}\\[-1pt]\footnotesize\muted{the agent loop looks tools up by \emph{name}}};
+% ------------------------------------------------------------------ sink 2 : JSON schema (output)
+\begin{scope}[yshift=-0.45cm]
+\draw[out, fill=jnb-output!12!jnb-surface-bg, rounded corners=2pt, line width=1.2pt] (11.8,-1.45) rectangle (20.9,-6.2);
+\node[out, anchor=south west, font=\footnotesize] at (11.9,-1.35) {tool description \;$\to$\; sent to the model with each chat request};
+\cl{11.95}{-1.85}{\{"type": "function", "function": \{}{}
+\cl{12.4}{-2.25}{"name": "run\_sql",}{}
+\cl{12.4}{-2.65}{"description": "Execute a READ\hy ONLY ...",}{}
+\cl{12.4}{-3.05}{"parameters": \{"type": "object",}{}
+\cl{12.85}{-3.45}{"properties": \{}{}
+\cl{13.3}{-3.85}{"sql": \{"type": "string"\},}{}
+\fill[jnb-highlight!24!jnb-surface-bg] (13.2,-4.07) rectangle (20.75,-4.5);
+\draw[hl, line width=1pt] (13.2,-4.07) rectangle (20.75,-4.5);
+\cl{13.3}{-4.28}{"max\_rows": \{"type": "integer", "default": 50\}\},}{}
+\cl{12.85}{-4.85}{"required": ["sql"]\}\}\}}{}
+\node[note, anchor=north east] at (20.8,-5.25) {no default $\Rightarrow$ \emph{required};\\default $\Rightarrow$ optional};
+\end{scope}
+% ------------------------------------------------------------------ sink 3 : toolbox row (third)
+\node[boxthird, anchor=north west, text width=9.1cm] (tb) at (11.8,-7.2)
+  {\strong{\code{toolbox}} row \footnotesize\muted{(stored in the database, vector index)}\\[2pt]
+   \footnotesize\code{name, description, parameters,}\\[-1pt]
+   \footnotesize\code{embedding = VECTOR\_EMBEDDING(}\\[-1pt]
+   \footnotesize\code{\ \ model USING "run\_sql: <description>}\\[-1pt]
+   \footnotesize\code{\ \ \ \ \ \ args: sql max\_rows")}};
+% arrows into the sinks
+\draw[flow] (bs.east) -- ++(0.4,0) |- (tl.west);
+\draw[flowout] (bs.east) -- ++(0.4,0) |- (11.8,-4.25);
+\draw[flowthird] (bs.east) -- ++(0.4,0) |- (tb.west);
+% defining equation
+\node[anchor=north] at (10.0,-10.4) {\normalsize
+  $\mathrm{register}(\inp{f})\;\Rightarrow\;\bigl(\mathrm{tool\ list}[n],\ \out{\mathrm{description}(f)},\ \third{\mathrm{toolbox}[n]}\bigr),\qquad n=\mathtt{name}(f)$};
+\end{tikzpicture}
