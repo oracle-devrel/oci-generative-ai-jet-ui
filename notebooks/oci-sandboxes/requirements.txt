@@ -1,0 +1,8 @@
+oci==2.189.0
+jupyterlab==4.6.3
+pandas==2.3.3
+openai==2.54.0
+oci-genai-auth==1.1.1
+httpx==0.28.1
+pydantic==2.13.5
+matplotlib==3.10.8
