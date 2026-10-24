@@ -1,0 +1,4 @@
+month,product,budget_revenue,actual_revenue,budget_cogs,actual_cogs,budget_freight,actual_freight
+2026-08,Equipment,500000,480000,300000,310000,25000,35000
+2026-08,Supplies,300000,320000,180000,198000,18000,24000
+2026-08,Services,200000,180000,95000,112000,12000,15000

@@ -1,0 +1,6 @@
+{
+  "profile": "DEFAULT",
+  "region": "us-chicago-1",
+  "project_id": "<sandbox-enabled-project-ocid>",
+  "model_id": "openai.gpt-oss-120b"
+}
